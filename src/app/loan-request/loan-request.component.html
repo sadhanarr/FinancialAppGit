@@ -1,0 +1,328 @@
+<div class="container-fluid">
+    <div class='panel panel-primary'>
+      <div class='panel-heading'>
+         <h4> Loan Request Form</h4>
+      </div>
+      <div class='panel-body' id="panel">
+            <form   >
+        <div class="row">
+         
+          <div class=" form-horizontal col-md-6">
+              <div class="form-group">
+              <label class="control-label col-sm-3" >Request ID :</label>
+                  <div class="col-sm-3 ">
+                  <input class="form-control" type="text">
+                  </div>
+                      <label class="control-label col-sm-3" >Request Date :</label>
+                  <div class="col-sm-3 ">
+                     <ejs-datepicker id='datepicker' placeholder='Select a date' [value]= 'dateValue' ></ejs-datepicker>    
+                  </div>
+              </div>
+               <div class="form-group">
+              <label class="control-label col-sm-3" >Company Name :</label>
+                  <div class="col-sm-9 ">
+                  <select class="form-control"><option>Navaldi Marudham Capitals</option></select>
+                  </div>
+              </div>
+              <div class="form-group">
+              <label class="control-label col-sm-3" >Branch :</label>
+                  <div class="col-sm-9 ">
+                  <select class="form-control"><option>Cheyyar</option></select>
+                  </div>
+              </div>
+              <div class="form-group">
+                    <label class="control-label col-sm-3" >Customer Status :</label>
+                        <div class="col-sm-9 ">
+                        <select class="form-control">
+                                <option>New</option>
+                                <option>Existing</option>
+                        </select>
+                        </div>
+                    </div>
+              <div class="form-group">
+                      <label class="control-label col-sm-3">Customer ID :</label>
+                      <div class="col-sm-3">
+                          <input  class = "form-control" type="text" id="customerID">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label col-sm-3">Customer Name :</label>
+                      <div class="col-sm-5">
+                          <input class="form-control" type="text" id="customerName">
+                      </div>
+                      <label class="control-label col-sm-2">Init :</label>
+                      <div class="col-sm-2">
+                          <input class="form-control" type="text" id="initial">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                          <label class="control-label col-sm-3">Father Name :</label>
+                          <div class="col-sm-9">
+                              <input class="form-control" type="text" id="fatherNme">
+                          </div>
+                  </div>
+                  <div class="form-group">
+                          <label class="control-label col-sm-3">Mother Name :</label>
+                          <div class="col-sm-9">
+                              <input class="form-control" type="text" id="motherName">
+                          </div>
+                  </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-3">Gender :</label>
+                          <div class="col-sm-3">
+                              <select class="form-control" id="gender">
+                                  <option>Male</option>
+                                  <option>Female</option>
+                              </select>
+                          </div>
+                          <label class="control-label col-sm-3">Marital Status :</label>
+                          <div class="col-sm-3">
+                              <select class="form-control" id="marital">
+                                  <option>Married</option>
+                                  <option>Single</option>
+                                  <option>Other</option>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-3">Spouse Name :</label>
+                          <div class="col-sm-9">
+                              <input class="form-control" type="text" id="spouseName">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-3">Contact No. :</label>
+                          <div class="col-sm-5">
+                              <input type="text" class="form-control" id="contactNum1">
+                          </div>
+                          <div class="col-sm-4">
+                                  <input type="text" class="form-control" id="contactNum2">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-3">Aadhar No. :</label>
+                          <div class="col-sm-9">
+                              <input type="text" class="form-control" id="aadhar">
+                          </div>
+                        
+                      </div>
+                      <div class="form-group">
+                            <label class="control-label col-sm-3">Add Photo :</label>
+                            <div class="col-sm-6">
+                                    <input type="file" class="form-control" >
+                            </div>
+                            <div class="col-sm-3 view">
+                                    <a >View</a>
+                                </div>
+                        </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-3">State :</label>
+                          <div class="col-sm-3">
+                              <select class="form-control" id="state">
+                                  <option>TamilNadu</option>
+                              </select>
+                          </div>
+                          <label class="control-label col-sm-2">District :</label>
+                          <div class="col-sm-4">
+                              <select class="form-control" id="district">
+                                  <option>Tiruvannamalai</option>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                              <label class="control-label col-sm-3">Taluk :</label>
+                              <div class="col-sm-3">
+                                  <select class="form-control" id="taluk">
+                                      <option>Cheyyar</option>
+                                  </select>
+                              </div>
+                              <label class="control-label col-sm-2">Area :</label>
+                              <div class="col-sm-4">
+                                  <select class="form-control" id="area">
+                                      <option>Tiruvannamalai</option>
+                                  </select>
+                              </div>
+                      </div>
+              </div>
+              <div class=" form-horizontal col-md-6">
+              <div class="form-group">
+              <label class="control-label col-sm-3" >Loan Category :</label>
+                  <div class="col-sm-3">
+                  <select class="form-control">
+                      <option>Home Appliances</option>
+                      <option>Vehicle</option>
+                      <option>Gold</option>
+                      <option>Business</option>
+                      <option>Property</option>
+                      <option>Housing</option>
+                      <option>Personal</option>
+                      <option>Education</option>
+                    </select>
+                  </div>
+                  
+              </div>
+              <div class="form-group">
+              <label class="control-label col-sm-3" >Agent :</label>
+                  <div class="col-sm-3">
+                  <select class="form-control"><option>Anu Honda</option></select>
+                  </div>
+                  <label class="control-label col-sm-3">Security Ratio (%) :</label>
+                  <div class="col-sm-3">
+                      <input type="text" class="form-control" id="secRatio">
+                  </div>
+              </div>
+              <div class="form-group">
+              <label class="control-label col-sm-4" >Agent Responsible :</label>
+                  <div class="col-sm-2">
+                  <select class="form-control"><option>Yes</option><option>No</option></select>
+                  </div>
+                  <label class="control-label col-sm-3">Rate of Interest :</label>
+                  <div class="col-sm-3">
+                      <input type="text" class="form-control" id="rateOfInt">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Due Type :</label>
+                  <div class="col-sm-3">
+                      <select class="form-control" id="dueType">
+                          <option>EMI</option>
+                          <option>Interest</option>
+                      </select>
+                  </div>
+                  <label class="control-label col-sm-3">Duration (Months) :</label>
+                  <div class="col-sm-3">
+                      <input type="text" class="form-control" id="duration">
+                  </div>
+              </div>
+              <div id="emi">
+              <div class="form-group">
+                      <label class="control-label col-sm-3"><u>if Duetype = EMI</u></label>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Total Amount :</label>
+                  <div class="col-sm-3">
+                      <input type="text" class="form-control" id="amount">
+                  </div>
+                  <label class="control-label col-sm-3">Advance Amount :</label>
+                  <div class="col-sm-3">
+                      <input type="text" class="form-control" id="advance">
+                  </div>
+              </div>
+              <div class="form-group">
+                      <label class="control-label col-sm-3">Loan Amount :</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="loanAmount">
+                      </div>
+                      <label class="control-label col-sm-3">Advance in % :</label>
+                      <div class="col-sm-3">
+                          <input type="text" class="form-control" id="advancePercent">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                          <label class="control-label col-sm-3 emilabel">Dues :</label>
+                          <div class="col-sm-3">
+                              <input type="text" class="form-control" id="dues">
+                          </div>
+                          <label class="control-label col-sm-3 ">Due Amount :</label>
+                          <div class="col-sm-3">
+                              <input type="text" class="form-control" id="dueAmount">
+                          </div>
+                      </div>
+                    </div>
+                      <div id="interest" style="display:none">
+                      <div class="form-group">
+                              <label class="control-label col-sm-3"><u>if Duetype = Interest</u></label>
+                          </div>
+                      <div class="form-group" >
+                              <label class="control-label col-sm-3" >Loan Amount :</label>
+                              <div class="col-sm-3">
+                                  <input type="text" class="form-control" id="loanAmountInt">
+                              </div>
+                      </div>
+                      <div class="form-group">
+                              <label class="control-label col-sm-3">Rate of Interest :</label>
+                              <div class="col-sm-3">
+                                  <input type="text" class="form-control" id="roiInterest">
+                              </div>
+                      </div>
+                      <div class="form-group" >
+                              <label class="control-label col-sm-3">Duration(Months) :</label>
+                              <div class="col-sm-3">
+                                      <input type="text" class="form-control" id="duration">
+                              </div>
+                          </div>
+                        </div>
+                  <div class="form-group">
+                          <label class="control-label col-sm-3">Guarantor Name :</label>
+                          <div class="col-sm-9">
+                              <input type="text" class="form-control" id="guarantorName">
+                          </div>
+                  </div>
+                  <div class="form-group">
+                          <label class="control-label col-sm-3">Relationship :</label>
+                          <div class="col-sm-3">
+                              <select class="form-control" id="relationship">
+                                  <option>Father</option>
+                                  <option>Mother</option>
+                              </select>
+                          </div>
+                  </div>
+                  <div class="form-group">
+                          <label class="control-label col-sm-3">Contact No. :</label>
+                          <div class="col-sm-5">
+                              <input type="text" class="form-control" id="contactNum3">
+                          </div>
+                          <div class="col-sm-4">
+                                  <input type="text" class="form-control" id="contactNum4">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                              <label class="control-label col-sm-3">Aadhar No. :</label>
+                              <div class="col-sm-3">
+                                  <input type="text" class="form-control" id="aadhar2">
+                              </div>
+                              <label class="control-label col-sm-3">Referred By :</label>
+                              <div class="col-sm-3">
+                                      <input type="text" class="form-control" id="referred	">
+                                  </div>
+                          </div>
+                          <div class="form-group">
+                                  <label class="control-label col-sm-3">How to know :</label>
+                                  <div class="col-sm-9">
+                                      <select class="form-control" id="toknow">
+                                          <option>Paper Advertisement</option>
+                                          <option>Whatsapp</option>
+                                          <option>Banner Advertisement</option>
+                                      </select>
+                                  </div>
+                          </div>
+                          <div class="form-group">
+                                  <label class="control-label col-sm-3">Status :</label>
+                                  <div class="col-sm-4">
+                                      <select class="form-control" id="status">
+                                          <option>Request</option>
+                                          <option>Approved</option>
+                                          <option>Waitlist</option>
+                                          <option>Cancel</option>
+                                          <option>Revoke</option>
+                                      </select>
+                                  </div>
+                          </div>
+              </div>
+            </div>
+              <div class="row">
+                  <div class="text-right col-sm-6">
+                  <button type="button" class="btn btn-primary">Submit</button>
+              </div>
+              <div class="col-sm-6">
+                  <button type="button" class="btn">Cancel</button>
+              </div>
+              </div>
+                  
+              </form>
+              
+            
+              </div>
+              </div>
+              </div>
+  

@@ -1,0 +1,931 @@
+<div class="container-fluid">
+    <div class='panel panel-primary'>
+      <div class='panel-heading'>
+         <h4>HOME APPLIANCES LOANS</h4>
+      </div>
+      <div class='panel-body' id="panel">
+      <form   >
+        <div class="row">
+     <div class=" form-horizontal col-md-12">
+              <div class="form-group">
+              <label class="control-label col-sm-3" >Branch :</label>
+                  <div class="col-sm-3">
+                  <select class="form-control"><option>Navaldi Marudham Capitals</option></select>
+                  </div>
+                  <label class="control-label col-sm-1" >Line :</label>
+                  <div class="col-sm-3">
+                  <select class="form-control"><option>Navaldi Marudham Capitals</option></select>
+                  </div>
+              </div><div class="form-group">
+              <label class="control-label col-sm-3" >Area :</label>
+                  <div class="col-sm-3">
+                  <select class="form-control"><option>Navaldi Marudham Capitals</option></select>
+                  </div>
+                  <label class="control-label col-sm-1" >Sub Area :</label>
+                  <div class="col-sm-3">
+                  <select class="form-control"><option>Navaldi Marudham Capitals</option></select>
+                  </div>
+              </div>
+              <div class="form-group">
+              <label class="control-label col-sm-3" >Hint-1 :</label>
+                  <div class="col-sm-3">
+                  <input type="text" class="form-control col-sm-4">
+                  </div>
+                  <label class="control-label col-sm-1" >Hint-2 :</label>
+                  <div class="col-sm-3">
+                  <input type="text" class="form-control">
+                  </div>
+              </div>
+          </div>
+          <div class="form-horizontal col-md-6">
+              <div class="form-group">
+              <label class="control-label col-sm-3" >Customer Name :</label>
+                  <div class="col-sm-6">
+                  <input type="text" class="form-control col-sm-4" id="custName">
+                  </div>
+                  <label class="control-label col-sm-1" >Init:</label>
+                  <div class="col-sm-2 ">
+                  <input type="text" class="form-control">
+                  </div>
+              </div>
+              <div class="form-group">
+              <label class="control-label col-sm-3" >Father Name :</label>
+                  <div class="col-sm-9 ">
+                  <input type="text" class="form-control" id="fatherName">
+                  </div>
+                  
+              </div>
+              <div class="form-group">
+              <label class="control-label col-sm-3" >Mother Name :</label>
+                  <div class="col-sm-9 ">
+                  <input type="text" class="form-control" id="motherName">
+                  </div>		
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Spouse Name :</label>
+                  <div class="col-sm-4">
+                      <input type="text" class="form-control" id="spouseName">
+                  </div>
+                  <label class="control-label col-sm-3">Customer ID :</label>
+                  <div class="col-sm-2">
+                      <input type="text" class="form-control" id="customerId">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Gender :</label>
+                  <div class="col-sm-3">
+                          <select class="form-control" id="gender">
+                              <option>Male</option>
+                              <option>Female</option>
+                          </select>
+                      </div>
+                  <label class="control-label col-sm-3">Marital Status :</label>
+                  <div class="col-sm-3">
+                          <select class="form-control" id="maritalStatus">
+                              <option>Married</option>
+                              <option>Single</option>
+                              <option>Other</option>
+                          </select>
+                      </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Resident Type:</label>
+                  <div class="col-sm-6">
+                          <select class="form-control" id="residentType">
+                              <option>Own</option>
+                              <option>Rental</option>
+                              <option>Agreement</option>
+                              <option>Quarters</option>
+                          </select>
+                      </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Address :</label>
+                  <div class="col-sm-9">
+                      <textarea class="form-control" id="address"></textarea>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Contact No. :</label>
+                  <div class="col-sm-5">
+                      <input type="text" class="form-control" id="contactNum1">
+                  </div>
+                  <div class="col-sm-4">
+                      <input type="text" class="form-control" id="contactNum2">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Occupation Type :</label>
+                  <div class="col-sm-3">
+                      <select class="form-control" id="occType">
+                          <option>Business</option>
+                          <option>Salaried-Govt</option>
+                          <option>Salaried-Private</option>
+                          <option>Dialywages</option>
+                          <option>Others</option>
+                      </select>
+                  </div>
+                  <label class="control-label col-sm-3">Occupation Detail :</label>
+                  <div class="col-sm-3">
+                      <input class="form-control" type="text" id="occDetail">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Aadhar :</label>
+                  <div class="col-sm-6">
+                      <input type="text" class="form-control">
+                  </div>
+                  
+                  <div class="col-sm-3">
+                  <button type="button" class="form-control btn btn-primary" data-toggle="modal" data-target="#CustProof" >ID Proof </button>
+                  </div>
+              </div>
+                  </div>
+      <div class="form-horizontal col-md-6">
+          <div class="form-group">
+              <label class="control-label col-sm-3">Guarantor Name :</label>
+              <div class="col-sm-7">
+                  <input class="form-control" type="text" id="guarantorName">
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="control-label col-sm-3">Relationship :</label>
+              <div class="col-sm-3">
+                  <select class="form-control" id="relation">
+                      <option>Father</option>
+                  </select>
+              </div>
+          </div>
+          <div class="form-group">
+              <label class="control-label col-sm-3">Resident Type:</label>
+              <div class="col-sm-7">
+              <select class="form-control" id="guarantorResType">
+                    <option>Own</option>
+                    <option>Rental</option>
+                    <option>Agreement</option>
+                    <option>Quarters</option>
+              </select>
+              </div>
+          </div>
+          <div class="form-group">
+                  <label class="control-label col-sm-3">Address :</label>
+                  <div class="col-sm-7">
+                      <textarea class="form-control" id="gaddress"></textarea>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Contact No. :</label>
+                  <div class="col-sm-4">
+                      <input type="text" class="form-control" id="gcontactNum1">
+                  </div>
+                  <div class="col-sm-3">
+                      <input type="text" class="form-control" id="gcontactNum2">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Aadhar :</label>
+                  <div class="col-sm-4">
+                      <input type="text" class="form-control">
+                  </div>
+                  <div class="col-sm-3">
+                  <button type="button" class="form-control btn btn-primary" data-toggle="modal" data-target="#GuarnProof">ID Proof </button>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Customer Status :</label>
+                  <div class="col-sm-4">
+                      <select class="form-control">
+                          <option>Running</option>
+                          <option>Approved</option>
+                          <option>Pending</option>
+                          <option>Cancel</option>
+                          <option>Error</option>
+                          <option>Consider</option>
+                          <option>Recovery</option>
+                          <option>Legal</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Remarks :</label>
+                  <div class="col-sm-4">
+                      <input type="text" class="form-control" id="remarks1">
+                  </div>
+                  <div class="col-sm-3">
+                      <input type="text" class="form-control" id="remarks2">
+                  </div>
+              </div>
+      </div>
+      <div class="form-horizontal col-md-12">
+             <div class="table table-responsive">
+             <table class="table table-bordered table-striped table-hover">
+             <thead>
+             <tr>
+             <th class="col-md-1">S.No</th>
+              <th class="col-md-1">Loan No</th>
+              <th class="col-md-2">Loan Category</th>
+              <th class="col-md-2">Agent Name</th>
+              <th class="col-md-2">Loan Date</th>
+              <th class="col-md-2">Loan Amount</th>
+             <th class="col-md-2">Status</th>
+             </tr>
+             </thead>
+             <tbody>
+             <tr data-toggle="modal" data-target="#myModal">
+             <td class="col-md-1">1</td>
+             <td class="col-md-1">1001</td>
+             <td class="col-md-2">Home</td>
+             <td class="col-md-2">Anu</td>
+             <td class="col-md-2">30/9/2019</td>
+             <td class="col-md-2">10000</td>
+             <td class="col-md-2">Unpaid</td>
+             </tr>
+              <tr>
+             <td class="col-md-1">1</td>
+             <td class="col-md-1">1001</td>
+             <td class="col-md-2">Home</td>
+             <td class="col-md-2">Anu</td>
+             <td class="col-md-2">30/9/2019</td>
+             <td class="col-md-2">10000</td>
+             <td class="col-md-2">Unpaid</td>
+             </tr>
+              <tr>
+             <td class="col-md-1">1</td>
+             <td class="col-md-1">1001</td>
+             <td class="col-md-2">Home</td>
+             <td class="col-md-2">Anu</td>
+             <td class="col-md-2">30/9/2019</td>
+             <td class="col-md-2">10000</td>
+             <td class="col-md-2">Unpaid</td>
+             </tr>
+             </tbody>
+             </table>
+             </div>
+             </div>
+             <div class="modal fade" id="myModal" role="dialog">
+             
+          <div class="modal-dialog">
+          
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Loan Details</h4>
+              </div>
+              <div class="modal-body">
+                       <ul class="nav nav-tabs ">
+                  <li class="active" ><a data-toggle="tab" href="#detail">Loan Details</a></li>
+                  <li ><a data-toggle="tab" href="#collection">Collection</a></li> 
+                 <li ><a data-toggle="tab" href="#followup">Followup</a></li> 
+                 <li ><a data-toggle="tab" href="#status">Status</a></li>   
+                </ul>
+                <div class="tab-content" >
+                  <div id="detail" class="tab-pane fade in active " >  
+                      <form  >
+                      <div class="row">
+                      <div class=" form-horizontal col-md-5">
+                       <div class="form-group">
+                     <label class="control-label col-sm-4">Loan Category :</label>
+                     <div class="col-sm-8">
+                     <select class="form-control"><option>Navaldi Marudham Capitals</option></select>
+                     </div>
+                    </div>
+                    <div class="form-group">
+              <label class="control-label col-sm-4" >Loan No:</label>
+                  <div class="col-sm-6">
+                  <input type="text" class="form-control">
+                  </div>
+                  </div>
+                  <div class="form-group">
+                  <label class="control-label col-sm-4" >Loan Method:</label>
+                  <div class="col-sm-6">
+                  <select class="form-control">
+                      <option>New</option>
+                      <option>Renewal</option>
+                      <option>Additional</option>
+                </select>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-4">Showroom/Agent:</label>
+                  <div class="col-sm-8">
+                  <select class="form-control" id="showroom">
+                      <option>051 Sakthi</option>
+                  </select>
+              </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-4">Brand :</label>
+                  <div class="col-sm-8">
+                      <select class="form-control" id="brand">
+                          <option></option>
+                      </select>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-4">Things :</label>
+                  <div class="col-sm-8">
+                      <select class="form-control" id="things">
+                          <option></option>
+                      </select>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-4">Regd. No :</label>
+                  <div class="col-sm-8">
+                      <input type="text" id="regdNo" class="form-control">
+                  </div>
+              </div>
+              <div class="form-group">
+                      <label class="control-label col-sm-4">Collection Method :</label>
+                      <div class="col-sm-8">
+                          <select class="form-control" id="collMethod">
+                              <option>Office</option>
+                              <option>Showroom</option>
+                              <option>Line</option>
+                              <option>Bank Transfer</option>
+                              <option>Cheque</option>
+                          </select>
+                  </div>
+              </div>
+                  <div class="form-group">
+                  <div class="col-sm-6">
+                      <input type="checkbox" class="form-check-input" id="agentResp">
+                      <label class="form-check-label" for="agentResp">Agent Responsibility</label>
+                  </div>
+                  <div class="col-sm-6">
+                          <input type="checkbox" class="form-check-input" id="paymentbyBank">
+                          <label class="form-check-label" for="paymentbyBank">Payment By Bank</label>
+                      </div>
+                  
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-4">Security Type :</label>
+                  <div class="col-sm-8">
+                      <select class="form-control" id="securityType">
+                          <option>Mortgage</option>
+                          <option>Endorsement</option>
+                          <option>None</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="form-group">
+                    <label class="control-label col-sm-4">Document :</label>
+                    <div class="col-sm-8">
+                            <div class="checkbox">
+                       <label> <input type="checkbox" name="document" value="Mortgage Document">Mortgage Document</label>
+                            </div>
+                            <div class="checkbox">
+                      <label> <input type="checkbox" name="document" value="Original Document">Original Document</label> 
+                            </div>
+                            <div class="checkbox">
+                      <label> <input type="checkbox" name="document" value="Patta">Patta</label> 
+                            </div>
+                            <div class="checkbox">
+                     <label><input type="checkbox" name="document" value="RCBook">RCBook</label> 
+                        </div>
+                    </div>
+                </div>
+              
+              <div class="form-group">
+                  <label class="control-label col-sm-4">No. of Cheque :</label>
+                  <div class="col-sm-4">
+                      <input type="text" class="form-control" id="chequeNum">
+                  </div>
+                  <div class="col-sm-4">
+                      <button type="button" id="loanSave" class="btn btn-primary">SAVE</button>
+                  </div>
+              </div>
+              </div>
+                      <div class=" form-horizontal col-md-7">
+                      <div class="form-group">
+              <label class="control-label col-sm-3" >Loan Date :</label>
+                  <div class="col-sm-3 ">
+                  <input type="text" class="form-control">
+                  </div>
+                  <label class="control-label col-sm-3" >Loan Amount:</label>
+                  <div class="col-sm-3 ">
+                  <input type="text" class="form-control">
+                  </div>
+              </div>
+              <div class="form-group">
+              <label class="control-label col-sm-3" >Total Loan Amt:</label>
+                  <div class="col-sm-3">
+                  <input type="text" class="form-control ">
+                  </div>
+                  
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Doc. Charge :</label>
+                  <div class="col-sm-3">
+                  <input type="text" id="docCharge" class="form-control">
+                  </div>
+                  <div class="col-sm-6">
+                      <select class="form-control">
+                          <option>Received By Finance</option>
+                          <option>Received By Showroom</option>
+                          <option>Add with Loan Amount</option>
+                        </select>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Incentive Calculated By:</label>
+                  <div class="col-sm-4">
+                      <select class="form-control">
+                          <option>Loan Amount</option>
+                          <option>Document Charge</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="form-group">
+                      <label class="control-label col-sm-3">Incentive</label>
+                      <div class="col-sm-2">
+                          <input  type="text" class="form-control">                       
+                      </div>
+                     <div class="col-sm-1">
+                            <label style="float: right;">%</label>
+                     </div>
+                      <div class="col-sm-2">
+                          <input type="text" class="form-control" id="incentive">
+                      </div>
+                      <div class="col-sm-4">
+                          <select class="form-control" id="incentivedrpdwn">
+                              <option>Every Loan Incentive</option>
+                              <option>Monthly Incentive</option>
+                          </select>
+                      </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Spl. Incentive :</label>
+                  <div class="col-sm-4">
+                      <input type="text" id="splIncentive" class="form-control">
+                  </div>
+                  <div class="col-sm-4">
+                  <button type="button" class="btn btn-primary" id="splIncentiveValidate">Validate</button>
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Scheme</label>
+                        <div class="col-sm-1"><input type="checkbox" class="form-check-input marginTop" id="scheme"></div>  
+                  <div class="col-sm-2">
+                      <input type="text" id="schemeTxt" class="form-control">
+                  </div>
+                  <label class="control-label col-sm-3">Scheme Calc.</label>
+                  <div class="col-sm-3">
+                      <input type="text" id="schemeCalcTxt" class="form-control">
+                  </div>
+              </div>
+              <div class="form-group">
+                      <label class="control-label col-sm-3">Interest Rate :</label>
+                      <div class="col-sm-3">
+                          <input type="text" id="intRate" class="form-control">
+                      </div>
+                      <div class="col-sm-6">
+                          <select class="form-control" >
+                              <option selected disabled>Scheme Amt. Received By</option>
+                              <option>Received By Finance</option>
+                              <option>Received By Showroom</option>
+                              <option>Add with Loan Amount</option>
+                          </select>
+                      </div>
+              </div>
+              <div class="form-group">
+                      <label class="control-label col-sm-3">Installments :</label>
+                      <div class="col-sm-3">
+                          <input type="text" id="installment" class="form-control">
+                      </div>
+                  </div>
+              <div class="form-group">
+                      <label class="control-label col-sm-3">Interest Amount :</label>
+                      <div class="col-sm-3">
+                          <input type="text" id="intAmt" class="form-control">
+                      </div>
+                      <label class="control-label col-sm-3">Total Amount :</label>
+                      <div class="col-sm-3">
+                          <input type="text" id="totAmt" class="form-control">
+                      </div>
+              </div>
+              <div class="form-group">
+                      <label class="control-label col-sm-3">First Due Date :</label>
+                      <div class="col-sm-3">
+                          <input type="text" id="firstDue" class="form-control">
+                      </div>
+                      <label class="control-label col-sm-3">Installment Amt:</label>
+                      <div class="col-sm-3">
+                          <input type="text" id="installmentAmt" class="form-control">
+                      </div>
+                  </div>
+              <div class="form-group">
+                      <label class="control-label col-sm-3">Last Due Date :</label>
+                      <div class="col-sm-3">
+                          <input type="text" id="lastDue" class="form-control">
+                      </div>
+                      <label class="control-label col-sm-3">Cash Amount :</label>
+                      <div class="col-sm-3">
+                          <input type="text" id="cashAmt" class="form-control">
+                      </div>
+                      </div>
+              <div class="form-group">
+                      <div class="col-sm-12">
+                              <input type="checkbox" class="form-check-input" id="roundOff">
+                              <label class="form-check-label" for="roundOff">Round Off Due Amt by Rs.5</label>
+                          </div>
+              </div>
+                      </div>
+                      </div>
+                      </form>
+                  </div>
+                   <div id="collection" class="tab-pane fade" > 
+                      <form  >
+                      <div class="row">
+                      <div class=" form-horizontal col-md-4">
+                      <div class="form-group">
+                        <label class="control-label col-sm-5" >File No:</label>
+                        <div class="col-sm-7 ">
+                        <input type="text" class="form-control col-sm-3">
+                     </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-5">Entry Date:</label>
+                          <div class="col-sm-7">
+                              <input type="text" class="form-control" id="entryDate">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-5">Bill Book:</label>
+                          <div class="col-sm-5">
+                                  <select class="form-control" id="billBook">
+                                      <option>A1</option>
+                                  </select>
+                              </div>
+                              <div class="col-sm-2">
+                                  <button type="button" class="form-control btn btn-primary ">+</button>
+                              </div>
+                      </div>
+                      <div class="form-group">
+                              <label class="control-label col-sm-5">Due Receipt:</label>
+                              <div class="col-sm-7">
+                                      <input type="text" class="form-control" id="dueReceipt">
+                                  </div>
+                          </div>
+                          <div class="form-group">
+                                  <label class="control-label col-sm-5">Penalty Receipt:</label>
+                                  <div class="col-sm-7">
+                                          <input type="text" class="form-control" id="penReceipt">
+                                      </div>
+                              </div>
+                      </div>
+                      <div class=" form-horizontal col-md-4">
+                      <div class="form-group">
+                       <label class="control-label col-sm-5" >Penalty Type:</label>
+                       <div class="col-sm-7">
+                      <select class="form-control">
+                          <option>Mothly</option>
+                          <option>Daily</option>
+                    </select>
+                      </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-5">Penalty Date:</label>
+                          <div class="col-sm-7">
+                              <input type="text" class="form-control" id="penaltyDate">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-5">Penalty Amt:</label>
+                          <div class="col-sm-7">
+                              <input type="text" class="form-control" id="penAmount">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-5">Due Balance:</label>
+                          <div class="col-sm-7">
+                              <input type="text" class="form-control" id="dueBal">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                              <label class="control-label col-sm-5">Total Balance:</label>
+                              <div class="col-sm-7">
+                                  <input type="text" class="form-control" id="totalBal">
+                              </div>
+                          </div>
+                      </div>
+                      <div class=" form-horizontal col-md-2">
+                      <div class="form-group">
+                           <button type="button" class="form-control btn btn-primary" id="delEntry">DELETE ENTRY</button>
+                      </div>
+                      <div class="form-group">
+                          <button type="button" class="form-control btn btn-primary" id="print">Print Receipt</button>
+                      </div>
+                      <div class="form-group">
+                          <button type="button" class="form-control btn btn-primary" id="addEntry">ADD ENTRY</button>
+                      </div>
+                      </div>
+                      <div class="form-horizontal col-md-12">
+                              <div class="table table-responsive">
+                                  <table class="table table-bordered table-striped table-hover" id="collectionTbl">
+                                  <thead>
+                                      <tr>
+                                      <th class="col-md-1">S.No</th>
+                                       <th class="col-md-1">Date</th>
+                                       <th class="col-md-1">Due</th>
+                                       <th class="col-md-1">Due Amt.</th>
+                                       <th class="col-md-1">Rec Date</th>
+                                       <th class="col-md-1">Receipt</th>
+                                      <th class="col-md-1">Penalty</th>
+                                      <th class="col-md-1">Due Bal</th>
+                                      <th class="col-md-1">Total Bal</th>
+                                      <th class="col-md-1">Bill Book</th>
+                                      </tr>
+                                  </thead>
+                                      <tbody>
+                                      </tbody>
+                                  </table>
+                              </div>
+  
+                      </div>
+                      </div>
+                      </form>	
+                      </div>			 
+                  
+                   <div id="followup" class="tab-pane fade" >
+                      <form >
+                      <div class="row">
+                      <div class=" form-horizontal col-md-6">
+                      <div class="form-group">
+                          <label class="control-label col-sm-4">Followup Date :</label>
+                          <div class="col-sm-4">
+                                <ejs-datepicker id='datepicker1' placeholder='Select a date' [value]= 'dateValue1' ></ejs-datepicker>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label col-sm-4">Commitment Date:</label>
+                          <div class="col-sm-4">
+                                <ejs-datepicker id='datepicker2' placeholder='Select a date' [value]= 'dateValue2' ></ejs-datepicker>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                              <div class="col-sm-4">
+                                  <button type="button" class="form-control btn btn-primary ">Add</button>
+                                  </div>
+                                  <div class="col-sm-4">
+                                      <button type="button" class="form-control btn btn-primary">Delete</button>
+                                  </div>
+                          </div>	
+                      </div>
+                      <div class="form-horizontal col-md-6">
+                              <div class="form-group">
+                                      <label class="control-label col-sm-4">Remarks :</label>
+                                      <div class="col-sm-6">
+                                          <input class="form-control" type="text" id="remarks">
+                                      </div>
+                                  </div>
+                          <div class="form-group">
+                              <label class="control-label col-sm-4">Attended By :</label>
+                              <div class="col-sm-6">
+                                  <input type="text" class="form-control" id="attended">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="control-label col-sm-4">Followup Status :</label>
+                              <div class="col-sm-6">
+                                  <select class="form-control" id="followupStat">
+                                      <option>Running</option>
+                                      <option>Recovery</option>
+                                      <option>Error</option>
+                                      <option>Legal</option>
+                                  </select>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form-horizontal col-md-12">
+                              <div class="table table-responsive">
+                                      <table class="table table-bordered table-striped table-hover" id="followupTable">
+                                      <thead>
+                                      <tr>
+                                      <th class="col-md-1">S.No</th>
+                                       <th class="col-md-1">Followup Dt</th>
+                                       <th class="col-md-1">Commitment Dt</th>
+                                       <th class="col-md-1">Remark</th>
+                                       <th class="col-md-1">Attended By</th>
+                                       <th class="col-md-1">Received</th>
+                                      <th class="col-md-1">Due Balance</th>
+                                      <th class="col-md-1">Status</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                          </tbody>
+                                          </table>
+                                          </div>
+                      </div>
+                      </div>
+                      </form>				 
+                  </div>
+                   <div id="status" class="tab-pane fade" >  
+                      <form   >
+                      <div class="row">
+                      <div class=" form-horizontal col-md-6">
+                          <div class="form-group">
+                              <label class="control-label col-sm-3">Loan Status :</label>
+                              <div class="col-sm-6">
+                                  <select class="form-control" id="loanStatus">
+                                     <option>Running</option>
+                                      <option>Consider</option>
+                                      <option>Pending</option>
+                                      <option>Error</option>
+                                      <option>Legal</option>
+                                      </select>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="control-label col-sm-3">Remarks :</label>
+                              <div class="col-sm-6">
+                                  <input type="text" class="form-control" id="remarks">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="control-label col-sm-3">Repayment :</label>
+                              <div class="col-sm-6">
+                                  <select class="form-control" id="repayment">
+                                      <option>Best</option>
+                                      <option>Good</option>
+                                      <option>Normal</option>
+                                      <option>Bad</option>
+                                      <option>Worst</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                                  <label class="control-label col-sm-3">Customer Attitude :</label>
+                                  <div class="col-sm-6">
+                                      <select class="form-control" id="attitude">
+                                          <option>Best</option>
+                                          <option>Good</option>
+                                          <option>Normal</option>
+                                          <option>Bad</option>
+                                          <option>Worst</option>
+                                      </select>
+                                  </div>
+                              </div>
+                      </div>
+                      <div class=" form-horizontal col-md-6">
+                              <div class="form-group">
+                                      <label class="control-label col-sm-5">If Loan Status=Consider</label>							
+                                      <div class="col-sm-6">
+                                          <select class="form-control" id="consider">
+                                              <option>Platinum</option>
+                                              <option>Diamond</option>
+                                              <option>Gold</option>
+                                              <option>Silver</option>
+                                              <option>Brass</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <label class="control-label col-sm-5">N.O.C. Remarks:</label>
+                                      <div class="col-sm-6">
+                                          <textarea id="noc" class="form-control"rows="6" cols="50"></textarea>
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <div class="col-sm-3">
+                                      <button class = "btn btn-primary form-control" type="button" id="update">Update</button>
+                                      </div>
+                                  </div>
+                      </div>
+                      </div>
+                      </form>
+                  </div>		
+             
+            </div>
+            
+          </div>
+        </div>
+      </div>
+        </div>
+            <div id="CustProof" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Customer ID Proof</h4>
+        </div>
+        <div class="modal-body">
+        <div class="form-horizontal col-md-12">
+          <div class="form-group">
+              <label class="control-label col-sm-2" >Proof Type :</label>
+                  <div class="col-sm-2">
+                  <select class="form-control"><option>AADHAR</option><option>FAMILY CARD</option><option>VOTER ID</option><option>PAN CARD</option><option>DRIVING LICENSE</option><option>PHOTO</option></select>
+                  </div>
+                  <div class="col-sm-2">
+                      <input type="text" class="form-control">
+                  </div>
+                  <div class="col-sm-3">
+                  <input type="file" class="form-control" >
+                  
+                  </div>
+                  <div class="col-sm-1">
+                  <button type="submit" class="form-control btn btn-primary" >Save</button>
+                  
+                  </div>
+              </div>
+              </div>
+              
+             <div class="table table-responsive custproof" >
+             <table class="table table-bordered table-striped table-hover">
+             <thead>
+             <tr>
+             <th class="col-md-3">S.No</th>
+              <th class="col-md-4">Proof Type</th>
+              <th class="col-md-5">Proof</th>
+              
+             </tr>
+             </thead>
+             <tbody>
+             <tr >
+             <td class="col-md-3">1</td>
+             <td class="col-md-4">Aadhar</td>
+             <td class="col-md-5"><a>aadhar.jpg</a></td>
+            
+             </tr>
+  
+             </tbody>
+             </table>
+             </div>
+      
+        
+      </div>
+  
+    </div>
+  </div>
+      
+  </div>
+  
+              <div id="GuarnProof" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Guarantor ID Proof </h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-horizontal col-md-12">
+          <div class="form-group">
+              <label class="control-label col-sm-2" >Proof Type :</label>
+                  <div class="col-sm-2">
+                  <select class="form-control"><option>AADHAR</option><option>FAMILY CARD</option><option>VOTER ID</option><option>PAN CARD</option><option>DRIVING LICENSE</option></select>
+                  </div>
+                  <div class="col-sm-2">
+                        <input type="text" class="form-control">
+                    </div>
+                  <div class="col-sm-3">
+                  <input type="file" class="form-control" >
+                  
+                  </div>
+                  <div class="col-sm-1">
+                  <button type="submit" class="form-control btn btn-primary" >Save</button>
+                  
+                  </div>
+              </div>
+              </div>
+              
+             <div class="table table-responsive custproof" >
+             <table class="table table-bordered table-striped table-hover">
+             <thead>
+             <tr>
+             <th class="col-md-3">S.No</th>
+              <th class="col-md-4">Proof Type</th>
+              <th class="col-md-5">Proof</th>
+              
+             </tr>
+             </thead>
+             <tbody>
+             <tr >
+             <td class="col-md-3">1</td>
+             <td class="col-md-4">Aadhar</td>
+             <td class="col-md-5"><a>aadhar.jpg</a></td>
+            
+             </tr>
+  
+             </tbody>
+             </table>
+             </div>
+      
+        
+      </div>
+  
+    </div>
+  </div>
+  </div>
+             </div>
+             </form>
+              </div>
+              </div>
+              
+              
+              </div>
+              
