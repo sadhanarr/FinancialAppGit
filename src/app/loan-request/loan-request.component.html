@@ -1,5 +1,5 @@
-<div class="container-fluid">
-    <div class='panel panel-primary'>
+<div class="container-fluid"ng-app="">
+    <div class='panel panel-primary' ng-controller="LoanRequestController">
       <div class='panel-heading'>
          <h4> Loan Request Form</h4>
       </div>
@@ -11,7 +11,7 @@
               <div class="form-group">
               <label class="control-label col-sm-3" >Request ID :</label>
                   <div class="col-sm-3 ">
-                  <input class="form-control" type="text">
+                  <input class="form-control" type="text"  disabled>
                   </div>
                       <label class="control-label col-sm-3" >Request Date :</label>
                   <div class="col-sm-3 ">
@@ -21,7 +21,7 @@
                <div class="form-group">
               <label class="control-label col-sm-3" >Company Name :</label>
                   <div class="col-sm-9 ">
-                  <select class="form-control"><option>Navaldi Marudham Capitals</option></select>
+                    <input class="form-control" type="text" id="companyName" disabled>
                   </div>
               </div>
               <div class="form-group">
@@ -40,10 +40,18 @@
                         </div>
                     </div>
               <div class="form-group">
-                      <label class="control-label col-sm-3">Customer ID :</label>
-                      <div class="col-sm-3">
-                          <input  class = "form-control" type="text" id="customerID">
-                      </div>
+                <label class="control-label col-sm-3">CustomerID :</label>
+                <div class="col-sm-3">
+                    <input  class = "form-control" type="text" id="customerID" disabled>
+                </div>
+                <div class="col-sm-4 custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="existingCust" name="customerIdRadio">
+                <label class="custom-control-label" for="existingCust">Existing Customer</label>
+            </div>
+            <div class="col-sm-3 custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="newCustomer"  name="customerIdRadio" checked>
+                <label class="custom-control-label" for="newCustomer">New Customer</label>
+            </div>
                   </div>
                   <div class="form-group">
                       <label class="control-label col-sm-3">Customer Name :</label>
@@ -118,9 +126,7 @@
                       <div class="form-group">
                           <label class="control-label col-sm-3">State :</label>
                           <div class="col-sm-3">
-                              <select class="form-control" id="state">
-                                  <option>TamilNadu</option>
-                              </select>
+                            <input type="text" class= "form-control" id="state" disabled>
                           </div>
                           <label class="control-label col-sm-2">District :</label>
                           <div class="col-sm-4">
@@ -162,130 +168,126 @@
                   
               </div>
               <div class="form-group">
-              <label class="control-label col-sm-3" >Agent :</label>
+              <label class="control-label col-sm-3" >Showroom/Agent :</label>
                   <div class="col-sm-3">
                   <select class="form-control"><option>Anu Honda</option></select>
                   </div>
-                  <label class="control-label col-sm-3">Security Ratio (%) :</label>
-                  <div class="col-sm-3">
-                      <input type="text" class="form-control" id="secRatio">
-                  </div>
               </div>
               <div class="form-group">
-              <label class="control-label col-sm-4" >Agent Responsible :</label>
-                  <div class="col-sm-2">
-                  <select class="form-control"><option>Yes</option><option>No</option></select>
-                  </div>
-                  <label class="control-label col-sm-3">Rate of Interest :</label>
-                  <div class="col-sm-3">
-                      <input type="text" class="form-control" id="rateOfInt">
-                  </div>
-              </div>
-              <div class="form-group">
-                  <label class="control-label col-sm-3">Due Type :</label>
-                  <div class="col-sm-3">
-                      <select class="form-control" id="dueType">
-                          <option>EMI</option>
-                          <option>Interest</option>
-                      </select>
-                  </div>
-                  <label class="control-label col-sm-3">Duration (Months) :</label>
-                  <div class="col-sm-3">
-                      <input type="text" class="form-control" id="duration">
-                  </div>
-              </div>
-              <div id="emi">
-              <div class="form-group">
-                      <label class="control-label col-sm-3"><u>if Duetype = EMI</u></label>
-              </div>
-              <div class="form-group">
-                  <label class="control-label col-sm-3">Total Amount :</label>
-                  <div class="col-sm-3">
-                      <input type="text" class="form-control" id="amount">
-                  </div>
-                  <label class="control-label col-sm-3">Advance Amount :</label>
-                  <div class="col-sm-3">
-                      <input type="text" class="form-control" id="advance">
-                  </div>
-              </div>
-              <div class="form-group">
-                      <label class="control-label col-sm-3">Loan Amount :</label>
-                      <div class="col-sm-3">
-                          <input type="text" class="form-control" id="loanAmount">
-                      </div>
-                      <label class="control-label col-sm-3">Advance in % :</label>
-                      <div class="col-sm-3">
-                          <input type="text" class="form-control" id="advancePercent">
-                      </div>
-                  </div>
-                  <div class="form-group">
-                          <label class="control-label col-sm-3 emilabel">Dues :</label>
-                          <div class="col-sm-3">
-                              <input type="text" class="form-control" id="dues">
-                          </div>
-                          <label class="control-label col-sm-3 ">Due Amount :</label>
-                          <div class="col-sm-3">
-                              <input type="text" class="form-control" id="dueAmount">
-                          </div>
-                      </div>
+                <label class="control-label col-sm-4" >Agent Responsible :</label>
+                    <div class="col-sm-2">
+                    <select class="form-control"><option>Yes</option></select>
                     </div>
-                      <div id="interest" style="display:none">
-                      <div class="form-group">
-                              <label class="control-label col-sm-3"><u>if Duetype = Interest</u></label>
-                          </div>
-                      <div class="form-group" >
-                              <label class="control-label col-sm-3" >Loan Amount :</label>
-                              <div class="col-sm-3">
-                                  <input type="text" class="form-control" id="loanAmountInt">
-                              </div>
-                      </div>
-                      <div class="form-group">
-                              <label class="control-label col-sm-3">Rate of Interest :</label>
-                              <div class="col-sm-3">
-                                  <input type="text" class="form-control" id="roiInterest">
-                              </div>
-                      </div>
-                      <div class="form-group" >
-                              <label class="control-label col-sm-3">Duration(Months) :</label>
-                              <div class="col-sm-3">
-                                      <input type="text" class="form-control" id="duration">
-                              </div>
-                          </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Guarantor Name :</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="guarantorName">
+                    </div>
+            </div>
+            <div class="form-group">
+                    <label class="control-label col-sm-3">Relationship :</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="relationship">
+                            <option>Father</option>
+                            <option>Mother</option>
+                        </select>
+                    </div>
+            </div>
+            <div class="form-group">
+                    <label class="control-label col-sm-3">Contact No. :</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="contactNum3">
+                    </div>
+                    <div class="col-sm-4">
+                            <input type="text" class="form-control" id="contactNum4">
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label class="control-label col-sm-3">Aadhar No. :</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="aadhar2">
                         </div>
-                  <div class="form-group">
-                          <label class="control-label col-sm-3">Guarantor Name :</label>
-                          <div class="col-sm-9">
-                              <input type="text" class="form-control" id="guarantorName">
-                          </div>
-                  </div>
-                  <div class="form-group">
-                          <label class="control-label col-sm-3">Relationship :</label>
-                          <div class="col-sm-3">
-                              <select class="form-control" id="relationship">
-                                  <option>Father</option>
-                                  <option>Mother</option>
-                              </select>
-                          </div>
-                  </div>
-                  <div class="form-group">
-                          <label class="control-label col-sm-3">Contact No. :</label>
-                          <div class="col-sm-5">
-                              <input type="text" class="form-control" id="contactNum3">
-                          </div>
-                          <div class="col-sm-4">
-                                  <input type="text" class="form-control" id="contactNum4">
-                          </div>
-                      </div>
-                      <div class="form-group">
-                              <label class="control-label col-sm-3">Aadhar No. :</label>
-                              <div class="col-sm-3">
-                                  <input type="text" class="form-control" id="aadhar2">
-                              </div>
-                              <label class="control-label col-sm-3">Referred By :</label>
-                              <div class="col-sm-3">
-                                      <input type="text" class="form-control" id="referred	">
-                                  </div>
-                          </div>
+                        <label class="control-label col-sm-3">Referred By :</label>
+                        <div class="col-sm-3">
+                                <input type="text" class="form-control" id="referred	">
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Due Type :</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" ng-model="loan.Type" ng-dropdown required id="dueType">
+                                <option ng-option value="EMI">EMI</option>
+                                <option ng-option value="Interest">Interest</option>
+                            </select>
+                        </div>
+                    </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Total Amount :</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="amount">
+                    </div>
+                    <label class="control-label col-sm-3">Advance Amount :</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="advance">
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label class="control-label col-sm-3">Loan Amount :</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="loanAmount">
+                        </div>
+                        <label class="control-label col-sm-3">Advance in % :</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="advancePercent">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="loan.Type=='EMI'">
+                            <label class="control-label col-sm-3">Dues :</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="dues">
+                            </div>
+                            <label class="control-label col-sm-3 ">Due Amount :</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="dueAmount">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                                <label class="control-label col-sm-3">Security Ratio (%) :</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="secRatio">
+                                </div>
+                                <label class="control-label col-sm-3">Rate of Interest :</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="rateOfInt">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                            <label class="control-label col-sm-3">Duration (Months) :</label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="duration">
+                        </div>
+                        </div>
+                        <div class="form-group" style="display:none">
+                                <label class="control-label col-sm-3" >Loan Amount :</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="loanAmountInt">
+                                </div>
+                        </div>
+                        <div class="form-group" style="display:none;">
+                                <label class="control-label col-sm-3">Rate of Interest :</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="roiInterest">
+                                </div>
+                        </div>
+                        <div class="form-group" style="display:none;">
+                                <label class="control-label col-sm-3">Duration(Months) :</label>
+                                <div class="col-sm-3">
+                                        <input type="text" class="form-control" id="duration">
+                                </div>
+                            </div>
+                    
                           <div class="form-group">
                                   <label class="control-label col-sm-3">How to know :</label>
                                   <div class="col-sm-9">
