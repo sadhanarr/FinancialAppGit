@@ -45,7 +45,7 @@
                     <input  class = "form-control" type="text" id="customerID" disabled>
                 </div>
                 <div class="col-sm-4 custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="existingCust" name="customerIdRadio">
+                <input type="radio" class="custom-control-input" id="existingCust" name="customerIdRadio" data-toggle="modal" data-target="#CustomerSearch">
                 <label class="custom-control-label" for="existingCust">Existing Customer</label>
             </div>
             <div class="col-sm-3 custom-control custom-radio">
@@ -320,10 +320,21 @@
                   <button type="button" class="btn">Cancel</button>
               </div>
               </div>
-                  
+              <div id="CustomerSearch" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Customer ID Proof</h4>
+                        </div>
+                        <div class="modal-body">
+                            <iframe src="/CustomerSearch" width="600" height="400"></iframe>
+                        </div>
+                    </div>
+                    </div>
+                </div>
               </form>
-              
-            
               </div>
               </div>
               </div>
