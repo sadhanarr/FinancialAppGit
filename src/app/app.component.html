@@ -1,4 +1,27 @@
 <div class='container-fluid'>
-  <!-- <app-loan-request></app-loan-request> -->
-  <app-home-loan></app-home-loan>
+  <div class="row">
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+        <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand">Navaladi Marudham</a>
+        </div>
+        <ul class="nav navbar-nav" routerLinkActive="active">
+            <li class="nav-item"><a class="nav-link" routerLink="/LoanRequest">Loan Request</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/LoanReqSearch">Loan Request View</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/LoanIssue">Loan Issue</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/CustomerSearch">Customer Details</a></li>
+        </ul>
+      </div>
+        </nav>
+      </div>
+  <div class="row" style="padding-top: 5%;">
+    <router-outlet></router-outlet>
+  </div>
 </div>
+
+   <!--<app-loan-request></app-loan-request>-->
+  <!-- <app-home-loan></app-home-loan> -->
+  <!-- <app-dashboard-page></app-dashboard-page> -->
+  <!-- <app-customer-search></app-customer-search> -->
+  <!-- <app-loan-req-search></app-loan-req-search> -->
+  <!-- <app-loan-issue></app-loan-issue> -->
