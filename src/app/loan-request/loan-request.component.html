@@ -44,7 +44,7 @@
                 <div class="col-sm-3">
                     <input  class = "form-control" type="text" id="customerID" disabled>
                 </div>
-                <div class="col-sm-4 custom-control custom-radio">
+                <div class="col-sm-3 custom-control custom-radio">
                 <input type="radio" class="custom-control-input" id="existingCust" name="customerIdRadio" data-toggle="modal" data-target="#CustomerSearch">
                 <label class="custom-control-label" for="existingCust">Existing Customer</label>
             </div>
@@ -174,7 +174,7 @@
                   </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-sm-4" >Agent Responsible :</label>
+                <label class="control-label col-sm-3" >Agent Responsible :</label>
                     <div class="col-sm-2">
                     <select class="form-control"><option>Yes</option></select>
                     </div>
@@ -223,6 +223,7 @@
                             </select>
                         </div>
                     </div>
+                    <div id="emi">
                 <div class="form-group">
                     <label class="control-label col-sm-3">Total Amount :</label>
                     <div class="col-sm-3">
@@ -243,7 +244,7 @@
                             <input type="text" class="form-control" id="advancePercent">
                         </div>
                     </div>
-                    <div class="form-group" ng-if="loan.Type=='EMI'">
+                    <div class="form-group">
                             <label class="control-label col-sm-3">Dues :</label>
                             <div class="col-sm-3">
                                 <input type="text" class="form-control" id="dues">
@@ -264,30 +265,32 @@
                     </div>
                     </div>
                     <div class="form-group">
-                            <label class="control-label col-sm-3">Duration (Months) :</label>
+                            <label class="control-label col-sm-3">Interest Amount :</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="duration">
                         </div>
                         </div>
-                        <div class="form-group" style="display:none">
+                    </div>
+                    <div id="interest" style="display:none">
+                        <div class="form-group" >
                                 <label class="control-label col-sm-3" >Loan Amount :</label>
                                 <div class="col-sm-3">
                                     <input type="text" class="form-control" id="loanAmountInt">
                                 </div>
                         </div>
-                        <div class="form-group" style="display:none;">
+                        <div class="form-group" >
                                 <label class="control-label col-sm-3">Rate of Interest :</label>
                                 <div class="col-sm-3">
                                     <input type="text" class="form-control" id="roiInterest">
                                 </div>
                         </div>
-                        <div class="form-group" style="display:none;">
+                        <div class="form-group" >
                                 <label class="control-label col-sm-3">Duration(Months) :</label>
                                 <div class="col-sm-3">
                                         <input type="text" class="form-control" id="duration">
                                 </div>
                             </div>
-                    
+                        </div>
                           <div class="form-group">
                                   <label class="control-label col-sm-3">How to know :</label>
                                   <div class="col-sm-9">
@@ -321,15 +324,16 @@
               </div>
               </div>
               <div id="CustomerSearch" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
+                    <div class="cusSearch modal-dialog">
                       <!-- Modal content-->
-                      <div class="modal-content">
+                      <div class=" modal-content">
                         <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">Customer ID Proof</h4>
+                          <h4 class="modal-title">Search</h4>
                         </div>
                         <div class="modal-body">
-                            <iframe src="/CustomerSearch" width="600" height="400"></iframe>
+                            <!-- <iframe src="/CustomerSearch" width="600" height="400"></iframe> -->
+                            <app-customer-search></app-customer-search>
                         </div>
                     </div>
                     </div>

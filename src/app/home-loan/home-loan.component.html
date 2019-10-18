@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class='panel panel-primary'>
       <div class='panel-heading'>
-         <h4>HOME APPLIANCES LOANS</h4>
+         <h4>Customer Detials</h4>
       </div>
       <div class='panel-body' id="panel">
       <form   >
@@ -223,9 +223,11 @@
 				<div class="col-sm-7">
 					<textarea id="remarks" class="form-control"rows="4" cols="30"></textarea>
 				</div>
-			</div>
+            </div>
+            <div class="emptyDiv"></div>
+            <div class="emptyDiv"><div class="col-md-3"><button data-toggle="modal" data-target="#myModal" type="submit" class="btn btn-primary">Issue Loan</button></div> </div>
       </div>
-      <div class="form-horizontal col-md-12">
+      <div class="form-horizontal col-md-12 tab-content">
              <div class="table table-responsive">
              <table class="table table-bordered table-striped table-hover">
              <thead>
@@ -358,13 +360,15 @@
                   </div>
               </div>
                   <div class="form-group">
-                  <div class="col-sm-6">
-                      <input type="checkbox" class="form-check-input" id="agentResp">
-                      <label class="form-check-label" for="agentResp">Agent Responsibility</label>
+                  <div class="col-sm-4">
                   </div>
-                  <div class="col-sm-6">
-                          <input type="checkbox" class="form-check-input" id="paymentbyBank">
-                          <label class="form-check-label" for="paymentbyBank">Payment By Bank</label>
+                  <div class="col-sm-8">                         
+                          <div class="checkbox">
+                                <label style="font-weight: 600;"> <input type="checkbox" name="document" value="Agent Responsibility">Agent Responsibility</label>
+                                     </div>
+                                     <div class="checkbox">
+                               <label style="font-weight: 600;"> <input type="checkbox"  name="document" value="Payment By Bank">Payment By Bank</label> 
+                                     </div>
                       </div>
                   
               </div>
@@ -448,12 +452,11 @@
               </div>
               <div class="form-group">
                       <label class="control-label col-sm-3">Incentive</label>
-                      <div class="col-sm-2">
-                          <input  type="text" class="form-control">                       
+                      <div class="col-sm-2" style="padding-left: 0px;"> 
+                       <div class="col-md-10">  <input  type="text" class="form-control"> </div>  
+                          <div style="float: right;">%</div>                     
                       </div>
-                     <div class="col-sm-1">
-                            <label style="float: right;">%</label>
-                     </div>
+                    
                       <div class="col-sm-2">
                           <input type="text" class="form-control" id="incentive">
                       </div>
@@ -469,9 +472,9 @@
                   <div class="col-sm-4">
                       <input type="text" id="splIncentive" class="form-control">
                   </div>
-                  <div class="col-sm-4">
+                  <!-- <div class="col-sm-4">
                   <button type="button" class="btn btn-primary" id="splIncentiveValidate">Validate</button>
-                  </div>
+                  </div> -->
               </div>
               <div class="form-group">
                   <label class="control-label col-sm-3">Scheme</label>
@@ -583,11 +586,7 @@
                                           <input type="text" class="form-control" id="penReceipt">
                                       </div>
                               </div>
-                              <div class="form-group">
-                                  <div class="text-right col-sm-6">
-                                    <button type="button" class="btn btn-primary" id="addEntry">ADD ENTRY</button>
-                                </div>
-                                </div>
+                             
                       </div>
                       <div class=" form-horizontal col-md-4">
                       <div class="form-group">
@@ -624,15 +623,20 @@
                               </div>
                           </div>
                       </div>
-                      <div class=" form-horizontal col-md-2">
-                      <div class="form-group">
-                           <button type="button" class="btn btn-primary" id="delEntry">Delete Entry</button>
+     
+                      <div class="row">
+                          <div class="col-md-12">
+                              <div class="col-md-4"></div>
+                              <div class="col-md-3">
+                                    <div class="form-group">
+                                            <div class="text-right col-sm-6">
+                                              <button type="button" class="btn btn-primary" id="addEntry">ADD ENTRY</button>
+                                          </div>
+                                          </div>
+                              </div>
+                          </div>
                       </div>
-                      <div class="form-group">
-                          <button type="button" class="btn btn-primary" id="print">Print Receipt</button>
-                      </div>
-                      </div>
-                      <div class="form-horizontal col-md-12">
+                      <div class="form-horizontal col-md-12 tab-content">
                               <div class="table table-responsive">
                                   <table class="table table-bordered table-striped table-hover" id="collectionTbl">
                                   <thead>
@@ -647,9 +651,31 @@
                                       <th class="col-md-1">Due Bal</th>
                                       <th class="col-md-1">Total Bal</th>
                                       <th class="col-md-1">Bill Book</th>
+                                      <th></th>
                                       </tr>
                                   </thead>
                                       <tbody>
+                                          <tr>
+                                          <td>12eee</td>
+                                          <td>ddddf</td>
+                                          <td>cdd55rr</td>
+                                          <td>nn</td>
+                                          <td>mdnnd</td>
+                                          <td>,dmdm</td>
+                                          <td>mmdmd</td>
+                                          <td>msmms</td>
+                                          <td>mm345</td>
+                                          <td>zzz</td>
+                                          <td> <div class="form-horizontal">
+                                                <div class="col-sm-4">
+                                                    <button type="button" class="btn btn-primary">Delete</button>
+                                                  </div>
+                                                  <div class="col-sm-4">
+                                                    <button type="button"  class="btn btn-primary">Print Receipt</button>
+                                                  </div>
+                                                </div>   
+                                          </td>
+                                          </tr>
                                       </tbody>
                                   </table>
                               </div>
@@ -676,13 +702,16 @@
                           </div>
                       </div>
                       <div class="form-group">
-                              <div class="col-sm-4">
-                                  <button type="button" class="form-control btn btn-primary ">Add</button>
-                                  </div>
-                                  <div class="col-sm-4">
-                                      <button type="button" class="form-control btn btn-primary">Delete</button>
-                                  </div>
-                          </div>	
+                            <label class="control-label col-sm-4">Followup Status :</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" id="followupStat">
+                                    <option>Running</option>
+                                    <option>Recovery</option>
+                                    <option>Error</option>
+                                    <option>Legal</option>
+                                </select>
+                            </div>
+                        </div>
                       </div>
                       <div class="form-horizontal col-md-6">
                               <div class="form-group">
@@ -697,16 +726,21 @@
                                   <input type="text" class="form-control" id="attended" disabled>
                               </div>
                           </div>
-                          <div class="form-group">
-                              <label class="control-label col-sm-4">Followup Status :</label>
-                              <div class="col-sm-6">
-                                  <select class="form-control" id="followupStat">
-                                      <option>Running</option>
-                                      <option>Recovery</option>
-                                      <option>Error</option>
-                                      <option>Legal</option>
-                                  </select>
-                              </div>
+                          
+                      </div>
+                      <div class="row">
+                          <div class="form-horizontal col-md-12">
+                              <div class="col-md-4"></div>
+                              <div class="col-md-4">
+                              <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <button type="button" class="form-control btn btn-primary ">Add</button>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <button type="button" class="form-control btn btn-primary">Delete</button>
+                                        </div>
+                                </div>
+                            </div>
                           </div>
                       </div>
                       <div class="form-horizontal col-md-12">
@@ -735,27 +769,27 @@
                    <div id="status" class="tab-pane fade" >  
                       <form   >
                       <div class="row">
-                      <div class=" form-horizontal col-md-6">
+                      <div class=" form-horizontal col-md-5">
                           <div class="form-group">
-                              <label class="control-label col-sm-3">Loan Status :</label>
+                              <label class="control-label col-sm-5">Loan Status :</label>
                               <div class="col-sm-6">
-                                  <select class="form-control" id="loanStatus">
-                                     <option>Running</option>
-                                      <option>Consider</option>
-                                      <option>Pending</option>
-                                      <option>Error</option>
-                                      <option>Legal</option>
+                                  <select class="form-control" id="loanStatus" (change)="changeLoanStatus($event.target.value)">
+                                     <option value="Running">Running</option>
+                                      <option  value="Consider">Consider</option>
+                                      <option  value="Pending">Pending</option>
+                                      <option  value="Error">Error</option>
+                                      <option  value="Legal">Legal</option>
                                       </select>
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="control-label col-sm-3">Remarks :</label>
+                              <label class="control-label col-sm-5">Remarks :</label>
                               <div class="col-sm-6">
                                   <input type="text" class="form-control" id="remarks">
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="control-label col-sm-3">Repayment :</label>
+                              <label class="control-label col-sm-5">Repayment :</label>
                               <div class="col-sm-6">
                                   <select class="form-control" id="repayment">
                                       <option>Best</option>
@@ -767,7 +801,7 @@
                               </div>
                           </div>
                           <div class="form-group">
-                                  <label class="control-label col-sm-3">Customer Attitude :</label>
+                                  <label class="control-label col-sm-5">Customer Attitude :</label>
                                   <div class="col-sm-6">
                                       <select class="form-control" id="attitude">
                                           <option>Best</option>
@@ -779,8 +813,8 @@
                                   </div>
                               </div>
                       </div>
-                      <div class=" form-horizontal col-md-6">
-                              <div class="form-group">
+                      <div class=" form-horizontal col-md-5">
+                              <div class="form-group" id="consider" style="display: none;">
                                       <label class="control-label col-sm-5">If Loan Status=Consider</label>							
                                       <div class="col-sm-6">
                                           <select class="form-control" id="consider">
@@ -798,12 +832,20 @@
                                           <textarea id="noc" class="form-control"rows="6" cols="50"></textarea>
                                       </div>
                                   </div>
-                                  <div class="form-group">
-                                      <div class="col-sm-3">
-                                      <button class = "btn btn-primary form-control" type="button" id="update">Update</button>
-                                      </div>
-                                  </div>
+                                 
                       </div>
+                      </div>
+                      <div class="row">
+                          <div class="form-horizontal col-md-12">
+                              <div class="col-md-5"></div>
+                              <div class="col-md-2">
+                                    <div class="form-group">
+                                            <div class="col-sm-6">
+                                            <button class = "btn btn-primary form-control" type="button" id="update">Update</button>
+                                            </div>
+                                        </div>
+                              </div>
+                          </div>
                       </div>
                       </form>
                   </div>		

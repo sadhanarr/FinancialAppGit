@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery'
 
 @Component({
   selector: 'app-home-loan',
@@ -12,4 +13,14 @@ export class HomeLoanComponent implements OnInit {
   ngOnInit() {
   }
 
+  changeLoanStatus(event)
+  {
+  if(event=="Consider")
+  {
+    $('#consider').show();
+  }
+  else{
+    $('#consider').hide();
+  }
+  }
 }

@@ -6,26 +6,25 @@
               <div class='panel-body' id="loanReqPanel">
               <form>
                 <div class="row">
-             <div class="form-horizontal col-md-12">
-                 <div class="form-group">
-                        <label class="control-label col-sm-2" >Status :</label>
-                        <div class="col-sm-2">
-                        <select class="form-control">
-                            <option>Request</option>
-                            <option>Approved</option>        
-                               <option>Rejected</option>
-                               <option>Issued</option>
-                               <option>Waitlist</option>
-                               <option>Revoked</option>
-                               <option>All</option>
-                            </select>
-                        </div>
-                 </div>
-             </div>
+        
              <div class="form-horizontal col-md-6">
+                    <div class="form-group">
+                            <label class="control-label col-sm-3" >Status :</label>
+                            <div class="col-sm-4">
+                            <select class="form-control">
+                                <option>Request</option>
+                                <option>Approved</option>        
+                                   <option>Rejected</option>
+                                   <option>Issued</option>
+                                   <option>Waitlist</option>
+                                   <option>Revoked</option>
+                                   <option>All</option>
+                                </select>
+                            </div>
+                     </div>
                  <div class="form-group">
                         <label class="control-label col-sm-3" >From Date :</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                               <ejs-datepicker id='fromDate' placeholder='Select a date' [value]= 'fromDate' ></ejs-datepicker>
                         </div>
                  </div>
@@ -65,18 +64,13 @@
                                <input type="text" class="form-control" id="showroom">
                            </div>
                  </div>
-                 <div class="form-group">
-                        <label class="control-label col-sm-3">Keyword Search :</label>
-                        <div class="col-sm-6">
-                               <input type="text" class="form-control" id="wordSearch">
-                           </div>
-                 </div>
+               
                             
              </div>
              <div class="form-horizontal col-md-6">
                     <div class="form-group">
                             <label class="control-label col-sm-3" >To Date :</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                   <ejs-datepicker id='fromDate' placeholder='Select a date' [value]= 'toDate' ></ejs-datepicker>
                             </div>
                      </div>
@@ -122,13 +116,23 @@
                            </div>
                  </div>
                  <div class="form-group">
+                        <label class="control-label col-sm-3">Keyword Search :</label>
                         <div class="col-sm-6">
-                                <button type="button" class="btn btn-primary">Search</button>
-                        </div>
+                               <input type="text" class="form-control" id="wordSearch">
+                           </div>
                  </div>
              </div>
              </div>
-            
+             <div class="row">
+                    <div class="form-horizontal col-md-5"></div>
+                    <div class="form-horizontal col-md-3">
+                       <div class="form-group">
+                           <div class="col-sm-8">
+                                   <button type="button" class="btn btn-primary">Search</button>
+                           </div>
+                    </div>
+                    </div>
+                </div>
              <div class="form-horizontal col-md-12">
                     <div class="table table-responsive">
                     <table class="table table-bordered table-striped table-hover">
@@ -190,7 +194,8 @@
                                         </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-3 text-right">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-3 ">
                                         <button type="button" id="reqChange" class="btn btn-primary form-control">Submit</button>
                                     </div>
                                 </div>

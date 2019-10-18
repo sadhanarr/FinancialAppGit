@@ -8,7 +8,12 @@ import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { LoanReqSearchComponent } from './loan-req-search/loan-req-search.component';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 import { LoanIssueComponent } from './loan-issue/loan-issue.component';
-import { CustomerSearchComponent } from './customer-search/customer-search.component';
+import { CustomerSearchComponent } from './customer-search/customer-search.component';import { MasterScreenComponent } from './master-screen/master-screen.component';
+import {HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppService } from './app.service';
+import * as _ from 'underscore'
+import { PagerService } from './pager.service';
 
 @NgModule({
   declarations: [
@@ -18,9 +23,12 @@ import { CustomerSearchComponent } from './customer-search/customer-search.compo
     LoanReqSearchComponent,
     DashboardPageComponent,
     LoanIssueComponent,
-    CustomerSearchComponent
+    CustomerSearchComponent,
+    MasterScreenComponent
   ],
   imports: [
+    HttpClientModule,
+    FormsModule,
     DatePickerModule,
     BrowserModule,
     RouterModule.forRoot([
@@ -28,10 +36,11 @@ import { CustomerSearchComponent } from './customer-search/customer-search.compo
       { path: 'HomeLoan',component:HomeLoanComponent},
       {path: 'LoanReqSearch',component:LoanReqSearchComponent},
       {path: 'CustomerSearch',component:CustomerSearchComponent},
-      {path: 'LoanIssue',component:LoanIssueComponent}
+      {path: 'LoanIssue',component:LoanIssueComponent},
+      {path: 'MasterData',component:MasterScreenComponent}
     ])
   ],
-  providers: [],
+  providers: [AppService,PagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

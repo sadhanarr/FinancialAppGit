@@ -3,7 +3,7 @@ td,th{
     }
     .modal-dialog
     {
-    width:80%
+    width:90%
     }
     .tab-content
     {
@@ -23,8 +23,8 @@ td,th{
        height: 25px;
        margin-top: 7px;
     }
-    ejs-datepicker>span{
-        border:1px solid #ccc !important;
-        border-radius: 4px;
-        padding-left: 5px !important
+    .emptyDiv
+    {
+      height: 34px;
+      padding: 3px;
     }
