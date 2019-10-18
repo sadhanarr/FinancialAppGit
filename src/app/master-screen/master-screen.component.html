@@ -1,0 +1,1152 @@
+<div class="container-fluid">
+    <div class='panel panel-primary'>
+      <div class='panel-heading'>
+         <h4>Master Screen</h4>
+      </div>
+      <div class='panel-body' id="panel">
+          <form #form="ngForm">
+              <div class="row">
+                  <div class=" form-horizontal col-md-12">
+                        <div class="form-group">
+                                <label class="control-label col-sm-3">Select Master Table :</label>
+                                <div class="col-sm-3">
+                                    <select class="form-control" id="master" (change)="changeDisplay($event.target.value)" >
+                                        <option value="branch">Branch</option>
+                                        <option value="state">State</option>
+                                        <option value="district">District</option>
+                                        <option value="taluk">Taluk</option>
+                                        <option value="line">Line</option>
+                                        <option value="area">Area</option>
+                                        <option value="sarea">Sub-Area</option>
+                                        <option value="agent">Showroom Agent</option>
+                                        <option value="user">User</option>
+                                        <option value="urole">User Role</option>
+                                        <option value="machine">Machine</option>
+                                        <option value="mline">Machine Lines</option>
+                                      
+                                        </select>
+                         </div>
+                          </div>
+                  </div>
+                <form id="branch" #form1="ngForm" name="formMaster">
+                  <div  name="divMaster"  class="form-horizontal col-md-6 margin" >
+                      <!-- <div class="form-group margin">
+                      <label class="control-label col-sm-3 ">Branch Master</label>
+                    </div> -->
+                        <div class="form-group">
+                                <label class="control-label col-sm-3">Company :</label>
+                                <div class="col-sm-3">
+                                    <select class="form-control" required #cName="ngModel"  [(ngModel)]="branch.CompanyID" name="CompanyID">
+                                        <option *ngFor="let drop of Company"   value="{{drop.dropdownKey}}" >
+                                            {{drop.dropdownName}}
+                                         </option>                         
+                                        </select><div *ngIf="cName.errors?.required && formSubmit && masterScreen=='branch'" [ngClass] = "'error'"> 
+                                          Company Name required. 
+                                          </div>
+                                     
+                         </div>
+                         <label class="control-label col-sm-3">Branch Name :</label>
+                                <div class="col-sm-3">
+                                   <input type="text" class="form-control" name="BranchName" [(ngModel)]="branch.BranchName">
+                         </div>
+                          </div>
+                          <div class="form-group">
+                                <label class="control-label col-sm-3">Address :</label>
+                                <div class="col-sm-9">
+                                   <input type="text" class="form-control" name="Address"  [(ngModel)]="branch.Address">
+                         </div>
+                          </div>
+                          <div class="form-group">
+                                <label class="control-label col-sm-3">Phone Number :</label>
+                                <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="PhoneContact"  [(ngModel)]="branch.PhoneContact">
+                         </div>
+                         <label class="control-label col-sm-3">Whatsapp Number :</label>
+                         <div class="col-sm-3">
+                                 <input type="text" class="form-control" name="WhatsappContact" [(ngModel)]="branch.WhatsappContact">
+                  </div>
+                        </div>
+                         <div class="form-group">
+                         <label class="control-label col-sm-3">Email :</label>
+                                <div class="col-sm-9">
+                                   <input type="text" class="form-control" name="EmailID"  [(ngModel)]="branch.EmailID">
+                         </div>
+                        </div>
+                         
+                  </div>                 
+                    <div class="form-horizontal col-md-12">
+                      <div class="col-sm-2"></div>
+                        <div class="col-md-2 ">
+                           
+                          <div class=" form-group">
+                              <div class="col-sm-5 marginbtn">
+                                  <button type="button" class="btn btn-primary" (click)="Save(0,0,form1)">Add</button>
+                                </div>
+                                <div class="col-sm-5 marginbtn">
+                                  <button type="button" class="btn"(click)="Cancel(form1)" >Cancel</button>
+                                </div>
+                              </div>
+                        </div>
+                      </div>             
+                </form>
+                <form id="state" #form2="ngForm" name="formMaster" style="display: none">
+                 <div  name="divMaster" class="form-horizontal col-md-6 margin" >                    
+                   <div class="form-group">
+                  <label class="control-label col-sm-3">State Name :</label>
+                  <div class="col-sm-6">
+                     <input type="text" class="form-control" required name="StateName" #sName="ngModel" [(ngModel)]="state.dropdownName" >
+                     <div *ngIf="sName.errors?.required && formSubmit && masterScreen=='state'" [ngClass] = "'error'"> 
+                      State Name required. 
+                      </div>
+                    </div>
+           </div>
+                 </div>
+                 <div class="form-horizontal col-md-12">
+                  <div class="col-sm-2"></div>
+                    <div class="col-md-2 ">
+                       
+                      <div class=" form-group">
+                          <div class="col-sm-5 marginbtn">
+                              <button type="button" class="btn btn-primary" (click)="Save(0,0,form2)">Add</button>
+                            </div>
+                            <div class="col-sm-5 marginbtn">
+                              <button type="button" class="btn" (click)="Cancel(form2)">Cancel</button>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+                </form>
+                <form id="district" #form3="ngForm" name="formMaster" style="display: none">
+                 <div  name="divMaster" class="form-horizontal col-md-6 margin" >
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">District Name :</label>
+                        <div class="col-sm-6">
+                           <input type="text" class="form-control" required name="DistrictName" #dName="ngModel" [(ngModel)]="district.DistrictName" >
+                           <div *ngIf="dName.errors?.required && formSubmit && masterScreen=='district'" [ngClass] = "'error'"> 
+                            District Name required. 
+                            </div>
+                          </div>
+                 </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">State :</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" #dSid="ngModel" required  name="StateID" [(ngModel)]="district.StateID">
+                                <option *ngFor="let s of Allstate" value="{{s.dropdownKey}}">
+                                  {{s.dropdownName}}
+                                 </option>                         
+                                </select>
+                                <div *ngIf="dSid.errors?.required && formSubmit && masterScreen=='district'" [ngClass] = "'error'"> 
+                                  State required. 
+                                  </div>
+                 </div>
+                 </div>
+              </div>
+              <div class="form-horizontal col-md-12">
+                <div class="col-sm-2"></div>
+                  <div class="col-md-2 ">
+                     
+                    <div class=" form-group">
+                        <div class="col-sm-5 marginbtn">
+                            <button type="button" class="btn btn-primary" (click)="Save(0,0,form3)">Add</button>
+                          </div>
+                          <div class="col-sm-5 marginbtn">
+                            <button type="button" class="btn" (click)="Cancel(form3)">Cancel</button>
+                          </div>
+                        </div> 
+                  </div>
+                </div>
+               </form>
+               <form id="taluk" #form4="ngForm" name="formMaster" style="display: none">
+              <div  name="divMaster" class="form-horizontal col-md-6 margin" >
+                  <div class="form-group">
+                      <label class="control-label col-sm-3">Taluk Name :</label>
+                      <div class="col-sm-6">
+                         <input type="text" class="form-control" required name="TalukName" #tName="ngModel" [(ngModel)]="taluk.TalukName">
+                         <div *ngIf="tName.errors?.required && formSubmit && masterScreen=='taluk'" [ngClass] = "'error'"> 
+                          Taluk Name required. 
+                          </div>
+                        </div>
+               </div>
+                  <div class="form-group">
+                      <label class="control-label col-sm-3">District :</label>
+                      <div class="col-sm-6">
+                          <select class="form-control" required  name="StateID" #dId="ngModel" [(ngModel)]="taluk.DistrictID">
+                              <option *ngFor="let t of AllDistrict" value="{{t.DistrictID}}">
+                               {{t.DistrictName}}
+                               </option>                         
+                              </select>
+                              <div *ngIf="dId.errors?.required && formSubmit && masterScreen=='taluk'" [ngClass] = "'error'"> 
+                                District Name required. 
+                                </div>
+               </div>
+               </div>
+            </div>
+            <div class="form-horizontal col-md-12">
+              <div class="col-sm-2"></div>
+                <div class="col-md-2 ">
+                   
+                  <div class=" form-group">
+                      <div class="col-sm-5 marginbtn">
+                          <button type="button" class="btn btn-primary" (click)="Save(0,0,form4)">Add</button>
+                        </div>
+                        <div class="col-sm-5 marginbtn">
+                          <button type="button" class="btn" (click)="Cancel(form4)">Cancel</button>
+                        </div>
+                      </div>
+                </div>
+              </div>
+              </form>
+              <form id="line" #form5="ngForm" name="formMaster" style="display: none">
+            <div  name="divMaster" class="form-horizontal col-md-6 margin" >
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Line Name :</label>
+                    <div class="col-sm-6">
+                       <input type="text" #lName="ngModel" required [(ngModel)]="line.TalukName" class="form-control" name="DistrictName" >
+                       <div *ngIf="lName.errors?.required && formSubmit && masterScreen=='line'" [ngClass] = "'error'"> 
+                        Line Name required. 
+                        </div>
+                      </div>
+             </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-3">Branch :</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" required  name="StateID" #bId="ngModel" [(ngModel)]="line.DistrictID">
+                            <option *ngFor="let l of Allbranch" value="{{l.BranchID}}">{{l.BranchName}}
+                             </option>                         
+                            </select>
+                            <div *ngIf="bId.errors?.required && formSubmit && masterScreen=='line'" [ngClass] = "'error'"> 
+                              Branch Name required. 
+                              </div>
+             </div>
+             </div>
+          </div>
+          <div class="form-horizontal col-md-12">
+            <div class="col-sm-2"></div>
+              <div class="col-md-2 ">
+                 
+                <div class=" form-group">
+                    <div class="col-sm-5 marginbtn">
+                        <button type="button" class="btn btn-primary" (click)="Save(0,0,form5)">Add</button>
+                      </div>
+                      <div class="col-sm-5 marginbtn">
+                        <button type="button" class="btn">Cancel</button>
+                      </div>
+                    </div>
+              </div>
+            </div>
+            </form>
+            <form id="area" #form12="ngForm" name="formMaster" style="display: none">
+          <div  name="divMaster" class="form-horizontal col-md-6 margin" >
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Area Name :</label>
+                  <div class="col-sm-6">
+                     <input type="text" required #aname="ngModel" [(ngModel)]="area.AreaName" class="form-control" name="DistrictName" >
+                     <div *ngIf="aname.errors?.required && formSubmit && masterScreen=='area'" [ngClass] = "'error'"> 
+                      Area Name required. 
+                      </div>
+                    </div>
+           </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3">Taluk :</label>
+                  <div class="col-sm-6">
+                      <select class="form-control" required #tid="ngModel" [(ngModel)]="area.TalukID"  name="StateID">
+                          <option *ngFor="let i of AllTaluk" value="{{i.TalukID}}">{{i.TalukName}}
+                           </option>                         
+                          </select>
+                          <div *ngIf="tid.errors?.required && formSubmit && masterScreen=='area'" [ngClass] = "'error'"> 
+                            Taluk Name required. 
+                            </div>
+           </div>
+           </div>
+           <div class="form-group">
+              <label class="control-label col-sm-3">Line :</label>
+              <div class="col-sm-6">
+                  <select class="form-control" required #lid="ngModel" [(ngModel)]="area.LineID"  name="StateID">
+                      <option *ngFor="let i of AllLine" value="{{i.TalukID}}">{{i.TalukName}}
+                       </option>                         
+                      </select>
+                      <div *ngIf="lid.errors?.required && formSubmit && masterScreen=='area'" [ngClass] = "'error'"> 
+                        Line Name required. 
+                        </div>
+       </div>
+       </div>
+        </div>
+        <div class="form-horizontal col-md-12">
+          <div class="col-sm-2"></div>
+            <div class="col-md-2 ">
+               
+              <div class=" form-group">
+                  <div class="col-sm-5 marginbtn">
+                      <button type="button" class="btn btn-primary" (click)="Save(0,0,form12)">Add</button>
+                    </div>
+                    <div class="col-sm-5 marginbtn">
+                      <button type="button" class="btn" (click)="Cancel(form12)">Cancel</button>
+                    </div>
+                  </div>
+            </div>
+          </div>
+            </form>
+            <form id="sarea" #form6="ngForm" name="formMaster" style="display: none">
+        <div  name="divMaster" class="form-horizontal col-md-6 margin" >
+            <div class="form-group">
+                <label class="control-label col-sm-3">Sub Area Name :</label>
+                <div class="col-sm-6">
+                   <input type="text" #sArea="ngModel" [(ngModel)]="sarea.TalukName" class="form-control" name="DistrictName" >
+                   <div *ngIf="sArea.errors?.required && formSubmit && masterScreen=='sarea'" [ngClass] = "'error'"> 
+                    Sub-Area Name required. 
+                    </div>
+                  </div>
+         </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">Area :</label>
+                <div class="col-sm-6">
+                    <select class="form-control" #aid="ngModel" [(ngModel)]="sarea.DistrictID" name="StateID">
+                        <option  *ngFor="let sa of AllArea" value="{{sa.AreaID}}">{{sa.AreaName}}
+                         </option>                         
+                        </select>
+                        <div *ngIf="aid.errors?.required && formSubmit && masterScreen=='sarea'" [ngClass] = "'error'"> 
+                          Area Name required. 
+                          </div>
+         </div>
+         </div>
+      </div>
+      <div class="form-horizontal col-md-12">
+        <div class="col-sm-2"></div>
+          <div class="col-md-2 ">
+             
+            <div class=" form-group">
+                <div class="col-sm-5 marginbtn">
+                    <button type="button" class="btn btn-primary" (click)="Save(0,0,form6)">Add</button>
+                  </div>
+                  <div class="col-sm-5 marginbtn">
+                    <button type="button" class="btn" (click)="Cancel(form6)">Cancel</button>
+                  </div>
+                </div>
+          </div>
+        </div>
+            </form>
+            <form id="mline" #form7="ngForm" name="formMaster" style="display: none">
+      <div  name="divMaster" class="form-horizontal col-md-6 margin" >
+          <div class="form-group">
+              <label class="control-label col-sm-3">Machine :</label>
+              <div class="col-sm-6">
+                  <select required #mac="ngModel" [(ngModel)]="mline.MachineID" class="form-control"  name="StateID">
+                    <option  *ngFor="let ma of AllMachine" value="{{ma.MachineID}}">{{ma.MachineName}}
+                    </option>                         
+                   </select>
+                   <div *ngIf="mac.errors?.required && formSubmit && masterScreen=='mline'" [ngClass] = "'error'"> 
+                     Machine required. 
+                     </div>
+       </div>
+       </div>
+          <div class="form-group">
+              <label class="control-label col-sm-3">Line :</label>
+              <div class="col-sm-6">
+                  <select required class="form-control" #li="ngModel" [(ngModel)]="mline.LineID"  name="StateID">
+                    <option  *ngFor="let l of AllLine" value="{{l.TalukID}}">{{l.TalukName}}
+                    </option>                         
+                   </select>
+                   <div *ngIf="li.errors?.required && formSubmit && masterScreen=='mline'" [ngClass] = "'error'"> 
+                     Line Name required. 
+                     </div>
+       </div>
+       </div>
+    </div>
+    <div class="form-horizontal col-md-12">
+      <div class="col-sm-2"></div>
+        <div class="col-md-2 ">
+           
+          <div class=" form-group">
+              <div class="col-sm-5 marginbtn">
+                  <button type="button" class="btn btn-primary" (click)="Save(0,0,form7)">Add</button>
+                </div>
+                <div class="col-sm-5 marginbtn">
+                  <button type="button" class="btn" (click)="Cancel(form7)">Cancel</button>
+                </div>
+              </div>
+        </div>
+      </div>
+         </form>
+         <form id="urole" #form8="ngForm" name="formMaster" style="display: none">
+    <div  name="divMaster" class="form-horizontal col-md-6 margin">
+        <div class="form-group">
+            <label class="control-label col-sm-3">User :</label>
+            <div class="col-sm-6">
+                <select class="form-control" required #usrname="ngModel" [(ngModel)]="userrole.DistrictID"  name="StateID">
+                    <option *ngFor="let drop of AllUser" value="{{drop.UserID}}"> {{drop.Name}}
+                     </option>                         
+                    </select>
+                    <div *ngIf="usrname.errors?.required && formSubmit && masterScreen=='urole'" [ngClass] = "'error'"> 
+                        User Name required. 
+                        </div>
+     </div>
+     </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Function :</label>
+            <div class="col-sm-6">
+                <select class="form-control" required name="StateID" #urfid="ngModel" [(ngModel)]="userrole.TalukName">
+                    <option >Loan Request</option>    
+                     <option >Collection</option>
+                     <option >Verification</option>                         
+                    <option >Android Collection</option>
+                    <option >Android Verification</option>                         
+                    </select>
+                    <div *ngIf="urfid.errors?.required && formSubmit && masterScreen=='urole'" [ngClass] = "'error'"> 
+                        Function required. 
+                        </div>
+     </div>
+     </div>
+  </div>
+  <div class="form-horizontal col-md-12">
+    <div class="col-sm-2"></div>
+      <div class="col-md-2 ">
+         
+        <div class=" form-group">
+            <div class="col-sm-5 marginbtn">
+                <button type="button" class="btn btn-primary" (click)="Save(0,0,form8)">Add</button>
+              </div>
+              <div class="col-sm-5 marginbtn">
+                <button type="button" class="btn" (click)="Cancel(form8)">Cancel</button>
+              </div>
+            </div>
+      </div>
+    </div>
+      </form>
+      <form id="user" #form9="ngForm" name="formMaster" style="display: none">
+  <div  name="divMaster" class="form-horizontal col-md-6 margin" >
+        <div class="form-group">
+                <label class="control-label col-sm-3">User Name :</label>
+                <div class="col-sm-3">
+                    <input type="text" required class="form-control" #UUName="ngModel" [(ngModel)]="user.UserName" name="BranchName" > 
+                    <div *ngIf="UUName.errors?.required && formSubmit && masterScreen=='user'" [ngClass] = "'error'"> 
+                        User Name required. 
+                        </div>                        
+         </div>
+         <label class="control-label col-sm-3">Password :</label>
+                <div class="col-sm-3">
+                   <input type="text" required class="form-control" #UPwd="ngModel" [(ngModel)]="user.Password" name="BranchName" >
+                   <div *ngIf="UPwd.errors?.required && formSubmit && masterScreen=='user'" [ngClass] = "'error'"> 
+                      Password required. 
+                      </div>
+         </div>
+          </div>
+          <div class="form-group">
+                <label class="control-label col-sm-3">User Full Name :</label>
+                <div class="col-sm-9">
+                   <input type="text" required class="form-control" name="Address" #UName="ngModel" [(ngModel)]="user.Name" >
+                   <div *ngIf="UName.errors?.required && formSubmit && masterScreen=='user'" [ngClass] = "'error'"> 
+                      Full Name required. 
+                      </div>
+         </div>
+          </div>
+          <div class="form-group">
+                <label class="control-label col-sm-3">User Designation :</label>
+                <div class="col-sm-3">
+                        <input type="text" class="form-control" name="PhoneContact" #UDesign="ngModel" [(ngModel)]="user.Designation" >
+         </div>
+         <label class="control-label col-sm-3">Company :</label>
+         <div class="col-sm-3">
+            <select class="form-control" required #UCid="ngModel"  [(ngModel)]="user.CompanyID" name="CompanyID">
+                <option *ngFor="let drop of Company"   value="{{drop.dropdownKey}}" >
+                    {{drop.dropdownName}}
+                 </option>                         
+                </select>
+                <div *ngIf="UCid.errors?.required && formSubmit && masterScreen=='user'" [ngClass] = "'error'"> 
+                    Company required. 
+                    </div>
+  </div>
+        </div>
+         <div class="form-group">
+         <label class="control-label col-sm-3">User Type :</label>
+         <div class="col-sm-3">
+            <select class="form-control" required name="utype" #UUType="ngModel" [(ngModel)]="user.UserType" >
+                <option >Finance</option>    
+                <option >Showroom Agent</option>                         
+                </select>
+                <div *ngIf="UUType.errors?.required && formSubmit && masterScreen=='user'" [ngClass] = "'error'"> 
+                    User Type required. 
+                    </div>
+  </div>
+  <label class="control-label col-sm-3">Showroom Agent :</label>
+  <div class="col-sm-3">
+     <select class="form-control"  [(ngModel)]="user.AgentID" #UAId="ngModel" name="CompanyID">
+         <option *ngFor="let drop of AllSagent"   value="{{drop.AgentID}}" >
+             {{drop.AgentName}}
+          </option>                         
+         </select>
+</div>
+        </div>
+         
+  </div>
+  <div class="form-horizontal col-md-12">
+    <div class="col-sm-2"></div>
+      <div class="col-md-2 ">
+         
+        <div class=" form-group">
+            <div class="col-sm-5 marginbtn">
+                <button type="button" class="btn btn-primary" (click)="Save(0,0,form9)">Add</button>
+              </div>
+              <div class="col-sm-5 marginbtn">
+                <button type="button" class="btn" (click)="Cancel(form9)">Cancel</button>
+              </div>
+            </div>
+      </div>
+    </div>
+    </form>
+    <form id="agent" #form10="ngForm" name="formMaster" style="display: none">
+  <div  name="divMaster" class="form-horizontal col-md-6 margin">
+      <!-- <div class="form-group margin">
+      <label class="control-label col-sm-3 ">Branch Master</label>
+    </div> -->
+        <div class="form-group">
+                <label class="control-label col-sm-3">Agent Name :</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" required name="BranchName" #saName="ngModel" [(ngModel)]="sagent.AgentName" >  
+                    <div *ngIf="saName.errors?.required && formSubmit && masterScreen=='agent'" [ngClass] = "'error'"> 
+                        Agent Name required. 
+                        </div>                       
+         </div>
+         <label class="control-label col-sm-3">Area :</label>
+                <div class="col-sm-3">
+                  <select class="form-control" #saAID="ngModel" required  [(ngModel)]="sagent.AreaID" name="CompanyID">
+                    <option *ngFor="let drop of AllArea"   value="{{drop.AreaID}}" >
+                        {{drop.AreaName}}
+                     </option>                         
+                    </select>
+                    <div *ngIf="saAID.errors?.required && formSubmit && masterScreen=='agent'" [ngClass] = "'error'"> 
+                        Area Name required. 
+                        </div>
+         </div>
+          </div>
+          <div class="form-group">
+                <label class="control-label col-sm-3">Address :</label>
+                <div class="col-sm-9">
+                   <input type="text" class="form-control" name="Address" #saddress="ngModel" [(ngModel)]="sagent.Address" >
+         </div>
+          </div>
+          <div class="form-group">
+                <label class="control-label col-sm-3">Contact Person :</label>
+                <div class="col-sm-3">
+                        <input type="text" class="form-control" name="PhoneContact" #saperson="ngModel" [(ngModel)]="sagent.ContactPerson">
+         </div>
+         <label class="control-label col-sm-3">Contact Number :</label>
+         <div class="col-sm-3">
+            <input type="text" class="form-control" name="PhoneContact"  #saPContact="ngModel" [(ngModel)]="sagent.PrimaryContact">
+  </div>
+        </div>
+         <div class="form-group">
+         <label class="control-label col-sm-3">Alternate Contact Number :</label>
+         <div class="col-sm-3">
+            <input type="text" class="form-control" name="PhoneContact" #saSContact="ngModel" [(ngModel)]="sagent.SecondaryContact">
+  </div>
+  <label class="control-label col-sm-3" required>Loan Category :</label>
+  <div class="col-sm-3">
+     <select class="form-control" #ALoan="ngModel" required  [(ngModel)]="sagent.LoanCategory" name="CompanyID">
+        <option>Home Appliances</option>
+        <option>Vehicle</option>
+        <option>Gold</option>
+        <option>Business</option>
+        <option>Property</option>
+        <option>Housing</option>
+        <option>Personal</option>
+        <option>Education</option>                        
+         </select>
+         <div *ngIf="ALoan.errors?.required && formSubmit && masterScreen=='agent'" [ngClass] = "'error'"> 
+            Loan Category required. 
+            </div>
+    </div>
+        </div>
+         
+  </div>
+  <div class="form-horizontal col-md-12">
+    <div class="col-sm-2"></div>
+      <div class="col-md-2 ">
+         
+        <div class=" form-group">
+            <div class="col-sm-5 marginbtn">
+                <button type="button" class="btn btn-primary" (click)="Save(0,0,form10)">Add</button>
+              </div>
+              <div class="col-sm-5 marginbtn">
+                <button type="button" class="btn" (click)="Cancel(form10)">Cancel</button>
+              </div>
+            </div>
+      </div>
+    </div>
+    </form>
+    <form id="machine" #form11="ngForm" name="formMaster" style="display: none;">
+    <div  name="divMaster" class="form-horizontal col-md-6 margin" >
+        <div class="form-group">
+            <label class="control-label col-sm-3">Machine Name :</label>
+            <div class="col-sm-6">
+               <input type="text" required #mname="ngModel" [(ngModel)]="machinee.MachineName" class="form-control" name="DistrictName" >
+               <div *ngIf="agen.errors?.required && formSubmit && masterScreen=='machine'" [ngClass] = "'error'"> 
+                Machine Name required. 
+                </div>
+              </div>
+     </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Machine Type :</label>
+            <div class="col-sm-6">
+                <select required class="form-control" #typ="ngModel" [(ngModel)]="machinee.MachineType"  name="StateID">
+                    <option >Finance</option>    
+                    <option >Showroom Agent</option>                         
+                    </select>
+                    <div *ngIf="typ.errors?.required && formSubmit && masterScreen=='machine'" [ngClass] = "'error'"> 
+                      Machine Type required. 
+                      </div>
+     </div>
+     </div>
+     <div class="form-group">
+        <label class="control-label col-sm-3">Showroom Agent :</label>
+        <div class="col-sm-6">
+            <select class="form-control" required #agen="ngModel" [(ngModel)]="machinee.AgentID"  name="StateID">
+              <option  *ngFor="let sa of AllSagent" value="{{sa.AgentID}}">{{sa.AgentName}}
+              </option>                         
+             </select>
+             <div *ngIf="agen.errors?.required && formSubmit && masterScreen=='machine'" [ngClass] = "'error'"> 
+               Agent Name required. 
+               </div>
+ </div>
+ </div>
+  </div>
+  <div class="form-horizontal col-md-12">
+    <div class="col-sm-2"></div>
+      <div class="col-md-2 ">
+         
+        <div class=" form-group">
+            <div class="col-sm-5 marginbtn">
+                <button type="button" class="btn btn-primary" (click)="Save(0,0,form11)">Add</button>
+              </div>
+              <div class="col-sm-5 marginbtn">
+                <button type="button" class="btn" (click)="Cancel(form11)">Cancel</button>
+              </div>
+            </div>
+      </div>
+    </div>
+  </form>
+              </div>
+             
+              <div class="row">
+                  <div id="branchtable" name="divTable" class="form-horizontal col-md-12" >
+                                <div class="table table-responsive left">
+                                <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                <tr>
+                                <th class="col-md-2">Company Name</th>
+                                 <th class="col-md-2">Branch Name</th>
+                                 <th class="col-md-2">Address</th>
+                                 <th class="col-md-1">Phone No</th>
+                                 <th class="col-md-1">Whatsapp No</th>
+                                 <th class="col-md-2">EMail</th>
+                                 <th class="col-md-2"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor= 'let index of pagedItems let i=index' >
+                                <td class="col-md-2" contenteditable="true">
+                                  <select class="form-control"  id="bCID{{i}}">
+                                    <option *ngFor="let drop of Company"   value="{{drop.dropdownKey}}" [selected]="drop.dropdownKey==index.CompanyID" >
+                                        {{drop.dropdownName}}
+                                     </option>                         
+                                    </select>
+                                </td>
+                                <td class="col-md-2" id="bname{{i}}" contenteditable="true">{{index.BranchName}}</td>
+                                <td class="col-md-2" id="baddress{{i}}" contenteditable="true">{{index.Address}}</td>
+                                <td class="col-md-1" id="bphone{{i}}" contenteditable="true">{{index.PhoneContact}}</td>
+                                <td class="col-md-1" id="bwphone{{i}}" contenteditable="true">{{index.WhatsappContact}}</td>
+                                <td class="col-md-2" id="bemail{{i}}" contenteditable="true">{{index.EmailID}}</td>
+                                <td>
+                                        <div class="form-horizontal">
+                                                <div class="col-sm-4">
+                                                    <button type="button" (click)="Save(index.BranchID,i,'')" class="btn btn-primary">Save</button>
+                                                  </div>
+                                                  <div class="col-sm-4">
+                                                    <button type="button" (click)="Delete(index.BranchID)" class="btn btn-primary">Delete</button>
+                                                  </div>
+                                                </div>  
+                                </td>
+                                </tr>
+                    
+                                </tbody>
+                                </table>
+                                </div>
+                                
+                  </div>
+                  <div id="statetable" name="divTable" class="form-horizontal col-md-6" style="display: none">
+                      <div class="table table-responsive">
+                      <table class="table table-bordered table-striped table-hover">
+                      <thead>
+                      <tr>
+                      <th class="col-md-4">State Name</th>                      
+                       <th class="col-md-2"></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let state of pagedItems let i=index" >
+                      <td class="col-md-4" id="sname{{i}}" contenteditable="true">{{state.dropdownName}}</td>
+                      <td>
+                              <div class="form-horizontal">
+                                      <div class="col-sm-4">
+                                          <button type="button" class="btn btn-primary" (click)="Save(state.dropdownKey,i,'')">Save</button>
+                                        </div>
+                                        <div class="col-sm-4">
+                                          <button type="button" class="btn btn-primary" (click)="Delete(state.dropdownKey)" >Delete</button>
+                                        </div>
+                                      </div>  
+                      </td>
+                      </tr>
+          
+                      </tbody>
+                      </table>
+                      </div>
+                      
+        </div>
+        <div id="districttable" name="divTable" class="form-horizontal col-md-6" style="display: none"> 
+            <div class="table table-responsive">
+            <table  class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+            <th class="col-md-2">District Name</th> 
+            <th class="col-md-2">State</th>                                  
+             <th class="col-md-2"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let dis of pagedItems let i=index" >
+            <td class="col-md-2" id="dname{{i}}" contenteditable="true">{{dis.DistrictName}}</td>
+            <td class="col-md-2">
+            <select class="form-control" id="sid{{i}}"  name="StateID">
+              <option *ngFor="let drop of Allstate"   value="{{drop.dropdownKey}}" [selected]="drop.dropdownKey==dis.StateID" >
+                {{drop.dropdownName}}
+             </option>                       
+                </select>
+              </td>
+            <td>
+                    <div class="form-horizontal">
+                            <div class="col-sm-4">
+                                <button type="button" class="btn btn-primary" (click)="Save(dis.DistrictID,i,'')">Save</button>
+                              </div>
+                              <div class="col-sm-4">
+                                <button type="button" class="btn btn-primary" (click)="Delete(dis.DistrictID)">Delete</button>
+                              </div>
+                            </div>  
+            </td>
+            </tr>
+
+            </tbody>
+            </table>
+            </div>
+            
+</div>
+<div id="taluktable" name="divTable"  class="form-horizontal col-md-6" style="display: none"> 
+    <div class="table table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+    <th class="col-md-2">Taluk Name</th> 
+    <th class="col-md-2">District</th>                                  
+     <th class="col-md-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let t of pagedItems let i=index">
+    <td class="col-md-2" id="tname{{i}}" contenteditable="true">{{t.TalukName}}</td>
+    <td class="col-md-2">
+    <select class="form-control"  name="StateID"  id="did{{i}}" >
+        <option *ngFor="let d of AllDistrict" value="{{d.DistrictID}}" [selected]="d.DistrictID==t.DistrictID" >{{d.DistrictName}}</option>    
+                               
+        </select>
+      </td>
+    <td>
+            <div class="form-horizontal">
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Save(t.TalukID,i,'')">Save</button>
+                      </div>
+                      <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Delete(t.TalukID)">Delete</button>
+                      </div>
+                    </div>  
+    </td>
+    </tr>
+
+    </tbody>
+    </table>
+    </div>
+    
+</div>
+<div id="linetable" name="divTable"  class="form-horizontal col-md-6" style="display: none">  
+    <div class="table table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+    <th class="col-md-2">Line Name</th> 
+    <th class="col-md-2">Branch</th>                                  
+     <th class="col-md-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let l of pagedItems let i=index">
+    <td class="col-md-2" id="lname{{i}}" contenteditable="true">{{l.TalukName}}</td>
+    <td class="col-md-2">
+    <select class="form-control" id="bid{{i}}"  name="StateID" >
+        <option *ngFor="let b of Allbranch" value="{{b.BranchID}}" [selected]="b.BranchID==l.DistrictID">{{b.BranchName}}</option>                           
+        </select>
+      </td>
+    <td>
+            <div class="form-horizontal">
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Save(l.TalukID,i,'')" >Save</button>
+                      </div>
+                      <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Delete(l.TalukID)">Delete</button>
+                      </div>
+                    </div>  
+    </td>
+    </tr>
+
+    </tbody>
+    </table>
+    </div>
+    
+</div>
+<div id="areatable" name="divTable"  class="form-horizontal col-md-8" style="display: none"> 
+    <div class="table table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+    <th class="col-md-2">Area Name</th> 
+    <th class="col-md-2">Taluk</th>   
+    <th class="col-md-2">Line</th>                                 
+     <th class="col-md-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let a of pagedItems let i=index">
+    <td class="col-md-2" id="aname{{i}}" contenteditable="true">{{a.AreaName}}</td>
+    <td class="col-md-2">
+    <select class="form-control"  name="StateID" id="tid{{i}}">
+        <option *ngFor="let t1 of AllTaluk" value="{{t1.TalukID}}" [selected]="t1.TalukID==a.TalukID">{{t1.TalukName}}</option>                             
+        </select>
+      </td>
+      <td class="col-md-2">
+          <select class="form-control" id="lid{{i}}"  name="StateID">
+              <option *ngFor="let l of AllLine" value="{{l.TalukID}}" [selected]="l.TalukID==a.LineID">{{l.TalukName}}</option>                           
+              </select>
+            </td>
+    <td>
+            <div class="form-horizontal">
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Save(a.AreaID,i,'')">Save</button>
+                      </div>
+                      <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Delete(a.AreaID)">Delete</button>
+                      </div>
+                    </div>  
+    </td>
+    </tr>
+
+    </tbody>
+    </table>
+    </div>
+    
+</div>
+<div id="sareatable"name="divTable"  class="form-horizontal col-md-6" style="display: none">  
+    <div class="table table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+    <th class="col-md-2">Sub Area Name</th> 
+    <th class="col-md-2">Area</th>                                  
+     <th class="col-md-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let s of pagedItems let i=index">
+    <td class="col-md-2" id="saname{{i}}" contenteditable="true">{{s.TalukName}}</td>
+    <td class="col-md-2">
+    <select class="form-control"  name="StateID" id="aId1{{i}}" >
+        <option *ngFor="let aa of AllArea" value="{{aa.AreaID}}" [selected]="aa.AreaID==s.DistrictID">{{aa.AreaName}}</option>                            
+        </select>
+      </td>
+    <td>
+            <div class="form-horizontal">
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Save(s.TalukID,i,'')">Save</button>
+                      </div>
+                      <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Delete(s.TalukID)">Delete</button>
+                      </div>
+                    </div>  
+    </td>
+    </tr>
+
+    </tbody>
+    </table>
+    </div>
+    
+</div>
+<div id="uroletable" name="divTable"  class="form-horizontal col-md-6" style="display: none">  
+    <div class="table table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+    <th class="col-md-2">User</th> 
+    <th class="col-md-2">Function</th>                                  
+     <th class="col-md-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let role of pagedItems let i=index">
+    <td class="col-md-2">
+        <select class="form-control" id="urname{{i}}" name="StateID">
+            <option *ngFor="let drop of AllUser" value="{{drop.UserID}}" [selected]="drop.UserID==role.DistrictID">{{drop.UserName}}</option>                           
+            </select>
+    </td>
+    <td class="col-md-2">
+    <select class="form-control" id="uruid{{i}}"  name="RoleID">
+        <option [selected]="role.TalukName=='Loan Request'">Loan Request</option>    
+        <option [selected]="role.TalukName=='Collection'">Collection</option>
+        <option [selected]="role.TalukName=='Verification'">Verification</option>                         
+        <option [selected]="role.TalukName=='Android Collection'">Android Collection</option>
+        <option [selected]="role.TalukName=='Android Verification'" >Android Verification</option>
+        </select>
+      </td>
+    <td>
+            <div class="form-horizontal">
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Save(role.TalukID,i,'')" >Save</button>
+                      </div>
+                      <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Delete(role.TalukID)">Delete</button>
+                      </div>
+                    </div>  
+    </td>
+    </tr>
+
+    </tbody>
+    </table>
+    </div>
+    
+</div>
+<div id="mlinetable" name="divTable"  class="form-horizontal col-md-6" style="display: none">  
+    <div class="table table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+    <th class="col-md-2">Machine</th> 
+    <th class="col-md-2">Line</th>                                  
+     <th class="col-md-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let ml of pagedItems let i=index">
+    <td class="col-md-2">
+      <select class="form-control" id="macl{{i}}" name="StateID">
+        <option *ngFor="let drop of AllMachine" value="{{drop.MachineID}}" [selected]="drop.MachineID==ml.MachineID">{{drop.MachineName}}</option>                           
+        </select>
+    </td>
+    <td class="col-md-2">
+      <select class="form-control" id="macline{{i}}" name="StateID">
+        <option *ngFor="let drop of AllLine" value="{{drop.TalukID}}" [selected]="drop.TalukID==ml.LineID">{{drop.TalukName}}</option>                           
+        </select>
+      </td>
+    <td>
+            <div class="form-horizontal">
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Save(ml.MachineLineID,i,'')">Save</button>
+                      </div>
+                      <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Delete(ml.MachineLineID)">Delete</button>
+                      </div>
+                    </div>  
+    </td>
+    </tr>
+
+    </tbody>
+    </table>
+    </div>
+    
+</div>
+<div id="machinetable" name="divTable"  class="form-horizontal col-md-8" style="display: none">  
+    <div class="table table-responsive">
+    <table  class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+    <th class="col-md-2">Machine Name</th> 
+    <th class="col-md-2">Machine Type</th> 
+    <th class="col-md-2">Showroom Agent</th>                                   
+     <th class="col-md-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let mat of pagedItems let i=index">
+      <td class="col-md-2" id="ma{{i}}" contenteditable="true">{{mat.MachineName}}</td>
+    <td class="col-md-2">
+        <select class="form-control" id="ty{{i}}"  name="StateID">
+            <option [selected]="mat.MachineType=='Finance'" >Finance</option>    
+            <option [selected]="mat.MachineType=='Showroom Agent'">Showroom Agent</option>                         
+            </select>
+    </td>
+    <td class="col-md-2">
+      <select class="form-control" id="maa{{i}}"  name="StateID">
+        <option *ngFor="let aa of AllSagent" value="{{aa.AgentID}}" [selected]="mat.AgentID==aa.AgentID">{{aa.AgentName}}</option>                         
+        </select>
+      </td>
+    <td>
+            <div class="form-horizontal">
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Save(mat.MachineID,i,'')">Save</button>
+                      </div>
+                      <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Delete(mat.MachineID)">Delete</button>
+                      </div>
+                    </div>  
+    </td>
+    </tr>
+
+    </tbody>
+    </table>
+    </div>
+    
+</div>
+<div id="agenttable" name="divTable" class="form-horizontal col-md-12" style="display: none" >
+    <div class="table table-responsive left">
+    <table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+    <th class="col-md-2">Agent Name</th>
+     <th class="col-md-2">Address</th>
+     <th class="col-md-1">Area</th>
+     <th class="col-md-2">Contact Person</th>
+     <th class="col-md-1">Contact Number</th>
+     <th class="col-md-1">Alternate Contact Number</th>
+     <th class="col-md-1">Loan Category</th>
+     <th class="col-md-2"></th>
+    </tr >
+    </thead>
+    <tbody>
+    <tr *ngFor="let ag of pagedItems let i=index">
+    <td class="col-md-2" id="sagname{{i}}" contenteditable="true">{{ag.AgentName}}</td>
+    <td class="col-md-2" id="sagaddress{{i}}" contenteditable="true">{{ag.Address}}</td>
+    <td class="col-md-1">
+        <select class="form-control" id="sagarea{{i}}"  name="StateID">
+            <option *ngFor="let ar of AllArea" value="{{ar.AreaID}}" [selected]="ar.AreaID==ag.AreaID">{{ar.AreaName}}</option>                         
+            </select>
+    </td>
+    <td class="col-md-2" contenteditable="true" id="sagCPerson{{i}}">{{ag.ContactPerson}}</td>
+    <td class="col-md-1" contenteditable="true" id="sagPContact{{i}}">{{ag.PrimaryContact}}</td>
+    <td class="col-md-1" contenteditable="true" id="sagSContact{{i}}">{{ag.SecondaryContact}}</td>
+    
+    <td class="col-md-1">
+        <select class="form-control" id="sagloan{{i}}"  name="StateID">
+            <option [selected]="ag.LoanCategory=='Home Appliances'" >Home Appliances</option>
+                      <option [selected]="ag.LoanCategory=='Vehicle'">Vehicle</option>
+                      <option [selected]="ag.LoanCategory=='Gold'">Gold</option>
+                      <option [selected]="ag.LoanCategory=='Business'">Business</option>
+                      <option [selected]="ag.LoanCategory=='Property'">Property</option>
+                      <option [selected]="ag.LoanCategory=='Housing'">Housing</option>
+                      <option [selected]="ag.LoanCategory=='Personal'">Personal</option>
+                      <option [selected]="ag.LoanCategory=='Education'">Education</option>                        
+            </select>
+    </td>
+    <td>
+            <div class="form-horizontal">
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Save(ag.AgentID,i,'')" >Save</button>
+                      </div>
+                      <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Delete(ag.AgentID)">Delete</button>
+                      </div>
+                    </div>  
+    </td>
+    </tr>
+
+    </tbody>
+    </table>
+    </div>
+    
+</div>
+<div id="usertable" name="divTable" class="form-horizontal col-md-12" style="display: none">
+    <div class="table table-responsive left">
+    <table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+    <th class="col-md-1">User Name</th>
+     <th class="col-md-1">Password</th>
+     <th class="col-md-2">Full Name</th>
+     <th class="col-md-2">User Designation</th>
+     <th class="col-md-2">Company</th>
+     <th class="col-md-1">User Type</th>
+     <th class="col-md-1">Showroom Agent</th>
+     <th class="col-md-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let us of pagedItems let i=index">
+    <td class="col-md-1" contenteditable="true" id="uuname{{i}}">{{us.UserName}}</td>
+    <td class="col-md-1" contenteditable="true" id="upwd{{i}}">{{us.Password}}</td>
+    <td class="col-md-2" contenteditable="true" id="uname{{i}}">{{us.Name}}</td>
+    <td class="col-md-2" contenteditable="true" id="udesign{{i}}">{{us.Designation}}</td>
+    <td class="col-md-2">
+        <select class="form-control" id="ucid{{i}}"  name="StateID">
+            <option *ngFor="let drop of Company"   value="{{drop.dropdownKey}}" [selected]="drop.dropdownKey==us.CompanyID" >
+                {{drop.dropdownName}}
+             </option>                          
+            </select>
+    </td>
+    <td class="col-md-1">
+        <select class="form-control" id="uutype{{i}}"  name="StateID">
+            <option [selected]="us.UserType=='Finance'">Finance</option>    
+            <option [selected]="us.UserType=='Showroom Agent'">Showroom Agent</option>                        
+            </select>
+    </td>
+    <td class="col-md-1">
+        <select class="form-control" id="uaid{{i}}"  name="StateID">
+            <option *ngFor="let drop of AllSagent"   value="{{drop.AgentID}}" [selected]="drop.AgentID==us.AgentID" >
+                {{drop.AgentName}}
+             </option>                        
+            </select>
+    </td>   
+    <td>
+            <div class="form-horizontal">
+                    <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Save(us.UserID,i,'')" >Save</button>
+                      </div>
+                      <div class="col-sm-4">
+                        <button type="button" class="btn btn-primary" (click)="Delete(us.UserID)" >Delete</button>
+                      </div>
+                    </div>  
+    </td>
+    </tr>
+
+    </tbody>
+    </table>
+    </div>
+    
+</div>
+<!-- pager -->
+
+              </div>
+              <div style="text-align: center" id="pager">
+                  <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                     <li [ngClass]="{disabled:pager.currentPage === 1}">
+                         <a (click)="setPage(1)">First</a>
+                     </li>
+                     <li [ngClass]="{disabled:pager.currentPage === 1}">
+                         <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                     </li>
+                     <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                         <a (click)="setPage(page)">{{page}}</a>
+                     </li>
+                     <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                         <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                     </li>
+                     <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                         <a (click)="setPage(pager.totalPages)">Last</a>
+                     </li>
+                 </ul>
+               </div>
+          </form>
+        </div>
+    </div>
+    </div>

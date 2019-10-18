@@ -1,0 +1,26 @@
+.margin
+{
+    margin-top:30px;
+    
+}
+.marginbtn
+{
+    margin-top:10px;
+}
+select>option{
+    padding-top: 5px;
+
+}
+.table-responsive
+{
+    margin-left: 30px;
+}
+.left
+{
+    margin-left: 0px;
+}
+.error
+{
+    color: red;
+    font-size: 12px;
+}
