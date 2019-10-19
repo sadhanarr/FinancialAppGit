@@ -37,7 +37,8 @@ import { PagerService } from './pager.service';
       {path: 'LoanReqSearch',component:LoanReqSearchComponent},
       {path: 'CustomerSearch',component:CustomerSearchComponent},
       {path: 'LoanIssue',component:LoanIssueComponent},
-      {path: 'MasterData',component:MasterScreenComponent}
+      {path: 'MasterData',component:MasterScreenComponent},
+      {path: 'DashboardPage',component:DashboardPageComponent}
     ])
   ],
   providers: [AppService,PagerService],

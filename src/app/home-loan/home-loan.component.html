@@ -101,15 +101,15 @@
 					</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3">Resident Address :</label>
+				<label class="control-label col-sm-3">Communication Address :</label>
 				<div class="col-sm-9">
 					<textarea class="form-control" id="address"></textarea>
 				</div>
             </div>
             <div class="form-group">
-                    <label class="control-label col-sm-3">Communication Address :</label>
+                    <label class="control-label col-sm-3">Permanent Address:</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" id="communicationAddress"></textarea>
+                        <textarea class="form-control" id="permanentAddr"></textarea>
                     </div>
                 </div>
 			<div class="form-group">
@@ -175,15 +175,15 @@
 			</div>
 		</div>
 		<div class="form-group">
-				<label class="control-label col-sm-3">Resident Address :</label>
+				<label class="control-label col-sm-3">Communication Address :</label>
 				<div class="col-sm-7">
 					<textarea class="form-control" id="gaddress"></textarea>
 				</div>
             </div>
             <div class="form-group">
-                    <label class="control-label col-sm-3">Communication Address :</label>
+                    <label class="control-label col-sm-3">Permanent Address:</label>
                     <div class="col-sm-7">
-                        <textarea class="form-control" id="communicationAddress"></textarea>
+                        <textarea class="form-control" id="permanentAddr"></textarea>
                     </div>
                 </div>
 			<div class="form-group">
@@ -630,8 +630,11 @@
                               <div class="col-md-3">
                                     <div class="form-group">
                                             <div class="text-right col-sm-6">
-                                              <button type="button" class="btn btn-primary" id="addEntry">ADD ENTRY</button>
+                                              <button type="button" class="btn btn-primary" id="addEntry">ADD</button>
                                           </div>
+                                          <div class="col-sm-3">
+                                            <button type="button"  class="btn btn-primary glyphicon glyphicon-print"></button>
+                                          </div>   
                                           </div>
                               </div>
                           </div>
@@ -666,14 +669,13 @@
                                           <td>msmms</td>
                                           <td>mm345</td>
                                           <td>zzz</td>
-                                          <td> <div class="form-horizontal">
-                                                <div class="col-sm-4">
-                                                    <button type="button" class="btn btn-primary">Delete</button>
+                                          <td>
+                                                <div class="col-sm-3">
+                                                    <button type="button" class="btn btn-primary glyphicon glyphicon-pencil"></button>
                                                   </div>
-                                                  <div class="col-sm-4">
-                                                    <button type="button"  class="btn btn-primary">Print Receipt</button>
+                                                  <div class="col-sm-3">
+                                                    <button type="button" class="btn btn-primary glyphicon glyphicon-remove"></button>
                                                   </div>
-                                                </div>   
                                           </td>
                                           </tr>
                                       </tbody>
@@ -891,17 +893,18 @@
              <thead>
              <tr>
              <th class="col-md-3">S.No</th>
-              <th class="col-md-4">Proof Type</th>
-              <th class="col-md-5">Proof</th>
+              <th class="col-md-3">Proof Type</th>
+              <th class="col-md-3">Proof</th>
+              <th class="col-md-3">ID</th>
               
              </tr>
              </thead>
              <tbody>
              <tr >
              <td class="col-md-3">1</td>
-             <td class="col-md-4">Aadhar</td>
-             <td class="col-md-5"><a>aadhar.jpg</a></td>
-            
+             <td class="col-md-3">Aadhar</td>
+             <td class="col-md-3"><a>aadhar.jpg</a></td>
+            <td class="col-md-3">123456789</td>  
              </tr>
   
              </tbody>
