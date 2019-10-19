@@ -1,16 +1,98 @@
   <div class="container-fluid">
-      <nav class="navbar navbar-inverse">
-
-          <div class="navbar-header">
-            <a class="navbar-brand">Navaladi Marudham</a>
+  <div class='panel panel-primary'>
+      <div class='panel-heading'>
+          <h4>Dashboard</h4>
+      </div>
+      <div class='panel-body' id="dashboardPanel">
+      <form>
+        <div class="row">
+          <div class="form-horizontal col-md-4">
+            <div class="form-group">
+                <label class="control-label col-sm-3" >From Date :</label>
+                <div class="col-sm-6">
+                   <ejs-datepicker id='datepicker1' placeholder='Select a date' [value]= 'dateValue' ></ejs-datepicker>    
+                </div>
+            </div>
           </div>
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="../loan-req-search/loan-req-search.component.html">Loan Request</a></li>
-            <li><a href="../loan-issue/loan-issue.component.html">Loan Issue</a></li>
-            <li><a href="#">Customer Details</a></li>
-          </ul>
-         </nav>
-  <div class=row>
-    <router-outlet></router-outlet>
+            <div class="form-horizontal col-md-4">
+            <div class="form-group">
+                <label class="control-label col-sm-3" >To Date :</label>
+                <div class="col-sm-6">
+                   <ejs-datepicker id='datepicker2' placeholder='Select a date' [value]= 'dateValue' ></ejs-datepicker>    
+                </div>
+            </div>
+            </div>
+          <div class="form-horizontal col-md-4">
+              <div class="form-group">
+                  <button type="submit" id="summary" class="btn btn-primary">Show Summary</button>
+              </div>
+          </div>
+    <div class="table table-responsive" >
+      <table class="table table-bordered table-striped table-hover">
+      <thead>
+      <tr>
+      <th class="col-md-3">S.No</th>
+       <th class="col-md-3">Index Names</th>
+       <th class="col-md-3">Loans</th>
+       <th class="col-md-3">Amount</th>
+       
+      </tr>
+      </thead>
+      <tbody>
+      <tr >
+      <td class="col-md-3">1</td>
+      <td class="col-md-3">Customer Request</td>
+      <td class="col-md-3">0</td>
+     <td class="col-md-3">0</td>  
+      </tr>
+      <tr >
+          <td class="col-md-3">2</td>
+          <td class="col-md-3">Agent Request</td>
+          <td class="col-md-3">0</td>
+         <td class="col-md-3">0</td>  
+      </tr>
+      <tr >
+        <td class="col-md-3">3</td>
+        <td class="col-md-3">Enquiry</td>
+        <td class="col-md-3">0</td>
+        <td class="col-md-3">0</td>  
+        </tr>
+        <tr >
+            <td class="col-md-3">4</td>
+            <td class="col-md-3">Approved</td>
+            <td class="col-md-3">0</td>
+           <td class="col-md-3">0</td>  
+            </tr>
+            <tr >
+                <td class="col-md-3">5</td>
+                <td class="col-md-3">Rejected</td>
+                <td class="col-md-3">0</td>
+               <td class="col-md-3">0</td>  
+                </tr>
+                <tr >
+                    <td class="col-md-3">6</td>
+                    <td class="col-md-3">Issued</td>
+                    <td class="col-md-3">0</td>
+                   <td class="col-md-3">0</td>  
+                    </tr>
+                    <tr >
+                        <td class="col-md-3">7</td>
+                        <td class="col-md-3">Collection</td>
+                        <td class="col-md-3">0</td>
+                       <td class="col-md-3">0</td>  
+                        </tr>
+                        <tr >
+                            <td class="col-md-3">8</td>
+                            <td class="col-md-3">Closed</td>
+                            <td class="col-md-3">0</td>
+                           <td class="col-md-3">0</td>  
+                            </tr>
+
+      </tbody>
+      </table>
+      </div>
+            </div>
+    </form>
+    </div>
   </div>
   </div>

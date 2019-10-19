@@ -19,7 +19,6 @@
     "@angular/platform-browser": "~8.2.9",
     "@angular/platform-browser-dynamic": "~8.2.9",
     "@angular/router": "~8.2.9",
-    "@types/underscore": "^1.9.3",
     "@syncfusion/ej2-angular-calendars": "^17.3.14",
     "bootstrap": "^3.4.1",
     "jquery": "^3.4.1",
