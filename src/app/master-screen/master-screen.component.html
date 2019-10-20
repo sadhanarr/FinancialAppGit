@@ -972,6 +972,7 @@
     <table  class="table table-bordered table-striped table-hover">
     <thead>
     <tr>
+        <th class="col-md-2">Machine ID</th> 
     <th class="col-md-2">Machine Name</th> 
     <th class="col-md-2">Machine Type</th> 
     <th class="col-md-2">Showroom Agent</th>                                   
@@ -980,6 +981,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let mat of pagedItems let i=index">
+        <td class="col-md-2" id="maID{{i}}" >{{mat.MachineID}}</td>
       <td class="col-md-2" id="ma{{i}}" contenteditable="true">{{mat.MachineName}}</td>
     <td class="col-md-2">
         <select class="form-control" id="ty{{i}}"  name="StateID">

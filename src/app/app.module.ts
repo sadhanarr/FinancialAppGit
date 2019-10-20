@@ -32,6 +32,8 @@ import { PagerService } from './pager.service';
     DatePickerModule,
     BrowserModule,
     RouterModule.forRoot([
+      { path: '', redirectTo: 'DashboardPage', pathMatch: 'full'},
+      { path: '**', redirectTo: 'Welcome', pathMatch: 'full'},
       { path: 'LoanRequest',component:LoanRequestComponent},
       { path: 'HomeLoan',component:HomeLoanComponent},
       {path: 'LoanReqSearch',component:LoanReqSearchComponent},

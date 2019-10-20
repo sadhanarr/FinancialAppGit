@@ -5,3 +5,19 @@ ejs-datepicker>span{
     padding-left: 5px !important;
     height: 36px;
 }
+.btn-primary, .navbar-inverse ,.panel-heading,.pagination>.active>a{
+
+   background-color: #044924 !important;
+    border-color: #044924 !important ;
+}
+.panel-primary
+{
+    border-color: #044924 !important ;
+}
+.nav-tabs>li>a{
+    color:#044924 !important ;
+}
+.navbar-brand 
+{
+    color:white !important;
+}
