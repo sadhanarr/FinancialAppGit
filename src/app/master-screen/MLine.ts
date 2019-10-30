@@ -1,5 +1,5 @@
 export class MLine {
-    constructor(MachineLineID:Number,MachineID:Number,LineID:Number,User:string)
+    constructor(public MachineLineID:Number,public MachineID:Number,public LineID:Number,public User:string)
     {
         
     }

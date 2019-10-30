@@ -1,3 +1,3 @@
 export class Area{
-    constructor(AreaID:Number,AreaName:string,LineID:Number,TalukID:Number,User:string){}
+    constructor(public AreaID:Number,public AreaName:string,public LineID:Number,public TalukID:Number,public User:string){}
 }

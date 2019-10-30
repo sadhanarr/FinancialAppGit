@@ -1,0 +1,21 @@
+export interface ROI {
+      ROICODE:Number,
+        LoanCatID:Number,
+         DUEMAX:Number,
+         DUESTEPS:Number,
+         DUEMIN:Number,
+         DUEROI:Number,
+        ROIMAX:Number,
+        ROIMIN:Number,
+         ADVMIN:Number,
+         ADVSTEPS:Number,
+         ADVMAX:Number,
+         ADVROI:Number,
+         SECMIN:Number,
+         SECSTEPS:Number,
+         SECMAX:Number,
+         SECROI:Number,
+         FROMDATE:Date,
+         TODATE:Date,
+        STATUS:Number
+}

@@ -1,345 +1,438 @@
-<div class="container-fluid"ng-app="">
+<div class="container-fluid" ng-app="">
     <div class='panel panel-primary' ng-controller="LoanRequestController">
-      <div class='panel-heading'>
-         <h4> Loan Request Form</h4>
-      </div>
-      <div class='panel-body' id="panel">
-            <form   >
-        <div class="row">
-         
-          <div class=" form-horizontal col-md-6">
-              <div class="form-group">
-              <label class="control-label col-sm-3" >Request ID :</label>
-                  <div class="col-sm-3 ">
-                  <input class="form-control" type="text"  disabled>
-                  </div>
-                      <label class="control-label col-sm-3" >Request Date :</label>
-                  <div class="col-sm-3 ">
-                     <ejs-datepicker id='datepicker' placeholder='Select a date' [value]= 'dateValue' ></ejs-datepicker>    
-                  </div>
-              </div>
-               <div class="form-group">
-              <label class="control-label col-sm-3" >Company Name :</label>
-                  <div class="col-sm-9 ">
-                    <input class="form-control" type="text" id="companyName" disabled>
-                  </div>
-              </div>
-              <div class="form-group">
-              <label class="control-label col-sm-3" >Branch :</label>
-                  <div class="col-sm-9 ">
-                  <select class="form-control"><option>Cheyyar</option></select>
-                  </div>
-              </div>
-              <div class="form-group">
-                    <label class="control-label col-sm-3" >Customer Status :</label>
-                        <div class="col-sm-9 ">
-                        <select class="form-control">
-                                <option>New</option>
-                                <option>Existing</option>
-                        </select>
-                        </div>
-                    </div>
-              <div class="form-group">
-                <label class="control-label col-sm-3">CustomerID :</label>
-                <div class="col-sm-3">
-                    <input  class = "form-control" type="text" id="customerID" disabled>
-                </div>
-                <div class="col-sm-3 custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="existingCust" name="customerIdRadio" data-toggle="modal" data-target="#CustomerSearch">
-                <label class="custom-control-label" for="existingCust">Existing Customer</label>
-            </div>
-            <div class="col-sm-3 custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="newCustomer"  name="customerIdRadio" checked>
-                <label class="custom-control-label" for="newCustomer">New Customer</label>
-            </div>
-                  </div>
-                  <div class="form-group">
-                      <label class="control-label col-sm-3">Customer Name :</label>
-                      <div class="col-sm-5">
-                          <input class="form-control" type="text" id="customerName">
-                      </div>
-                      <label class="control-label col-sm-2">Init :</label>
-                      <div class="col-sm-2">
-                          <input class="form-control" type="text" id="initial">
-                      </div>
-                  </div>
-                  <div class="form-group">
-                          <label class="control-label col-sm-3">Father Name :</label>
-                          <div class="col-sm-9">
-                              <input class="form-control" type="text" id="fatherNme">
-                          </div>
-                  </div>
-                  <div class="form-group">
-                          <label class="control-label col-sm-3">Mother Name :</label>
-                          <div class="col-sm-9">
-                              <input class="form-control" type="text" id="motherName">
-                          </div>
-                  </div>
-                      <div class="form-group">
-                          <label class="control-label col-sm-3">Gender :</label>
-                          <div class="col-sm-3">
-                              <select class="form-control" id="gender">
-                                  <option>Male</option>
-                                  <option>Female</option>
-                              </select>
-                          </div>
-                          <label class="control-label col-sm-3">Marital Status :</label>
-                          <div class="col-sm-3">
-                              <select class="form-control" id="marital">
-                                  <option>Married</option>
-                                  <option>Single</option>
-                                  <option>Other</option>
-                              </select>
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label class="control-label col-sm-3">Spouse Name :</label>
-                          <div class="col-sm-9">
-                              <input class="form-control" type="text" id="spouseName">
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label class="control-label col-sm-3">Contact No. :</label>
-                          <div class="col-sm-5">
-                              <input type="text" class="form-control" id="contactNum1">
-                          </div>
-                          <div class="col-sm-4">
-                                  <input type="text" class="form-control" id="contactNum2">
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label class="control-label col-sm-3">Aadhar No. :</label>
-                          <div class="col-sm-9">
-                              <input type="text" class="form-control" id="aadhar">
-                          </div>
-                        
-                      </div>
-                      <div class="form-group">
-                            <label class="control-label col-sm-3">Add Photo :</label>
-                            <div class="col-sm-6">
-                                    <input type="file" class="form-control" >
+        <div class='panel-heading'>
+            <h4> Loan Request Form</h4>
+        </div>
+        <div class='panel-body' id="panel">
+            <form #form="ngForm">
+                <div class="row">
+
+                    <div class=" form-horizontal col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Request ID :</label>
+                            <div class="col-sm-3 ">
+                                <input class="form-control" type="text" [(ngModel)]="request.RequestID" name="RID"
+                                    disabled>
                             </div>
-                            <div class="col-sm-3 view">
-                                    <a >View</a>
-                                </div>
-                        </div>
-                      <div class="form-group">
-                          <label class="control-label col-sm-3">State :</label>
-                          <div class="col-sm-3">
-                            <input type="text" class= "form-control" id="state" disabled>
-                          </div>
-                          <label class="control-label col-sm-2">District :</label>
-                          <div class="col-sm-4">
-                              <select class="form-control" id="district">
-                                  <option>Tiruvannamalai</option>
-                              </select>
-                          </div>
-                      </div>
-                      <div class="form-group">
-                              <label class="control-label col-sm-3">Taluk :</label>
-                              <div class="col-sm-3">
-                                  <select class="form-control" id="taluk">
-                                      <option>Cheyyar</option>
-                                  </select>
-                              </div>
-                              <label class="control-label col-sm-2">Area :</label>
-                              <div class="col-sm-4">
-                                  <select class="form-control" id="area">
-                                      <option>Tiruvannamalai</option>
-                                  </select>
-                              </div>
-                      </div>
-              </div>
-              <div class=" form-horizontal col-md-6">
-              <div class="form-group">
-              <label class="control-label col-sm-3" >Loan Category :</label>
-                  <div class="col-sm-4">
-                  <select class="form-control">
-                      <option>Home Appliances</option>
-                      <option>Vehicle</option>
-                      <option>Gold</option>
-                      <option>Business</option>
-                      <option>Property</option>
-                      <option>Housing</option>
-                      <option>Personal</option>
-                      <option>Education</option>
-                    </select>
-                  </div>
-                  
-              </div>
-              <div class="form-group">
-              <label class="control-label col-sm-3" >Showroom/Agent :</label>
-                  <div class="col-sm-3">
-                  <select class="form-control"><option>Anu Honda</option></select>
-                  </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-sm-3" >Agent Responsible:</label>
-                    <div class="col-sm-2">
-                    <select class="form-control"><option>Yes</option></select>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="control-label col-sm-3">Guarantor Name :</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" id="guarantorName">
-                    </div>
-            </div>
-            <div class="form-group">
-                    <label class="control-label col-sm-3">Relationship :</label>
-                    <div class="col-sm-3">
-                        <select class="form-control" id="relationship">
-                            <option>Father</option>
-                            <option>Mother</option>
-                        </select>
-                    </div>
-            </div>
-            <div class="form-group">
-                    <label class="control-label col-sm-3">Contact No. :</label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" id="contactNum3">
-                    </div>
-                    <div class="col-sm-4">
-                            <input type="text" class="form-control" id="contactNum4">
-                    </div>
-                </div>
-                <div class="form-group">
-                        <label class="control-label col-sm-3">Aadhar No. :</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="aadhar2">
-                        </div>
-                        <label class="control-label col-sm-3">Referred By :</label>
-                        <div class="col-sm-3">
-                                <input type="text" class="form-control" id="referred	">
-                            </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">Due Type :</label>
-                        <div class="col-sm-3">
-                            <select class="form-control" ng-model="loan.Type" ng-dropdown required id="dueType">
-                                <option ng-option value="EMI">EMI</option>
-                                <option ng-option value="Interest">Interest</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div id="emi">
-                <div class="form-group">
-                    <label class="control-label col-sm-3">Total Amount :</label>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" id="amount">
-                    </div>
-                    <label class="control-label col-sm-3">Advance Amount :</label>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" id="advance">
-                    </div>
-                </div>
-                <div class="form-group">
-                        <label class="control-label col-sm-3">Loan Amount :</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="loanAmount">
-                        </div>
-                        <label class="control-label col-sm-3">Advance in % :</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="advancePercent">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                            <label class="control-label col-sm-3">Dues :</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="dues">
-                            </div>
-                            <label class="control-label col-sm-3 ">Due Amount :</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="dueAmount">
+                            <label class="control-label col-sm-3">Request Date :</label>
+                            <div class="col-sm-3 ">
+                                <ejs-datepicker id='datepicker' name="datepicker" [(ngModel)]="request.RequestDate"
+                                    placeholder='Select a date' [value]='dateValue'></ejs-datepicker>
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-sm-3">Company Name :</label>
+                            <div class="col-sm-9 ">
+                                <select class="form-control" [(ngModel)]="request.CompanyID" name="CompanyName">
+                                    <option *ngFor="let drop of AllCompany" value="{{drop.dropdownKey}}">
+                                        {{drop.dropdownName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Branch :</label>
+                            <div class="col-sm-9 ">
+                                <select class="form-control" [(ngModel)]="request.BranchID" name="BranchID">
+                                    <option *ngFor="let l of Allbranch" value="{{l.BranchID}}">{{l.BranchName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">CustomerID :</label>
+                            <div class="col-sm-3">
+                                <input name="customerID" class="form-control" [(ngModel)]="request.CustomerID"
+                                    type="text" id="customerID" disabled>
+                            </div>
+                            <div class="col-sm-3 custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="existingCust"
+                                    name="customerIdRadio" data-toggle="modal" data-target="#CustomerSearch">
+                                <label class="custom-control-label" for="existingCust">Existing Customer</label>
+                            </div>
+                            <div class="col-sm-3 custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="newCustomer" name="customerIdRadio"
+                                    checked>
+                                <label class="custom-control-label" for="newCustomer">New Customer</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Customer Name :</label>
+                            <div class="col-sm-5">
+                                <input name="customerName" class="form-control" [(ngModel)]="request.CustomerName"
+                                    type="text" id="customerName">
+                            </div>
+                            <label class="control-label col-sm-2">Init :</label>
+                            <div class="col-sm-2">
+                                <input name="initial" class="form-control" [(ngModel)]="request.Initial" type="text"
+                                    id="initial">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Father Name :</label>
+                            <div class="col-sm-9">
+                                <input name="fatherNme" class="form-control" [(ngModel)]="request.FatherName"
+                                    type="text" id="fatherNme">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Mother Name :</label>
+                            <div class="col-sm-9">
+                                <input name="motherName" class="form-control" [(ngModel)]="request.MotherName"
+                                    type="text" id="motherName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Gender :</label>
+                            <div class="col-sm-3">
+                                <select name="gender" class="form-control" id="gender" [(ngModel)]="request.Gender">
+                                    <option [selected]="request.Gender=='Male'">Male</option>
+                                    <option [selected]="request.Gender=='Female'">Female</option>
+                                </select>
+                            </div>
+                            <label class="control-label col-sm-3">Marital Status :</label>
+                            <div class="col-sm-3">
+                                <select name="marital" class="form-control" id="marital"
+                                    [(ngModel)]="request.MaritalStatus">
+                                    <option [selected]="request.MaritalStatus=='Married'">Married</option>
+                                    <option [selected]="request.MaritalStatus=='Single'">Single</option>
+                                    <option [selected]="request.MaritalStatus=='Other'">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Spouse Name :</label>
+                            <div class="col-sm-9">
+                                <input name="spouseName" class="form-control" type="text" id="spouseName"
+                                    [(ngModel)]="request.SpouseName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Contact No. :</label>
+                            <div class="col-sm-5">
+                                <input name="contactNum1" type="text" class="form-control" name="contactNum1"
+                                    [(ngModel)]="request.CustPrimaryContact">
+                            </div>
+                            <div class="col-sm-4">
+                                <input name="contactNum2" type="text" class="form-control" name="contactNum2"
+                                    [(ngModel)]="request.CustSecondaryContact">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Communication Address :</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" name="address" [(ngModel)]="request.CommunicationAddress"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Aadhar No. :</label>
+                            <div class="col-sm-9">
+                                <input name="aadhar" type="text" class="form-control" id="aadhar"
+                                    [(ngModel)]="request.CustAadhar">
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Add Photo :</label>
+                            <div class="col-sm-6">
+                                <input type="file" class="form-control" (change)="onFileChanged($event)">
+                            </div>
+                            <div class="col-sm-3 view">
+                                <a (click)="preview()">View</a>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="image-preview col-sm-6" *ngIf="showImage">
+                                <img [src]="imagePreview" style="height: 150px;">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">State :</label>
+                            <div class="col-sm-3">
+                                <select class="form-control" [(ngModel)]="request.StateID" name="StateID">
+                                    <option *ngFor="let st of AllState" value="{{st.dropdownKey}}">
+                                        {{st.dropdownName}}
+                                    </option>
+                                </select>
+                            </div>
+                            <label class="control-label col-sm-2">District :</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" [(ngModel)]="request.DistrictID" name="DistrictID">
+                                    <option *ngFor="let t of AllDistrict" value="{{t.DistrictID}}">
+                                        {{t.DistrictName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Taluk :</label>
+                            <div class="col-sm-3">
+                                <select class="form-control" [(ngModel)]="request.TalukID" name="TalukID">
+                                    <option *ngFor="let i of AllTaluk" value="{{i.TalukID}}">{{i.TalukName}}
+                                    </option>
+                                </select>
+                            </div>
+                            <label class="control-label col-sm-2">Area :</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" [(ngModel)]="request.AreaID" name="AreaID">
+                                    <option *ngFor="let sa of AllArea" value="{{sa.AreaID}}">{{sa.AreaName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" form-horizontal col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Loan Category :</label>
+                            <div class="col-sm-4">
+                                <select required #LName="ngModel" class="form-control" [(ngModel)]="request.LoanCatID"
+                                    name="LoanCatID">
+                                    <option *ngFor="let sa of LoanCategory" value="{{sa.dropdownKey}}">
+                                        {{sa.dropdownName}}
+                                    </option>
+                                </select>
+                                <div *ngIf="LName.errors?.required && formSubmit" [ngClass]="'error'">
+                                    Loan Category required.
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Showroom/Agent :</label>
+                            <div class="col-sm-3">
+                                <select class="form-control" [(ngModel)]="request.AgentID" name="AgentID">
+                                    <option *ngFor="let drop of AllSagent" value="{{drop.AgentID}}">
+                                        {{drop.AgentName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Agent Responsible:</label>
+                            <div class="col-sm-2">
+                                <select class="form-control" name="AgentRes" [(ngModel)]="request.AgentResponsibility">
+                                    <option>Yes</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Guarantor Name :</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="guarantorName" [(ngModel)]="request.GuarantorName"
+                                    class="form-control" id="guarantorName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Relationship :</label>
+                            <div class="col-sm-3">
+                                <select class="form-control" name="relationship" id="relationship"
+                                    [(ngModel)]="request.Relationship">
+                                    <option>Father</option>
+                                    <option>Mother</option>
+                                    <option>Son</option>
+                                    <option>Daughter</option>
+                                    <option>Husband</option>
+                                    <option>Wife</option>
+                                    <option>Brother</option>
+                                    <option>Sister</option>
+                                    <option>Friend</option>
+                                    <option>Uncle</option>
+                                    <option>Aunty</option>
+                                    <option>Brother in Law</option>
+                                    <option>Sister in Law</option>
+                                    <option>Son in Law</option>
+                                    <option>Daughter in Law</option>
+                                    <option>Father in Law</option>
+                                    <option>Mother in Law</option>
+                                    <option>Cousin</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Contact No. :</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="contactNum3" class="form-control" id="contactNum3"
+                                    [(ngModel)]="request.GContact1">
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" name="contactNum4" class="form-control" id="contactNum4"
+                                    [(ngModel)]="request.GContact2">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Aadhar No. :</label>
+                            <div class="col-sm-3">
+                                <input type="text" name="aadhar2" class="form-control" id="aadhar2"
+                                    [(ngModel)]="request.GAadhar">
+                            </div>
+                            <label class="control-label col-sm-3">Referred By :</label>
+                            <div class="col-sm-3">
+                                <input type="text" name="referred" class="form-control" id="referred"
+                                    [(ngModel)]="request.ReferedBy">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Due Type :</label>
+                            <div class="col-sm-3">
+                                <select class="form-control" name="dueType" [(ngModel)]="request.DueType" ng-dropdown
+                                    required id="dueType">
+                                    <option ng-option value="EMI">EMI</option>
+                                    <option ng-option value="Interest">Interest</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="emi">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Total Amount :</label>
+                                <div class="col-sm-3">
+                                    <input type="text"  #tAmt="ngModel" name="amount" (focusout)="OnChange()"
+                                        numeric numericType="number" [(ngModel)]="request.TotalAmt" class="form-control"
+                                        id="amount">
+                                    <div *ngIf="tAmt.errors?.required && formSubmit && request.DueType=='EMI'"
+                                        [ngClass]="'error'">
+                                        Total Amount required.
+                                    </div>
+                                </div>
+                                <label class="control-label col-sm-3">Advance Amount :</label>
+                                <div class="col-sm-3">
+                                    <input type="text"  #AAmt="ngModel" name="advance" (focusout)="OnChange()"
+                                        numeric numericType="number" class="form-control" id="advance"
+                                        [(ngModel)]="request.AdvanceAmt">
+                                    <div *ngIf="AAmt.errors?.required && formSubmit && request.DueType=='EMI'"
+                                        [ngClass]="'error'">
+                                        Advance Amount required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Loan Amount :</label>
+                                <div class="col-sm-3">
+                                    <input type="text" name="loanAmount" disabled class="form-control" id="loanAmount"
+                                        [(ngModel)]="request.LoanAmt">
+                                </div>
+                                <label class="control-label col-sm-3">Advance in % :</label>
+                                <div class="col-sm-3">
+                                    <input name="advancePercent" type="text" disabled class="form-control"
+                                        id="advancePercent" [(ngModel)]="request.AdvRatio">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Dues :</label>
+                                <div class="col-sm-3">
+                                    <input name="dues"  #due="ngModel" type="text" numeric numericType="number"
+                                        (focusout)="OnChange()" class="form-control" id="dues"
+                                        [(ngModel)]="request.LoanPeriod">
+                                    <div *ngIf="due.errors?.required && formSubmit && request.DueType=='EMI'"
+                                        [ngClass]="'error'">
+                                        Dues required.
+                                    </div>
+                                </div>
+                                <label class="control-label col-sm-3 ">Due Amount :</label>
+                                <div class="col-sm-3">
+                                    <input name="dueAmount" type="text" disabled class="form-control" id="dueAmount"
+                                        [(ngModel)]="request.TotalDue">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label col-sm-3">Security Ratio (%) :</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="secRatio">
+                                    <input  #sRat="ngModel" name="secRatio" numeric numericType="number"
+                                        (focusout)="OnChange()" type="text" class="form-control" id="secRatio"
+                                        [(ngModel)]="request.SecRatio">
+                                    <div *ngIf="sRat.errors?.required && formSubmit && request.DueType=='EMI'"
+                                        [ngClass]="'error'">
+                                        Security Ratio required.
+                                    </div>
                                 </div>
                                 <label class="control-label col-sm-3">Rate of Interest :</label>
-                    <div class="col-sm-3">
-                        <input type="text" class="form-control" id="rateOfInt">
-                    </div>
-                    </div>
-                    <div class="form-group">
-                            <label class="control-label col-sm-3">Interest Amount :</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="duration">
-                        </div>
-                        </div>
-                    </div>
-                    <div id="interest" style="display:none">
-                        <div class="form-group" >
-                                <label class="control-label col-sm-3" >Loan Amount :</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="loanAmountInt">
+                                    <input type="text" name="rateOfInt" disabled class="form-control" id="rateOfInt"
+                                        [(ngModel)]="request.RateOfInt">
                                 </div>
-                        </div>
-                        <div class="form-group" >
-                                <label class="control-label col-sm-3">Rate of Interest :</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Interest Amount :</label>
                                 <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="roiInterest">
-                                </div>
-                        </div>
-                        <div class="form-group" >
-                                <label class="control-label col-sm-3">Duration(Months) :</label>
-                                <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="duration">
+                                    <input type="text" name="duration" disabled class="form-control" id="duration"
+                                        [(ngModel)]="request.IntAmount">
                                 </div>
                             </div>
                         </div>
-                          <div class="form-group">
-                                  <label class="control-label col-sm-3">How to know :</label>
-                                  <div class="col-sm-9">
-                                      <select class="form-control" id="toknow">
-                                          <option>Paper Advertisement</option>
-                                          <option>Whatsapp</option>
-                                          <option>Banner Advertisement</option>
-                                      </select>
-                                  </div>
-                          </div>
-                          <div class="form-group">
-                                  <label class="control-label col-sm-3">Status :</label>
-                                  <div class="col-sm-4">
-                                      <select class="form-control" id="status">
-                                          <option>Request</option>
-                                          <option>Approved</option>
-                                          <option>Waitlist</option>
-                                          <option>Cancel</option>
-                                          <option>Revoke</option>
-                                      </select>
-                                  </div>
-                          </div>
-              </div>
-            </div>
-              <div class="row">
-                  <div class="text-right col-sm-6">
-                  <button type="button" class="btn btn-primary">Submit</button>
-              </div>
-              <div class="col-sm-6">
-                  <button type="button" class="btn">Cancel</button>
-              </div>
-              </div>
-              <div id="CustomerSearch" class="modal fade" role="dialog">
-                    <div class="cusSearch modal-dialog">
-                      <!-- Modal content-->
-                      <div class=" modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h4 class="modal-title">Search</h4>
+                        <div id="interest" style="display:none">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Loan Amount :</label>
+                                <div class="col-sm-3">
+                                    <input type="text" name="loanAmountInt" class="form-control" id="loanAmountInt"
+                                    numeric numericType="number"   [(ngModel)]="request.LoanAmt">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Rate of Interest :</label>
+                                <div class="col-sm-3">
+                                    <input type="text" name="roiInterest" class="form-control" id="roiInterest"
+                                    numeric numericType="decimal"  [(ngModel)]="request.RateOfInt">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Duration(Months) :</label>
+                                <div class="col-sm-3">
+                                    <input type="text" name="duration" class="form-control" id="duration"
+                                    numeric numericType="number"   [(ngModel)]="request.LoanPeriod">
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <!-- <iframe src="/CustomerSearch" width="600" height="400"></iframe> -->
-                            <app-customer-search></app-customer-search>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">How to know :</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="toknow" name="toknow" [(ngModel)]="request.HowToKnow">
+                                    <option>Paper Advertisement</option>
+                                    <option>Whatsapp</option>
+                                    <option>Banner Advertisement</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Status :</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="status" id="status" [(ngModel)]="request.ReqStatus">
+                                    <option>Request</option>
+                                    <option>Approved</option>
+                                    <option>Waitlist</option>
+                                    <option>Cancel</option>
+                                    <option>Revoke</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
-              </form>
-              </div>
-              </div>
-              </div>
-  
+                <div class="row">
+                    <div class="text-right col-sm-6">
+                        <button type="button" class="btn btn-primary" (click)="SaveRequest(form)">Submit</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn" (click)="Cancel(form)">Cancel</button>
+                    </div>
+                </div>
+                <div id="CustomerSearch" class="modal fade" role="dialog">
+                    <div class="cusSearch modal-dialog">
+                        <!-- Modal content-->
+                        <div class=" modal-content">
+                            <div class="modal-header">
+                                <button type="button" id="close" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Search</h4>
+                            </div>
+                            <div class="modal-body">
+                                <!-- <iframe src="/CustomerSearch" width="600" height="400"></iframe> -->
+                            </div>
+                            <app-customer-search (messageEvent)="receiveMessage($event)"></app-customer-search>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

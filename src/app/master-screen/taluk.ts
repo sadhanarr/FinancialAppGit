@@ -1,5 +1,5 @@
 export class Taluk{
-    constructor(TalukID:Number, TalukName:string, DistrictID:Number, User:string)
+    constructor(public TalukID:Number,public TalukName:string,public DistrictID:Number,public User:string)
     {
 
     }

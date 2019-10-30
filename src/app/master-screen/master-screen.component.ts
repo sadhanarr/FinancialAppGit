@@ -59,7 +59,8 @@ export class MasterScreenComponent implements OnInit {
 
   ngOnInit() {
     this._appService.getCompany().subscribe((data:any[])=>{
-     this.Company=data
+     this.Company=data;
+     this.saveCall=1;
     });
    this._appService.getBranch().subscribe((data:Branch[])=>{
      this.Allbranch=data
@@ -76,7 +77,7 @@ export class MasterScreenComponent implements OnInit {
    this._appService.getUserRole().subscribe((data:any[])=>{this.AllUserRole=data})
    this._appService.getMachine().subscribe((data:any[])=>{this.AllMachine=data})
    this._appService.getMachineLine().subscribe((data:any[])=>{this.AllMLine=data})
-   this.saveCall=1;
+   
   }
  
   ngAfterViewChecked()
@@ -314,7 +315,7 @@ Save(BranchID:Number,index:Number,form)
    if(BranchID>0)
     {
   this.branch= {BranchID: BranchID,BranchName: $('#bname'+index).text(),CompanyID: Number($( "#bCID"+index+" option:selected" ).val()),CompanyName:'',Address:$('#baddress'+index).text(),
-  PhoneCOntact: $('#bphone'+index).text(),WhatsappContact: $('#bwphone'+index).text(),EmailID: $('#bemail'+index).text()}
+  PhoneContact: $('#bphone'+index).text(),WhatsappContact: $('#bwphone'+index).text(),EmailID: $('#bemail'+index).text()}
    }
    this._appService.InsertBranch(this.branch) 
   }

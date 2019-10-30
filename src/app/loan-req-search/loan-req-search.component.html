@@ -4,14 +4,14 @@
                  <h4>LOAN REQUEST SEARCH</h4>
               </div>
               <div class='panel-body' id="loanReqPanel">
-              <form>
+              <form #form="ngForm">
                 <div class="row">
         
              <div class="form-horizontal col-md-6">
                     <div class="form-group">
                             <label class="control-label col-sm-3" >Status :</label>
                             <div class="col-sm-4">
-                            <select class="form-control">
+                            <select class="form-control" name="Status" [(ngModel)]="requestSearch.Status">
                                 <option>Request</option>
                                 <option>Approved</option>        
                                    <option>Rejected</option>
@@ -22,46 +22,47 @@
                                 </select>
                             </div>
                      </div>
-                 <div class="form-group">
-                        <label class="control-label col-sm-3" >From Date :</label>
-                        <div class="col-sm-4">
-                              <ejs-datepicker id='fromDate' placeholder='Select a date' [value]= 'fromDate' ></ejs-datepicker>
-                        </div>
-                 </div>
+               
                  <div class="form-group">
                     <label class="control-label col-sm-3">Request ID :</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="requestID">
+                        <input type="text" class="form-control" name="requestID" [(ngModel)]="requestSearch.RequestID">
                     </div>
                  </div>
                  <div class="form-group">
                         <label class="control-label col-sm-3">Customer Name :</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="custName">
+                            <input type="text" class="form-control" name="custName" [(ngModel)]="requestSearch.CustName">
                         </div>
                      </div>
                  <div class="form-group">
                      <label class="control-label col-sm-3">Other Name List :</label>
                      <div class="col-sm-4">
-                         <input type="text" class="form-control" id="otherNames">
+                         <input type="text" class="form-control" name="otherNames" [(ngModel)]="requestSearch.OtherName">
                      </div>
                  </div>
                  <div class="form-group">
                      <label class="control-label col-sm-3">Address :</label>
                      <div class="col-sm-4">
-                            <input type="text" class="form-control" id="addrList">
+                            <input type="text" class="form-control" name="addrList" [(ngModel)]="requestSearch.Address"> 
                         </div>
                  </div>
                  <div class="form-group">
                         <label class="control-label col-sm-3">Loan Category :</label>
                         <div class="col-sm-4">
-                               <input type="text" class="form-control" id="loanCategory">
+                            <select  class="form-control"  [(ngModel)]="requestSearch.LoanCategory"  name="category">
+                                <option  *ngFor="let l of LoanCategory" value="{{l.dropdownName}}">{{l.dropdownName}}
+                                </option>                         
+                               </select>
                            </div>
                  </div>
                  <div class="form-group">
                         <label class="control-label col-sm-3">Showroom/Agent :</label>
                         <div class="col-sm-4">
-                               <input type="text" class="form-control" id="showroom">
+                            <select  class="form-control"  [(ngModel)]="requestSearch.AgentName"  name="agent">
+                                <option  *ngFor="let s of AllSagent" value="{{s.AgentName}}">{{s.AgentName}}
+                                </option>                         
+                               </select>
                            </div>
                  </div>
                
@@ -69,45 +70,49 @@
              </div>
              <div class="form-horizontal col-md-6">
                     <div class="form-group">
+                            <label class="control-label col-sm-3" >From Date :</label>
+                            <div class="col-sm-4">
+                                  <ejs-datepicker name='fromDate' placeholder='Select a date'  [(ngModel)]="requestSearch.FromDate" ></ejs-datepicker>
+                            </div>
+                     </div>
+                    <div class="form-group">
                             <label class="control-label col-sm-3" >To Date :</label>
                             <div class="col-sm-4">
-                                  <ejs-datepicker id='fromDate' placeholder='Select a date' [value]= 'toDate' ></ejs-datepicker>
+                                  <ejs-datepicker name='fromDate' placeholder='Select a date'  [(ngModel)]="requestSearch.ToDate" ></ejs-datepicker>
                             </div>
                      </div>
                 <div class="form-group">
                         <label class="control-label col-sm-3">Customer ID :</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="customerId">
+                            <input type="text" class="form-control" name="customerId" [(ngModel)]="requestSearch.CustID"> 
                         </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-3">ID Proof List :</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="proofList">
+                        <input type="text" class="form-control" name="proofList" [(ngModel)]="requestSearch.IDProof">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-3">Contact List :</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="contactList">
+                        <input type="text" class="form-control" name="contactList" [(ngModel)]="requestSearch.ContactList">
                     </div>
                 </div>
-                <div class="form-group">
-                        <label class="control-label col-sm-3">Line :</label>
-                        <div class="col-sm-4">
-                               <input type="text" class="form-control" id="line">
-                           </div>
-                 </div>
+               
                  <div class="form-group">
                         <label class="control-label col-sm-3">Area :</label>
                         <div class="col-sm-4">
-                               <input type="text" class="form-control" id="area">
+                            <select  class="form-control" #li="ngModel" [(ngModel)]="requestSearch.Area"  name="area">
+                                <option  *ngFor="let a of AllArea" value="{{a.AreaName}}">{{a.AreaName}}
+                                </option>                         
+                               </select>
                            </div>
                  </div>
                  <div class="form-group">
                         <label class="control-label col-sm-3">Keyword Search :</label>
                         <div class="col-sm-6">
-                               <input type="text" class="form-control" id="wordSearch">
+                               <input type="text" class="form-control" name="wordSearch" [(ngModel)]="requestSearch.KeywordSearch">
                            </div>
                  </div>
              </div>
@@ -117,7 +122,7 @@
                     <div class="form-horizontal col-md-3">
                        <div class="form-group">
                            <div class="col-sm-8">
-                                   <button type="button" class="btn btn-primary">Search</button>
+                                   <button type="button" class="btn btn-primary" (click)="Search(form)">Search</button>
                            </div>
                     </div>
                     </div>
@@ -128,25 +133,37 @@
                     <thead>
                     <tr>
                     <th class="col-md-2">Request Date</th>
-                     <th class="col-md-2">Request ID</th>
+                     <th class="col-md-1">Request ID</th>
                      <th class="col-md-1">Customer ID</th>
                      <th class="col-md-1">Customer Name</th>
                      <th class="col-md-2">Area</th>
                      <th class="col-md-2">Loan Amount</th>
                     <th class="col-md-1">Agent/Showroom</th>
                     <th class="col-md-1">Status</th>
+                    <th class="col-md-1"></th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr data-toggle="modal" data-target="#loanreqSearchModal">
-                    <td class="col-md-1">10/09/2019</td>
-                    <td class="col-md-1">1</td>
-                    <td class="col-md-2">1</td>
-                    <td class="col-md-2">Kumar</td>
-                    <td class="col-md-2">Erode Fort</td>
-                    <td class="col-md-2">100000</td>
-                    <td class="col-md-2">Sathya Electronics</td>
-                    <td class="col-md-2">Request</td>
+                    <tbody *ngFor="let r of requestAll">
+                    <tr data-toggle="modal" (click)="SaveRequestID(r.RequestID)" data-target="#loanreqSearchModal">
+                    <td class="col-md-1">{{r.RequestDate|date:  "dd/MM/y"}}</td>
+                    <td class="col-md-1">{{r.RequestID}}</td>
+                    <td class="col-md-2">{{r.CustomerID}}</td>
+                    <td class="col-md-2">{{r.CustomerName}}</td>
+                    <td class="col-md-2">
+                        <select  class="form-control"  name="area">
+                            <option  *ngFor="let a of AllArea" value="{{a.AreaID}}" [selected]="a.AreaID==r.AreaID">{{a.AreaName}}
+                            </option>                         
+                           </select>
+                    </td>
+                    <td class="col-md-2">{{r.LoanAmt}}</td>
+                    <td class="col-md-2">
+                        <select  class="form-control"  name="category">
+                            <option  *ngFor="let l of LoanCategory" [selected]="l.dropdownKey==r.LoanCatID" value="{{l.dropdownKey}}">{{l.dropdownName}}
+                            </option>                         
+                           </select>
+                    </td>
+                    <td class="col-md-2">{{r.ReqStatus}}</td>
+                    <td><button  class="btn btn-primary glyphicon glyphicon-pencil" type="button" (click)="NavigateLoan(r.RequestID)"></button></td>
                     </tr>
                     </tbody>
                     </table>
@@ -159,7 +176,7 @@
                       <!-- Modal content-->
                       <div class="modal-content" style="height:40%">
                         <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <button type="button" id="close" class="close" data-dismiss="modal">&times;</button>
                           <h4 class="modal-title">Loan Request</h4>
                         </div>
                         <div class="modal-body">
@@ -168,24 +185,24 @@
                                 <div class="form-group">
                                         <label class="control-label col-sm-4">Remarks :</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" id="remarks">
+                                            <input class="form-control" type="text" name="remarks" [(ngModel)]="update.Remark">
                                         </div>
                                 </div>
                                 <div class="form-group">
                                         <label class="control-label col-sm-4">Status :</label>
                                         <div class="col-sm-4">
-                                        <select class="form-control">
-                                            <option>Approved</option>
-                                            <option>Rejected</option>
-                                            <option>Waitlist</option>
-                                            <option>Revoked</option>
+                                        <select class="form-control" [(ngModel)]="update.Status" name="status">
+                                            <option value="Approved">Approved</option>
+                                            <option value="Rejected">Rejected</option>
+                                            <option value="Waitlist">Waitlist</option>
+                                            <option value="Revoked">Revoked</option>
                                         </select>
                                         </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-4"></div>
                                     <div class="col-sm-3 ">
-                                        <button type="button" id="reqChange" class="btn btn-primary form-control">Submit</button>
+                                        <button type="button" id="reqChange" class="btn btn-primary form-control" (click)="SaveStatus()">Submit</button>
                                     </div>
                                 </div>
                             </div>

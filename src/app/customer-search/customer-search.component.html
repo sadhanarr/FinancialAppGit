@@ -5,13 +5,13 @@
              <h4>CUSTOMER SEARCH</h4>
           </div>
           <div class='panel-body' id="panel">
-          <form>
+          <form #form="ngForm">
             <div class="row">
          <div class="form-horizontal col-md-6">
              <div class="form-group">
-                    <label class="control-label col-sm-4" >Status :</label>
+                    <label class="control-label col-sm-4"  >Status :</label>
                     <div class="col-sm-6">
-                    <select class="form-control">
+                    <select class="form-control" [(ngModel)]="search.Status" name="status">
                         <option>Running</option>
                         <option>Consider</option>        
                            <option>Pending</option>
@@ -23,70 +23,65 @@
                 
                 <label class="control-label col-sm-4">Customer Name :</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="custName">
+                    <input type="text" class="form-control" id="custName" name="custName" [(ngModel)]="search.CustName">
                 </div>
              </div>
              <div class="form-group">
                  <label class="control-label col-sm-4">Other Name List :</label>
                  <div class="col-sm-6">
-                     <input type="text" class="form-control" id="otherNames">
+                     <input type="text" class="form-control" name="otherNames" id="otherNames" [(ngModel)]="search.OtherName">
                  </div>
              </div>
              <div class="form-group">
                  <label class="control-label col-sm-4">Address List :</label>
                  <div class="col-sm-6">
-                        <input type="text" class="form-control" id="addrList">
+                        <input type="text" class="form-control" name="addrList" id="addrList" [(ngModel)]="search.Address">
                     </div>
              </div>
+            
              <div class="form-group">
-                    <label class="control-label col-sm-4">Loan Category :</label>
-                    <div class="col-sm-6">
-                           <input type="text" class="form-control" id="loanCategory">
-                       </div>
-             </div>
-             <div class="form-group">
-                    <label class="control-label col-sm-4">Showroom/Agent :</label>
-                    <div class="col-sm-6">
-                           <input type="text" class="form-control" id="showroom">
-                       </div>
-             </div>
-                        
+                <label class="control-label col-sm-4">Contact List :</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="contactList" id="contactList" [(ngModel)]="search.ContactList">
+                </div>
+            </div>           
          </div>
          <div class="form-horizontal col-md-6">
             <div class="form-group">
                     <label class="control-label col-sm-4">Customer ID :</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="customerId">
+                        <input type="text" class="form-control" name="customerId" id="customerId" [(ngModel)]="search.CustID">
                     </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-4">ID Proof List :</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="proofList">
+                    <input type="text" class="form-control" name="proofList" id="proofList" [(ngModel)]="search.IDProof">
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-4">Contact List :</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="contactList">
-                </div>
-            </div>
+            
             <div class="form-group">
                     <label class="control-label col-sm-4">Line :</label>
                     <div class="col-sm-6">
-                           <input type="text" class="form-control" id="line">
+                        <select  class="form-control" #li="ngModel" [(ngModel)]="search.Line"  name="line">
+                            <option  *ngFor="let l of AllLine" value="{{l.TalukName}}">{{l.TalukName}}
+                            </option>                         
+                           </select>
                        </div>
              </div>
              <div class="form-group">
                     <label class="control-label col-sm-4">Area :</label>
                     <div class="col-sm-6">
-                           <input type="text" class="form-control" id="area">
+                        <select  class="form-control" #li="ngModel" [(ngModel)]="search.Area"  name="area">
+                            <option  *ngFor="let a of AllArea" value="{{a.AreaName}}">{{a.AreaName}}
+                            </option>                         
+                           </select>
                        </div>
              </div>
              <div class="form-group">
                     <label class="control-label col-sm-4">Keyword Search :</label>
                     <div class="col-sm-6">
-                           <input type="text" class="form-control" id="wordSearch">
+                           <input type="text" class="form-control" name="wordSearch" id="wordSearch" [(ngModel)]="search.KeywordSearch">
                        </div>
              </div>
             
@@ -97,7 +92,7 @@
              <div class="form-horizontal col-md-6">
                 <div class="form-group">
                     <div class="col-sm-6">
-                            <button type="button" class="btn btn-primary">Search</button>
+                            <button type="button" class="btn btn-primary" (click)="Search(form)">Search</button>
                     </div>
              </div>
              </div>
@@ -119,15 +114,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                <td class="col-md-1">1</td>
-                <td class="col-md-1">Kumar</td>
-                <td class="col-md-2">Mani</td>
-                <td class="col-md-2">Erode Fort</td>
-                <td class="col-md-2">9999999999</td>
-                <td class="col-md-2">Aravind</td>
-                <td class="col-md-2">Running</td>
-                <td class="col-md-2">10/09/2019</td>
+                <tr *ngFor="let l of requestAll" (click)="NavigatetoLoan(l)">
+                <td class="col-md-1">{{l.CustomerID}}</td>
+                <td class="col-md-1">{{l.CustomerName}}</td>
+                <td class="col-md-2">{{l.FatherName}}</td>
+                <td class="col-md-2">
+                    <select class="form-control"  name="StateID">
+                        <option *ngFor="let drop of AllArea" value="{{drop.AreaID}}" [selected]="drop.AreaID==l.AreaID">{{drop.AreaName}}</option>                           
+                        </select>
+                </td>
+                <td class="col-md-2">{{l.CustPrimaryContact}}</td>
+                <td class="col-md-2">{{l.ReferedBy}}</td>
+                <td class="col-md-2">{{l.ReqStatus}}</td>
+                <td class="col-md-2">{{l.RequestDate|date:"dd/MM/y"}}</td>
                 </tr>
                 </tbody>
                 </table>

@@ -599,13 +599,11 @@
      <div class="form-group">
         <label class="control-label col-sm-3">Showroom Agent :</label>
         <div class="col-sm-6">
-            <select class="form-control" required #agen="ngModel" [(ngModel)]="machinee.AgentID"  name="StateID">
+            <select class="form-control"  #agen="ngModel" [(ngModel)]="machinee.AgentID"  name="StateID">
               <option  *ngFor="let sa of AllSagent" value="{{sa.AgentID}}">{{sa.AgentName}}
               </option>                         
              </select>
-             <div *ngIf="agen.errors?.required && formSubmit && masterScreen=='machine'" [ngClass] = "'error'"> 
-               Agent Name required. 
-               </div>
+             
  </div>
  </div>
   </div>
@@ -991,6 +989,7 @@
     </td>
     <td class="col-md-2">
       <select class="form-control" id="maa{{i}}"  name="StateID">
+          <option [selected]="mat.AgentID==null" disabled>-- Select --</option>
         <option *ngFor="let aa of AllSagent" value="{{aa.AgentID}}" [selected]="mat.AgentID==aa.AgentID">{{aa.AgentName}}</option>                         
         </select>
       </td>
@@ -1104,6 +1103,7 @@
     </td>
     <td class="col-md-1">
         <select class="form-control" id="uaid{{i}}"  name="StateID">
+          <option [selected]="us.AgentID==null" disabled>-- Select --</option>
             <option *ngFor="let drop of AllSagent"   value="{{drop.AgentID}}" [selected]="drop.AgentID==us.AgentID" >
                 {{drop.AgentName}}
              </option>                        

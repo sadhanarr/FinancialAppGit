@@ -1,5 +1,5 @@
 export class Machine {
-    constructor(  MachineID :Number,MachineName :string,MachineType:string, AgentID:Number,  User :string )
+    constructor( public MachineID :Number,public MachineName :string,public MachineType:string,public AgentID:Number,public  User :string )
     {
 
     }

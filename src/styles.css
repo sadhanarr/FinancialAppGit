@@ -21,3 +21,8 @@ ejs-datepicker>span{
 {
     color:white !important;
 }
+.error
+{
+    color: red;
+    font-size: 12px;
+}

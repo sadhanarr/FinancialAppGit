@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 import {Routes,RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoanRequestComponent } from './loan-request/loan-request.component';
@@ -14,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from './app.service';
 import * as _ from 'underscore'
 import { PagerService } from './pager.service';
+import {NumericDirective} from './number.directive'
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { PagerService } from './pager.service';
     DashboardPageComponent,
     LoanIssueComponent,
     CustomerSearchComponent,
-    MasterScreenComponent
+    MasterScreenComponent,
+    NumericDirective
   ],
   imports: [
     HttpClientModule,

@@ -1,6 +1,6 @@
 export class District
 {
-    constructor(DistrictID:Number, DistrictName:string,StateID: Number)
+    constructor(public DistrictID:Number,public  DistrictName:string,public StateID: Number)
     {
         
     }

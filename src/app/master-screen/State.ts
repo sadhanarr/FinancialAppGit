@@ -1,6 +1,6 @@
 export class State{
 
     constructor(
-    dropdownKey:Number,
-    dropdownName:string){}
+   public dropdownKey:Number,
+   public dropdownName:string){}
 }

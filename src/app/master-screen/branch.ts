@@ -1,14 +1,14 @@
 export class Branch
 {
     constructor(
- BranchID:Number,
- BranchName:string,
- CompanyID:Number,
- CompanyName:string,
- Address:string,
- PhoneContact:string,
- WhatsappContact:string,
- EmailID:string)
+ public BranchID:Number,
+ public BranchName:string,
+ public CompanyID:Number,
+  public CompanyName:string,
+  public Address:string,
+  public PhoneContact:string,
+  public WhatsappContact:string,
+  public EmailID:string)
  {
 
  }
