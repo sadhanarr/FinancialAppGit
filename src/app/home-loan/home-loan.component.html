@@ -10,30 +10,42 @@
         <div class="form-group">
 			<label class="control-label col-sm-3" >Branch :</label>
                 <div class="col-sm-3">
-				<select class="form-control"><option>Navaldi Marudham Capitals</option></select>
+                        <select class="form-control"   name="BranchID"  [(ngModel)]="customer.BranchID">
+                                <option *ngFor="let l of Allbranch" value="{{l.BranchID}}">{{l.BranchName}}
+                                 </option>                         
+                                </select>
 				</div>
 				<label class="control-label col-sm-1" >Line :</label>
                 <div class="col-sm-3">
-				<select class="form-control"><option>Navaldi Marudham Capitals</option></select>
+                        <select class="form-control"  #lid="ngModel" [(ngModel)]="customer.LineID"  name="StateID">
+                                <option *ngFor="let i of AllLine" value="{{i.TalukID}}">{{i.TalukName}}
+                                 </option>                         
+                                </select>
 				</div>
 			</div><div class="form-group">
 			<label class="control-label col-sm-3" >Area :</label>
                 <div class="col-sm-3">
-				<select class="form-control"><option>Navaldi Marudham Capitals</option></select>
+                        <select class="form-control" #aid="ngModel" [(ngModel)]="customer.AreaID" name="StateID">
+                                <option  *ngFor="let sa of AllArea" value="{{sa.AreaID}}">{{sa.AreaName}}
+                                 </option>                         
+                                </select>
 				</div>
 				<label class="control-label col-sm-1" >Sub Area :</label>
                 <div class="col-sm-3">
-				<select class="form-control"><option>Navaldi Marudham Capitals</option></select>
+                        <select class="form-control"  #lid="ngModel" [(ngModel)]="customer.SubAreaID"  name="StateID">
+                                <option *ngFor="let l of AllLine" value="{{l.TalukID}}">{{l.TalukName}}
+                                 </option>                         
+                                </select>
 				</div>
 			</div>
 			<div class="form-group">
 			<label class="control-label col-sm-3" >Hint-1 :</label>
                 <div class="col-sm-3">
-				<input type="text" class="form-control col-sm-4">
+				<input type="text" class="form-control col-sm-4" name="hint1" [(ngModel)]="customer.Hint1">
 				</div>
 				<label class="control-label col-sm-1" >Hint-2 :</label>
                 <div class="col-sm-3">
-				<input type="text" class="form-control">
+				<input type="text" class="form-control" name="hint2" [(ngModel)]="customer.Hint2">
 				</div>
 			</div>
 		</div>
@@ -41,43 +53,43 @@
 			<div class="form-group">
 					<label class="control-label col-sm-3">Customer ID :</label>
 					<div class="col-sm-3">
-						<input type="text" class="form-control" id="customerId">
+						<input type="text" class="form-control" name="customerId" [(ngModel)]="customer.CustomerID">
 					</div>
 			</div>
 			<div class="form-group">
 			<label class="control-label col-sm-3" >Customer Name :</label>
                 <div class="col-sm-6">
-				<input type="text" class="form-control col-sm-4" id="custName">
+				<input type="text" class="form-control col-sm-4" name="custName" [(ngModel)]="customer.CustName">
 				</div>
 				<label class="control-label col-sm-1" >Init:</label>
                 <div class="col-sm-2 ">
-				<input type="text" class="form-control">
+				<input type="text" class="form-control" name="init" [(ngModel)]="customer.Initial">
 				</div>
 			</div>
 			<div class="form-group">
 			<label class="control-label col-sm-3" >Father Name :</label>
                 <div class="col-sm-9 ">
-				<input type="text" class="form-control" id="fatherName">
+				<input type="text" class="form-control" name="fatherName" [(ngModel)]="customer.FatherName">
 				</div>
 				
 			</div>
 			<div class="form-group">
 			<label class="control-label col-sm-3" >Mother Name :</label>
                 <div class="col-sm-9 ">
-				<input type="text" class="form-control" id="motherName">
+				<input type="text" class="form-control" name="motherName" [(ngModel)]="customer.MotherName">
 				</div>		
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3">Gender :</label>
 				<div class="col-sm-3">
-						<select class="form-control" id="gender">
+						<select class="form-control" name="gender" [(ngModel)]="customer.Gender">
 							<option>Male</option>
 							<option>Female</option>
 						</select>
 					</div>
 				<label class="control-label col-sm-3">Marital Status :</label>
 				<div class="col-sm-3">
-						<select class="form-control" id="maritalStatus">
+						<select class="form-control" name="maritalStatus" [(ngModel)]="customer.MaritalStatus">
 							<option>Married</option>
 							<option>Unmarried</option>
 						</select>
@@ -86,13 +98,13 @@
 			<div class="form-group">
 					<label class="control-label col-sm-3">Spouse Name :</label>
 					<div class="col-sm-9">
-						<input type="text" class="form-control" id="spouseName">
+						<input type="text" class="form-control" name="spouseName" [(ngModel)]="customer.SpouseName">
 					</div>
 				</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3">Resident Type:</label>
 				<div class="col-sm-6">
-						<select class="form-control" id="residentType">
+						<select class="form-control" name="residentType" [(ngModel)]="customer.ResidentType">
 							<option>Own</option>
                               <option>Rental</option>
                               <option>Agreement</option>
@@ -103,28 +115,28 @@
 			<div class="form-group">
 				<label class="control-label col-sm-3">Communication Address :</label>
 				<div class="col-sm-9">
-					<textarea class="form-control" id="address"></textarea>
+					<textarea class="form-control" name="address" [(ngModel)]="customer.CommAddress"></textarea>
 				</div>
             </div>
             <div class="form-group">
                     <label class="control-label col-sm-3">Permanent Address:</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" id="permanentAddr"></textarea>
+                        <textarea class="form-control" name="permanentAddr" [(ngModel)]="customer.NativAddress"></textarea>
                     </div>
                 </div>
 			<div class="form-group">
 				<label class="control-label col-sm-3">Contact No. :</label>
 				<div class="col-sm-5">
-					<input type="text" class="form-control" id="contactNum1">
+					<input type="text" class="form-control" name="contactNum1" [(ngModel)]="customer.CustContact1">
 				</div>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="contactNum2">
+					<input type="text" class="form-control" name="contactNum2" [(ngModel)]="customer.CustContact2">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3">Occupation Type :</label>
 				<div class="col-sm-3">
-					<select class="form-control" id="occType">
+					<select class="form-control" name="occType" [(ngModel)]="customer.OccupationType">
 						<option>Business</option>
                           <option>Salaried-Govt</option>
                           <option>Salaried-Private</option>
@@ -134,13 +146,13 @@
 				</div>
 				<label class="control-label col-sm-3">Occupation Detail :</label>
 				<div class="col-sm-3">
-					<input class="form-control" type="text" id="occDetail">
+					<input class="form-control" type="text" name="occDetail" [(ngModel)]="customer.OccupationDetail">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3">Aadhar :</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control">
+					<input type="text" class="form-control" name="aadhar" [(ngModel)]="customer.CustAadhar">
 				</div>
 				
 				<div class="col-sm-3">
@@ -152,13 +164,13 @@
 		<div class="form-group">
 			<label class="control-label col-sm-3">Guarantor Name :</label>
 			<div class="col-sm-7">
-				<input class="form-control" type="text" id="guarantorName">
+				<input class="form-control" type="text" name="guarantorName" [(ngModel)]="customer.GuarantorName">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-sm-3">Relationship :</label>
 			<div class="col-sm-3">
-				<select class="form-control" id="relation">
+				<select class="form-control" name="relation" [(ngModel)]="customer.Relationship">
 					<option>Father</option>
 				</select>
 			</div>
@@ -166,7 +178,7 @@
 		<div class="form-group">
 			<label class="control-label col-sm-3">Resident Type:</label>
 			<div class="col-sm-7">
-			<select class="form-control" id="guarantorResType">
+			<select class="form-control" name="guarantorResType" [(ngModel)]="customer.GResidentType">
 				<option>Own</option>
                               <option>Rental</option>
                               <option>Agreement</option>
@@ -177,28 +189,28 @@
 		<div class="form-group">
 				<label class="control-label col-sm-3">Communication Address :</label>
 				<div class="col-sm-7">
-					<textarea class="form-control" id="gaddress"></textarea>
+					<textarea class="form-control" name="gaddress" [(ngModel)]="customer.GAddress"></textarea>
 				</div>
             </div>
             <div class="form-group">
                     <label class="control-label col-sm-3">Permanent Address:</label>
                     <div class="col-sm-7">
-                        <textarea class="form-control" id="permanentAddr"></textarea>
+                        <textarea class="form-control" name="permanentAddr" [(ngModel)]="customer.GPermAddress"></textarea>
                     </div>
                 </div>
 			<div class="form-group">
 				<label class="control-label col-sm-3">Contact No. :</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" id="gcontactNum1">
+					<input type="text" class="form-control" name="gcontactNum1" [(ngModel)]="customer.GContactNum1">
 				</div>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="gcontactNum2">
+					<input type="text" class="form-control" name="gcontactNum2" [(ngModel)]="customer.GContactNum2">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3">Aadhar :</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control">
+					<input type="text" class="form-control" name="Gaadhar" [(ngModel)]="customer.GAadhar"> 
 				</div>
 				<div class="col-sm-3">
 				<button type="button" class="form-control btn btn-primary" data-toggle="modal" data-target="#GuarnProof">ID Proof </button>
@@ -207,7 +219,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-3">Customer Status :</label>
 				<div class="col-sm-4">
-					<select class="form-control" id="custStatus">
+					<select class="form-control" name="custStatus" [(ngModel)]="customer.CustStatus">
                             <option>Running</option>
                             <option>Approved</option>
                             <option>Pending</option>
@@ -221,7 +233,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-3">Remarks :</label>
 				<div class="col-sm-7">
-					<textarea id="remarks" class="form-control"rows="4" cols="30"></textarea>
+					<textarea name="remarks" class="form-control"rows="4" cols="30" [(ngModel)]="customer.Remarks"></textarea>
 				</div>
             </div>
             <div class="emptyDiv"></div>
@@ -281,7 +293,11 @@
                        <div class="form-group">
                      <label class="control-label col-sm-4">Loan Category :</label>
                      <div class="col-sm-8">
-                     <select class="form-control"><option>Navaldi Marudham Capitals</option></select>
+                            <select required #LName="ngModel" class="form-control" [(ngModel)]="loandetail.LoanCatID" name="LoanCatID">
+                            <option *ngFor="let sa of LoanCategory" value="{{sa.dropdownKey}}">
+                                {{sa.dropdownName}}
+                            </option>
+                        </select>
                      </div>
                     </div>
                     <div class="form-group">
@@ -303,9 +319,11 @@
               <div class="form-group">
                   <label class="control-label col-sm-4">Showroom/Agent:</label>
                   <div class="col-sm-8">
-                  <select class="form-control" id="showroom">
-                      <option>051 Sakthi</option>
-                  </select>
+                        <select class="form-control" [(ngModel)]="loandetail.Agent_ShowroomID" name="AgentID">
+                                <option *ngFor="let drop of AllSagent" value="{{drop.AgentID}}">
+                                    {{drop.AgentName}}
+                                </option>
+                            </select>
               </div>
               </div>
               <div class="form-group">
@@ -401,26 +419,26 @@
               </div>
                   <label class="control-label col-sm-3" >Loan Amount:</label>
                   <div class="col-sm-3 ">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" name="loanamt" [(ngModel)]="loandetail.LoanAmt" (focusout)="OnChange()">
                   </div>
               </div>
               <div class="form-group">
               <label class="control-label col-sm-3" >Total Loan Amt:</label>
                   <div class="col-sm-3">
-                  <input type="text" class="form-control ">
+                  <input type="text" class="form-control " name="TotLoanAmt" [(ngModel)]="loandetail.TotLoanAmt">
                   </div>
                   
               </div>
               <div class="form-group">
                   <label class="control-label col-sm-3">Doc. Charge :</label>
                   <div class="col-sm-3">
-                  <input type="text" id="docCharge" class="form-control">
+                  <input type="text" id="docCharge" class="form-control" name="DocCharge" [(ngModel)]="loandetail.DocCharge" (focusout)="OnChange()">
                   </div>
                   <div class="col-sm-6">
-                      <select class="form-control">
-                          <option>Received By Finance</option>
-                          <option>Received By Showroom</option>
-                          <option>Add with Loan Amount</option>
+                      <select class="form-control" [(ngModel)]="loandetail.DocChargeReceived" name="DocChargeReceived" (change)="OnChange()">
+                          <option value="Received By Finance">Received By Finance</option>
+                          <option value="Received By Showroom">Received By Showroom</option>
+                          <option value="Add with Loan Amount">Add with Loan Amount</option>
                         </select>
                   </div>
               </div>
@@ -436,24 +454,24 @@
               <div class="form-group">
                       <label class="control-label col-sm-3">Incentive</label>
                       <div class="col-sm-2" style="padding-left: 0px;"> 
-                       <div class="col-md-10">  <input  type="text" class="form-control"> </div>  
+                       <div class="col-md-10">  <input  type="text" class="form-control" name="incratio" (focusout)="OnChange()" [(ngModel)]="loandetail.IncentiveRatio"> </div>  
                           <div style="float: right;">%</div>                     
                       </div>
                     
                       <div class="col-sm-2">
-                          <input type="text" class="form-control" id="incentive">
+                          <input type="text" class="form-control" name="incentive" [(ngModel)]="loandetail.IncentiveAmt" >
                       </div>
                       <div class="col-sm-4">
-                          <select class="form-control" id="incentivedrpdwn">
-                              <option>Every Loan Incentive</option>
-                              <option>Monthly Incentive</option>
+                          <select class="form-control" name="incentivedrpdwn"  [(ngModel)]="loandetail.IncentiveType" (change)="OnChange()">
+                              <option value="Every Loan Incentive">Every Loan Incentive</option>
+                              <option value="Monthly Incentive">Monthly Incentive</option>
                           </select>
                       </div>
               </div>
               <div class="form-group">
                   <label class="control-label col-sm-3">Spl. Incentive :</label>
                   <div class="col-sm-4">
-                      <input type="text" id="splIncentive" class="form-control">
+                      <input type="text" name="splIncentive" class="form-control" [(ngModel)]="loandetail.SplIncentiveAmt" (focusout)="OnChange()">
                   </div>
                   <!-- <div class="col-sm-4">
                   <button type="button" class="btn btn-primary" id="splIncentiveValidate">Validate</button>
@@ -473,35 +491,35 @@
               <div class="form-group">
                       <label class="control-label col-sm-3">Scheme Amount :</label>
                       <div class="col-sm-3">
-                          <input type="text" id="intRate" class="form-control">
+                          <input type="text" name="intRate" class="form-control" [(ngModel)]="loandetail.SchemeAmt" (focusout)="OnChange()">
                       </div>
                       <div class="col-sm-6">
-                          <select class="form-control" >
+                          <select class="form-control" name="SchemeAmtReceived"  [(ngModel)]="loandetail.SchemeAmtReceived" (change)="OnChange()">
                               <option selected disabled>Scheme Amt. Received By</option>
-                              <option>Received By Finance</option>
-                              <option>Received By Showroom</option>
-                              <option>Add with Loan Amount</option>
+                              <option value="Received By Finance">Received By Finance</option>
+                              <option value="Received By Showroom">Received By Showroom</option>
+                              <option value="Add with Loan Amount">Add with Loan Amount</option>
                           </select>
                       </div>
               </div>
               <div class="form-group">
                     <label class="control-label col-sm-3">Interest Rate :</label>
                     <div class="col-sm-3">
-                        <input type="text" id="intRate" class="form-control">
+                        <input type="text" name="intRate" class="form-control" [(ngModel)]="loandetail.IntRate">
                     </div>
                       <label class="control-label col-sm-3">Installments :</label>
                       <div class="col-sm-3">
-                          <input type="text" id="installment" class="form-control">
+                          <input type="text" name="installment" class="form-control" [(ngModel)]="loandetail.Instalments">
                       </div>
                   </div>
               <div class="form-group">
                       <label class="control-label col-sm-3">Interest Amount :</label>
                       <div class="col-sm-3">
-                          <input type="text" id="intAmt" class="form-control">
+                          <input type="text" name="intAmt" class="form-control" [(ngModel)]="loandetail.InterestAmt">
                       </div>
                       <label class="control-label col-sm-3">Total Amount :</label>
                       <div class="col-sm-3">
-                          <input type="text" id="totAmt" class="form-control">
+                          <input type="text" name="totAmt" class="form-control" [(ngModel)]="loandetail.TotAmount">
                       </div>
               </div>
               <div class="form-group">
@@ -511,7 +529,7 @@
                       </div>
                       <label class="control-label col-sm-3">Installment Amt:</label>
                       <div class="col-sm-3">
-                          <input type="text" id="installmentAmt" class="form-control">
+                          <input type="text" name="installmentAmt" class="form-control" [(ngModel)]="loandetail.InstalmentAmt">
                       </div>
                   </div>
               <div class="form-group">
@@ -521,13 +539,13 @@
                       </div>
                       <label class="control-label col-sm-3">Net Amount :</label>
                       <div class="col-sm-3">
-                          <input type="text" id="netAmt" class="form-control">
+                          <input type="text" name="netAmt" class="form-control" [(ngModel)]="loandetail.NetAmt">
                       </div>
                       </div>
               <div class="form-group">
                       <div class="col-sm-12">
-                              <input type="checkbox" class="form-check-input" id="roundOff">
-                              <label class="form-check-label" for="roundOff">Round Off Due Amt by Rs.5</label>
+                              <input type="checkbox" class="form-check-input" name="roundOff" [(ngModel)]="roundoff5" (change)="OnChange()">
+                              <label class="form-check-label" for="roundOff" >Round Off Due Amt by Rs.5</label>
                           </div>
               </div>
                       </div>

@@ -18,12 +18,13 @@ import { BehaviorSubject } from 'rxjs';
 import {CustSearch} from './customer-search/CustSearch'
 import {LoanSearch} from './loan-req-search/LoanSearch'
 import {IUpdate} from './loan-req-search/UpdateStatus'
-
+import {Customer} from './home-loan/Customer'
+import {Loan} from './home-loan/loan'
 
 @Injectable()
 export class AppService
 {
-     private _baseUrl= 'http://localhost:81/api/Value/';
+     private _baseUrl= 'http://103.110.236.177/FinanceAPI/api/Value/';
    // private _baseUrl= 'https://localhost:44302/api/Value/';
 
     private _getCompanyURL = this._baseUrl+"getCompany";
@@ -71,17 +72,23 @@ export class AppService
     private _getLoanRequestSearchURL= this._baseUrl+"getLoanRequestSearch"
     private _updateLoanStatus= this._baseUrl+"InsertLoanStatus"
     private _getLoanReqDetailURL= this._baseUrl+"getLoanRequest"
+    private _getCustomerURL= this._baseUrl+"getCustomer"
+    private _getDetailforLoanIssueURL= this._baseUrl+"getDetailforLoanIssue"
    
 
     private RequestID = new BehaviorSubject<Number>(0);
     currentReqID = this.RequestID.asObservable();
+    private CustomerID = new BehaviorSubject<Number>(0);
+    currentCustID = this.CustomerID.asObservable();
     constructor(private _http: HttpClient) { }
 
 
     changeReqID(currentReqID:Number) {
       this.RequestID.next(currentReqID);
     }
-
+    changeCUstID(currentCustID:Number) {
+      this.CustomerID.next(currentCustID);
+    }
     getCompany():Observable<ICompany[]>
     {
         return this._http.get<ICompany[]>(this._getCompanyURL)
@@ -106,9 +113,17 @@ export class AppService
     {
       return this._http.get<Machine[]>(this._getMachineURL);
     }
+    getCustomer(CustID:Number):Observable<Customer>
+    {
+      return this._http.get<Customer>(this._getCustomerURL+"/"+CustID);
+    }
     getLoanRequest(ID):Observable<Request>
     {
       return this._http.get<Request>(this._getLoanReqDetailURL+"/"+ID)
+    }
+    getDetailforLoanIssue(ID):Observable<Loan>
+    {
+      return this._http.get<Loan>(this._getDetailforLoanIssueURL+"/"+ID)
     }
     DeleteMachine(id:Number)
     {

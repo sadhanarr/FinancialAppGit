@@ -12,7 +12,6 @@ import {Agent} from '../master-screen/agent'
 import {Request} from './request'
 import {ROI} from './ROI'
 import { ActivatedRoute, Router} from '@angular/router';
-import {CustomerSearchComponent} from '../customer-search/customer-search.component'
 import { Form ,NgForm,Validators} from '@angular/forms';
 
 @Component({
@@ -21,7 +20,7 @@ import { Form ,NgForm,Validators} from '@angular/forms';
   styleUrls: ['./loan-request.component.css']
 })
 export class LoanRequestComponent implements OnInit {
-  @ViewChild('form',{static:true}) myForm: NgForm;
+
   
   dateValue: Date;
   selectedFile:File;
