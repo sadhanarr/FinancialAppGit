@@ -31,6 +31,7 @@ ROI:ROI[]=[];
 CustID:Number
 loandetail:Loan= new Loan(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',0,'','','',null,false,false,false,false,false,false,null,null,null,null,null,null,null,null,null,null,'',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,'','','','','','');
 RequestID:Number
+formSubmit:boolean=false;
  roundoff5:boolean=false;
   ngOnInit() {
     this._appService.getLoanCategory().subscribe((data:any[])=>{
@@ -55,7 +56,19 @@ RequestID:Number
     this.OnChange();
     });
   }
-
+  SaveLoan(form)
+  {
+    console.log(this.customer)
+    if(form != '')
+  {
+  if (form.invalid ) {
+    this.formSubmit=true; 
+    return;
+ }
+}
+    this._appService.InsertIssuedLoanDetails(this.customer,this.loandetail);
+    form.resetForm();
+  }
   changeLoanStatus(event)
   {
   if(event=="Consider")

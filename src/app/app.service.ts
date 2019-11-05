@@ -74,6 +74,7 @@ export class AppService
     private _getLoanReqDetailURL= this._baseUrl+"getLoanRequest"
     private _getCustomerURL= this._baseUrl+"getCustomer"
     private _getDetailforLoanIssueURL= this._baseUrl+"getDetailforLoanIssue"
+    private _InsertIssuedLoanDetails=this._baseUrl+"InsertIssuedLoanDetails";
    
 
     private RequestID = new BehaviorSubject<Number>(0);
@@ -206,6 +207,20 @@ export class AppService
        return  this._http.post(this._getLoanRequestSearchURL,search,httpOptions) 
     
       
+    }
+    InsertIssuedLoanDetails(data:Customer,loan:Loan)
+    {
+      var params ={loan:Loan,data:Customer};
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      };
+       return  this._http.post(this._InsertIssuedLoanDetails,params,httpOptions).subscribe(res =>
+        { console.log('res'+res)
+       });
     }
     InsertLoanRequest(data:Request,file:File)
     {
