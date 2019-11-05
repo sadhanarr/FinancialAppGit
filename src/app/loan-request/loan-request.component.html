@@ -17,7 +17,7 @@
                             <label class="control-label col-sm-3">Request Date :</label>
                             <div class="col-sm-3 ">
                                 <ejs-datepicker id='datepicker' name="datepicker" [(ngModel)]="request.RequestDate"
-                                    placeholder='Select a date' [value]='dateValue'></ejs-datepicker>
+                                    placeholder='Select a date' [value]='dateValue' format ="dd/MM/yyyy"></ejs-datepicker>
                             </div>
                         </div>
                         <div class="form-group">
@@ -85,7 +85,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">Gender :</label>
                             <div class="col-sm-3">
-                                <select name="gender" class="form-control" id="gender" [(ngModel)]="request.Gender">
+                                <select name="gender" class="form-control" id="gender" [(ngModel)]="request.Gender" >
                                     <option [selected]="request.Gender=='Male'">Male</option>
                                     <option [selected]="request.Gender=='Female'">Female</option>
                                 </select>
@@ -93,7 +93,7 @@
                             <label class="control-label col-sm-3">Marital Status :</label>
                             <div class="col-sm-3">
                                 <select name="marital" class="form-control" id="marital"
-                                    [(ngModel)]="request.MaritalStatus">
+                                    [(ngModel)]="request.MaritalStatus" (change)="filterDrop()" >
                                     <option [selected]="request.MaritalStatus=='Married'">Married</option>
                                     <option [selected]="request.MaritalStatus=='Single'">Single</option>
                                     <option [selected]="request.MaritalStatus=='Other'">Other</option>
@@ -110,14 +110,23 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">Contact No. :</label>
                             <div class="col-sm-5">
-                                <input name="contactNum1" type="text" class="form-control" name="contactNum1"
-                                    [(ngModel)]="request.CustPrimaryContact">
+                                <input name="contactNum1" type="text" class="form-control" numeric numericType="number" name="contactNum1"
+                                    [(ngModel)]="request.CustPrimaryContact" maxlength="11" minlength="11" #contact1="ngModel">
+                                    <div *ngIf="contact1.errors?.minlength  && formSubmit "
+                                    [ngClass]="'error'">
+                                   Contact must be 11 characters long
+                                    </div>
+                               
                             </div>
                             <div class="col-sm-4">
-                                <input name="contactNum2" type="text" class="form-control" name="contactNum2"
-                                    [(ngModel)]="request.CustSecondaryContact">
+                                <input name="contactNum2" type="text" class="form-control" numeric numericType="number" name="contactNum2"
+                                    [(ngModel)]="request.CustSecondaryContact" maxlength="11" minlength="11" #contact2="ngModel">
+                                    <div *ngIf="contact2.errors?.minlength  && formSubmit " 
+                                    [ngClass]="'error'">
+                                   Contact must be 11 characters long
+                                    </div>
+                                </div>
                             </div>
-                        </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">Communication Address :</label>
                             <div class="col-sm-9">
@@ -127,8 +136,12 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">Aadhar No. :</label>
                             <div class="col-sm-9">
-                                <input name="aadhar" type="text" class="form-control" id="aadhar"
-                                    [(ngModel)]="request.CustAadhar">
+                                <input name="aadhar" type="text" class="form-control" numeric numericType="number" id="aadhar"
+                                    [(ngModel)]="request.CustAadhar" maxlength="16" minlength="16" #aadhar="ngModel">
+                                    <div *ngIf="aadhar.errors?.minlength  && formSubmit " 
+                                    [ngClass]="'error'">
+                                   Contact must be 16 characters long
+                                    </div>
                             </div>
 
                         </div>
@@ -152,7 +165,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">State :</label>
                             <div class="col-sm-3">
-                                <select class="form-control" [(ngModel)]="request.StateID" name="StateID">
+                                <select class="form-control" [(ngModel)]="request.StateID" name="StateID" (change)="filterDrop()" >
                                     <option *ngFor="let st of AllState" value="{{st.dropdownKey}}">
                                         {{st.dropdownName}}
                                     </option>
@@ -160,8 +173,8 @@
                             </div>
                             <label class="control-label col-sm-2">District :</label>
                             <div class="col-sm-4">
-                                <select class="form-control" [(ngModel)]="request.DistrictID" name="DistrictID">
-                                    <option *ngFor="let t of AllDistrict" value="{{t.DistrictID}}">
+                                <select class="form-control" [(ngModel)]="request.DistrictID" name="DistrictID" (change)="filterDrop()" >
+                                    <option *ngFor="let t of District" value="{{t.DistrictID}}" >
                                         {{t.DistrictName}}
                                     </option>
                                 </select>
@@ -170,26 +183,27 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">Taluk :</label>
                             <div class="col-sm-3">
-                                <select class="form-control" [(ngModel)]="request.TalukID" name="TalukID">
-                                    <option *ngFor="let i of AllTaluk" value="{{i.TalukID}}">{{i.TalukName}}
+                                <select class="form-control" [(ngModel)]="request.TalukID" name="TalukID" (change)="filterDrop()" >
+                                    <option *ngFor="let i of Taluk" value="{{i.TalukID}}">{{i.TalukName}}
                                     </option>
                                 </select>
                             </div>
                             <label class="control-label col-sm-2">Area :</label>
                             <div class="col-sm-4">
                                 <select class="form-control" [(ngModel)]="request.AreaID" name="AreaID">
-                                    <option *ngFor="let sa of AllArea" value="{{sa.AreaID}}">{{sa.AreaName}}
+                                    <option *ngFor="let sa of Area" value="{{sa.AreaID}}">{{sa.AreaName}}
                                     </option>
                                 </select>
                             </div>
                         </div>
                     </div>
+                   
                     <div class=" form-horizontal col-md-6">
                         <div class="form-group">
                             <label class="control-label col-sm-3">Loan Category :</label>
                             <div class="col-sm-4">
                                 <select required #LName="ngModel" class="form-control" [(ngModel)]="request.LoanCatID"
-                                    name="LoanCatID">
+                                    name="LoanCatID" (change)="filterDrop()">
                                     <option *ngFor="let sa of LoanCategory" value="{{sa.dropdownKey}}">
                                         {{sa.dropdownName}}
                                     </option>
@@ -204,17 +218,18 @@
                             <label class="control-label col-sm-3">Showroom/Agent :</label>
                             <div class="col-sm-3">
                                 <select class="form-control" [(ngModel)]="request.AgentID" name="AgentID">
-                                    <option *ngFor="let drop of AllSagent" value="{{drop.AgentID}}">
+                                    <option *ngFor="let drop of Sagent" value="{{drop.AgentID}}">
                                         {{drop.AgentName}}
                                     </option>
                                 </select>
                             </div>
-                        </div>
+                        </div>  
                         <div class="form-group">
                             <label class="control-label col-sm-3">Agent Responsible:</label>
                             <div class="col-sm-2">
                                 <select class="form-control" name="AgentRes" [(ngModel)]="request.AgentResponsibility">
                                     <option>Yes</option>
+                                    <option>No</option>
                                 </select>
                             </div>
                         </div>
@@ -255,19 +270,29 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">Contact No. :</label>
                             <div class="col-sm-5">
-                                <input type="text" name="contactNum3" class="form-control" id="contactNum3"
-                                    [(ngModel)]="request.GContact1">
+                                <input type="text" name="contactNum3" numeric numericType="number" class="form-control" id="contactNum3"
+                                    [(ngModel)]="request.GContact1" #GContact1="ngModel" maxlength="11" minlength="11">
+                                    <div *ngIf="GContact1.errors?.minlength  && formSubmit " 
+                                    [ngClass]="'error'">
+                                   Contact must be 11 characters long
+                                    </div>
                             </div>
                             <div class="col-sm-4">
-                                <input type="text" name="contactNum4" class="form-control" id="contactNum4"
-                                    [(ngModel)]="request.GContact2">
+                                <input type="text" name="contactNum4" numeric numericType="number" class="form-control" id="contactNum4"
+                                    [(ngModel)]="request.GContact2" #GContact2="ngModel" maxlength="11" minlength="11">
+                                    <div *ngIf="GContact2.errors?.minlength && formSubmit "  [ngClass]="'error'">
+                                   Contact must be 11 characters long
+                                    </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">Aadhar No. :</label>
                             <div class="col-sm-3">
                                 <input type="text" name="aadhar2" class="form-control" id="aadhar2"
-                                    [(ngModel)]="request.GAadhar">
+                                    [(ngModel)]="request.GAadhar" numeric numericType="number" maxlength="16" minlength="16" #Gaadhar="ngModel">
+                                    <div *ngIf="Gaadhar.errors?.minlength  && formSubmit "  [ngClass]="'error'">
+                                   Contact must be 16 characters long
+                                    </div>
                             </div>
                             <label class="control-label col-sm-3">Referred By :</label>
                             <div class="col-sm-3">
@@ -279,7 +304,7 @@
                             <label class="control-label col-sm-3">Due Type :</label>
                             <div class="col-sm-3">
                                 <select class="form-control" name="dueType" [(ngModel)]="request.DueType" ng-dropdown
-                                    required id="dueType">
+                                    required id="dueType" (change)="filterDropEMI()" >
                                     <option ng-option value="EMI">EMI</option>
                                     <option ng-option value="Interest">Interest</option>
                                 </select>
@@ -357,7 +382,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Interest Amount :</label>
                                 <div class="col-sm-3">
-                                    <input type="text" name="duration" disabled class="form-control" id="duration"
+                                    <input type="text" name="Intamt" disabled class="form-control" id="Intamt"
                                         [(ngModel)]="request.IntAmount">
                                 </div>
                             </div>
@@ -414,7 +439,7 @@
                         <button type="button" class="btn btn-primary" (click)="SaveRequest(form)">Submit</button>
                     </div>
                     <div class="col-sm-6">
-                        <button type="button" class="btn" (click)="Cancel(form)">Cancel</button>
+                        <button type="button" class="btn" (click)="Cancel(form)">Clear</button>
                     </div>
                 </div>
                 <div id="CustomerSearch" class="modal fade" role="dialog">

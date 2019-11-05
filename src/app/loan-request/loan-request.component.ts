@@ -32,6 +32,11 @@ export class LoanRequestComponent implements OnInit {
   AllTaluk:Taluk[]=[];
   AllArea:Area[]=[];
   AllSagent:Agent[]=[];
+  branch: Branch[]=[];
+ District:District[]=[];
+  Taluk:Taluk[]=[];
+  Area:Area[]=[];
+  Sagent:Agent[]=[];
   ROI:ROI[]=[];
   showImage:boolean=false;
   formSubmit:boolean=false;
@@ -44,10 +49,10 @@ export class LoanRequestComponent implements OnInit {
    }
 
   ngOnInit() {
-     this.request["RequestDate"] = new Date ();
+     this.request["RequestDate"] = new Date()
      this.request["DueType"]="EMI";
      this.request["ReqStatus"]="";
-     
+     this.request["ReqStatus"]="Request"
      this._appService.getCompany().subscribe((data:any[])=>{
       this.AllCompany=data
      });
@@ -59,10 +64,10 @@ export class LoanRequestComponent implements OnInit {
       this.LoanCategory=data
      });
      this._appService.getState().subscribe((data:any[])=>{this.AllState=data})
-     this._appService.getDistrict().subscribe((data:any[])=>{this.AllDistrict=data})
-     this._appService.getTaluk().subscribe((data:any[])=>{this.AllTaluk=data})
-     this._appService.getArea().subscribe((data:any[])=>{this.AllArea=data})
-     this._appService.getSAgent().subscribe((data:any[])=>{this.AllSagent=data})
+     this._appService.getDistrict().subscribe((data:any[])=>{this.AllDistrict=data; this.District=data;})
+     this._appService.getTaluk().subscribe((data:any[])=>{this.AllTaluk=data; this.Taluk=data;})
+     this._appService.getArea().subscribe((data:any[])=>{this.AllArea=data;this.Area=data;})
+     this._appService.getSAgent().subscribe((data:any[])=>{this.AllSagent=data;this.Sagent=data;})
      this._appService.currentReqID.subscribe(ID=> 
       {this.request["RequestID"]=ID;  
       console.log(ID) 
@@ -79,7 +84,7 @@ export class LoanRequestComponent implements OnInit {
       {
         $('#interest').hide();
         $('#emi').show();
-       
+      
       }
       else
       {
@@ -87,12 +92,55 @@ export class LoanRequestComponent implements OnInit {
       $('#emi').hide();
       $("#emi input").removeAttr("required")
       $('#interest').show();
+     
     //  this.myForm.form.get("tAmt").setValidators()
     
       }
     })
   }
-
+  filterDrop()
+  {
+    if(this.request["MaritalStatus"]!= undefined)
+    {
+      if(this.request["MaritalStatus"]!= "Married")
+      {
+        console.log(this.request["MaritalStatus"])
+        $("#spouseName").attr("disabled","disabled")
+      }
+      else
+      {
+        $("#spouseName").removeAttr("disabled")
+      }
+    }
+    if(this.request["StateID"]!= undefined)
+    {
+     this.District= this.AllDistrict.filter(x=> x.StateID== this.request["StateID"])
+    }
+    console.log(this.AllTaluk)
+    if(this.request["DistrictID"]!= undefined && this.request["DistrictID"] != 0)
+    {
+      console.log(this.request["DistrictID"])
+     this.Taluk= this.AllTaluk.filter(x=> x.DistrictID== this.request["DistrictID"])
+    }
+    if(this.request["TalukID"]!= undefined)
+    {
+     this.Area= this.AllArea.filter(x=> x.TalukID== this.request["TalukID"])
+    }
+   
+  }
+  filterDropEMI()
+  {
+    this.request["LoanAmt"]=null;
+    this.request["RateOfInt"]=null;
+    this.request["LoanPeriod"]=null;
+    this.request["AdvRatio"]=null;
+    this.request["AdvanceAmt"]=null;
+    this.request["TotalAmt"]=null;
+    this.request["IntAmount"]=null;
+    this.request["SecRatio"]=null;
+    this.request["TotalDue"]=null;
+  
+  }
   receiveMessage($event) {
     console.log($event)
     this.valfromChild= $event;
@@ -143,6 +191,7 @@ reader.readAsDataURL(this.selectedFile);
   {
   if (form.invalid ) {
     this.formSubmit=true; 
+    console.log("not valid")
     return;
  }
 }
@@ -168,18 +217,21 @@ reader.readAsDataURL(this.selectedFile);
             ADVMAX:x.ADVMAX,ADVROI:x.ADVROI, SECMIN:x.SECMIN,SECSTEPS:x.SECSTEPS,SECMAX:x.SECMAX,SECROI:x.SECROI, FROMDATE:x.FROMDATE,TODATE:x.TODATE,STATUS:x.STATUS              }))
          console.log(ROIscheme)
             var DUEROI:any= parseFloat( ROIscheme[0].DUEROI.toString())*( parseInt(this.request["LoanPeriod"].toString())/ parseInt( ROIscheme[0].DUESTEPS.toString()));
+          console.log(DUEROI)
             var ADVROIper= this.request["AdvRatio"] >= ROIscheme[0].ADVMIN && this.request["AdvRatio"]<= ROIscheme[0].ADVMAX ? this.request["AdvRatio"]: ( this.request["AdvRatio"]>ROIscheme[0].ADVMAX ? ROIscheme[0].ADVMAX : ROIscheme[0].ADVMIN )
             var ADVROI = parseFloat(ROIscheme[0].ADVROI.toString())* (ADVROIper/ROIscheme[0].ADVSTEPS)
+            console.log(ADVROI)
             if(this.request["SecRatio"] != null){
             var SECROIper= ( this.request["SecRatio"] >= ROIscheme[0].SECMIN && this.request["SecRatio"]<= ROIscheme[0].SECMAX ? this.request["SecRatio"]: ( this.request["SecRatio"]>ROIscheme[0].SECMAX ? ROIscheme[0].SECMAX : ROIscheme[0].SECMIN ))
-           var SECROI =  parseFloat(ROIscheme[0].SECROI.toString())* parseInt((SECROIper/ROIscheme[0].SECSTEPS).toPrecision())
-            var netROI= (ROIscheme[0].ROIMAX-DUEROI-ADVROI-SECROI).toFixed(2);
+           var SECROI =  parseFloat(ROIscheme[0].SECROI.toString())* parseInt((SECROIper.toString()/ROIscheme[0].SECSTEPS.toString()).toString())
+           console.log(SECROI)
+           var netROI= parseFloat((ROIscheme[0].ROIMAX-DUEROI-ADVROI-SECROI).toFixed(3)).toFixed(2);
             this.request["RateOfInt"]=( netROI>= ROIscheme[0].ROIMIN && netROI<= ROIscheme[0].ROIMAX ? netROI: ( netROI>ROIscheme[0].ROIMAX ? ROIscheme[0].ROIMAX : ROIscheme[0].ROIMIN ))
-          this.request["IntAmount"]= Math.round( (parseInt(this.request["LoanAmt"].toString())* parseInt(this.request["LoanPeriod"].toString())* parseFloat(this.request["RateOfInt"].toString()) )/100)
-          this.request["TotalDue"]= parseInt(this.request["LoanAmt"].toString())+ parseInt(this.request["IntAmount"].toString())
+          this.request["IntAmount"]= Math.ceil( (parseInt(this.request["LoanAmt"].toString())* parseInt(this.request["LoanPeriod"].toString())* parseFloat(this.request["RateOfInt"].toString()) )/100)
+          this.request["TotalDue"]=Math.ceil( ( parseInt(this.request["LoanAmt"].toString())+ parseInt(this.request["IntAmount"].toString()))/ parseInt(this.request["LoanPeriod"].toString()))
           }
           });
-        }
+        } 
     }
   
     // var DUEROI:any= parseFloat( ROIscheme[0].DUEROI.toString())*( this.request["LoanPeriod"]/ parseInt( ROIscheme[0].DUESTEPS.toString()));

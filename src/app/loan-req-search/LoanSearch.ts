@@ -2,8 +2,8 @@ export interface LoanSearch
 {
    
          Status  :string,
-         FromDate:Date,
-         ToDate:Date,
+         FromDate:string,
+         ToDate:string,
          RequestID:string
          CustName  :string, 
          OtherName  :string, 

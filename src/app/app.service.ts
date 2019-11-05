@@ -188,7 +188,7 @@ export class AppService
         })
         
       };
-       console.log("search"+search["OtherName"])
+       console.log("search"+search)
        return  this._http.post(this._getCustomerSearchURL,search,httpOptions) 
     
       
@@ -202,7 +202,7 @@ export class AppService
         })
         
       };
-       console.log("search"+search)
+       console.log("search"+search["FromDate"])
        return  this._http.post(this._getLoanRequestSearchURL,search,httpOptions) 
     
       

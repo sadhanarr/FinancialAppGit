@@ -29,7 +29,7 @@ AllArea:Area[]=[];
 Allbranch: Branch[];
 ROI:ROI[]=[];
 CustID:Number
-loandetail:Loan= new Loan(0,0,0,new Date(),'',0,'','','',null,false,false,false,false,false,false,null,null,null,null,null,null,null,null,null,null,'',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,'','','','','','');
+loandetail:Loan= new Loan(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',0,'','','',null,false,false,false,false,false,false,null,null,null,null,null,null,null,null,null,null,'',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,'','','','','','');
 RequestID:Number
  roundoff5:boolean=false;
   ngOnInit() {

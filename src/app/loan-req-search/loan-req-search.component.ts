@@ -38,9 +38,9 @@ export class LoanReqSearchComponent implements OnInit {
     this._appService.getLoanRequestSearch(this.requestSearch).subscribe((res:any[])=> {
      this.requestAll=res;
      console.log(this.requestAll)
-    
+    this.requestSearch={Status:'',FromDate:'',ToDate:'',RequestID:'',CustName:'',CustID:'',Address:'',OtherName:'',ContactList:'',Line:'',Area:'',AgentName:'',LoanCategory:'',KeywordSearch:'',IDProof:''}
    })
-   form.resetForm();
+  
   }
 
   SaveRequestID(ID)
