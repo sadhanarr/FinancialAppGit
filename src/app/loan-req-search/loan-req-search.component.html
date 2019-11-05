@@ -145,7 +145,7 @@
                     </thead>
                     <tbody *ngFor="let r of requestAll">
                     <tr data-toggle="modal" (click)="SaveRequestID(r.RequestID)" data-target="#loanreqSearchModal">
-                    <td class="col-md-1">{{r.RequestDate|date:  "dd/MM/y"}}</td>
+                    <td class="col-md-1">{{r.RequestDate|date:"dd/MM/y"}}</td>
                     <td class="col-md-1">{{r.RequestID}}</td>
                     <td class="col-md-2">{{r.CustomerID}}</td>
                     <td class="col-md-2">{{r.CustomerName}}</td>
