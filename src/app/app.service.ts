@@ -20,6 +20,8 @@ import {LoanSearch} from './loan-req-search/LoanSearch'
 import {IUpdate} from './loan-req-search/UpdateStatus'
 import {Customer} from './home-loan/Customer'
 import {Loan} from './home-loan/loan'
+import { IProof} from './home-loan/Proof'
+import {Collection} from './home-loan/collection'
 
 @Injectable()
 export class AppService
@@ -68,6 +70,7 @@ export class AppService
     private _insertLoanRequestURL =this._baseUrl+'InsertLoanRequest';
     private _getROIURL =this._baseUrl+'getROI';
     private _insertPhotoURL= this._baseUrl+"InsertPhoto";
+    private _insertProofURL= this._baseUrl+"InsertProof";
     private _getCustomerSearchURL= this._baseUrl+"getCustomerSearch"
     private _getLoanRequestSearchURL= this._baseUrl+"getLoanRequestSearch"
     private _updateLoanStatus= this._baseUrl+"InsertLoanStatus"
@@ -75,8 +78,13 @@ export class AppService
     private _getCustomerURL= this._baseUrl+"getCustomer"
     private _getDetailforLoanIssueURL= this._baseUrl+"getDetailforLoanIssue"
     private _InsertIssuedLoanDetails=this._baseUrl+"InsertIssuedLoanDetails";
-   
-
+    private _getLoanDetailsURL= this._baseUrl+"getLoanDetails"
+    private _getLoanDetailURL= this._baseUrl+"LoanDetail"
+    private _getLoanbyCustomerURL= this._baseUrl+"getLoanbyCustomer"
+    private _getProofURL= this._baseUrl+"getProof"
+    private _deleteProofURL= this._baseUrl+"deleteProof"
+    private _getCollectionURL= this._baseUrl+"getCollection"
+    private _addCollectionURL= this._baseUrl+"addCollection"
     private RequestID = new BehaviorSubject<Number>(0);
     currentReqID = this.RequestID.asObservable();
     private CustomerID = new BehaviorSubject<Number>(0);
@@ -101,6 +109,22 @@ export class AppService
         return this._http.get<ICompany[]>(this._getLoanCategoryURL)
     
     }
+    getCollection(ID,LoanID):Observable<Collection>
+    {
+        return this._http.get<Collection>(this._getCollectionURL+"/"+ID+"/"+LoanID)
+    
+    }
+    addCollection(collection:Collection)
+    {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      }; 
+        return this._http.post(this._addCollectionURL,collection,httpOptions).subscribe(res=> console.log(res))
+    }
     getROI():Observable<ROI[]>
     {
         return this._http.get<ROI[]>(this._getROIURL)
@@ -114,9 +138,21 @@ export class AppService
     {
       return this._http.get<Machine[]>(this._getMachineURL);
     }
-    getCustomer(CustID:Number):Observable<Customer>
+    getLoanDetails():Observable<Loan[]>
     {
-      return this._http.get<Customer>(this._getCustomerURL+"/"+CustID);
+      return this._http.get<Loan[]>(this._getLoanDetailsURL);
+    }
+    getLoanDetail(LoanID:Number):Observable<Loan>
+    {
+      return this._http.get<Loan>(this._getLoanDetailURL+"/"+LoanID);
+    }
+    getLoanbyCustomer( CustID):Observable<Loan[]>
+    {
+      return this._http.get<Loan[]>(this._getLoanbyCustomerURL+"/"+CustID);
+    }
+    getCustomer(CustID:Number,RequestID:Number):Observable<Loan>
+    {
+      return this._http.get<Loan>(this._getCustomerURL+"/"+CustID+"/"+RequestID);
     }
     getLoanRequest(ID):Observable<Request>
     {
@@ -126,9 +162,17 @@ export class AppService
     {
       return this._http.get<Loan>(this._getDetailforLoanIssueURL+"/"+ID)
     }
+    getProof(CustID:Number, Type:string):Observable<IProof>
+    {
+     return this._http.get<IProof>(this._getProofURL+"/"+CustID+"/"+Type)
+    }
     DeleteMachine(id:Number)
     {
       return this._http.get(this._deleteMachineeURL+"/"+id)
+    }
+    deleteProof(CustID:Number,ProofType:string,Type:string)
+    {
+      return this._http.get(this._deleteProofURL+"/"+CustID+"/"+ProofType.replace(' ','%20')+"/"+Type)
     }
     InsertMachine(dist:Machine)
     {
@@ -208,9 +252,9 @@ export class AppService
     
       
     }
-    InsertIssuedLoanDetails(data:Customer,loan:Loan)
+    InsertIssuedLoanDetails(loan:Loan)
     {
-      var params ={loan:Loan,data:Customer};
+      
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -218,9 +262,7 @@ export class AppService
         })
         
       };
-       return  this._http.post(this._InsertIssuedLoanDetails,params,httpOptions).subscribe(res =>
-        { console.log('res'+res)
-       });
+       return  this._http.post(this._InsertIssuedLoanDetails,loan,httpOptions)
     }
     InsertLoanRequest(data:Request,file:File)
     {
@@ -249,6 +291,24 @@ export class AppService
        });  
     
       
+    }
+
+    InsertProof(CustID:Number,proof:string,proofNumber:string,file:File,value:string)
+    {
+      const HttpUploadOptions = {
+        headers: new HttpHeaders({
+          "Accept": "multipart/form-data",
+          "Access-Control-Allow-Origin":"true"
+        })
+      }
+      const uploadData = new FormData();
+      uploadData.append("CustID", CustID.toString());
+      uploadData.append("Proof", proof.toString());
+      uploadData.append("proofNumber", proofNumber.toString());
+      uploadData.append("file", file);
+      uploadData.append("Type", value);
+      console.log(uploadData)
+     return this._http.post(this._insertProofURL,uploadData,HttpUploadOptions)
     }
     getDistrict():Observable<District[]>
     {

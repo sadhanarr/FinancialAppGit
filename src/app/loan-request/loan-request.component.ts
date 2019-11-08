@@ -72,32 +72,12 @@ export class LoanRequestComponent implements OnInit {
       {this.request["RequestID"]=ID;  
       console.log(ID) 
       if(ID>0)
-      this._appService.getLoanRequest(ID).subscribe((data:any)=> this.request=data);
+      this._appService.getLoanRequest(ID).subscribe((data:any)=> {this.request=data;
+      this.filterDropEMI();});
       })
     
   }
-  ngAfterViewChecked()
-  {
-    $('#dueType').on('change',function()
-    {
-      if(this.value=='EMI')
-      {
-        $('#interest').hide();
-        $('#emi').show();
-      
-      }
-      else
-      {
-   
-      $('#emi').hide();
-      $("#emi input").removeAttr("required")
-      $('#interest').show();
-     
-    //  this.myForm.form.get("tAmt").setValidators()
-    
-      }
-    })
-  }
+  
   filterDrop()
   {
     if(this.request["MaritalStatus"]!= undefined)
@@ -130,6 +110,21 @@ export class LoanRequestComponent implements OnInit {
   }
   filterDropEMI()
   {
+    console.log(this.request["DueType"])
+    if(this.request["DueType"]=='EMI')
+      {
+        $('#interest').hide();
+        $('#emi').show();
+      
+      }
+      else
+      {
+   
+      $('#emi').hide();
+      $('#interest').show();
+
+      }
+      if(this.request["RequestID"]==0){
     this.request["LoanAmt"]=null;
     this.request["RateOfInt"]=null;
     this.request["LoanPeriod"]=null;
@@ -139,7 +134,7 @@ export class LoanRequestComponent implements OnInit {
     this.request["IntAmount"]=null;
     this.request["SecRatio"]=null;
     this.request["TotalDue"]=null;
-  
+      }
   }
   receiveMessage($event) {
     console.log($event)
