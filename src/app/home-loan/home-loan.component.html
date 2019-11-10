@@ -580,7 +580,7 @@
                       </form>
                   </div>
                    <div id="collection" class="tab-pane fade" > 
-                      <form  >
+                      <form #form1="ngForm" >
                       <div class="row">
                       <div class=" form-horizontal col-md-4">
                       <div class="form-group">
@@ -607,13 +607,13 @@
                       <div class="form-group">
                               <label class="control-label col-sm-5">Due Receipt:</label>
                               <div class="col-sm-7">
-                                      <input type="text" class="form-control" id="dueReceipt" [(ngModel)]="collection.Duereciept">
+                                      <input type="text" class="form-control" name="dueReceipt" [(ngModel)]="collection.Duereciept">
                                   </div>
                           </div>
                           <div class="form-group">
                                   <label class="control-label col-sm-5">Penalty Receipt:</label>
                                   <div class="col-sm-7">
-                                          <input type="text" class="form-control" id="penReceipt"  [(ngModel)]="collection.Penaltyreciept">
+                                          <input type="text" class="form-control" name="penReceipt"  [(ngModel)]="collection.Penaltyreciept">
                                       </div>
                               </div>
                              
@@ -660,7 +660,7 @@
                               <div class="col-md-3">
                                     <div class="form-group">
                                             <div class="text-right col-sm-6">
-                                              <button type="button" class="btn btn-primary" id="addEntry" (click)="AddEntry()" >ADD</button>
+                                              <button type="button" class="btn btn-primary" id="addEntry" (click)="AddEntry(form1)" >ADD</button>
                                           </div>
                                          
                                           </div>
@@ -674,33 +674,31 @@
                                       <tr>
                                       <th class="col-md-1">S.No</th>
                                        <th class="col-md-1">Date</th>
-                                       <th class="col-md-1">Due</th>
+                                       <th class="col-md-1">Due No</th>
                                        <th class="col-md-1">Due Amt.</th>
-                                       <th class="col-md-1">Rec Date</th>
-                                       <th class="col-md-1">Receipt</th>
-                                      <th class="col-md-1">Penalty</th>
-                                      <th class="col-md-1">Due Bal</th>
+                                       <th class="col-md-1">Receipt Amount</th>
+                                       <th class="col-md-1">Due Bal</th>
+                                       <th class="col-md-1">Penalty Amount</th>
+                                       <th class="col-md-1">Penalty Receipt</th>
+                                      <th class="col-md-1">Penalty Balance</th>                                     
                                       <th class="col-md-1">Total Bal</th>
-                                      <th class="col-md-1">Bill Book</th>
-                                      <th></th>
+                                      <th class="col-md-1"></th>
                                       </tr>
                                   </thead>
                                       <tbody>
-                                          <tr>
-                                          <td>1</td>
-                                          <td>19/9/2019</td>
-                                          <td>12</td>
-                                          <td>8500</td>
-                                          <td>19/10/2019</td>
-                                          <td>8500</td>
-                                          <td>0</td>
-                                          <td>0</td>
-                                          <td>91500</td>
-                                          <td>AB</td>
+                                          <tr *ngFor="let i of AllCollection">
+                                          <td>{{i.SNO}}</td>
+                                          <td>{{i.Date|date:"dd/MM/y"}}</td>
+                                          <td>{{i.DueNo}}</td>
+                                          <td>{{i.DueAmt}}</td>
+                                          <td>{{i.Duereciept}}</td>
+                                          <td>{{i.dueBal}}</td>                                       
+                                          <td>{{i.PenaltyAmount}}</td>
+                                          <td>{{i.Penaltyreciept}}</td>
+                                          <td>{{i.penaltyBal}}</td>
+                                          <td>{{i.TotalBal}}</td>
                                           <td>
-                                                <div class="col-sm-3">
-                                                  <button type="button" class="btn btn-primary glyphicon glyphicon-pencil"></button>
-                                                  </div>
+                                            
                                                   <div class="col-sm-3">
                                                     <button type="button" class="btn btn-primary glyphicon glyphicon-remove"></button>
                                                   </div>

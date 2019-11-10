@@ -7,9 +7,10 @@ export class Collection
 
         public  BillBook :string,
 
-        public  Due :Number,
+        public  DueNo :Number,
         public  DueAmt :Number,
         public  Duereciept :Number,
+        public PenaltyAmount:Number,
         public  Penaltyreciept :Number,
         public  penaltyBal :Number,
         public  dueBal :Number,

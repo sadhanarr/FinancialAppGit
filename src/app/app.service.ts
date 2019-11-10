@@ -83,7 +83,9 @@ export class AppService
     private _getLoanbyCustomerURL= this._baseUrl+"getLoanbyCustomer"
     private _getProofURL= this._baseUrl+"getProof"
     private _deleteProofURL= this._baseUrl+"deleteProof"
-    private _getCollectionURL= this._baseUrl+"getCollection"
+    private _deleteCollectionURL= this._baseUrl+"DeleteCollection"
+    private _getCollectionURL= this._baseUrl+"getLoanEMIList"
+    private _getCollectionValURL= this._baseUrl+"getCollection"
     private _addCollectionURL= this._baseUrl+"addCollection"
     private RequestID = new BehaviorSubject<Number>(0);
     currentReqID = this.RequestID.asObservable();
@@ -109,13 +111,19 @@ export class AppService
         return this._http.get<ICompany[]>(this._getLoanCategoryURL)
     
     }
-    getCollection(ID,LoanID):Observable<Collection>
+    getCollection(LoanID):Observable<Collection[]>
     {
-        return this._http.get<Collection>(this._getCollectionURL+"/"+ID+"/"+LoanID)
+        return this._http.get<Collection[]>(this._getCollectionURL+"/"+LoanID)
+    
+    }
+    getCollectionValue(ID,LoanID,EntryDate):Observable<Collection>
+    {
+        return this._http.get<Collection>(this._getCollectionValURL+"/"+ID+"/"+LoanID+"/"+EntryDate)
     
     }
     addCollection(collection:Collection)
     {
+      console.log(collection)
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json',
@@ -123,7 +131,7 @@ export class AppService
         })
         
       }; 
-        return this._http.post(this._addCollectionURL,collection,httpOptions).subscribe(res=> console.log(res))
+        return this._http.post(this._addCollectionURL,collection,httpOptions)
     }
     getROI():Observable<ROI[]>
     {
@@ -209,6 +217,10 @@ export class AppService
     DeleteMachineLine(id:Number)
     {
       return this._http.get(this._deleteMachineLineURL+"/"+id)
+    }
+    DeleteCollection(id:Number)
+    {
+      return this._http.get(this._deleteCollectionURL+"/"+id)
     }
     InsertMachineLine(dist:MLine)
     {

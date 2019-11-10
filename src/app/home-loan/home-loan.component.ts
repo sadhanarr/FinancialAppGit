@@ -47,7 +47,8 @@ selectedFile1:File;
 CustProof:IProof;
 GuaranProof:IProof;
 LoanID:Number=0;
-collection:Collection= new Collection(null,null,new Date(),'',null,null,null,null,null,null,null);
+collection:Collection= new Collection(null,null,new Date(),'',null,null,null,null,null,null,null,null);
+AllCollection:Collection[];
 
   ngOnInit() {
     this._appService.getLoanCategory().subscribe((data:any[])=>{
@@ -101,9 +102,10 @@ collection:Collection= new Collection(null,null,new Date(),'',null,null,null,nul
      
      window.open(url.replace('D:\\Tech\\','http://103.110.236.177/'))
   }
-  AddEntry()
+  AddEntry(form)
   {
-    this._appService.addCollection(this.collection)
+    this.collection.LoanID=this.LoanID;
+    this._appService.addCollection(this.collection).subscribe(res=>{ console.log(res);form.resetForm()})
   }
   DeleteProof(ProofType,Type)
   {
@@ -136,9 +138,11 @@ console.log(this.loandetail)
   getLoanDetail(LoanID: Number)
   {
     this.LoanID=LoanID;
+    this.collection.Date= new Date();
     this._appService.getLoanDetail(LoanID).subscribe(res=> {
       console.log(res);this.loandetail=res})
-      this._appService.getCollection(0,LoanID).subscribe(res=>{this.collection=res})
+      this._appService.getCollection(LoanID).subscribe(res=>{this.AllCollection=res});
+      this._appService.getCollectionValue(0,LoanID,new Date(this.collection.Date).toISOString().slice(0,10)).subscribe(res=>this.collection=res)
   }
   changeLoanStatus(event)
   {
@@ -158,7 +162,8 @@ onFileChanged1(event) {
 }
  OnChange()
   {
-    console.log(this.loan)
+
+    
     if(this.loandetail["LoanID"] ==0){
     if(this.loandetail["LoanCatID"]==1)
       this.loandetail["LoanNo"]= 100000+1+  this.loan.filter(x=>x.LoanCatID==this.loandetail["LoanCatID"]).length
@@ -248,19 +253,19 @@ onFileChanged1(event) {
   this.loandetail["IncentiveAmt"]= this.loandetail["DocCharge"] != null? parseInt(this.loandetail["IncentiveRatio"].toString())*(parseInt(this.loandetail["DocCharge"].toString())/100):0
  }
 }
- if(this.loandetail["IncentiveType"] != null && this.loandetail["IncentiveAmt"] != null  && this.loandetail["IncentiveType"].toString()=="Every Loan Incentive")
+ if(this.loandetail["IncentiveType"] != null   && this.loandetail["IncentiveType"].toString()=="Every Loan Incentive")
  {
    if( this.loandetail["SplIncentiveAmt"] != null && this.loandetail["SplIncentiveAmt"].toString()!="")
 { 
   incentive= parseInt(this.loandetail["IncentiveAmt"].toString())+parseInt(this.loandetail["SplIncentiveAmt"].toString())}
-   else
-   incentive= parseInt(this.loandetail["IncentiveAmt"].toString()) }
- 
+   else if( this.loandetail["IncentiveAmt"] != null && this.loandetail["IncentiveAmt"].toString() != "")
+  { incentive= parseInt(this.loandetail["IncentiveAmt"].toString()) }
+}
    if(this.loandetail["SchemeAmt"]!=null && this.loandetail["SchemeAmtReceived"] !=null && this.loandetail["SchemeAmtReceived"].toString() =="Received By Showroom" && this.loandetail["SchemeAmt"].toString() != "" )
    {
      scheme= parseInt(this.loandetail["SchemeAmt"].toString())
    }
-   if(this.loandetail["DocCharge"]!= null && this.loandetail["DocChargeReceived"]!=null && this.loandetail["DocChargeReceived"].toString() =="Received By Showroom" )
+   if(this.loandetail["DocCharge"]!= null && this.loandetail["DocChargeRecvd"]!=null && this.loandetail["DocChargeRecvd"].toString() =="Received By Showroom" && this.loandetail["DocCharge"].toString() !="")
    {
      DocCharge=parseInt(this.loandetail["DocCharge"].toString())
    }
