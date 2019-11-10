@@ -12,6 +12,7 @@ import { ICompany } from '../master-screen/Company';
 import {ROI} from '../loan-request/ROI'
 import {IProof} from './Proof'
 import { Collection } from './collection';
+import { Followup } from './Followup';
 
 @Component({
   selector: 'app-home-loan',
@@ -34,7 +35,7 @@ loan:Loan[]=[];
 loanCust:Loan[]=[];
 isscheme:boolean=false;
 CustID:Number
-loandetail:Loan= new Loan(0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',0,'','','',null,false,false,'',false,false,false,null,null,null,null,null,null,null,null,null,null,'',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,'','','','','','');
+loandetail:Loan= new Loan(0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',	0,	'',	'',	'',	'',	false,	false,	'',	false,	false,	false,	false,	'',	0,	'',	0,	'',	new Date(),	0,	0,	0,	'',	'',	0,	0,	'',	0,	'',	0,	0,	'',	0,	0,	0,	new Date(),	new Date(),	0,	0,	0,	new Date(),	0,	0,	false,	'',	'',	'',	'',	'',	'');	
 RequestID:Number
 formSubmit:boolean=false;
  roundoff5:boolean=false;
@@ -48,7 +49,7 @@ CustProof:IProof;
 GuaranProof:IProof;
 LoanID:Number=0;
 collection:Collection= new Collection(null,null,new Date(),'',null,null,null,null,null,null,null);
-
+followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
   ngOnInit() {
     this._appService.getLoanCategory().subscribe((data:any[])=>{
       this.LoanCategory=data
@@ -113,6 +114,11 @@ collection:Collection= new Collection(null,null,new Date(),'',null,null,null,nul
     this._appService.getProof(this.CustID,'Guarantor').subscribe(res=>this.GuaranProof=res);
   })
   }
+  AddFollowup()
+  {
+    this._appService.InsertLoanFollowupDetail(this.followup)
+  }
+  
   SaveLoan(form)
   {
     

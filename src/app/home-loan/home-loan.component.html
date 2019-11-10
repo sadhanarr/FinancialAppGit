@@ -290,7 +290,7 @@
              </td>
              <td class="col-md-2">{{lo.LoanDate}}</td>
              <td class="col-md-2">{{lo.LoanAmt}}</td>
-             <td class="col-md-2"></td>
+             <td class="col-md-2">{{lo.LoanStatus}}</td>
              </tr>
             
              </tbody>
@@ -607,13 +607,13 @@
                       <div class="form-group">
                               <label class="control-label col-sm-5">Due Receipt:</label>
                               <div class="col-sm-7">
-                                      <input type="text" class="form-control" id="dueReceipt" [(ngModel)]="collection.Duereciept">
+                                      <input type="text" class="form-control" name="dueReceipt" [(ngModel)]="collection.Duereciept">
                                   </div>
                           </div>
                           <div class="form-group">
                                   <label class="control-label col-sm-5">Penalty Receipt:</label>
                                   <div class="col-sm-7">
-                                          <input type="text" class="form-control" id="penReceipt"  [(ngModel)]="collection.Penaltyreciept">
+                                          <input type="text" class="form-control" name="penReceipt"  [(ngModel)]="collection.Penaltyreciept">
                                       </div>
                               </div>
                              
@@ -816,7 +816,7 @@
                           <div class="form-group">
                               <label class="control-label col-sm-5">Loan Status :</label>
                               <div class="col-sm-6">
-                                  <select class="form-control" id="loanStatus" [(ngModel)]="loandetail.LoanStatus" (change)="changeLoanStatus($event.target.value)">
+                                  <select class="form-control" name="loanStatus" [(ngModel)]="loandetail.LoanStatus" (change)="changeLoanStatus($event.target.value)">
                                      <option value="Running">Running</option>
                                       <option  value="Consider">Consider</option>
                                       <option  value="Pending">Pending</option>
@@ -828,13 +828,13 @@
                           <div class="form-group">
                               <label class="control-label col-sm-5">Remarks :</label>
                               <div class="col-sm-6">
-                                  <input type="text" class="form-control" id="remarks" [(ngModel)]="loandetail.Remarks">
+                                  <input type="text" class="form-control" name="remarks" [(ngModel)]="loandetail.Remarks">
                               </div>
                           </div>
                           <div class="form-group">
                               <label class="control-label col-sm-5">Repayment :</label>
                               <div class="col-sm-6">
-                                  <select class="form-control" id="repayment"[(ngModel)]="loandetail.RepaymentGrade">
+                                  <select class="form-control" name="repayment"[(ngModel)]="loandetail.RepaymentGrade">
                                       <option>Best</option>
                                       <option>Good</option>
                                       <option>Normal</option>
@@ -846,7 +846,7 @@
                           <div class="form-group">
                                   <label class="control-label col-sm-5">Customer Attitude :</label>
                                   <div class="col-sm-6">
-                                      <select class="form-control" id="attitude" [(ngModel)]="loandetail.CustomerAttitude">
+                                      <select class="form-control" name="attitude" [(ngModel)]="loandetail.CustomerAttitude">
                                           <option>Best</option>
                                           <option>Good</option>
                                           <option>Normal</option>
@@ -860,7 +860,7 @@
                               <div class="form-group" id="consider" style="display: none;">
                                       <label class="control-label col-sm-5">If Loan Status=Consider</label>							
                                       <div class="col-sm-6">
-                                          <select class="form-control" id="consider" [(ngModel)]="loandetail.LoanSubStatus">
+                                          <select class="form-control" name="consider" [(ngModel)]="loandetail.LoanSubStatus">
                                               <option>Platinum</option>
                                               <option>Diamond</option>
                                               <option>Gold</option>
@@ -872,7 +872,7 @@
                                   <div class="form-group">
                                       <label class="control-label col-sm-5">N.O.C. Remarks:</label>
                                       <div class="col-sm-6">
-                                          <textarea id="noc" class="form-control"rows="6" cols="50" [(ngModel)]="loandetail.NOCRemarks"></textarea>
+                                          <textarea name="noc" class="form-control"rows="6" cols="50" [(ngModel)]="loandetail.NOCRemarks"></textarea>
                                       </div>
                                   </div>
                                  
