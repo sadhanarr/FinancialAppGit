@@ -48,14 +48,11 @@ selectedFile1:File;
 CustProof:IProof;
 GuaranProof:IProof;
 LoanID:Number=0;
-<<<<<<< HEAD
 collection:Collection= new Collection(null,null,new Date(),'',null,null,null,null,null,null,null,null);
 AllCollection:Collection[];
 
-=======
-collection:Collection= new Collection(null,null,new Date(),'',null,null,null,null,null,null,null);
+
 followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
->>>>>>> 9128e240fd98b62e14b2314f70855fdcfaac0ed4
   ngOnInit() {
     this._appService.getLoanCategory().subscribe((data:any[])=>{
       this.LoanCategory=data
