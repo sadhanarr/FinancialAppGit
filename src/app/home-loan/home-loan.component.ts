@@ -12,6 +12,7 @@ import { ICompany } from '../master-screen/Company';
 import {ROI} from '../loan-request/ROI'
 import {IProof} from './Proof'
 import { Collection } from './collection';
+import { Followup } from './Followup';
 
 @Component({
   selector: 'app-home-loan',
@@ -34,7 +35,7 @@ loan:Loan[]=[];
 loanCust:Loan[]=[];
 isscheme:boolean=false;
 CustID:Number
-loandetail:Loan= new Loan(0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',0,'','','',null,false,false,'',false,false,false,null,null,null,null,null,null,null,null,null,null,'',null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,'','','','','','');
+loandetail:Loan= new Loan(0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',	0,	'',	'',	'',	'',	false,	false,	'',	false,	false,	false,	false,	'',	0,	'',	0,	'',	new Date(),	0,	0,	0,	'',	'',	0,	0,	'',	0,	'',	0,	0,	'',	0,	0,	0,	new Date(),	new Date(),	0,	0,	0,	new Date(),	0,	0,	false,	'',	'',	'',	'',	'',	'');	
 RequestID:Number
 formSubmit:boolean=false;
  roundoff5:boolean=false;
@@ -47,9 +48,14 @@ selectedFile1:File;
 CustProof:IProof;
 GuaranProof:IProof;
 LoanID:Number=0;
+<<<<<<< HEAD
 collection:Collection= new Collection(null,null,new Date(),'',null,null,null,null,null,null,null,null);
 AllCollection:Collection[];
 
+=======
+collection:Collection= new Collection(null,null,new Date(),'',null,null,null,null,null,null,null);
+followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
+>>>>>>> 9128e240fd98b62e14b2314f70855fdcfaac0ed4
   ngOnInit() {
     this._appService.getLoanCategory().subscribe((data:any[])=>{
       this.LoanCategory=data
@@ -115,6 +121,11 @@ AllCollection:Collection[];
     this._appService.getProof(this.CustID,'Guarantor').subscribe(res=>this.GuaranProof=res);
   })
   }
+  AddFollowup()
+  {
+    this._appService.InsertLoanFollowupDetail(this.followup)
+  }
+  
   SaveLoan(form)
   {
     

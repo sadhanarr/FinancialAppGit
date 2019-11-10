@@ -290,7 +290,7 @@
              </td>
              <td class="col-md-2">{{lo.LoanDate}}</td>
              <td class="col-md-2">{{lo.LoanAmt}}</td>
-             <td class="col-md-2"></td>
+             <td class="col-md-2">{{lo.LoanStatus}}</td>
              </tr>
             
              </tbody>
@@ -814,7 +814,7 @@
                           <div class="form-group">
                               <label class="control-label col-sm-5">Loan Status :</label>
                               <div class="col-sm-6">
-                                  <select class="form-control" id="loanStatus" (change)="changeLoanStatus($event.target.value)">
+                                  <select class="form-control" name="loanStatus" [(ngModel)]="loandetail.LoanStatus" (change)="changeLoanStatus($event.target.value)">
                                      <option value="Running">Running</option>
                                       <option  value="Consider">Consider</option>
                                       <option  value="Pending">Pending</option>
@@ -826,13 +826,13 @@
                           <div class="form-group">
                               <label class="control-label col-sm-5">Remarks :</label>
                               <div class="col-sm-6">
-                                  <input type="text" class="form-control" id="remarks">
+                                  <input type="text" class="form-control" name="remarks" [(ngModel)]="loandetail.Remarks">
                               </div>
                           </div>
                           <div class="form-group">
                               <label class="control-label col-sm-5">Repayment :</label>
                               <div class="col-sm-6">
-                                  <select class="form-control" id="repayment">
+                                  <select class="form-control" name="repayment"[(ngModel)]="loandetail.RepaymentGrade">
                                       <option>Best</option>
                                       <option>Good</option>
                                       <option>Normal</option>
@@ -844,7 +844,7 @@
                           <div class="form-group">
                                   <label class="control-label col-sm-5">Customer Attitude :</label>
                                   <div class="col-sm-6">
-                                      <select class="form-control" id="attitude">
+                                      <select class="form-control" name="attitude" [(ngModel)]="loandetail.CustomerAttitude">
                                           <option>Best</option>
                                           <option>Good</option>
                                           <option>Normal</option>
@@ -858,7 +858,7 @@
                               <div class="form-group" id="consider" style="display: none;">
                                       <label class="control-label col-sm-5">If Loan Status=Consider</label>							
                                       <div class="col-sm-6">
-                                          <select class="form-control" id="consider">
+                                          <select class="form-control" name="consider" [(ngModel)]="loandetail.LoanSubStatus">
                                               <option>Platinum</option>
                                               <option>Diamond</option>
                                               <option>Gold</option>
@@ -870,7 +870,7 @@
                                   <div class="form-group">
                                       <label class="control-label col-sm-5">N.O.C. Remarks:</label>
                                       <div class="col-sm-6">
-                                          <textarea id="noc" class="form-control"rows="6" cols="50"></textarea>
+                                          <textarea name="noc" class="form-control"rows="6" cols="50" [(ngModel)]="loandetail.NOCRemarks"></textarea>
                                       </div>
                                   </div>
                                  

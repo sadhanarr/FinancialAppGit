@@ -22,12 +22,13 @@ import {Customer} from './home-loan/Customer'
 import {Loan} from './home-loan/loan'
 import { IProof} from './home-loan/Proof'
 import {Collection} from './home-loan/collection'
+import { Followup } from './home-loan/Followup';
 
 @Injectable()
 export class AppService
 {
      private _baseUrl= 'http://103.110.236.177/FinanceAPI/api/Value/';
-   // private _baseUrl= 'https://localhost:44302/api/Value/';
+  //  private _baseUrl= 'https://localhost:44302/api/Value/';
 
     private _getCompanyURL = this._baseUrl+"getCompany";
     private _insertBranchURL= this._baseUrl+"InsertBranch"
@@ -87,6 +88,8 @@ export class AppService
     private _getCollectionURL= this._baseUrl+"getLoanEMIList"
     private _getCollectionValURL= this._baseUrl+"getCollection"
     private _addCollectionURL= this._baseUrl+"addCollection"
+    private _insertLoanFollowupURL = this._baseUrl+"InsertLoanFollowupDetails";
+    private _deleteLoanFollowupURL = this._baseUrl+"DeleteLoanFollowupDetail";
     private RequestID = new BehaviorSubject<Number>(0);
     currentReqID = this.RequestID.asObservable();
     private CustomerID = new BehaviorSubject<Number>(0);
@@ -103,7 +106,6 @@ export class AppService
     getCompany():Observable<ICompany[]>
     {
         return this._http.get<ICompany[]>(this._getCompanyURL)
-    
     }
    
     getLoanCategory():Observable<ICompany[]>
@@ -276,6 +278,22 @@ export class AppService
       };
        return  this._http.post(this._InsertIssuedLoanDetails,loan,httpOptions)
     }
+    DeleteLoanFollowupDetail(id:Number)
+    {
+      return this._http.get(this._deleteLoanFollowupURL+"/"+id)
+    }
+    InsertLoanFollowupDetail(followup:Followup)
+    {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      };
+       return  this._http.post(this._insertLoanFollowupURL,followup,httpOptions)
+    }
+
     InsertLoanRequest(data:Request,file:File)
     {
       const httpOptions = {
