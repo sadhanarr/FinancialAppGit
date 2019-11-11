@@ -35,7 +35,7 @@ loan:Loan[]=[];
 loanCust:Loan[]=[];
 isscheme:boolean=false;
 CustID:Number
-loandetail:Loan= new Loan(0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',	0,	'',	'',	'',	'',	false,	false,	'',	false,	false,	false,	false,	'',	0,	'',	0,	'',	new Date(),	0,	0,	0,	'',	'',	0,	0,	'',	0,	'',	0,	0,	'',	0,	0,	0,	new Date(),	new Date(),	0,	0,	0,	new Date(),	0,	0,	false,	'',	'',	'',	'',	'',	'');	
+loandetail:Loan= new Loan(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',	0,	'',	'',	'',	'',	false,	false,	'',	false,	false,	false,	false,	'',	0,	'',	0,	'',	new Date(),	0,	0,	0,	'',	'',	0,	0,	'',	0,	'',	0,	0,	'',	0,	0,	0,	new Date(),	new Date(),	0,	0,	0,	new Date(),	0,	0,	false,	'',	'',	'',	'',	'',	'');	
 RequestID:Number
 formSubmit:boolean=false;
  roundoff5:boolean=false;
@@ -48,7 +48,7 @@ selectedFile1:File;
 CustProof:IProof;
 GuaranProof:IProof;
 LoanID:Number=0;
-collection:Collection= new Collection(null,null,new Date(),'',null,null,null,null,null,null,null,null);
+collection:Collection= new Collection(null,null,new Date(),'',null,null,null,null,null,null,null,null,null,null,null);
 AllCollection:Collection[];
 
 
@@ -108,7 +108,19 @@ followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
   AddEntry(form)
   {
     this.collection.LoanID=this.LoanID;
-    this._appService.addCollection(this.collection).subscribe(res=>{ console.log(res);form.resetForm()})
+   console.log(this.collection)
+    this._appService.addCollection(this.collection).subscribe(res=>{ console.log(res);
+      this._appService.getCollection(this.LoanID).subscribe(res=>{this.AllCollection=res});
+      form.resetForm();})
+   
+  }
+  removeCollection(EMMID:Number)
+  {
+    this._appService.DeleteCollection(EMMID,this.LoanID).subscribe(res=>{
+      console.log(res);
+      this._appService.getCollection(this.LoanID).subscribe(res=>{this.AllCollection=res});
+    })
+
   }
   DeleteProof(ProofType,Type)
   {
@@ -133,24 +145,48 @@ followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
     return;
  }
 }
-console.log(this.loandetail)
+
     this._appService.InsertIssuedLoanDetails(this.loandetail).subscribe(res =>
-      { console.log('res'+res);form.resetForm();
+      { console.log(this.loandetail);
+        this.LoanID=parseInt(res.toString())
+    
       this._appService.getLoanbyCustomer(this.CustID).subscribe(res=> this.loanCust=res);
       this._appService.getCustomer(this.CustID,this.RequestID).subscribe((data:any)=> 
       {
-        this.loandetail=data ;});
+        this.loandetail=data ;
+        ;});
      });
    // 
   }
+
   getLoanDetail(LoanID: Number)
   {
+    console.log(this.loandetail)
+    this._appService.UpdateCustomer(this.loandetail).subscribe(res=>{console.log(res);
     this.LoanID=LoanID;
-    this.collection.Date= new Date();
+    
+    if(LoanID>0)
+    {
     this._appService.getLoanDetail(LoanID).subscribe(res=> {
       console.log(res);this.loandetail=res})
       this._appService.getCollection(LoanID).subscribe(res=>{this.AllCollection=res});
-      this._appService.getCollectionValue(0,LoanID,new Date(this.collection.Date).toISOString().slice(0,10)).subscribe(res=>this.collection=res)
+    }
+    else{
+      this._appService.getCustomer(this.CustID,this.RequestID).subscribe((data:any)=> 
+      {
+        this.loandetail=data ; 
+     this.OnChange();
+      })
+       this.AllCollection=[];
+    }
+      this._appService.getCollectionValue(0,LoanID,(new Date().toLocaleDateString()).replace('/','-').replace('/','-')).subscribe(res=>{ console.log(res)
+      if(res != null){this.collection=res;}})
+    })
+  }
+  DateChange()
+  {
+    console.log(new Date(this.collection.Date).toLocaleDateString())
+    this._appService.getCollectionValue(0,this.LoanID,(new Date(this.collection.Date).toLocaleDateString()).replace('/','-').replace('/','-')).subscribe(res=>this.collection=res)
   }
   changeLoanStatus(event)
   {
@@ -193,16 +229,24 @@ onFileChanged1(event) {
     }
    
    
-         
-    var FirstDueDt= new Date();
-    FirstDueDt.setMonth(new Date().getMonth()+1);
-    FirstDueDt.setDate(10);
-    var LastDueDt= new Date();
-    LastDueDt.setMonth(new Date().getMonth()+1);
-    LastDueDt.setDate(10);
+    if(this.loandetail["DueType"]=="EMI"){     
+    var FirstDueDt= new Date($("#loanDate_input").val());
+    FirstDueDt.setMonth(FirstDueDt.getMonth()+1);
+    FirstDueDt.setDate(10); 
       this.loandetail["FirstDueDt"]= FirstDueDt;
+     var LastDueDt=new Date($("#firstDue_input").val());
       LastDueDt.setMonth(LastDueDt.getMonth()+ this.loandetail["Instalments"])
       this.loandetail["LastDueDt"]=LastDueDt;
+    }
+      if(this.loandetail["DueType"]=="Interest")
+      {
+        var today = new Date($("#loanDate_input").val());
+        var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth()+1, 0);
+        this.loandetail["FirstDueDt"]=lastDayOfMonth;       
+     var LastDueDt=new Date($("#firstDue_input").val());
+     LastDueDt.setMonth(LastDueDt.getMonth()+ this.loandetail["Instalments"])
+        this.loandetail["LastDueDt"]= LastDueDt
+      }
     if(!this.isscheme)
     {
       $('#SchemeAmt').attr("disabled","disabled");

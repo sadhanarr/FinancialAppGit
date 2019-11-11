@@ -5,6 +5,7 @@ export class Loan{
         public BranchID: Number,
         public LineID: Number,
         public StateID: Number,
+        public SubAreaID:Number,
         public DistrictID: Number,
         public TalukID: Number,
         public AreaID: Number,

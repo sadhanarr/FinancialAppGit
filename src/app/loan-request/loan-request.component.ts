@@ -213,8 +213,10 @@ reader.readAsDataURL(this.selectedFile);
          console.log(ROIscheme)
             var DUEROI:any= parseFloat( ROIscheme[0].DUEROI.toString())*( parseInt(this.request["LoanPeriod"].toString())/ parseInt( ROIscheme[0].DUESTEPS.toString()));
           console.log(DUEROI)
+          
             var ADVROIper= this.request["AdvRatio"] >= ROIscheme[0].ADVMIN && this.request["AdvRatio"]<= ROIscheme[0].ADVMAX ? this.request["AdvRatio"]: ( this.request["AdvRatio"]>ROIscheme[0].ADVMAX ? ROIscheme[0].ADVMAX : ROIscheme[0].ADVMIN )
-            var ADVROI = parseFloat(ROIscheme[0].ADVROI.toString())* (ADVROIper/ROIscheme[0].ADVSTEPS)
+            var ADVROI = parseFloat(ROIscheme[0].ADVROI.toString())* parseFloat(Math.floor(ADVROIper/ROIscheme[0].ADVSTEPS).toFixed(0));
+            console.log( parseFloat(Math.floor(ADVROIper/ROIscheme[0].ADVSTEPS).toFixed(0)))
             console.log(ADVROI)
             if(this.request["SecRatio"] != null){
             var SECROIper= ( this.request["SecRatio"] >= ROIscheme[0].SECMIN && this.request["SecRatio"]<= ROIscheme[0].SECMAX ? this.request["SecRatio"]: ( this.request["SecRatio"]>ROIscheme[0].SECMAX ? ROIscheme[0].SECMAX : ROIscheme[0].SECMIN ))

@@ -32,7 +32,7 @@
 				</div>
 				<label class="control-label col-sm-1" >Sub Area :</label>
                 <div class="col-sm-3">
-                        <select class="form-control"  #lid="ngModel" [(ngModel)]="loandetail.SubAreaID"  name="SubAreaID">
+                        <select class="form-control"  #sid="ngModel" [(ngModel)]="loandetail.SubAreaID"  name="SubAreaID">
                                 <option *ngFor="let l of AllSarea" value="{{l.TalukID}}">{{l.TalukName}}
                                  </option>                         
                                 </select>
@@ -254,7 +254,7 @@
 				</div>
             </div>
             <div class="emptyDiv"></div>
-            <div class="emptyDiv"><div class="col-md-3"><button data-toggle="modal" data-target="#myModal" type="submit" class="btn btn-primary">Issue Loan</button></div> </div>
+            <div class="emptyDiv"><div class="col-md-3"><button data-toggle="modal" data-target="#myModal" (click)="getLoanDetail(0)" type="submit" class="btn btn-primary">Issue Loan</button></div> </div>
       </div>
       <div class="form-horizontal col-md-12 tab-content">
              <div class="table table-responsive">
@@ -304,7 +304,7 @@
             <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" id="loanbtn" class="close"  data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Loan Details</h4>
               </div>
               <div class="modal-body">
@@ -432,7 +432,7 @@
                       <input type="text" class="form-control" name="chequeNum" [(ngModel)]="loandetail.Noofheque">
                   </div>
                   <div class="col-sm-4">
-                      <button type="button" id="loanSave" (click)="SaveLoan(form)" class="btn btn-primary">SAVE</button>
+                      <button type="button" id="loanSave"   (click)="SaveLoan(form)" class="btn btn-primary">SAVE</button>
                   </div>
               </div>
               </div>
@@ -440,7 +440,7 @@
                       <div class="form-group">
               <label class="control-label col-sm-3" >Loan Date :</label>
               <div class="col-sm-3">
-                    <ejs-datepicker name='loanDate' placeholder='Select a date' [(ngModel)]="loandetail.LoanDate" [value]="loandetail.LoanDate" ></ejs-datepicker>
+                    <ejs-datepicker name='loanDate' id="loanDate" placeholder='Select a date' [(ngModel)]="loandetail.LoanDate" [value]="loandetail.LoanDate" ></ejs-datepicker>
               </div>
                   <label class="control-label col-sm-3" >Loan Amount:</label>
                   <div class="col-sm-3 ">
@@ -452,7 +452,15 @@
                   <div class="col-sm-3">
                   <input type="text" class="form-control " name="TotLoanAmt" name="TotLoanAmt" [(ngModel)]="loandetail.TotLoanAmt">
                   </div>
-                  
+                
+                    <label class="control-label col-sm-3">Interest Type:</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" name="IntType" [(ngModel)]="loandetail.IntType">
+                            <option>Daily</option>
+                            <option>Monthly</option>
+                        </select>
+                    </div>
+                
               </div>
               <div class="form-group">
                   <label class="control-label col-sm-3">Doc. Charge :</label>
@@ -550,7 +558,7 @@
               <div class="form-group">
                       <label class="control-label col-sm-3">First Due Date :</label>
                       <div class="col-sm-3">
-                            <ejs-datepicker name='firstDue' placeholder='Select a date' [(ngModel)]="loandetail.FirstDueDt" ></ejs-datepicker>
+                            <ejs-datepicker name='firstDue' id="firstDue" placeholder='Select a date' [(ngModel)]="loandetail.FirstDueDt" ></ejs-datepicker>
                         
                       </div>
                       <label class="control-label col-sm-3">Installment Amt:</label>
@@ -592,7 +600,7 @@
                       <div class="form-group">
                           <label class="control-label col-sm-5">Entry Date:</label>
                           <div class="col-sm-7">
-                                <ejs-datepicker name='entryDate' placeholder='Select a date' [(ngModel)]="collection.Date" ></ejs-datepicker>
+                                <ejs-datepicker name='entryDate' placeholder='Select a date' [(ngModel)]="collection.Date" (focusout)="DateChange()" ></ejs-datepicker>
                           </div>
                       </div>
                       <div class="form-group">
@@ -620,20 +628,17 @@
                       </div>
                       <div class=" form-horizontal col-md-4">
                       <div class="form-group">
-                       <label class="control-label col-sm-5" >Penalty Type:</label>
+                       <label class="control-label col-sm-5" >Principal Receipt:</label>
                        <div class="col-sm-7">
-                      <select class="form-control">
-                          <option>Monthly</option>
-                          <option>Daily</option>
-                    </select>
+                     <input type="text" class="form-control" name="principleAmt" [(ngModel)]="collection.Principalreciept">
                       </div>
                       </div>
                       <div class="form-group">
-                          <label class="control-label col-sm-5">Penalty Date:</label>
-                          <div class="col-sm-7">
-                                <ejs-datepicker id='penaltyDate' placeholder='Select a date' ></ejs-datepicker>
-                          </div>
-                      </div>
+                        <label class="control-label col-sm-5" >Loan Amount:</label>
+                        <div class="col-sm-7">
+                      <input type="text" class="form-control" name="loanamount" [(ngModel)]="collection.LoanAmount">
+                       </div>
+                       </div>
                       <div class="form-group">
                           <label class="control-label col-sm-5">Penalty Balance:</label>
                           <div class="col-sm-7">
@@ -676,6 +681,7 @@
                                        <th class="col-md-1">Date</th>
                                        <th class="col-md-1">Due No</th>
                                        <th class="col-md-1">Due Amt.</th>
+                                       <th class="col-md-1">Principal Receipt</th>
                                        <th class="col-md-1">Receipt Amount</th>
                                        <th class="col-md-1">Due Bal</th>
                                        <th class="col-md-1">Penalty Amount</th>
@@ -691,6 +697,7 @@
                                           <td>{{i.Date|date:"dd/MM/y"}}</td>
                                           <td>{{i.DueNo}}</td>
                                           <td>{{i.DueAmt}}</td>
+                                          <td>{{i.Principalreciept}}</td>
                                           <td>{{i.Duereciept}}</td>
                                           <td>{{i.dueBal}}</td>                                       
                                           <td>{{i.PenaltyAmount}}</td>
@@ -700,7 +707,7 @@
                                           <td>
                                             
                                                   <div class="col-sm-3">
-                                                    <button type="button" class="btn btn-primary glyphicon glyphicon-remove"></button>
+                                                    <button type="button" (click)="removeCollection(i.EMIID)" class="btn btn-primary glyphicon glyphicon-remove"></button>
                                                   </div>
                                                   <div class="col-sm-3">
                                                         <button type="button"  class="btn btn-primary glyphicon glyphicon-print"></button>

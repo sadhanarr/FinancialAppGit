@@ -88,8 +88,11 @@ export class AppService
     private _getCollectionURL= this._baseUrl+"getLoanEMIList"
     private _getCollectionValURL= this._baseUrl+"getCollection"
     private _addCollectionURL= this._baseUrl+"addCollection"
+    private _UpdateCustomerURL= this._baseUrl+"UpdateCustomer"
     private _insertLoanFollowupURL = this._baseUrl+"InsertLoanFollowupDetails";
     private _deleteLoanFollowupURL = this._baseUrl+"DeleteLoanFollowupDetail";
+
+
     private RequestID = new BehaviorSubject<Number>(0);
     currentReqID = this.RequestID.asObservable();
     private CustomerID = new BehaviorSubject<Number>(0);
@@ -120,6 +123,7 @@ export class AppService
     }
     getCollectionValue(ID,LoanID,EntryDate):Observable<Collection>
     {
+      console.log(this._getCollectionValURL+"/"+ID+"/"+LoanID+"/"+EntryDate)
         return this._http.get<Collection>(this._getCollectionValURL+"/"+ID+"/"+LoanID+"/"+EntryDate)
     
     }
@@ -220,9 +224,9 @@ export class AppService
     {
       return this._http.get(this._deleteMachineLineURL+"/"+id)
     }
-    DeleteCollection(id:Number)
+    DeleteCollection(id:Number,LoanID:Number)
     {
-      return this._http.get(this._deleteCollectionURL+"/"+id)
+      return this._http.get(this._deleteCollectionURL+"/"+id+"/"+LoanID)
     }
     InsertMachineLine(dist:MLine)
     {
@@ -277,6 +281,19 @@ export class AppService
         
       };
        return  this._http.post(this._InsertIssuedLoanDetails,loan,httpOptions)
+    }
+
+    UpdateCustomer(loan:Loan)
+    {
+      
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      };
+       return  this._http.post(this._UpdateCustomerURL,loan,httpOptions)
     }
     DeleteLoanFollowupDetail(id:Number)
     {
