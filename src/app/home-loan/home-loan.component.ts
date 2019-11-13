@@ -64,7 +64,9 @@ AllCollection:Collection[];
  dueBal:Number=0;
  TotalBal:Number=0;
 
-followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
+FollowupDetails:Followup[];
+followup:Followup= new Followup(0,0,0,new Date(),new Date(),'','','');
+
   ngOnInit() {
     this._appService.getLoanCategory().subscribe((data:any[])=>{
       this.LoanCategory=data
@@ -118,6 +120,19 @@ followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
      
      window.open(url.replace('D:\\Tech\\','http://103.110.236.177/'))
   }
+  AddFollowup(form)
+  {
+    this.followup.LoanID=this.LoanID
+    console.log(this.followup)
+    this._appService.InsertLoanFollowupDetail(this.followup).subscribe(res=>{console.log(res);
+    this._appService.getFollowup(this.LoanID).subscribe(res=>{this.FollowupDetails=res});
+    form.resetForm(form);})
+  }
+  DeleteFollowup(followupId:Number)
+  {
+    this._appService.DeleteLoanFollowupDetail(followupId).subscribe(res=>{console.log(res);
+    this._appService.getFollowup(this.LoanID).subscribe(res=>{this.FollowupDetails=res});})
+  }
   AddEntry(form)
   {
 
@@ -167,10 +182,6 @@ followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
     this._appService.getProof(this.CustID,'Guarantor',this.LoanID).subscribe(res=>this.GuaranProof=res);
   })
   }
-  AddFollowup()
-  {
-    this._appService.InsertLoanFollowupDetail(this.followup)
-  }
   
   SaveLoan()
   {
@@ -207,6 +218,7 @@ followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
       this._appService.getCollection(LoanID).subscribe(res=>{this.AllCollection=res});
       this._appService.getProof(this.CustID,'Customer',LoanID).subscribe(res=>this.CustProof=res);
       this._appService.getProof(this.CustID,'Guarantor',LoanID).subscribe(res=>this.GuaranProof=res);
+      this._appService.getFollowup(LoanID).subscribe(res=>{this.FollowupDetails=res});
     }
     else{
       this._appService.getCustomer(this.CustID,this.RequestID).subscribe((data:any)=> 
@@ -221,6 +233,7 @@ followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
      this.OnChange();
       })
        this.AllCollection=[];
+       this.FollowupDetails=[];
     }
       this._appService.getCollectionValue(0,LoanID,(new Date().toLocaleDateString()).replace('/','-').replace('/','-')).subscribe(res=>{ console.log(res)
       if(res != null)

@@ -94,6 +94,7 @@ export class AppService
     private _deleteLoanFollowupURL = this._baseUrl+"DeleteLoanFollowupDetail";
     private _getdueURL= this._baseUrl+"getDueDate"
 
+    private _getLoanFollowupDetailsURL = this._baseUrl+"getLoanFollowupDetails";
 
     private RequestID = new BehaviorSubject<Number>(0);
     currentReqID = this.RequestID.asObservable();
@@ -122,6 +123,10 @@ export class AppService
     {
         return this._http.get<Collection[]>(this._getCollectionURL+"/"+LoanID)
     
+    }
+    getFollowup(LoanID):Observable<Followup[]>
+    {
+      return this._http.get<Followup[]>(this._getLoanFollowupDetailsURL+"/"+LoanID)
     }
     getCollectionValue(ID,LoanID,EntryDate):Observable<Collection>
     {
