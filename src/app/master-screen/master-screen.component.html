@@ -541,15 +541,8 @@
   </div>
   <label class="control-label col-sm-3" required>Loan Category :</label>
   <div class="col-sm-3">
-     <select class="form-control" #ALoan="ngModel" required  [(ngModel)]="sagent.LoanCategory" name="CompanyID">
-        <option>Home Appliances</option>
-        <option>Vehicle</option>
-        <option>Gold</option>
-        <option>Business</option>
-        <option>Property</option>
-        <option>Housing</option>
-        <option>Personal</option>
-        <option>Education</option>                        
+     <select class="form-control" #ALoan="ngModel" required  [(ngModel)]="sagent.LoanCategory" name="loancat">
+        <option *ngFor="let loan of LoanCategory" value="{{loan.dropdownKey}}" >{{loan.dropdownName}}</option>                                                   
          </select>
          <div *ngIf="ALoan.errors?.required && formSubmit && masterScreen=='agent'" [ngClass] = "'error'"> 
             Loan Category required. 
@@ -1039,16 +1032,10 @@
     <td class="col-md-1" contenteditable="true" id="sagSContact{{i}}">{{ag.SecondaryContact}}</td>
     
     <td class="col-md-1">
-        <select class="form-control" id="sagloan{{i}}"  name="StateID">
-            <option [selected]="ag.LoanCategory=='Home Appliances'" >Home Appliances</option>
-                      <option [selected]="ag.LoanCategory=='Vehicle'">Vehicle</option>
-                      <option [selected]="ag.LoanCategory=='Gold'">Gold</option>
-                      <option [selected]="ag.LoanCategory=='Business'">Business</option>
-                      <option [selected]="ag.LoanCategory=='Property'">Property</option>
-                      <option [selected]="ag.LoanCategory=='Housing'">Housing</option>
-                      <option [selected]="ag.LoanCategory=='Personal'">Personal</option>
-                      <option [selected]="ag.LoanCategory=='Education'">Education</option>                        
+        <select class="form-control"  name="LoanCatID" id="sagloan{{i}}" >
+            <option *ngFor="let loan of LoanCategory" value="{{loan.dropdownKey}}" [selected]="ag.LoanCategory==loan.dropdownKey">{{loan.dropdownName}}</option>                            
             </select>
+        
     </td>
     <td>
             <div class="form-horizontal">

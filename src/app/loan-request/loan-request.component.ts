@@ -23,6 +23,7 @@ export class LoanRequestComponent implements OnInit {
 
   
   dateValue: Date;
+  loanCatReq:boolean=false;
   selectedFile:File;
   AllCompany:ICompany[]=[];
   LoanCategory: ICompany[]=[];
@@ -42,8 +43,9 @@ export class LoanRequestComponent implements OnInit {
   formSubmit:boolean=false;
   valfromChild:Request;
   imagePreview:any;
+  URL:string;
   request:Request= new Request(null,new Date(),0,0,0,0,0,0,0,null,'','','','','','','','','','','','','','','','',0,0,'','',null,null
-  ,null,null,null,null,null,null,null,null,'','','','')
+  ,null,null,null,null,null,null,null,null,'','','','','')
   constructor(private _appService:AppService,private _route: ActivatedRoute,
     private _router: Router) {
    }
@@ -73,6 +75,8 @@ export class LoanRequestComponent implements OnInit {
       console.log(ID) 
       if(ID>0)
       this._appService.getLoanRequest(ID).subscribe((data:any)=> {this.request=data;
+        console.log(URL)
+      this.URL=this.request.PhotoLoc.replace('D:\\Tech\\','http://103.110.236.177/')  
       this.filterDropEMI();});
       })
     
@@ -105,6 +109,10 @@ export class LoanRequestComponent implements OnInit {
     if(this.request["TalukID"]!= undefined)
     {
      this.Area= this.AllArea.filter(x=> x.TalukID== this.request["TalukID"])
+    }
+    if(this.request["LoanCatID"]!=undefined)
+    {
+      this.Sagent=this.AllSagent.filter(x=>x.LoanCategory==this.request["LoanCatID"].toString())
     }
    
   }
@@ -163,10 +171,16 @@ export class LoanRequestComponent implements OnInit {
     this.request["GContact2"]=this.valfromChild["GContact2"];
     this.request["GAadhar"]=this.valfromChild["GAadhar"];
     this.request["ReferedBy"]=this.valfromChild["ReferedBy"];
+    this.request["PhotoLoc"]=this.valfromChild["PhotoLoc"];
+    if(this.request.PhotoLoc != null){
+    this.URL=this.request.PhotoLoc.replace('D:\\Tech\\','http://103.110.236.177/')  
+    }
   document.getElementById("close").click();
   }
   preview()
   {
+    if($('#file').val()!= '')
+    {
    this.showImage= !this.showImage;
    if(this.showImage){
     const reader = new FileReader();
@@ -176,12 +190,25 @@ this.imagePreview = reader.result;
 reader.readAsDataURL(this.selectedFile);
    }
   }
+  else{
+    window.open(this.URL);
+  }
+  }
   onFileChanged(event) {
     this.selectedFile = event.target.files[0]
   }
   SaveRequest(form)
   {
     console.log(this.request)
+    if(this.request.DueType=='EMI'&& this.request.LoanCatID==0)
+    {
+      this.loanCatReq=true;
+      return;
+    }
+    else
+    {
+      this.loanCatReq=false;
+    }
     if(form != '')
   {
   if (form.invalid ) {
@@ -190,8 +217,13 @@ reader.readAsDataURL(this.selectedFile);
     return;
  }
 }
+
+if(this.selectedFile !=null){
+this.request.PhotoLoc=this.selectedFile.name;
+}
     this._appService.InsertLoanRequest(this.request,this.selectedFile)
     form.resetForm();
+    $('#file').val('')
   }
 
   OnChange()
@@ -237,5 +269,6 @@ reader.readAsDataURL(this.selectedFile);
   Cancel(form)
   {
     form.resetForm();
+     $('#file').val('')
   }
 }

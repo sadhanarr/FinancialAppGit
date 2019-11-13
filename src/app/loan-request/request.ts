@@ -45,6 +45,7 @@ export class Request
 	public  HowToKnow  : string,
 	public  ReqStatus : string,
 	public      User : string,
+	public PhotoLoc:string
     )
     {
 

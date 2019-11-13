@@ -23,6 +23,7 @@ import {Loan} from './home-loan/loan'
 import { IProof} from './home-loan/Proof'
 import {Collection} from './home-loan/collection'
 import { Followup } from './home-loan/Followup';
+import {DueDate} from './home-loan/duedate'
 
 @Injectable()
 export class AppService
@@ -91,6 +92,7 @@ export class AppService
     private _UpdateCustomerURL= this._baseUrl+"UpdateCustomer"
     private _insertLoanFollowupURL = this._baseUrl+"InsertLoanFollowupDetails";
     private _deleteLoanFollowupURL = this._baseUrl+"DeleteLoanFollowupDetail";
+    private _getdueURL= this._baseUrl+"getDueDate"
 
 
     private RequestID = new BehaviorSubject<Number>(0);
@@ -126,6 +128,10 @@ export class AppService
       console.log(this._getCollectionValURL+"/"+ID+"/"+LoanID+"/"+EntryDate)
         return this._http.get<Collection>(this._getCollectionValURL+"/"+ID+"/"+LoanID+"/"+EntryDate)
     
+    }
+    getDueDate(date,Type:string,months:Number):Observable<DueDate>
+    {
+        return this._http.get<DueDate>(this._getdueURL+"/"+date+"/"+Type+"/"+months)
     }
     addCollection(collection:Collection)
     {
@@ -176,9 +182,9 @@ export class AppService
     {
       return this._http.get<Loan>(this._getDetailforLoanIssueURL+"/"+ID)
     }
-    getProof(CustID:Number, Type:string):Observable<IProof>
+    getProof(CustID:Number, Type:string, LoanID:Number):Observable<IProof>
     {
-     return this._http.get<IProof>(this._getProofURL+"/"+CustID+"/"+Type)
+     return this._http.get<IProof>(this._getProofURL+"/"+CustID+"/"+Type+"/"+LoanID)
     }
     DeleteMachine(id:Number)
     {

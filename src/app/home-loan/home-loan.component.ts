@@ -13,6 +13,8 @@ import {ROI} from '../loan-request/ROI'
 import {IProof} from './Proof'
 import { Collection } from './collection';
 import { Followup } from './Followup';
+import {DueDate} from './duedate'
+import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
 
 @Component({
   selector: 'app-home-loan',
@@ -30,16 +32,23 @@ AllSarea:Taluk[]=[];
 AllLine:Taluk[]=[];
 AllArea:Area[]=[];
 Allbranch: Branch[];
+Sagent:Agent[]=[];
+Sarea:Taluk[]=[];
+Line:Taluk[]=[];
+Area:Area[]=[];
+branch: Branch[];
 ROI:ROI[]=[];
 loan:Loan[]=[];
 loanCust:Loan[]=[];
 isscheme:boolean=false;
 CustID:Number
+Customerdetail:Loan=new Loan(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',	0,	'',	'',	'',	'',	false,	false,	'',	false,	false,	false,	false,	'',	0,	'',	0,	'',	new Date(),	0,	0,	0,	'',	'',	0,	0,	'',	0,	'',	0,	0,	'',	0,	0,	0,	new Date(),	new Date(),	0,	0,	0,	new Date(),	0,	0,	false,	'',	'',	'',	'',	'',	'');	
 loandetail:Loan= new Loan(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',	0,	'',	'',	'',	'',	false,	false,	'',	false,	false,	false,	false,	'',	0,	'',	0,	'',	new Date(),	0,	0,	0,	'',	'',	0,	0,	'',	0,	'',	0,	0,	'',	0,	0,	0,	new Date(),	new Date(),	0,	0,	0,	new Date(),	0,	0,	false,	'',	'',	'',	'',	'',	'');	
 RequestID:Number
 formSubmit:boolean=false;
  roundoff5:boolean=false;
 proof:string;
+due:DueDate
 proofNumber:string;
 selectedFile:File;
 proof1:string;
@@ -48,38 +57,42 @@ selectedFile1:File;
 CustProof:IProof;
 GuaranProof:IProof;
 LoanID:Number=0;
+DueType:string='';
 collection:Collection= new Collection(null,null,new Date(),'',null,null,null,null,null,null,null,null,null,null,null);
 AllCollection:Collection[];
-
+ penaltyBal:Number=0;
+ dueBal:Number=0;
+ TotalBal:Number=0;
 
 followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
   ngOnInit() {
     this._appService.getLoanCategory().subscribe((data:any[])=>{
       this.LoanCategory=data
      });
-    this._appService.getSAgent().subscribe((data:any[])=>{this.AllSagent=data})
-    this._appService.getLine().subscribe((data:any[])=>{this.AllLine=data})
-    this._appService.getArea().subscribe((data:any[])=>{this.AllArea=data})
-    this._appService.getSArea().subscribe((data:any[])=>{this.AllSarea=data})
+    this._appService.getSAgent().subscribe((data:any[])=>{this.AllSagent=data;this.Sagent=data;})
+    this._appService.getLine().subscribe((data:any[])=>{this.AllLine=data;this.Line=data;})
+    this._appService.getArea().subscribe((data:any[])=>{this.AllArea=data;this.Area=data;})
+    this._appService.getSArea().subscribe((data:any[])=>{this.AllSarea=data;this.Sarea=data;})
     this._appService.currentCustID.subscribe(res=> {this.CustID= res;
       this._appService.getLoanbyCustomer(this.CustID).subscribe(res=> this.loanCust=res)
     })
-    this._appService.getProof(this.CustID,'Customer').subscribe(res=>this.CustProof=res);
-    this._appService.getProof(this.CustID,'Guarantor').subscribe(res=>this.GuaranProof=res);
+    this._appService.getProof(this.CustID,'Customer',0).subscribe(res=>this.CustProof=res);
+    this._appService.getProof(this.CustID,'Guarantor',0).subscribe(res=>this.GuaranProof=res);
     this._appService.getLoanDetails().subscribe(res=> this.loan= res)
     this._appService.currentReqID.subscribe(res=>{ this.RequestID= res;
       console.log(this.RequestID)
       
       this._appService.getCustomer(this.CustID,this.RequestID).subscribe((data:any)=> 
       {
-        this.loandetail=data ; 
+        this.Customerdetail=data ; 
+        this.DueType=this.loandetail.DueType;
      this.OnChange();
       })
     });
     
     this._appService.getBranch().subscribe((data:any[])=>{
       this.Allbranch=data
-    
+    this.branch=data;
     }) 
    
     
@@ -89,13 +102,13 @@ followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
     if(value=='Customer')
     {
     this._appService.InsertProof(this.CustID,this.proof1,this.proofNumber1,this.selectedFile1,'Customer').subscribe(res =>{console.log(res);
-      this._appService.getProof(this.CustID,'Customer').subscribe(res=>this.CustProof=res);
+      this._appService.getProof(this.CustID,'Customer',this.LoanID).subscribe(res=>this.CustProof=res);
     }) 
     }
     else
     {
     this._appService.InsertProof(this.CustID,this.proof,this.proofNumber,this.selectedFile,'Guarantor').subscribe(res =>{console.log(res);
-    this._appService.getProof(this.CustID,'Guarantor').subscribe(res=>this.GuaranProof=res);
+    this._appService.getProof(this.CustID,'Guarantor',this.LoanID).subscribe(res=>this.GuaranProof=res);
     });
     }
   }
@@ -107,12 +120,36 @@ followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
   }
   AddEntry(form)
   {
+
+    if(new Date(this.collection.Date)>new Date())
+    {
+    this.formSubmit=true; 
+    return;
+    }
     this.collection.LoanID=this.LoanID;
    console.log(this.collection)
     this._appService.addCollection(this.collection).subscribe(res=>{ console.log(res);
       this._appService.getCollection(this.LoanID).subscribe(res=>{this.AllCollection=res});
       form.resetForm();})
    
+  }
+
+  filterdrop()
+  {
+    
+    if(this.Customerdetail["BranchID"]!= undefined)
+    {
+     this.Line= this.AllLine.filter(x=> x.DistrictID== this.Customerdetail["BranchID"])
+    }
+    if(this.Customerdetail["LineID"]!= undefined)
+    {
+     this.Area= this.AllArea.filter(x=> x.LineID== this.Customerdetail["LineID"])
+    }
+    if(this.Customerdetail["AreaID"]!= undefined)
+    {
+     this.Sarea= this.AllSarea.filter(x=> x.DistrictID== this.Customerdetail["AreaID"])
+    }
+    
   }
   removeCollection(EMMID:Number)
   {
@@ -126,8 +163,8 @@ followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
   {
     console.log('delete')
     this._appService.deleteProof(this.CustID,ProofType,Type).subscribe(res=>{console.log(res);
-    this._appService.getProof(this.CustID,'Customer').subscribe(res=>this.CustProof=res);
-    this._appService.getProof(this.CustID,'Guarantor').subscribe(res=>this.GuaranProof=res);
+    this._appService.getProof(this.CustID,'Customer',this.LoanID).subscribe(res=>this.CustProof=res);
+    this._appService.getProof(this.CustID,'Guarantor',this.LoanID).subscribe(res=>this.GuaranProof=res);
   })
   }
   AddFollowup()
@@ -135,16 +172,8 @@ followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
     this._appService.InsertLoanFollowupDetail(this.followup)
   }
   
-  SaveLoan(form)
+  SaveLoan()
   {
-    
-    if(form != '')
-  {
-  if (form.invalid ) {
-    this.formSubmit=true; 
-    return;
- }
-}
 
     this._appService.InsertIssuedLoanDetails(this.loandetail).subscribe(res =>
       { console.log(this.loandetail);
@@ -159,34 +188,87 @@ followup:Followup= new Followup(0,0,new Date(),new Date(),'','','');
    // 
   }
 
-  getLoanDetail(LoanID: Number)
+  getLoanDetail(LoanID: Number,form)
   {
-    console.log(this.loandetail)
-    this._appService.UpdateCustomer(this.loandetail).subscribe(res=>{console.log(res);
+     
+  
+    console.log(this.Customerdetail)
+    this._appService.UpdateCustomer(this.Customerdetail).subscribe(res=>{console.log(res);
     this.LoanID=LoanID;
     
     if(LoanID>0)
     {
     this._appService.getLoanDetail(LoanID).subscribe(res=> {
-      console.log(res);this.loandetail=res})
+      console.log(res);this.loandetail=res;
+      this.DueType=this.loandetail.DueType
+      
+      this.EmiDisable()})
+      
       this._appService.getCollection(LoanID).subscribe(res=>{this.AllCollection=res});
+      this._appService.getProof(this.CustID,'Customer',LoanID).subscribe(res=>this.CustProof=res);
+      this._appService.getProof(this.CustID,'Guarantor',LoanID).subscribe(res=>this.GuaranProof=res);
     }
     else{
       this._appService.getCustomer(this.CustID,this.RequestID).subscribe((data:any)=> 
+   
       {
+        this.LoanID=0;
         this.loandetail=data ; 
+        this.DueType=this.loandetail.DueType
+        this.loandetail.IntType='Daily'
+        this.loandetail.LoanDate= new Date()
+        
      this.OnChange();
       })
        this.AllCollection=[];
     }
       this._appService.getCollectionValue(0,LoanID,(new Date().toLocaleDateString()).replace('/','-').replace('/','-')).subscribe(res=>{ console.log(res)
-      if(res != null){this.collection=res;}})
+      if(res != null)
+      {this.collection=res;
+   
+        this.penaltyBal=this.collection.penaltyBal;
+  this.dueBal= this.collection.dueBal;
+  this.TotalBal=this.collection.TotalBal
+   }})
     })
+
   }
   DateChange()
   {
-    console.log(new Date(this.collection.Date).toLocaleDateString())
-    this._appService.getCollectionValue(0,this.LoanID,(new Date(this.collection.Date).toLocaleDateString()).replace('/','-').replace('/','-')).subscribe(res=>this.collection=res)
+   
+    this._appService.getCollectionValue(0,this.LoanID,(new Date(this.collection.Date).toLocaleDateString()).replace('/','-').replace('/','-')).subscribe(res=>{
+      if(res != null){
+      this.collection=res;
+  this.penaltyBal=this.collection.penaltyBal;
+  this.dueBal= this.collection.dueBal;
+  this.TotalBal=this.collection.TotalBal
+      }
+    })
+  
+  }
+  CollectionCal()
+  {this.collection.penaltyBal=this.penaltyBal;
+    this.collection.dueBal= this.dueBal;
+    this.collection.TotalBal=this.TotalBal;
+        
+    if(this.collection.Penaltyreciept != null && this.collection.Penaltyreciept.toString() !='')
+    {
+      this.collection.penaltyBal= parseFloat( this.collection.penaltyBal.toString())-parseFloat( this.collection.Penaltyreciept.toString());
+    }
+    if(this.collection.Duereciept != null && this.collection.Duereciept.toString() !='')
+    {
+      this.collection.dueBal= parseFloat( this.collection.dueBal.toString())-parseFloat( this.collection.Duereciept.toString());
+      if(this.DueType=='EMI')
+      this.collection.TotalBal= parseFloat( this.collection.TotalBal.toString())-parseFloat( this.collection.Duereciept.toString());
+    }
+    if(this.collection.Principalreciept != null && this.collection.Principalreciept.toString() !='')
+    {
+      this.collection.TotalBal= parseFloat( this.collection.TotalBal.toString())-parseFloat( this.collection.Principalreciept.toString());
+    }
+    if(this.collection.LoanAmount != null && this.collection.LoanAmount.toString() !='')
+    {
+      this.collection.TotalBal= parseFloat( this.collection.TotalBal.toString())+parseFloat( this.collection.LoanAmount.toString());
+    }
   }
   changeLoanStatus(event)
   {
@@ -204,10 +286,32 @@ onFileChanged(event) {
 onFileChanged1(event) {
   this.selectedFile1 = event.target.files[0]
 }
+EmiDisable()
+{
+  this.DueType=this.loandetail.DueType
+  if(this.DueType !="EMI")
+  {
+    $('#intAmt').attr("disabled","disabled");
+    $('#totAmt').attr("disabled","disabled");
+    $('#installmentAmt').attr("disabled","disabled");
+    $('#netAmt').attr("disabled","disabled");
+    this.loandetail["InterestAmt"]=null;
+    this.loandetail["TotAmount"]=null;
+    this.loandetail["InstalmentAmt"]=null;
+    this.loandetail["NetAmt"]=null;
+  }
+  else{
+    $('#intAmt').removeAttr("disabled");
+    $('#totAmt').removeAttr("disabled");
+    $('#installmentAmt').removeAttr("disabled");
+    $('#netAmt').removeAttr("disabled");
+
+  }
+}
  OnChange()
   {
-
-    
+this.EmiDisable();
+console.log("calleed");    
     if(this.loandetail["LoanID"] ==0){
     if(this.loandetail["LoanCatID"]==1)
       this.loandetail["LoanNo"]= 100000+1+  this.loan.filter(x=>x.LoanCatID==this.loandetail["LoanCatID"]).length
@@ -225,28 +329,21 @@ onFileChanged1(event) {
       this.loandetail["LoanNo"]= 700000+1+  this.loan.filter(x=>x.LoanCatID==this.loandetail["LoanCatID"]).length
       if(this.loandetail["LoanCatID"]==8)
       this.loandetail["LoanNo"]= 800000+1+  this.loan.filter(x=>x.LoanCatID==this.loandetail["LoanCatID"]).length
-      this.loandetail["LoanDate"] = new Date();
+     
     }
+   if(this.loandetail["LoanCatID"] !=null)
+   {
+     this.Sagent=this.AllSagent.filter(x=>x.LoanCategory==this.loandetail["LoanCatID"].toString())
+   }
+   this._appService.getDueDate(this.loandetail.LoanDate.toLocaleDateString().replace('/','-').replace('/','-'),this.loandetail.DueType,this.loandetail.Instalments).subscribe(res=>
+    {
+      this.due= res;
+      this.loandetail.LoanDate=this.due.loandate;
+      this.loandetail.FirstDueDt=this.due.firstdue;
+      this.loandetail.LastDueDt=this.due.lastdue;
+    })
    
    
-    if(this.loandetail["DueType"]=="EMI"){     
-    var FirstDueDt= new Date($("#loanDate_input").val());
-    FirstDueDt.setMonth(FirstDueDt.getMonth()+1);
-    FirstDueDt.setDate(10); 
-      this.loandetail["FirstDueDt"]= FirstDueDt;
-     var LastDueDt=new Date($("#firstDue_input").val());
-      LastDueDt.setMonth(LastDueDt.getMonth()+ this.loandetail["Instalments"])
-      this.loandetail["LastDueDt"]=LastDueDt;
-    }
-      if(this.loandetail["DueType"]=="Interest")
-      {
-        var today = new Date($("#loanDate_input").val());
-        var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth()+1, 0);
-        this.loandetail["FirstDueDt"]=lastDayOfMonth;       
-     var LastDueDt=new Date($("#firstDue_input").val());
-     LastDueDt.setMonth(LastDueDt.getMonth()+ this.loandetail["Instalments"])
-        this.loandetail["LastDueDt"]= LastDueDt
-      }
     if(!this.isscheme)
     {
       $('#SchemeAmt').attr("disabled","disabled");
@@ -261,29 +358,8 @@ onFileChanged1(event) {
       $('#schemeTxt').removeAttr("disabled");
       $('#schemeCalcTxt').removeAttr("disabled");
     }
-    if(this.loandetail["DueType"]=="Interest")
-    {
-
-
-      $('#intAmt').attr("disabled","disabled");
-      $('#totAmt').attr("disabled","disabled");
-      $('#installmentAmt').attr("disabled","disabled");
-      $('#netAmt').attr("disabled","disabled");
-      this.loandetail["InterestAmt"]=null;
-      this.loandetail["TotAmount"]=null;
-      this.loandetail["InstalmentAmt"]=null;
-      this.loandetail["NetAmt"]=null;
-    }
-    else{
-      $('#intAmt').removeAttr("disabled");
-      $('#totAmt').removeAttr("disabled");
-      $('#installmentAmt').removeAttr("disabled");
-      $('#netAmt').removeAttr("disabled");
-      this.loandetail["InterestAmt"]=null;
-      this.loandetail["TotAmount"]=null;
-      this.loandetail["InstalmentAmt"]=null;
-      this.loandetail["NetAmt"]=null;
-    }
+    console.log(this.loandetail["DueType"])
+  
     var incentive=0;
     var scheme=0;
     var DocCharge=0;
@@ -323,6 +399,17 @@ onFileChanged1(event) {
    }
    this.loandetail["NetAmt"]= parseInt(this.loandetail["LoanAmt"].toString())+incentive-DocCharge-scheme;
   }
+  if(this.loandetail["DueType"]=="Interest"){
+    if(this.loandetail["LoanAmt"]!=null && this.loandetail["Instalments"] != null && this.loandetail["IntRate"]!=null &&this.loandetail["LoanAmt"].toString()!="" && this.loandetail["Instalments"].toString() !="" && this.loandetail["IntRate"].toString()!="")
+    {
+      var days=30;
+     // this.loandetail.IntType=='Daily'?days=30: days=new Date(parseInt(this.loandetail.LoanDate.getFullYear.toString()),parseInt( this.loandetail.LoanDate.getMonth.toString()) + 1, 0).getDate()
+    this.loandetail["InterestAmt"]=(parseFloat(this.loandetail["LoanAmt"].toString())*days*parseFloat(this.loandetail["IntRate"].toString())/days)/100
+
+}
+  
+}
+
   }
  
 }

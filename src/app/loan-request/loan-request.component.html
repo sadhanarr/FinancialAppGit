@@ -140,7 +140,7 @@
                                     [(ngModel)]="request.CustAadhar" maxlength="16" minlength="16" #aadhar="ngModel">
                                     <div *ngIf="aadhar.errors?.minlength  && formSubmit " 
                                     [ngClass]="'error'">
-                                   Contact must be 16 characters long
+                                   Aadhar must be 16 characters long
                                     </div>
                             </div>
 
@@ -148,10 +148,10 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">Add Photo :</label>
                             <div class="col-sm-6">
-                                <input type="file" class="form-control" (change)="onFileChanged($event)">
+                                <input type="file" ID="file" class="form-control" (change)="onFileChanged($event)">
                             </div>
                             <div class="col-sm-3 view">
-                                <a (click)="preview()">View</a>
+                                <a (click)="preview()" >View</a>
 
                             </div>
                         </div>
@@ -202,13 +202,13 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">Loan Category :</label>
                             <div class="col-sm-4">
-                                <select required #LName="ngModel" class="form-control" [(ngModel)]="request.LoanCatID"
+                                <select  #LName="ngModel" class="form-control" [(ngModel)]="request.LoanCatID"
                                     name="LoanCatID" (change)="filterDrop()">
                                     <option *ngFor="let sa of LoanCategory" value="{{sa.dropdownKey}}">
                                         {{sa.dropdownName}}
                                     </option>
                                 </select>
-                                <div *ngIf="LName.errors?.required && formSubmit" [ngClass]="'error'">
+                                <div *ngIf="loanCatReq" [ngClass]="'error'">
                                     Loan Category required.
                                 </div>
                             </div>
@@ -291,7 +291,7 @@
                                 <input type="text" name="aadhar2" class="form-control" id="aadhar2"
                                     [(ngModel)]="request.GAadhar" numeric numericType="number" maxlength="16" minlength="16" #Gaadhar="ngModel">
                                     <div *ngIf="Gaadhar.errors?.minlength  && formSubmit "  [ngClass]="'error'">
-                                   Contact must be 16 characters long
+                                   Aadhar must be 16 characters long
                                     </div>
                             </div>
                             <label class="control-label col-sm-3">Referred By :</label>

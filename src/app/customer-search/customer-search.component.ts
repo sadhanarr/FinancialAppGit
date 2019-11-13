@@ -43,6 +43,7 @@ export class CustomerSearchComponent implements OnInit {
   
    this._appService.getCustomerSearch(this.search).subscribe((res:any[])=> {
     this.requestAll=res;
+    console.log(this.requestAll)
     this.search.Status="";
     this.search.CustName="";
     this.search.CustID="";

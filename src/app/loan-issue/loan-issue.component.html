@@ -10,13 +10,13 @@
                  <div class="form-group">
                         <label class="control-label col-sm-3" >From Date :</label>
                         <div class="col-sm-4">
-                              <ejs-datepicker id='fromDate' placeholder='Select a date' [(ngModel)]="requestSearch.FromDate" name="fromDate" ></ejs-datepicker>
+                              <ejs-datepicker id='fromDate' placeholder='Select a date' format ="dd/MM/yyyy" [(ngModel)]="requestSearch.FromDate" name="fromDate" ></ejs-datepicker>
                         </div>
                  </div>
                  <div class="form-group">
                     <label class="control-label col-sm-3">Request ID :</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="requestID" name="requestID" [(ngModel)]="requestSearch.RequestID">
+                        <input type="text" class="form-control" id="requestID"  name="requestID" [(ngModel)]="requestSearch.RequestID">
                     </div>
                  </div>
                  <div class="form-group">
@@ -61,7 +61,7 @@
                     <div class="form-group">
                             <label class="control-label col-sm-3" >To Date :</label>
                             <div class="col-sm-4">
-                                  <ejs-datepicker id='fromDate' placeholder='Select a date' [(ngModel)]="requestSearch.ToDate" name="fromDate"  ></ejs-datepicker>
+                                  <ejs-datepicker id='fromDate' format ="dd/MM/yyyy" placeholder='Select a date' [(ngModel)]="requestSearch.ToDate" name="fromDate"  ></ejs-datepicker>
                             </div>
                      </div>
                 <div class="form-group">
@@ -132,14 +132,14 @@
                     <td class="col-md-2">{{r.CustomerID}}</td>
                     <td class="col-md-2">{{r.CustomerName}}</td>
                     <td class="col-md-2"> 
-                        <select  class="form-control"  name="area">
+                        <select disabled class="form-control"  name="area">
                             <option disabled >-- Select --</option>
                             <option  *ngFor="let a of AllArea" value="{{a.AreaID}}" [selected]="a.AreaID==r.AreaID">{{a.AreaName}}
                             </option>                         
                            </select></td>
                     <td class="col-md-2">{{r.LoanAmt}}</td>
                     <td class="col-md-2">
-                            <select  class="form-control"  name="agent">
+                            <select disabled  class="form-control"  name="agent">
                                     <option disabled >-- Select --</option>
                                     <option  *ngFor="let s of AllSagent" [selected]="s.AgentID==r.AgentID" value="{{s.AgentID}}">{{s.AgentName}}
                                     </option>                         

@@ -4,36 +4,37 @@
          <h4>Customer Detials</h4>
       </div>
       <div class='panel-body' id="panel">
-      <form   >
+   
         <div class="row">
+                <form  #form="ngForm" >
      <div class=" form-horizontal col-md-12">
         <div class="form-group">
 			<label class="control-label col-sm-3" >Branch :</label>
                 <div class="col-sm-3">
-                        <select class="form-control"   name="BranchID"  [(ngModel)]="loandetail.BranchID">
-                                <option *ngFor="let l of Allbranch" value="{{l.BranchID}}">{{l.BranchName}}
+                        <select class="form-control"   name="BranchID" (change)="filterdrop()"  [(ngModel)]="Customerdetail.BranchID">
+                                <option *ngFor="let l of branch" value="{{l.BranchID}}">{{l.BranchName}}
                                  </option>                         
                                 </select>
 				</div>
 				<label class="control-label col-sm-1" >Line :</label>
                 <div class="col-sm-3">
-                        <select class="form-control"  #lid="ngModel" [(ngModel)]="loandetail.LineID"  name="LineID">
-                                <option *ngFor="let i of AllLine" value="{{i.TalukID}}">{{i.TalukName}}
+                        <select class="form-control"  #lid="ngModel" [(ngModel)]="Customerdetail.LineID" (change)="filterdrop()" name="LineID">
+                                <option *ngFor="let i of Line" value="{{i.TalukID}}">{{i.TalukName}}
                                  </option>                         
                                 </select>
 				</div>
 			</div><div class="form-group">
 			<label class="control-label col-sm-3" >Area :</label>
                 <div class="col-sm-3">
-                        <select class="form-control" #aid="ngModel" [(ngModel)]="loandetail.AreaID" name="AreaID">
-                                <option  *ngFor="let sa of AllArea" value="{{sa.AreaID}}">{{sa.AreaName}}
+                        <select class="form-control" #aid="ngModel" [(ngModel)]="Customerdetail.AreaID" (change)="filterdrop()" name="AreaID">
+                                <option  *ngFor="let sa of Area" value="{{sa.AreaID}}">{{sa.AreaName}}
                                  </option>                         
                                 </select>
 				</div>
 				<label class="control-label col-sm-1" >Sub Area :</label>
                 <div class="col-sm-3">
-                        <select class="form-control"  #sid="ngModel" [(ngModel)]="loandetail.SubAreaID"  name="SubAreaID">
-                                <option *ngFor="let l of AllSarea" value="{{l.TalukID}}">{{l.TalukName}}
+                        <select class="form-control"  #sid="ngModel" [(ngModel)]="Customerdetail.SubAreaID" (change)="filterdrop()" name="SubAreaID">
+                                <option *ngFor="let l of Sarea" value="{{l.TalukID}}">{{l.TalukName}}
                                  </option>                         
                                 </select>
 				</div>
@@ -41,11 +42,11 @@
 			<div class="form-group">
 			<label class="control-label col-sm-3" >Hint-1 :</label>
                 <div class="col-sm-3">
-				<input type="text" class="form-control col-sm-4" name="hint1" [(ngModel)]="loandetail.Hint1">
+				<input type="text" class="form-control col-sm-4" name="hint1" [(ngModel)]="Customerdetail.Hint1">
 				</div>
 				<label class="control-label col-sm-1" >Hint-2 :</label>
                 <div class="col-sm-3">
-				<input type="text" class="form-control" name="hint2" [(ngModel)]="loandetail.Hint2">
+				<input type="text" class="form-control" name="hint2" [(ngModel)]="Customerdetail.Hint2">
 				</div>
 			</div>
 		</div>
@@ -53,58 +54,59 @@
 			<div class="form-group">
 					<label class="control-label col-sm-3">Customer ID :</label>
 					<div class="col-sm-3">
-						<input type="text" class="form-control" name="customerId" [(ngModel)]="loandetail.CustomerID">
+						<input type="text" class="form-control" name="customerId" [(ngModel)]="Customerdetail.CustomerID">
 					</div>
 			</div>
 			<div class="form-group">
 			<label class="control-label col-sm-3" >Customer Name :</label>
                 <div class="col-sm-6">
-				<input type="text" class="form-control col-sm-4" name="custName" [(ngModel)]="loandetail.CustName">
+				<input type="text" class="form-control col-sm-4" name="custName" [(ngModel)]="Customerdetail.CustName">
 				</div>
 				<label class="control-label col-sm-1" >Init:</label>
                 <div class="col-sm-2 ">
-				<input type="text" class="form-control" name="init" [(ngModel)]="loandetail.Initial">
+				<input type="text" class="form-control" name="init" [(ngModel)]="Customerdetail.Initial">
 				</div>
 			</div>
 			<div class="form-group">
 			<label class="control-label col-sm-3" >Father Name :</label>
                 <div class="col-sm-9 ">
-				<input type="text" class="form-control" name="fatherName" [(ngModel)]="loandetail.FatherName">
+				<input type="text" class="form-control" name="fatherName" [(ngModel)]="Customerdetail.FatherName">
 				</div>
 				
 			</div>
 			<div class="form-group">
 			<label class="control-label col-sm-3" >Mother Name :</label>
                 <div class="col-sm-9 ">
-				<input type="text" class="form-control" name="motherName" [(ngModel)]="loandetail.MotherName">
+				<input type="text" class="form-control" name="motherName" [(ngModel)]="Customerdetail.MotherName">
 				</div>		
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3">Gender :</label>
 				<div class="col-sm-3">
-						<select class="form-control" name="gender" [(ngModel)]="loandetail.Gender">
+						<select class="form-control" name="gender" [(ngModel)]="Customerdetail.Gender">
 							<option>Male</option>
 							<option>Female</option>
 						</select>
 					</div>
 				<label class="control-label col-sm-3">Marital Status :</label>
 				<div class="col-sm-3">
-						<select class="form-control" name="maritalStatus" [(ngModel)]="loandetail.MaritalStatus">
+						<select class="form-control" name="maritalStatus" [(ngModel)]="Customerdetail.MaritalStatus">
 							<option>Married</option>
-							<option>Unmarried</option>
+                            <option>Single</option>
+                            <option>Other</option>
 						</select>
 					</div>
 			</div>
 			<div class="form-group">
 					<label class="control-label col-sm-3">Spouse Name :</label>
 					<div class="col-sm-9">
-						<input type="text" class="form-control" name="spouseName" [(ngModel)]="loandetail.SpouseName">
+						<input type="text" class="form-control" name="spouseName" [(ngModel)]="Customerdetail.SpouseName">
 					</div>
 				</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3">Resident Type:</label>
 				<div class="col-sm-6">
-						<select class="form-control" name="residentType" [(ngModel)]="loandetail.ResidentType">
+						<select class="form-control" name="residentType" [(ngModel)]="Customerdetail.ResidentType">
 							<option>Own</option>
                               <option>Rental</option>
                               <option>Agreement</option>
@@ -115,28 +117,36 @@
 			<div class="form-group">
 				<label class="control-label col-sm-3">Communication Address :</label>
 				<div class="col-sm-9">
-					<textarea class="form-control" name="address" [(ngModel)]="loandetail.CommAddress"></textarea>
+					<textarea class="form-control" name="address" [(ngModel)]="Customerdetail.CommAddress"></textarea>
 				</div>
             </div>
             <div class="form-group">
                     <label class="control-label col-sm-3">Permanent Address:</label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" name="permanentAddr" [(ngModel)]="loandetail.PermAddress"></textarea>
+                        <textarea class="form-control" name="permanentAddr" [(ngModel)]="Customerdetail.PermAddress"></textarea>
                     </div>
                 </div>
 			<div class="form-group">
 				<label class="control-label col-sm-3">Contact No. :</label>
 				<div class="col-sm-5">
-					<input type="text" class="form-control" name="contactNum1" [(ngModel)]="loandetail.CustContact1">
-				</div>
+					<input type="text" class="form-control" #contact1="ngModel" maxlength="11" minlength="11" name="contactNum1" [(ngModel)]="Customerdetail.CustContact1">
+                    <div *ngIf="contact1.errors?.minlength  && formSubmit "
+                    [ngClass]="'error'">
+                   Contact must be 11 characters long
+                    </div>
+                </div>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" name="contactNum2" [(ngModel)]="loandetail.CustContact2">
-				</div>
+					<input type="text" class="form-control" #contact2="ngModel" maxlength="11" minlength="11" name="contactNum2" [(ngModel)]="Customerdetail.CustContact2">
+                    <div *ngIf="contact2.errors?.minlength  && formSubmit "
+                    [ngClass]="'error'">
+                   Contact must be 11 characters long
+                    </div>
+                </div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3">Occupation Type :</label>
 				<div class="col-sm-3">
-					<select class="form-control" name="occType" [(ngModel)]="loandetail.OccupationType">
+					<select class="form-control" name="occType" [(ngModel)]="Customerdetail.OccupationType">
 						<option>Business</option>
                           <option>Salaried-Govt</option>
                           <option>Salaried-Private</option>
@@ -146,14 +156,18 @@
 				</div>
 				<label class="control-label col-sm-3">Occupation Detail :</label>
 				<div class="col-sm-3">
-					<input class="form-control" type="text" name="occDetail" [(ngModel)]="loandetail.OccupationDetail">
+					<input class="form-control" type="text" name="occDetail" [(ngModel)]="Customerdetail.OccupationDetail">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3">Aadhar :</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" name="aadhar" [(ngModel)]="loandetail.CustAadhar">
-				</div>
+					<input type="text" class="form-control" #Aadhar="ngModel" name="aadhar" maxlength="16" minlength="16" [(ngModel)]="Customerdetail.CustAadhar">
+                    <div *ngIf="Aadhar.errors?.minlength  && formSubmit "
+                    [ngClass]="'error'">
+                   Aadhar must be 16 characters long
+                    </div>
+                </div>
 				
 				<div class="col-sm-3">
 				<button type="button" class="form-control btn btn-primary" data-toggle="modal" data-target="#CustProof" >ID Proof </button>
@@ -164,13 +178,13 @@
 		<div class="form-group">
 			<label class="control-label col-sm-3">Guarantor Name :</label>
 			<div class="col-sm-7">
-				<input class="form-control" type="text" name="guarantorName" [(ngModel)]="loandetail.GuarantorName">
+				<input class="form-control" type="text" name="guarantorName" [(ngModel)]="Customerdetail.GuarantorName">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-sm-3">Relationship :</label>
 			<div class="col-sm-3">
-				<select class="form-control" name="relation" [(ngModel)]="loandetail.Relationship">
+				<select class="form-control" name="relation" [(ngModel)]="Customerdetail.Relationship">
 					<option>Father</option>
                                     <option>Mother</option>
                                     <option>Son</option>
@@ -195,7 +209,7 @@
 		<div class="form-group">
 			<label class="control-label col-sm-3">Resident Type:</label>
 			<div class="col-sm-7">
-			<select class="form-control" name="guarantorResType" [(ngModel)]="loandetail.GResidentType">
+			<select class="form-control" name="guarantorResType" [(ngModel)]="Customerdetail.GResidentType">
 				<option>Own</option>
                               <option>Rental</option>
                               <option>Agreement</option>
@@ -206,29 +220,41 @@
 		<div class="form-group">
 				<label class="control-label col-sm-3">Communication Address :</label>
 				<div class="col-sm-7">
-					<textarea class="form-control" name="gaddress" [(ngModel)]="loandetail.GAddress"></textarea>
+					<textarea class="form-control" name="gaddress" [(ngModel)]="Customerdetail.GAddress"></textarea>
 				</div>
             </div>
             <div class="form-group">
                     <label class="control-label col-sm-3">Permanent Address:</label>
                     <div class="col-sm-7">
-                        <textarea class="form-control" name="permanentAddr" [(ngModel)]="loandetail.GPermAddress"></textarea>
+                        <textarea class="form-control" name="gpermanentAddr" [(ngModel)]="Customerdetail.GPermAddress"></textarea>
                     </div>
                 </div>
 			<div class="form-group">
 				<label class="control-label col-sm-3">Contact No. :</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" name="gcontactNum1" [(ngModel)]="loandetail.GContactNum1">
-				</div>
+					<input type="text" class="form-control" #contact3="ngModel" maxlength="11" minlength="11" name="gcontactNum1" [(ngModel)]="Customerdetail.GContactNum1">
+                    <div *ngIf="contact3.errors?.minlength  && formSubmit "
+                    [ngClass]="'error'">
+                   Contact must be 11 characters long
+                    </div>
+                </div>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" name="gcontactNum2" [(ngModel)]="loandetail.GContactNum2">
-				</div>
+					<input type="text" class="form-control" #contact4="ngModel" maxlength="11" minlength="11" name="gcontactNum2" [(ngModel)]="Customerdetail.GContactNum2">
+                    <div *ngIf="contact4.errors?.minlength  && formSubmit "
+                    [ngClass]="'error'">
+                   Contact must be 11 characters long
+                    </div>
+                </div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3">Aadhar :</label>
 				<div class="col-sm-4">
-					<input type="text" class="form-control" name="Gaadhar" [(ngModel)]="loandetail.GAadhar"> 
-				</div>
+					<input type="text" class="form-control" #GAadhar="ngModel" maxlength="16" minlength="16" name="Gaadhar" [(ngModel)]="Customerdetail.GAadhar"> 
+                    <div *ngIf="GAadhar.errors?.minlength  && formSubmit "
+                    [ngClass]="'error'">
+                   Aadhar must be 16 characters long
+                    </div>
+                </div>
 				<div class="col-sm-3">
 				<button type="button" class="form-control btn btn-primary" data-toggle="modal" data-target="#GuarnProof">ID Proof </button>
 				</div>
@@ -236,7 +262,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-3">Customer Status :</label>
 				<div class="col-sm-4">
-					<select class="form-control" name="custStatus" [(ngModel)]="loandetail.CustStatus">
+					<select class="form-control" name="custStatus" [(ngModel)]="Customerdetail.CustStatus">
                             <option>Running</option>
                             <option>Approved</option>
                             <option>Pending</option>
@@ -250,12 +276,13 @@
 			<div class="form-group">
 				<label class="control-label col-sm-3">Remarks :</label>
 				<div class="col-sm-7">
-					<textarea name="remarks" class="form-control"rows="4" cols="30" [(ngModel)]="loandetail.CustRemarks"></textarea>
+					<textarea name="remarks" class="form-control"rows="4" cols="30" [(ngModel)]="Customerdetail.CustRemarks"></textarea>
 				</div>
             </div>
             <div class="emptyDiv"></div>
-            <div class="emptyDiv"><div class="col-md-3"><button data-toggle="modal" data-target="#myModal" (click)="getLoanDetail(0)" type="submit" class="btn btn-primary">Issue Loan</button></div> </div>
+            <div class="emptyDiv"><div class="col-md-3"><button data-toggle="modal" data-target="#myModal" (click)="getLoanDetail(0,form)"  type="submit" class="btn btn-primary">Issue Loan</button></div> </div>
       </div>
+    </form>
       <div class="form-horizontal col-md-12 tab-content">
              <div class="table table-responsive">
              <table class="table table-bordered table-striped table-hover">
@@ -275,15 +302,15 @@
              <td class="col-md-1">{{lo.CustomerID}}</td>
              <td class="col-md-1">{{lo.LoanNo}}</td>
              <td class="col-md-2">
-                <select class="form-control">
-                    <option *ngFor="let sa of LoanCategory" value="{{sa.dropdownKey}}" [selected]="lo.LoanCatID==sa.dropdownKey">
+                <select class="form-control" disabled>
+                    <option *ngFor="let sa of LoanCategory"  value="{{sa.dropdownKey}}" [selected]="lo.LoanCatID==sa.dropdownKey">
                         {{sa.dropdownName}}
                     </option>
                 </select>
              </td>
              <td class="col-md-2">
-                <select class="form-control">
-                    <option *ngFor="let drop of AllSagent" value="{{drop.AgentID}}" [selected]="lo.Agentshowroomid==drop.AgentID">
+                <select class="form-control" disabled>
+                    <option *ngFor="let drop of AllSagent"  value="{{drop.AgentID}}" [selected]="lo.Agentshowroomid==drop.AgentID">
                         {{drop.AgentName}}
                     </option>
                 </select>
@@ -309,13 +336,15 @@
               </div>
               <div class="modal-body">
                        <ul class="nav nav-tabs ">
-                  <li class="active" ><a data-toggle="tab" href="#detail">Loan Details</a></li>
+                  <li class="active" >
+                      <a data-toggle="tab" href="#customer">Customer Details</a></li>
+                    <li> <a data-toggle="tab" href="#detail">Loan Details</a></li>
                   <li ><a data-toggle="tab" href="#collection">Collection</a></li> 
                  <li ><a data-toggle="tab" href="#followup">Followup</a></li> 
                  <li ><a data-toggle="tab" href="#status">Status</a></li>   
                 </ul>
                 <div class="tab-content" >
-                  <div id="detail" class="tab-pane fade in active " >  
+                  <div id="detail" class="tab-pane fade " >  
                       <form #form="ngForm" >
                       <div class="row">
                       <div class=" form-horizontal col-md-5">
@@ -332,7 +361,7 @@
                     <div class="form-group">
               <label class="control-label col-sm-4" >Loan No:</label>
                   <div class="col-sm-6">
-                  <input type="text" class="form-control" name="LoanNo" [(ngModel)]="loandetail.LoanNo">
+                  <input type="text" class="form-control" numeric numericType="number" name="LoanNo" [(ngModel)]="loandetail.LoanNo">
                   </div>
                   </div>
                   <div class="form-group">
@@ -349,7 +378,7 @@
                   <label class="control-label col-sm-4">Showroom/Agent:</label>
                   <div class="col-sm-8">
                         <select class="form-control" [(ngModel)]="loandetail.Agentshowroomid" name="AgentID">
-                                <option *ngFor="let drop of AllSagent" value="{{drop.AgentID}}">
+                                <option *ngFor="let drop of Sagent" value="{{drop.AgentID}}" >
                                     {{drop.AgentName}}
                                 </option>
                             </select>
@@ -432,7 +461,7 @@
                       <input type="text" class="form-control" name="chequeNum" [(ngModel)]="loandetail.Noofheque">
                   </div>
                   <div class="col-sm-4">
-                      <button type="button" id="loanSave"   (click)="SaveLoan(form)" class="btn btn-primary">SAVE</button>
+                      <button type="button" id="loanSave"   (click)="SaveLoan()" class="btn btn-primary">SAVE</button>
                   </div>
               </div>
               </div>
@@ -440,17 +469,17 @@
                       <div class="form-group">
               <label class="control-label col-sm-3" >Loan Date :</label>
               <div class="col-sm-3">
-                    <ejs-datepicker name='loanDate' id="loanDate" placeholder='Select a date' [(ngModel)]="loandetail.LoanDate" [value]="loandetail.LoanDate" ></ejs-datepicker>
+                    <ejs-datepicker name='loanDate' id="loanDate" format ="dd/MM/yyyy" placeholder='Select a date' [(ngModel)]="loandetail.LoanDate" [value]="loandetail.LoanDate" (focusout)="OnChange()"></ejs-datepicker>
               </div>
                   <label class="control-label col-sm-3" >Loan Amount:</label>
                   <div class="col-sm-3 ">
-                  <input type="text" class="form-control" id="loanamt" name="loanamt" [(ngModel)]="loandetail.LoanAmt" (focusout)="OnChange()">
+                  <input type="text" class="form-control" numeric numericType="decimal" id="loanamt" name="loanamt" [(ngModel)]="loandetail.LoanAmt" (focusout)="OnChange()">
                   </div>
               </div>
               <div class="form-group">
               <label class="control-label col-sm-3" >Total Loan Amt:</label>
                   <div class="col-sm-3">
-                  <input type="text" class="form-control " name="TotLoanAmt" name="TotLoanAmt" [(ngModel)]="loandetail.TotLoanAmt">
+                  <input type="text" class="form-control " numeric numericType="decimal" name="TotLoanAmt" name="TotLoanAmt" [(ngModel)]="loandetail.TotLoanAmt" (focusout)="OnChange()">
                   </div>
                 
                     <label class="control-label col-sm-3">Interest Type:</label>
@@ -465,7 +494,7 @@
               <div class="form-group">
                   <label class="control-label col-sm-3">Doc. Charge :</label>
                   <div class="col-sm-3">
-                  <input type="text" id="docCharge" class="form-control" name="DocCharge" [(ngModel)]="loandetail.DocCharge" (focusout)="OnChange()">
+                  <input type="text" id="docCharge" numeric numericType="decimal" class="form-control" name="DocCharge" [(ngModel)]="loandetail.DocCharge" (focusout)="OnChange()">
                   </div>
                   <div class="col-sm-6">
                       <select class="form-control" [(ngModel)]="loandetail.DocChargeRecvd" name="DocChargeReceived" (change)="OnChange()">
@@ -487,12 +516,12 @@
               <div class="form-group">
                       <label class="control-label col-sm-3">Incentive</label>
                       <div class="col-sm-2" style="padding-left: 0px;"> 
-                       <div class="col-md-10">  <input  type="text" class="form-control" name="incratio" (focusout)="OnChange()" [(ngModel)]="loandetail.IncentiveRatio"> </div>  
+                       <div class="col-md-10">  <input  type="text" class="form-control" numeric numericType="decimal" name="incratio" (focusout)="OnChange()" [(ngModel)]="loandetail.IncentiveRatio"> </div>  
                           <div style="float: right;">%</div>                     
                       </div>
                     
                       <div class="col-sm-2">
-                          <input type="text" class="form-control" name="incentive" [(ngModel)]="loandetail.IncentiveAmt" >
+                          <input type="text" class="form-control" numeric numericType="decimal" name="incentive" [(ngModel)]="loandetail.IncentiveAmt" >
                       </div>
                       <div class="col-sm-4">
                           <select class="form-control" name="incentivedrpdwn"  [(ngModel)]="loandetail.IncentiveType" (change)="OnChange()">
@@ -504,7 +533,7 @@
               <div class="form-group">
                   <label class="control-label col-sm-3">Spl. Incentive :</label>
                   <div class="col-sm-4">
-                      <input type="text" name="splIncentive" class="form-control" [(ngModel)]="loandetail.SplIncentiveAmt" (focusout)="OnChange()">
+                      <input type="text" name="splIncentive" numeric numericType="decimal" class="form-control" [(ngModel)]="loandetail.SplIncentiveAmt" (focusout)="OnChange()">
                   </div>
                   <!-- <div class="col-sm-4">
                   <button type="button" class="btn btn-primary" id="splIncentiveValidate">Validate</button>
@@ -518,13 +547,13 @@
                   </div>
                   <label class="control-label col-sm-3">Scheme Calc.</label>
                   <div class="col-sm-3">
-                      <input type="text" id="schemeCalcTxt" name="schemeCalcTxt" class="form-control" [(ngModel)]="loandetail.SchemeCalcAmt">
+                      <input type="text" id="schemeCalcTxt" numeric numericType="decimal" name="schemeCalcTxt" class="form-control" [(ngModel)]="loandetail.SchemeCalcAmt">
                   </div>
               </div>
               <div class="form-group">
                       <label class="control-label col-sm-3">Scheme Amount :</label>
                       <div class="col-sm-3">
-                          <input type="text" id="SchemeAmt" name="SchemeAmt" class="form-control" [(ngModel)]="loandetail.SchemeAmt" (focusout)="OnChange()">
+                          <input type="text" id="SchemeAmt" numeric numericType="decimal" name="SchemeAmt" class="form-control" [(ngModel)]="loandetail.SchemeAmt" (focusout)="OnChange()">
                       </div>
                       <div class="col-sm-6">
                           <select class="form-control" id="SchemeAmtReceived" name="SchemeAmtReceived"  [(ngModel)]="loandetail.SchemeAmtReceived" (change)="OnChange()">
@@ -538,43 +567,43 @@
               <div class="form-group">
                     <label class="control-label col-sm-3">Interest Rate :</label>
                     <div class="col-sm-3">
-                        <input type="text" name="intRate" class="form-control" [(ngModel)]="loandetail.IntRate">
+                        <input type="text" numeric numericType="decimal" name="intRate" (focusout)="OnChange()" class="form-control" [(ngModel)]="loandetail.IntRate">
                     </div>
                       <label class="control-label col-sm-3">Installments :</label>
                       <div class="col-sm-3">
-                          <input type="text" name="installment"  class="form-control" [(ngModel)]="loandetail.Instalments">
+                          <input type="text" numeric numericType="decimal" name="installment" (focusout)="OnChange()"  class="form-control" [(ngModel)]="loandetail.Instalments">
                       </div>
                   </div>
               <div class="form-group">
                       <label class="control-label col-sm-3">Interest Amount :</label>
                       <div class="col-sm-3">
-                          <input type="text" name="intAmt" id="intAmt" class="form-control" [(ngModel)]="loandetail.InterestAmt">
+                          <input type="text" numeric numericType="decimal" name="intAmt" id="intAmt" class="form-control" [(ngModel)]="loandetail.InterestAmt">
                       </div>
                       <label class="control-label col-sm-3">Total Amount :</label>
                       <div class="col-sm-3">
-                          <input type="text" name="totAmt" id="totAmt" class="form-control" [(ngModel)]="loandetail.TotAmount">
+                          <input type="text" numeric numericType="decimal" name="totAmt" id="totAmt" class="form-control" [(ngModel)]="loandetail.TotAmount">
                       </div>
               </div>
               <div class="form-group">
                       <label class="control-label col-sm-3">First Due Date :</label>
                       <div class="col-sm-3">
-                            <ejs-datepicker name='firstDue' id="firstDue" placeholder='Select a date' [(ngModel)]="loandetail.FirstDueDt" ></ejs-datepicker>
+                            <ejs-datepicker name='firstDue' id="firstDue" placeholder='Select a date' format ="dd/MM/yyyy" [(ngModel)]="loandetail.FirstDueDt" ></ejs-datepicker>
                         
                       </div>
                       <label class="control-label col-sm-3">Installment Amt:</label>
                       <div class="col-sm-3">
-                          <input type="text" id="installmentAmt" name="installmentAmt" class="form-control" [(ngModel)]="loandetail.InstalmentAmt">
+                          <input type="text" numeric numericType="decimal" id="installmentAmt" name="installmentAmt" class="form-control" [(ngModel)]="loandetail.InstalmentAmt">
                       </div>
                   </div>
               <div class="form-group">
                       <label class="control-label col-sm-3">Last Due Date :</label>
                       <div class="col-sm-3">
-                            <ejs-datepicker name='lastDue' placeholder='Select a date' [(ngModel)]="loandetail.LastDueDt" ></ejs-datepicker>
+                            <ejs-datepicker name='lastDue' placeholder='Select a date' format ="dd/MM/yyyy" [(ngModel)]="loandetail.LastDueDt" ></ejs-datepicker>
                     
                       </div>
                       <label class="control-label col-sm-3">Net Amount :</label>
                       <div class="col-sm-3">
-                          <input type="text" id="netAmt" name="netAmt" class="form-control" [(ngModel)]="loandetail.NetAmt">
+                          <input type="text" numeric numericType="decimal" id="netAmt" name="netAmt" class="form-control" [(ngModel)]="loandetail.NetAmt">
                       </div>
                       </div>
               <div class="form-group">
@@ -601,7 +630,10 @@
                           <label class="control-label col-sm-5">Entry Date:</label>
                           <div class="col-sm-7">
                                 <ejs-datepicker name='entryDate' placeholder='Select a date' [(ngModel)]="collection.Date" (focusout)="DateChange()" ></ejs-datepicker>
-                          </div>
+                                <div *ngIf=" formSubmit" [ngClass]="'error'">
+                                Date should not be greater than today.
+                            </div>
+                            </div>
                       </div>
                       <div class="form-group">
                           <label class="control-label col-sm-5">Bill Book:</label>
@@ -613,15 +645,15 @@
                               </div>
                       </div>
                       <div class="form-group">
-                              <label class="control-label col-sm-5">Due Receipt:</label>
+                              <label class="control-label col-sm-5">Due/Interest Receipt:</label>
                               <div class="col-sm-7">
-                                      <input type="text" class="form-control" name="dueReceipt" [(ngModel)]="collection.Duereciept">
+                                      <input type="text" numeric numericType="decimal"  class="form-control" (focusout)="CollectionCal()" name="dueReceipt" [(ngModel)]="collection.Duereciept">
                                   </div>
                           </div>
                           <div class="form-group">
                                   <label class="control-label col-sm-5">Penalty Receipt:</label>
                                   <div class="col-sm-7">
-                                          <input type="text" class="form-control" name="penReceipt"  [(ngModel)]="collection.Penaltyreciept">
+                                          <input type="text" numeric numericType="decimal"  class="form-control" (focusout)="CollectionCal()" name="penReceipt"  [(ngModel)]="collection.Penaltyreciept">
                                       </div>
                               </div>
                              
@@ -630,31 +662,31 @@
                       <div class="form-group">
                        <label class="control-label col-sm-5" >Principal Receipt:</label>
                        <div class="col-sm-7">
-                     <input type="text" class="form-control" name="principleAmt" [(ngModel)]="collection.Principalreciept">
+                     <input type="text" class="form-control" numeric numericType="decimal"  [disabled]="DueType=='EMI'" (focusout)="CollectionCal()" name="principleAmt" [(ngModel)]="collection.Principalreciept">
                       </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-sm-5" >Loan Amount:</label>
                         <div class="col-sm-7">
-                      <input type="text" class="form-control" name="loanamount" [(ngModel)]="collection.LoanAmount">
+                      <input type="text" class="form-control" numeric numericType="decimal"  [disabled]="DueType=='EMI'" (focusout)="CollectionCal()" name="loanamount" [(ngModel)]="collection.LoanAmount">
                        </div>
                        </div>
                       <div class="form-group">
                           <label class="control-label col-sm-5">Penalty Balance:</label>
                           <div class="col-sm-7">
-                              <input type="text" class="form-control" name="penAmount" [(ngModel)]="collection.penaltyBal">
+                              <input type="text" class="form-control" numeric numericType="decimal"  (focusout)="CollectionCal()" name="penAmount" [(ngModel)]="collection.penaltyBal">
                           </div>
                       </div>
                       <div class="form-group">
-                          <label class="control-label col-sm-5">Due Balance:</label>
+                          <label class="control-label col-sm-5">Due/Interest Balance:</label>
                           <div class="col-sm-7">
-                              <input type="text" class="form-control" name="dueBal" [(ngModel)]="collection.dueBal">
+                              <input type="text" class="form-control" numeric numericType="decimal"  (focusout)="CollectionCal()" name="dueBal" [(ngModel)]="collection.dueBal">
                           </div>
                       </div>
                       <div class="form-group">
                               <label class="control-label col-sm-5">Total Balance:</label>
                               <div class="col-sm-7">
-                                  <input type="text" class="form-control" name="totalBal" [(ngModel)]="collection.TotalBal">
+                                  <input type="text" class="form-control" numeric numericType="decimal"  (focusout)="CollectionCal()" name="totalBal" [(ngModel)]="collection.TotalBal">
                               </div>
                           </div>
                       </div>
@@ -706,11 +738,11 @@
                                           <td>{{i.TotalBal}}</td>
                                           <td>
                                             
-                                                  <div class="col-sm-3">
-                                                    <button type="button" (click)="removeCollection(i.EMIID)" class="btn btn-primary glyphicon glyphicon-remove"></button>
+                                                  <div class="col-sm-6">
+                                                    <button type="button" (click)="removeCollection(i.EMIID)" class="btncollection btn btn-primary glyphicon glyphicon-remove"></button>
                                                   </div>
-                                                  <div class="col-sm-3">
-                                                        <button type="button"  class="btn btn-primary glyphicon glyphicon-print"></button>
+                                                  <div class="col-sm-6">
+                                                        <button type="button"  class=" btncollection btn btn-primary glyphicon glyphicon-print"></button>
                                                       </div>   
                                           </td>
                                           </tr>
@@ -898,6 +930,212 @@
                       </form>
                   </div>		
              
+                  <div id="customer" class="tab-pane fade in active ">
+                      <form>
+                          <div class="row">
+                            <div class="form-horizontal col-md-6">
+                                    <div class="form-group">
+                                            <label class="control-label col-sm-3">Customer ID :</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" name="customerId" [(ngModel)]="loandetail.CustomerID">
+                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                    <label class="control-label col-sm-3" >Customer Name :</label>
+                                        <div class="col-sm-6">
+                                        <input type="text" class="form-control col-sm-4" name="custName" [(ngModel)]="loandetail.CustName">
+                                        </div>
+                                        <label class="control-label col-sm-1" >Init:</label>
+                                        <div class="col-sm-2 ">
+                                        <input type="text" class="form-control" name="init" [(ngModel)]="loandetail.Initial">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                    <label class="control-label col-sm-3" >Father Name :</label>
+                                        <div class="col-sm-9 ">
+                                        <input type="text" class="form-control" name="fatherName" [(ngModel)]="loandetail.FatherName">
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                    <label class="control-label col-sm-3" >Mother Name :</label>
+                                        <div class="col-sm-9 ">
+                                        <input type="text" class="form-control" name="motherName" [(ngModel)]="loandetail.MotherName">
+                                        </div>		
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">Gender :</label>
+                                        <div class="col-sm-3">
+                                                <select class="form-control" name="gender" [(ngModel)]="loandetail.Gender">
+                                                    <option>Male</option>
+                                                    <option>Female</option>
+                                                </select>
+                                            </div>
+                                        <label class="control-label col-sm-3">Marital Status :</label>
+                                        <div class="col-sm-3">
+                                                <select class="form-control" name="maritalStatus" [(ngModel)]="loandetail.MaritalStatus">
+                                                    <option>Married</option>
+                                                    <option>Unmarried</option>
+                                                </select>
+                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                            <label class="control-label col-sm-3">Spouse Name :</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="spouseName" [(ngModel)]="loandetail.SpouseName">
+                                            </div>
+                                        </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">Resident Type:</label>
+                                        <div class="col-sm-6">
+                                                <select class="form-control" name="residentType" [(ngModel)]="loandetail.ResidentType">
+                                                    <option>Own</option>
+                                                      <option>Rental</option>
+                                                      <option>Agreement</option>
+                                                      <option>Quarters</option>
+                                                </select>
+                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">Communication Address :</label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" name="address" [(ngModel)]="loandetail.CommAddress"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                            <label class="control-label col-sm-3">Permanent Address:</label>
+                                            <div class="col-sm-9">
+                                                <textarea class="form-control" name="permanentAddr" [(ngModel)]="loandetail.PermAddress"></textarea>
+                                            </div>
+                                        </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">Contact No. :</label>
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" maxlength="11" minlength="11" name="contactNum1" [(ngModel)]="loandetail.CustContact1">
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" maxlength="11" minlength="11" name="contactNum2" [(ngModel)]="loandetail.CustContact2">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">Occupation Type :</label>
+                                        <div class="col-sm-3">
+                                            <select class="form-control" name="occType" [(ngModel)]="loandetail.OccupationType">
+                                                <option>Business</option>
+                                                  <option>Salaried-Govt</option>
+                                                  <option>Salaried-Private</option>
+                                                  <option>Dialywages</option>
+                                                  <option>Others</option>
+                                            </select>
+                                        </div>
+                                        <label class="control-label col-sm-3">Occupation Detail :</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control" type="text" name="occDetail" [(ngModel)]="loandetail.OccupationDetail">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">Aadhar :</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" name="aadhar" [(ngModel)]="loandetail.CustAadhar">
+                                        </div>
+                                        
+                                    </div>
+                                        </div>
+                            <div class="form-horizontal col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Guarantor Name :</label>
+                                    <div class="col-sm-7">
+                                        <input class="form-control" type="text" name="guarantorName" [(ngModel)]="loandetail.GuarantorName">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Relationship :</label>
+                                    <div class="col-sm-3">
+                                        <select class="form-control" name="relation" [(ngModel)]="loandetail.Relationship">
+                                            <option>Father</option>
+                                                            <option>Mother</option>
+                                                            <option>Son</option>
+                                                            <option>Daughter</option>
+                                                            <option>Husband</option>
+                                                            <option>Wife</option>
+                                                            <option>Brother</option>
+                                                            <option>Sister</option>
+                                                            <option>Friend</option>
+                                                            <option>Uncle</option>
+                                                            <option>Aunty</option>
+                                                            <option>Brother in Law</option>
+                                                            <option>Sister in Law</option>
+                                                            <option>Son in Law</option>
+                                                            <option>Daughter in Law</option>
+                                                            <option>Father in Law</option>
+                                                            <option>Mother in Law</option>
+                                                            <option>Cousin</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Resident Type:</label>
+                                    <div class="col-sm-7">
+                                    <select class="form-control" name="guarantorResType" [(ngModel)]="loandetail.GResidentType">
+                                        <option>Own</option>
+                                                      <option>Rental</option>
+                                                      <option>Agreement</option>
+                                                      <option>Quarters</option>
+                                    </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                        <label class="control-label col-sm-3">Communication Address :</label>
+                                        <div class="col-sm-7">
+                                            <textarea class="form-control" name="gaddress" [(ngModel)]="loandetail.GAddress"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                            <label class="control-label col-sm-3">Permanent Address:</label>
+                                            <div class="col-sm-7">
+                                                <textarea class="form-control" name="gpermanentAddr" [(ngModel)]="loandetail.GPermAddress"></textarea>
+                                            </div>
+                                        </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">Contact No. :</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" maxlength="11" minlength="11" name="gcontactNum1" [(ngModel)]="loandetail.GContactNum1">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" maxlength="11" minlength="11" name="gcontactNum2" [(ngModel)]="loandetail.GContactNum2">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">Aadhar :</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" name="Gaadhar" [(ngModel)]="loandetail.GAadhar"> 
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">Customer Status :</label>
+                                        <div class="col-sm-4">
+                                            <select class="form-control" name="custStatus" [(ngModel)]="loandetail.CustStatus">
+                                                    <option>Running</option>
+                                                    <option>Approved</option>
+                                                    <option>Pending</option>
+                                                    <option>Cancel</option>
+                                                    <option>Error</option>
+                                                    <option>Consider</option>
+                                                    <option>Recovery</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-3">Remarks :</label>
+                                        <div class="col-sm-7">
+                                            <textarea name="remarks" class="form-control"rows="4" cols="30" [(ngModel)]="loandetail.CustRemarks"></textarea>
+                                        </div>
+                                    </div>
+                                 </div>
+                                </div>
+                      </form>
+                  </div>
             </div>
             
           </div>
@@ -1031,7 +1269,7 @@
   </div>
   </div>
              </div>
-             </form>
+           
               </div>
               </div>
               

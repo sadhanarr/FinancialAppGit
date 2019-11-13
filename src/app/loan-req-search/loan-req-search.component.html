@@ -103,7 +103,7 @@
                  <div class="form-group">
                         <label class="control-label col-sm-3">Area :</label>
                         <div class="col-sm-4">
-                            <select  class="form-control" #li="ngModel" [(ngModel)]="requestSearch.Area"  name="area">
+                            <select   class="form-control" #li="ngModel" [(ngModel)]="requestSearch.Area"  name="area">
                                 <option  *ngFor="let a of AllArea" value="{{a.AreaName}}">{{a.AreaName}}
                                 </option>                         
                                </select>
@@ -150,14 +150,14 @@
                     <td class="col-md-2">{{r.CustomerID}}</td>
                     <td class="col-md-2">{{r.CustomerName}}</td>
                     <td class="col-md-2">
-                        <select  class="form-control"  name="area">
+                        <select  class="form-control" disabled name="area">
                             <option  *ngFor="let a of AllArea" value="{{a.AreaID}}" [selected]="a.AreaID==r.AreaID">{{a.AreaName}}
                             </option>                         
                            </select>
                     </td>
                     <td class="col-md-2">{{r.LoanAmt}}</td>
                     <td class="col-md-2">
-                        <select  class="form-control"  name="category">
+                        <select  class="form-control" disabled name="category">
                             <option  *ngFor="let l of LoanCategory" [selected]="l.dropdownKey==r.LoanCatID" value="{{l.dropdownKey}}">{{l.dropdownName}}
                             </option>                         
                            </select>

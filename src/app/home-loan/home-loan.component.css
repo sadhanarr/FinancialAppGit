@@ -17,6 +17,10 @@ td,th{
     .table-condensed{
       font-size: 12px;
     }
+    .btncollection
+    {
+      margin-left: -10px !important;
+    }
     .marginTop
     {
         width: 15px;

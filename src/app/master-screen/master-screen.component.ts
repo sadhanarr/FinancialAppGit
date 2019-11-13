@@ -54,6 +54,7 @@ export class MasterScreenComponent implements OnInit {
    mline= new MLine(0,0,0,'')
    AllMLine:MLine[]=[];
    Pagerdata:any
+   LoanCategory:ICompany[];
 
   constructor(private _appService:AppService, private _pagerService:PagerService) { }
 
@@ -77,7 +78,9 @@ export class MasterScreenComponent implements OnInit {
    this._appService.getUserRole().subscribe((data:any[])=>{this.AllUserRole=data})
    this._appService.getMachine().subscribe((data:any[])=>{this.AllMachine=data})
    this._appService.getMachineLine().subscribe((data:any[])=>{this.AllMLine=data})
-   
+   this._appService.getLoanCategory().subscribe((data:any[])=>{
+    this.LoanCategory=data
+   });
   }
  
   ngAfterViewChecked()
@@ -325,7 +328,7 @@ Save(BranchID:Number,index:Number,form)
    if(BranchID>0)
     {
   this.sagent= {AgentID: BranchID,AgentName: $('#sagname'+index).text(),AreaID: Number($( "#sagarea"+index+" option:selected" ).val()),ContactPerson:$('#sagCPerson'+index).text(),Address:$('#sagaddress'+index).text(),
-  PrimaryContact: $('#sagPContact'+index).text(),SecondaryContact: $('#sagSContact'+index).text(),LoanCategory:$( "#sagloan"+index+" option:selected" ).text(),User:''}
+  PrimaryContact: $('#sagPContact'+index).text(),SecondaryContact: $('#sagSContact'+index).text(),LoanCategory:$( "#sagloan"+index+" option:selected" ).val(),User:''}
    }
    console.log('agent'+this.sagent)
    this._appService.InsertSAgent(this.sagent) 
