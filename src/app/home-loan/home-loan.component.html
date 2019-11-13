@@ -724,25 +724,25 @@
                       </div>			 
                   
                    <div id="followup" class="tab-pane fade" >
-                      <form >
+                      <form #form2="ngForm">
                       <div class="row">
                       <div class=" form-horizontal col-md-6">
                       <div class="form-group">
                           <label class="control-label col-sm-4">Followup Date :</label>
                           <div class="col-sm-4">
-                                <ejs-datepicker id='datepicker1' placeholder='Select a date'  ></ejs-datepicker>
+                                <ejs-datepicker id='datepicker1' placeholder='Select a date' name="followupDate" [(ngModel)]="followup.FollowupDate" ></ejs-datepicker>
                           </div>
                       </div>
                       <div class="form-group">
                           <label class="control-label col-sm-4">Commitment Date:</label>
                           <div class="col-sm-4">
-                                <ejs-datepicker id='datepicker2' placeholder='Select a date'></ejs-datepicker>
+                                <ejs-datepicker id='datepicker2' placeholder='Select a date' name="CommitmentDt" [(ngModel)]="followup.CommitmentDate"></ejs-datepicker>
                           </div>
                       </div>
                       <div class="form-group">
                             <label class="control-label col-sm-4">Followup Status :</label>
                             <div class="col-sm-6">
-                                <select class="form-control" id="followupStat">
+                                <select class="form-control" name="followupStat" [(ngModel)]="followup.FollowupStatus">
                                     <option>Running</option>
                                     <option>Recovery</option>
                                     <option>Error</option>
@@ -755,7 +755,7 @@
                               <div class="form-group">
                                       <label class="control-label col-sm-4">Remarks :</label>
                                       <div class="col-sm-6">
-                                          <input class="form-control" type="text" id="remarks">
+                                          <input class="form-control" type="text" name="remarks" [(ngModel)]="followup.Remarks">
                                       </div>
                                   </div>
                           <div class="form-group">
@@ -772,10 +772,7 @@
                               <div class="col-md-4">
                               <div class="form-group">
                                     <div class="col-sm-4">
-                                        <button type="button" class="form-control btn btn-primary ">Add</button>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <button type="button" class="form-control btn btn-primary">Delete</button>
+                                        <button type="button" class="form-control btn btn-primary" (click)="AddFollowup(form2)">Add</button>
                                         </div>
                                 </div>
                             </div>
@@ -794,18 +791,24 @@
                                        <th class="col-md-1">Received</th>
                                       <th class="col-md-1">Due Balance</th>
                                       <th class="col-md-1">Status</th>
+                                      <th class="col-md-1"></th>
                                       </tr>
                                       </thead>
                                       <tbody>
-                                          <tr>
-                                            <td class="col-md-1">1</td>
-                                            <td class="col-md-1">26/10/2019</td>
-                                            <td class="col-md-1">24/10/2019</td>
-                                            <td class="col-md-1">Follow up after week</td>
-                                            <td class="col-md-1">ppranesh</td>
+                                          <tr *ngFor="let f of FollowupDetails">
+                                            <td class="col-md-1">{{f.SNo}}</td>
+                                            <td class="col-md-1">{{f.FollowupDate|date:"dd/MM/y"}}</td>
+                                            <td class="col-md-1">{{f.CommitmentDate|date:"dd/MM/y"}}</td>
+                                            <td class="col-md-1">{{f.Remarks}}</td>
+                                            <td class="col-md-1">{{f.AttendedBy}}</td>
                                             <td class="col-md-1">0</td>
                                            <td class="col-md-1">0</td>
-                                           <td class="col-md-1">Running</td>
+                                           <td class="col-md-1">{{f.FollowupStatus}}</td>
+                                           <td>
+                                         <div class="col-sm-3">
+                                            <button type="button" (click) = "DeleteFollowup(f.FollowupId)" class="btn btn-primary glyphicon glyphicon-remove"></button>
+                                          </div>
+                                        </td>
                                         </tr>
                                           </tbody>
                                           </table>
@@ -833,7 +836,7 @@
                           <div class="form-group">
                               <label class="control-label col-sm-5">Remarks :</label>
                               <div class="col-sm-6">
-                                  <input type="text" class="form-control" name="remarks" [(ngModel)]="loandetail.Remarks">
+                                  <input type="text" class="form-control" name="remarks" [(ngModel)]="loandetail.CustRemarks">
                               </div>
                           </div>
                           <div class="form-group">
