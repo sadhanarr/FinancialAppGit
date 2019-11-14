@@ -26,6 +26,8 @@ export class LoanReqSearchComponent implements OnInit {
     private _router: Router) { }
 
   ngOnInit() {
+    this.requestSearch.Status="Request";
+
     this._appService.getLoanCategory().subscribe((data:any[])=>{
       this.LoanCategory=data
      });
