@@ -56,6 +56,8 @@ proofNumber1:string;
 selectedFile1:File;
 CustProof:IProof;
 GuaranProof:IProof;
+ECustProof:IProof;
+EGuaranProof:IProof;
 LoanID:Number=0;
 DueType:string='';
 collection:Collection= new Collection(null,null,new Date(),'',null,null,null,null,null,null,null,null,null,null,null);
@@ -216,8 +218,8 @@ followup:Followup= new Followup(0,0,0,new Date(),new Date(),'','','');
       this.EmiDisable()})
       
       this._appService.getCollection(LoanID).subscribe(res=>{this.AllCollection=res});
-      this._appService.getProof(this.CustID,'Customer',LoanID).subscribe(res=>this.CustProof=res);
-      this._appService.getProof(this.CustID,'Guarantor',LoanID).subscribe(res=>this.GuaranProof=res);
+      this._appService.getProof(this.CustID,'Customer',LoanID).subscribe(res=>this.ECustProof=res);
+      this._appService.getProof(this.CustID,'Guarantor',LoanID).subscribe(res=>this.EGuaranProof=res);
       this._appService.getFollowup(LoanID).subscribe(res=>{this.FollowupDetails=res});
     }
     else{
@@ -348,7 +350,8 @@ console.log("calleed");
    {
      this.Sagent=this.AllSagent.filter(x=>x.LoanCategory==this.loandetail["LoanCatID"].toString())
    }
-   this._appService.getDueDate(this.loandetail.LoanDate.toLocaleDateString().replace('/','-').replace('/','-'),this.loandetail.DueType,this.loandetail.Instalments).subscribe(res=>
+   
+   this._appService.getDueDate(new Date(this.loandetail.LoanDate).toLocaleDateString().replace('/','-').replace('/','-'),this.loandetail.DueType,this.loandetail.Instalments).subscribe(res=>
     {
       this.due= res;
       this.loandetail.LoanDate=this.due.loandate;

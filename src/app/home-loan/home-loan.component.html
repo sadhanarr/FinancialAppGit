@@ -298,7 +298,7 @@
              </tr>
              </thead>
              <tbody>
-             <tr data-toggle="modal" data-target="#myModal" *ngFor="let lo of loanCust" (click)="getLoanDetail(lo.LoanID)">
+             <tr data-toggle="modal" data-target="#myModal" *ngFor="let lo of loanCust" (click)="getLoanDetail(lo.LoanID,form)">
              <td class="col-md-1">{{lo.CustomerID}}</td>
              <td class="col-md-1">{{lo.LoanNo}}</td>
              <td class="col-md-2">
@@ -1041,7 +1041,9 @@
                                         <div class="col-sm-6">
                                             <input type="text" class="form-control" name="aadhar" [(ngModel)]="loandetail.CustAadhar">
                                         </div>
-                                        
+                                        <div class="col-sm-3">
+                                            <button type="button" class="form-control btn btn-primary" data-toggle="modal" data-target="#ECustProof" >ID Proof </button>
+                                            </div>
                                     </div>
                                         </div>
                             <div class="form-horizontal col-md-6">
@@ -1113,7 +1115,9 @@
                                         <div class="col-sm-4">
                                             <input type="text" class="form-control" name="Gaadhar" [(ngModel)]="loandetail.GAadhar"> 
                                         </div>
-                                       
+                                        <div class="col-sm-3">
+                                            <button type="button" class="form-control btn btn-primary" data-toggle="modal" data-target="#EGuarnProof" >ID Proof </button>
+                                            </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-sm-3">Customer Status :</label>
@@ -1252,6 +1256,133 @@
              </thead>
              <tbody>
                 <tr *ngFor="let r of GuaranProof">
+                    <td class="col-md-2">{{r.ID}}</td>
+                    <td class="col-md-2">{{r.ProofType}}</td>
+                    <td class="col-md-3">{{r.ProofNumber}}</td>
+                    <td class="col-md-3"><a (click)="OpenFile(r.File)">{{r.File}}</a></td>
+            <th class="col-md-2">
+                    <button type="button" class="btn btn-primary" (click)="DeleteProof(r.ProofType,'Guarantor')">Delete</button>
+            </th>
+             </tr>
+  
+             </tbody>
+             </table>
+             </div>
+      
+        
+      </div>
+  
+    </div>
+  </div>
+  </div>
+
+  <div id="ECustProof" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Customer ID Proof</h4>
+        </div>
+        <div class="modal-body">
+        <div class="form-horizontal col-md-12">
+          <!-- <div class="form-group">
+              <label class="control-label col-sm-2" >Proof Type :</label>
+              <div class="col-sm-2">
+                <select class="form-control" name="proof1" [(ngModel)]="proof1"><option>AADHAR</option><option>FAMILY CARD</option><option>VOTER ID</option><option>PAN CARD</option><option>DRIVING LICENSE</option></select>
+                </div>
+                <div class="col-sm-2">
+                      <input type="text" name="proofNumber1" class="form-control" [(ngModel)]="proofNumber1">
+                  </div>
+                <div class="col-sm-3">
+                <input type="file" name="file1" class="form-control" (change)="onFileChanged1($event)">
+                
+                </div>
+                <div class="col-sm-1">
+                <button type="submit" class="form-control btn btn-primary" (click)="SaveFile('Customer')">Save</button>
+                
+                </div>
+              </div> -->
+              </div>
+              
+             <div class="table table-responsive custproof" >
+             <table class="table table-bordered table-striped table-hover">
+             <thead>
+                    <tr>
+                            <th class="col-md-2">S.No</th>
+                             <th class="col-md-2">Proof Type</th>
+                             <th class="col-md-3">ID</th>
+                             <th class="col-md-3">Proof</th>
+                             <th class="col-md-2"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let r of ECustProof">
+                            <td class="col-md-2">{{r.ID}}</td>
+                            <td class="col-md-2">{{r.ProofType}}</td>
+                            <td class="col-md-3">{{r.ProofNumber}}</td>
+                            <td class="col-md-3"><a (click)="OpenFile(r.File)">{{r.File}}</a></td>
+                           <th class="col-md-2">
+                                   <button type="button" class="btn btn-primary" (click)="DeleteProof(r.ProofType,'Customer')">Delete</button>
+                           </th>
+                            </tr>
+  
+             </tbody>
+             </table>
+             </div>
+      
+        
+      </div>
+  
+    </div>
+  </div>
+      
+  </div>
+  
+              <div id="EGuarnProof" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Guarantor ID Proof </h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-horizontal col-md-12">
+          <!-- <div class="form-group">
+              <label class="control-label col-sm-2" >Proof Type :</label>
+                  <div class="col-sm-2">
+                  <select class="form-control" name="proof" [(ngModel)]="proof"><option>AADHAR</option><option>FAMILY CARD</option><option>VOTER ID</option><option>PAN CARD</option><option>DRIVING LICENSE</option></select>
+                  </div>
+                  <div class="col-sm-2">
+                        <input type="text" name="proofNumber" class="form-control" [(ngModel)]="proofNumber">
+                    </div>
+                  <div class="col-sm-3">
+                  <input type="file" name="file" class="form-control" (change)="onFileChanged($event)">
+                  
+                  </div>
+                  <div class="col-sm-1">
+                  <button type="submit" class="form-control btn btn-primary" (click)="SaveFile('Guarantor')">Save</button>
+                  
+                  </div>
+              </div> -->
+              </div>
+              
+             <div class="table table-responsive custproof" >
+             <table class="table table-bordered table-striped table-hover">
+             <thead>
+             <tr>
+             <th class="col-md-2">S.No</th>
+              <th class="col-md-2">Proof Type</th>
+              <th class="col-md-3">ID</th>
+              <th class="col-md-3">Proof</th>
+              <th class="col-md-2"></th>
+             </tr>
+             </thead>
+             <tbody>
+                <tr *ngFor="let r of EGuaranProof">
                     <td class="col-md-2">{{r.ID}}</td>
                     <td class="col-md-2">{{r.ProofType}}</td>
                     <td class="col-md-3">{{r.ProofNumber}}</td>
