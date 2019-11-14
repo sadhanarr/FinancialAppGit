@@ -10,7 +10,8 @@
             <div class="form-group">
                 <label class="control-label col-sm-3" >From Date :</label>
                 <div class="col-sm-6">
-                   <ejs-datepicker id='datepicker1' placeholder='Select a date' ></ejs-datepicker>    
+                  <ejs-datepicker id='datepicker' name="datepicker" [ngModel]="dateValue1|date:'dd/MM/yyyy'"
+                                    placeholder='Select a date' #startDate></ejs-datepicker>
                 </div>
             </div>
           </div>
@@ -18,13 +19,13 @@
             <div class="form-group">
                 <label class="control-label col-sm-3" >To Date :</label>
                 <div class="col-sm-6">
-                   <ejs-datepicker id='datepicker2' placeholder='Select a date'  ></ejs-datepicker>    
+                   <ejs-datepicker id='datepicker2' name = 'datePicker2' placeholder='Select a date' [ngModel]="dateValue1|date:'dd/MM/yyyy'" #endDate></ejs-datepicker>    
                 </div>
             </div>
             </div>
           <div class="form-horizontal col-md-4">
               <div class="form-group">
-                  <button type="submit" id="summary" class="btn btn-primary">Show Summary</button>
+                  <button type="submit" id="summary" class="btn btn-primary" (click)="getDetails(startDate.value,endDate.value)">Show Summary</button>
               </div>
           </div>
     <div class="table table-responsive" >
@@ -39,55 +40,12 @@
       </tr>
       </thead>
       <tbody>
-      <tr >
-      <td class="col-md-3">1</td>
-      <td class="col-md-3">Customer Request</td>
-      <td class="col-md-3">0</td>
-     <td class="col-md-3">0</td>  
+      <tr *ngFor="let d of AllDetails">
+        <td class="col-md-3">{{d.Sno}}</td>
+        <td class="col-md-3">{{d.IndexNames}}</td>
+        <td class="col-md-3">{{d.Loans}}</td>
+      <td class="col-md-3">{{d.Amount}}</td>  
       </tr>
-      <tr >
-          <td class="col-md-3">2</td>
-          <td class="col-md-3">Agent Request</td>
-          <td class="col-md-3">0</td>
-         <td class="col-md-3">0</td>  
-      </tr>
-      <tr >
-        <td class="col-md-3">3</td>
-        <td class="col-md-3">Enquiry</td>
-        <td class="col-md-3">0</td>
-        <td class="col-md-3">0</td>  
-        </tr>
-        <tr >
-            <td class="col-md-3">4</td>
-            <td class="col-md-3">Approved</td>
-            <td class="col-md-3">0</td>
-           <td class="col-md-3">0</td>  
-            </tr>
-            <tr >
-                <td class="col-md-3">5</td>
-                <td class="col-md-3">Rejected</td>
-                <td class="col-md-3">0</td>
-               <td class="col-md-3">0</td>  
-                </tr>
-                <tr >
-                    <td class="col-md-3">6</td>
-                    <td class="col-md-3">Issued</td>
-                    <td class="col-md-3">0</td>
-                   <td class="col-md-3">0</td>  
-                    </tr>
-                    <tr >
-                        <td class="col-md-3">7</td>
-                        <td class="col-md-3">Collection</td>
-                        <td class="col-md-3">0</td>
-                       <td class="col-md-3">0</td>  
-                        </tr>
-                        <tr >
-                            <td class="col-md-3">8</td>
-                            <td class="col-md-3">Closed</td>
-                            <td class="col-md-3">0</td>
-                           <td class="col-md-3">0</td>  
-                            </tr>
-
       </tbody>
       </table>
       </div>

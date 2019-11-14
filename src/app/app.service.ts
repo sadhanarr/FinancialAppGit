@@ -24,6 +24,7 @@ import { IProof} from './home-loan/Proof'
 import {Collection} from './home-loan/collection'
 import { Followup } from './home-loan/Followup';
 import {DueDate} from './home-loan/duedate'
+import { Dashboard } from './dashboard-page/Dashboard';
 
 @Injectable()
 export class AppService
@@ -95,6 +96,7 @@ export class AppService
     private _getdueURL= this._baseUrl+"getDueDate"
 
     private _getLoanFollowupDetailsURL = this._baseUrl+"getLoanFollowupDetails";
+    private _getDashboardDetailsURL = this._baseUrl+"getDashboardDetails";
 
     private RequestID = new BehaviorSubject<Number>(0);
     currentReqID = this.RequestID.asObservable();
@@ -127,6 +129,10 @@ export class AppService
     getFollowup(LoanID):Observable<Followup[]>
     {
       return this._http.get<Followup[]>(this._getLoanFollowupDetailsURL+"/"+LoanID)
+    }
+    getDashboardDetails(StartDate,EndDate):Observable<Dashboard[]>
+    {
+      return this._http.get<Dashboard[]>(this._getDashboardDetailsURL+"/"+StartDate+"/"+EndDate)
     }
     getCollectionValue(ID,LoanID,EntryDate):Observable<Collection>
     {
