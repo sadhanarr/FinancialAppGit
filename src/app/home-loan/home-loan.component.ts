@@ -67,7 +67,7 @@ AllCollection:Collection[];
  TotalBal:Number=0;
 
 FollowupDetails:Followup[];
-followup:Followup= new Followup(0,0,0,new Date(),new Date(),'','','');
+followup:Followup= new Followup(0,0,0,new Date(),new Date(),'','','Running');
 
   ngOnInit() {
     this._appService.getLoanCategory().subscribe((data:any[])=>{
