@@ -423,13 +423,7 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">Status :</label>
                             <div class="col-sm-4">
-                                <select class="form-control" name="status" id="status" [(ngModel)]="request.ReqStatus">
-                                    <option>Request</option>
-                                    <option>Approved</option>
-                                    <option>Waitlist</option>
-                                    <option>Cancel</option>
-                                    <option>Revoke</option>
-                                </select>
+                                <input type="text" class="form-control" name="status" id="status" [(ngModel)]="request.ReqStatus" disabled>
                             </div>
                         </div>
                     </div>

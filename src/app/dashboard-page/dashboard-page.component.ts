@@ -20,6 +20,7 @@ export class DashboardPageComponent implements OnInit {
   ) { }
     AllDetails:Dashboard[]=[];
     dateValue1 :Date;
+    public format:string = "dd/MM/yyyy";
   
   ngOnInit() {
    this.dateValue1 = new Date();

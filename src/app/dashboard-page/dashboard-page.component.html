@@ -10,8 +10,8 @@
             <div class="form-group">
                 <label class="control-label col-sm-3" >From Date :</label>
                 <div class="col-sm-6">
-                  <ejs-datepicker id='datepicker' name="datepicker" [ngModel]="dateValue1|date:'dd/MM/yyyy'"
-                                    placeholder='Select a date' #startDate></ejs-datepicker>
+                  <ejs-datepicker id='datepicker' name="datepicker" [ngModel]="dateValue1"
+                                   [format]="format" placeholder='Select a date' #startDate></ejs-datepicker>
                 </div>
             </div>
           </div>
@@ -19,7 +19,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-3" >To Date :</label>
                 <div class="col-sm-6">
-                   <ejs-datepicker id='datepicker2' name = 'datePicker2' placeholder='Select a date' [ngModel]="dateValue1|date:'dd/MM/yyyy'" #endDate></ejs-datepicker>    
+                   <ejs-datepicker id='datepicker2' name = 'datePicker2' placeholder='Select a date' [ngModel]="dateValue1" [format]="format" #endDate></ejs-datepicker>    
                 </div>
             </div>
             </div>

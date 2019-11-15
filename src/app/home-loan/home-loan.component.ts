@@ -13,6 +13,7 @@ import {ROI} from '../loan-request/ROI'
 import {IProof} from './Proof'
 import { Collection } from './collection';
 import { Followup } from './Followup';
+import {LoanStatus} from './LoanStatus';
 import {DueDate} from './duedate'
 import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
 
@@ -66,7 +67,7 @@ AllCollection:Collection[];
 
 FollowupDetails:Followup[];
 followup:Followup= new Followup(0,0,0,new Date(),new Date(),'','','Running');
-
+loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
   ngOnInit() {
     this._appService.getLoanCategory().subscribe((data:any[])=>{
       this.LoanCategory=data
@@ -119,7 +120,15 @@ followup:Followup= new Followup(0,0,0,new Date(),new Date(),'','','Running');
      console.log(url)
      
      window.open(url.replace('D:\\Tech\\','http://103.110.236.177/'))
-  }
+  
+    }
+    AddLoanStatus(form)
+    {
+      this.loanStat.LoanId=this.LoanID
+      console.log(this.loanStat)
+      this._appService.insertLoanIssueStatus(this.loanStat).subscribe(res=>{console.log(res);
+      form.resetForm(form);})
+    }
   AddFollowup(form)
   {
     this.followup.LoanID=this.LoanID
@@ -219,6 +228,11 @@ followup:Followup= new Followup(0,0,0,new Date(),new Date(),'','','Running');
       this._appService.getProof(this.CustID,'Customer',LoanID).subscribe(res=>this.CustProof=res);
       this._appService.getProof(this.CustID,'Guarantor',LoanID).subscribe(res=>this.GuaranProof=res);
       this._appService.getFollowup(LoanID).subscribe(res=>{this.FollowupDetails=res});
+      this._appService.getIssueLoanStatus(LoanID).subscribe(res=>{
+        console.log(res);
+        this.loanStat=res;
+        this.changeLoanStatus(this.loanStat.LoanStatus);});
+      
     }
     else{
       this._appService.getCustomer(this.CustID,this.RequestID).subscribe((data:any)=> 
@@ -285,6 +299,7 @@ followup:Followup= new Followup(0,0,0,new Date(),new Date(),'','','Running');
   }
   changeLoanStatus(event)
   {
+    console.log("Status :"+event);
   if(event=="Consider")
   {
     $('#consider').show();
@@ -342,7 +357,6 @@ console.log("calleed");
       this.loandetail["LoanNo"]= 700000+1+  this.loan.filter(x=>x.LoanCatID==this.loandetail["LoanCatID"]).length
       if(this.loandetail["LoanCatID"]==8)
       this.loandetail["LoanNo"]= 800000+1+  this.loan.filter(x=>x.LoanCatID==this.loandetail["LoanCatID"]).length
-     
     }
    if(this.loandetail["LoanCatID"] !=null)
    {

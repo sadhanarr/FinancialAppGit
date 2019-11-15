@@ -25,6 +25,7 @@ import {Collection} from './home-loan/collection'
 import { Followup } from './home-loan/Followup';
 import {DueDate} from './home-loan/duedate'
 import { Dashboard } from './dashboard-page/Dashboard';
+import { LoanStatus } from './home-loan/LoanStatus';
 
 @Injectable()
 export class AppService
@@ -94,7 +95,8 @@ export class AppService
     private _insertLoanFollowupURL = this._baseUrl+"InsertLoanFollowupDetails";
     private _deleteLoanFollowupURL = this._baseUrl+"DeleteLoanFollowupDetail";
     private _getdueURL= this._baseUrl+"getDueDate"
-
+    private _insertIssueLoanStatus = this._baseUrl+"InsertIssueLoanStatus";
+    private _getIssueLoanStatus = this._baseUrl+"getLoanStatusDetails";
     private _getLoanFollowupDetailsURL = this._baseUrl+"getLoanFollowupDetails";
     private _getDashboardDetailsURL = this._baseUrl+"getDashboardDetails";
 
@@ -140,9 +142,25 @@ export class AppService
         return this._http.get<Collection>(this._getCollectionValURL+"/"+ID+"/"+LoanID+"/"+EntryDate)
     
     }
+    getIssueLoanStatus(loanId:Number):Observable<LoanStatus>
+    {
+      return this._http.get<LoanStatus>(this._getIssueLoanStatus+"/"+loanId)
+    }
     getDueDate(date,Type:string,months:Number):Observable<DueDate>
     {
         return this._http.get<DueDate>(this._getdueURL+"/"+date+"/"+Type+"/"+months)
+    }
+    insertLoanIssueStatus(status:LoanStatus)
+    {
+      console.log(status)
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      }; 
+        return this._http.post(this._insertIssueLoanStatus,status,httpOptions)
     }
     addCollection(collection:Collection)
     {
