@@ -55,6 +55,7 @@ export class LoanRequestComponent implements OnInit {
      this.request["DueType"]="EMI";
      this.request["ReqStatus"]="";
      this.request["ReqStatus"]="Request"
+     this.request["CompanyID"]=1;
      this._appService.getCompany().subscribe((data:any[])=>{
       this.AllCompany=data
      });
@@ -269,6 +270,10 @@ this.request.PhotoLoc=this.selectedFile.name;
   Cancel(form)
   {
     form.resetForm();
+    $('#newCustomer').prop('checked',true)
      $('#file').val('')
+     $('#dueType').val('EMI')
+     $('#status').val('Request')
+     this.request["RequestDate"] = new Date()
   }
 }
