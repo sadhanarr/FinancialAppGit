@@ -53,7 +53,6 @@ export class LoanRequestComponent implements OnInit {
   ngOnInit() {
      this.request["RequestDate"] = new Date()
      this.request["DueType"]="EMI";
-     this.request["ReqStatus"]="";
      this.request["ReqStatus"]="Request"
      this.request["CompanyID"]=1;
      this._appService.getCompany().subscribe((data:any[])=>{
@@ -225,6 +224,10 @@ this.request.PhotoLoc=this.selectedFile.name;
     this._appService.InsertLoanRequest(this.request,this.selectedFile)
     form.resetForm();
     $('#file').val('')
+    this.request["RequestDate"] = new Date()
+    this.request["DueType"]="EMI";
+    this.request["ReqStatus"]="Request"
+    
   }
 
   OnChange()
@@ -275,5 +278,29 @@ this.request.PhotoLoc=this.selectedFile.name;
      $('#dueType').val('EMI')
      $('#status').val('Request')
      this.request["RequestDate"] = new Date()
+  }
+  ResetCustomerFields()
+  {
+    $('#customerID').val('')
+    this.request["CustomerName"]=""
+    this.request["Initial"]=""
+    this.request["FatherName"]=""
+    this.request["MotherName"]=""
+    this.request["Gender"]=""
+    this.request["MaritalStatus"]=""
+    this.request["SpouseName"]=""
+    this.request["CommunicationAddress"]=""
+    this.request["CustPrimaryContact"]=""
+    this.request["CustSecondaryContact"]=""
+    this.request["CustAadhar"]=""
+    this.request["GuarantorName"]=""
+    this.request["Relationship"]=""
+    this.request["GContact1"]=""
+    this.request["GContact2"]=""
+    this.request["GAadhar"]=""
+    this.request["StateID"]=0
+    this.request["DistrictID"]=0
+    this.request["TalukID"]=0
+    this.request["AreaID"]=0
   }
 }

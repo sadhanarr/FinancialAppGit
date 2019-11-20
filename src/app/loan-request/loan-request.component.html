@@ -52,7 +52,7 @@
                                 <label class="custom-control-label" for="existingCust">Existing Customer</label>
                             </div>
                             <div class="col-sm-3 custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="newCustomer" name="customerIdRadio"
+                                <input type="radio" class="custom-control-input" (click)="ResetCustomerFields()"id="newCustomer" name="customerIdRadio"
                                     checked>
                                 <label class="custom-control-label" for="newCustomer">New Customer</label>
                             </div>
