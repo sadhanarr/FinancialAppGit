@@ -45,7 +45,7 @@ export class LoanRequestComponent implements OnInit {
   imagePreview:any;
   URL:string;
   request:Request= new Request(null,new Date(),0,0,0,0,0,0,0,null,'','','','','','','','','','','','','','','','',0,0,'','',null,null
-  ,null,null,null,null,null,null,null,null,'','','','','')
+  ,null,null,null,null,null,null,null,null,'','','','','','')
   constructor(private _appService:AppService,private _route: ActivatedRoute,
     private _router: Router) {
    }
@@ -239,12 +239,13 @@ this.request.PhotoLoc=this.selectedFile.name;
          
          ROIscheme=  this.ROI.filter(x=> ( new Date( this.request["RequestDate"].toDateString()) >= new Date(x.FROMDATE) 
           && new Date( this.request["RequestDate"].toDateString()) <= new Date( x.TODATE)    
-             &&  this.request["LoanPeriod"]>= x.DUEMIN && this.request["LoanPeriod"]<= x.DUEMAX && this.request["LoanCatID"]== x.LoanCatID && x.STATUS==1) ).map(x=> ({ROICODE:x.ROICODE, LoanCatID:x.LoanCatID,
-            DueMax: x.DUEMAX,DUESTEPS: x.DUESTEPS, DUEMIN: x.DUEMIN, DUEROI: x.DUEROI, ROIMAX:x.ROIMAX, ROIMIN: x.ROIMIN, ADVMIN:x.ADVMIN, ADVSTEPS:x.ADVSTEPS,
+             && this.request["LoanCatID"]== x.LoanCatID && x.STATUS==1) ).map(x=> ({ROICODE:x.ROICODE, LoanCatID:x.LoanCatID,
+            DUEMAX: x.DUEMAX,DUESTEPS: x.DUESTEPS, DUEMIN: x.DUEMIN, DUEROI: x.DUEROI, ROIMAX:x.ROIMAX, ROIMIN: x.ROIMIN, ADVMIN:x.ADVMIN, ADVSTEPS:x.ADVSTEPS,
             ADVMAX:x.ADVMAX,ADVROI:x.ADVROI, SECMIN:x.SECMIN,SECSTEPS:x.SECSTEPS,SECMAX:x.SECMAX,SECROI:x.SECROI, FROMDATE:x.FROMDATE,TODATE:x.TODATE,STATUS:x.STATUS              }))
          console.log(ROIscheme)
-            var DUEROI:any= parseFloat( ROIscheme[0].DUEROI.toString())*( parseInt(this.request["LoanPeriod"].toString())/ parseInt( ROIscheme[0].DUESTEPS.toString()));
-          console.log(DUEROI)
+         this.request["LoanPeriod"]= (parseInt(this.request["LoanPeriod"].toString())>= parseInt(ROIscheme[0].DUEMIN) && parseInt(this.request["LoanPeriod"].toString())<=parseInt( ROIscheme[0].DUEMAX)) ? this.request["LoanPeriod"]: ( parseInt(this.request["LoanPeriod"].toString())>ROIscheme[0].DUEMAX ? ROIscheme[0].DUEMAX : ROIscheme[0].DUEMIN ) 
+            var DUEROI:any= parseFloat( ROIscheme[0].DUEROI.toString())*(( parseInt(ROIscheme[0].DUEMAX)-parseInt(this.request["LoanPeriod"].toString()))/ parseInt( ROIscheme[0].DUESTEPS.toString()));
+          
           
             var ADVROIper= this.request["AdvRatio"] >= ROIscheme[0].ADVMIN && this.request["AdvRatio"]<= ROIscheme[0].ADVMAX ? this.request["AdvRatio"]: ( this.request["AdvRatio"]>ROIscheme[0].ADVMAX ? ROIscheme[0].ADVMAX : ROIscheme[0].ADVMIN )
             var ADVROI = parseFloat(ROIscheme[0].ADVROI.toString())* parseFloat(Math.floor(ADVROIper/ROIscheme[0].ADVSTEPS).toFixed(0));
@@ -254,7 +255,7 @@ this.request.PhotoLoc=this.selectedFile.name;
             var SECROIper= ( this.request["SecRatio"] >= ROIscheme[0].SECMIN && this.request["SecRatio"]<= ROIscheme[0].SECMAX ? this.request["SecRatio"]: ( this.request["SecRatio"]>ROIscheme[0].SECMAX ? ROIscheme[0].SECMAX : ROIscheme[0].SECMIN ))
            var SECROI =  parseFloat(ROIscheme[0].SECROI.toString())* parseInt((SECROIper.toString()/ROIscheme[0].SECSTEPS.toString()).toString())
            console.log(SECROI)
-           var netROI= parseFloat((ROIscheme[0].ROIMAX-DUEROI-ADVROI-SECROI).toFixed(3)).toFixed(2);
+           var netROI= parseFloat((ROIscheme[0].ROIMAX-DUEROI-ADVROI-SECROI).toFixed(2));
             this.request["RateOfInt"]=( netROI>= ROIscheme[0].ROIMIN && netROI<= ROIscheme[0].ROIMAX ? netROI: ( netROI>ROIscheme[0].ROIMAX ? ROIscheme[0].ROIMAX : ROIscheme[0].ROIMIN ))
           this.request["IntAmount"]= Math.ceil( (parseInt(this.request["LoanAmt"].toString())* parseInt(this.request["LoanPeriod"].toString())* parseFloat(this.request["RateOfInt"].toString()) )/100)
           this.request["TotalDue"]=Math.ceil( ( parseInt(this.request["LoanAmt"].toString())+ parseInt(this.request["IntAmount"].toString()))/ parseInt(this.request["LoanPeriod"].toString()))

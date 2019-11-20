@@ -99,6 +99,7 @@ export class AppService
     private _getIssueLoanStatus = this._baseUrl+"getLoanStatusDetails";
     private _getLoanFollowupDetailsURL = this._baseUrl+"getLoanFollowupDetails";
     private _getDashboardDetailsURL = this._baseUrl+"getDashboardDetails";
+    private _getLoanReqSearchURL = this._baseUrl+"getLoanReqSearch";
 
     private RequestID = new BehaviorSubject<Number>(0);
     currentReqID = this.RequestID.asObservable();
@@ -247,7 +248,7 @@ export class AppService
         
       };      
        
-       return  this._http.post(this._updateLoanStatus,dist,httpOptions).subscribe(res => console.log(res));  
+       return  this._http.post(this._updateLoanStatus,dist,httpOptions);  
     
       
     }
@@ -291,7 +292,8 @@ export class AppService
     
       
     }
-    getLoanRequestSearch(search:LoanSearch){
+   
+     getLoanRequestSearch(search:LoanSearch){
    
       const httpOptions = {
         headers: new HttpHeaders({
@@ -302,6 +304,20 @@ export class AppService
       };
        console.log("search"+search["FromDate"])
        return  this._http.post(this._getLoanRequestSearchURL,search,httpOptions) 
+    
+      
+    }
+    getLoanReqSearch(search:LoanSearch){
+   
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      };
+       console.log("search"+search["FromDate"])
+       return  this._http.post(this._getLoanReqSearchURL,search,httpOptions) 
     
       
     }

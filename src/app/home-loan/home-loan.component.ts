@@ -243,7 +243,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
         this.LoanID=0;
         this.loandetail=data ; 
         this.DueType=this.loandetail.DueType
-        this.loandetail.IntType='Daily'
+       this.DueType='Interest'? this.loandetail.IntType='Daily': this.loandetail.IntType=''
         this.loandetail.LoanDate= new Date()
         
      this.OnChange();
@@ -328,9 +328,11 @@ EmiDisable()
     this.loandetail["InterestAmt"]=null;
     this.loandetail["TotAmount"]=null;
     this.loandetail["InstalmentAmt"]=null;
-    this.loandetail["NetAmt"]=null;
+    this.loandetail["NetAmt"]=null; 
+    $('#IntType').removeAttr("disabled");
   }
   else{
+    $('#IntType').attr("disabled","disabled");
     $('#intAmt').removeAttr("disabled");
     $('#totAmt').removeAttr("disabled");
     $('#installmentAmt').removeAttr("disabled");
@@ -368,6 +370,7 @@ console.log("calleed");
    this._appService.getDueDate(new Date(this.loandetail.LoanDate).toLocaleDateString().replace('/','-').replace('/','-'),this.loandetail.DueType,this.loandetail.Instalments).subscribe(res=>
     {
       this.due= res;
+      console.log(this.due)
       this.loandetail.LoanDate=this.due.loandate;
       this.loandetail.FirstDueDt=this.due.firstdue;
       this.loandetail.LastDueDt=this.due.lastdue;

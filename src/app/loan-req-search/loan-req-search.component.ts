@@ -7,6 +7,7 @@ import { ActivatedRoute, Router} from '@angular/router';
 import { LoanSearch} from './LoanSearch'
 import {ICompany} from '../master-screen/Company'
 import {IUpdate} from './UpdateStatus'
+;
 
 @Component({
   selector: 'app-loan-req-search',
@@ -20,7 +21,6 @@ export class LoanReqSearchComponent implements OnInit {
   AllSagent:Agent[]=[];
   requestSearch:LoanSearch={} as any;
   requestAll:Request[]=[];
- 
    update:IUpdate={}as any
   constructor(private _appService:AppService,private _route: ActivatedRoute,
     private _router: Router) { }
@@ -33,27 +33,42 @@ export class LoanReqSearchComponent implements OnInit {
      });
      this._appService.getArea().subscribe((data:any[])=>{this.AllArea=data})
      this._appService.getSAgent().subscribe((data:any[])=>{this.AllSagent=data})
+     this.requestSearch.FromDate= new Date();
+     this.requestSearch.ToDate= new Date();
+     this.Search(null)
   }
   Search(form)
   {
     console.log(this.requestSearch)
-    this._appService.getLoanRequestSearch(this.requestSearch).subscribe((res:any[])=> {
-     this.requestAll=res;
-     console.log(this.requestAll)
-    this.requestSearch={Status:'',FromDate:'',ToDate:'',RequestID:'',CustName:'',CustID:'',Address:'',OtherName:'',ContactList:'',Line:'',Area:'',AgentName:'',LoanCategory:'',KeywordSearch:'',IDProof:''}
-   })
+   if(this.requestSearch != null){
   
+    this._appService.getLoanReqSearch(this.requestSearch).subscribe((res:any[])=> {
+      console.log(res)
+     this.requestAll=res;
+    })
+   }
+  }
+  Clear(form)
+  {
+    form.resetForm();
   }
 
-  SaveRequestID(ID)
+  SaveRequestID(r:Request)
   {
-    this.update.RequestID=ID;
+    console.log(r)
+    this.update.RequestID=r.RequestID;
+    this.update.Remark=r.Remarks;
+    this.update.Status=r.ReqStatus;
   }
   SaveStatus()
   {
-   console.log(this.update)
-    this._appService.UpdateLoanStatus(this.update)
-    document.getElementById("close").click();
+   
+    this._appService.UpdateLoanStatus(this.update).subscribe(res => 
+      {console.log(res);
+        document.getElementById("close").click();
+        this.Search(null);
+      })
+   
   }
   NavigateLoan(ID)
   {

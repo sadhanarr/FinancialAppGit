@@ -26,21 +26,34 @@ export class LoanIssueComponent implements OnInit {
 
   ngOnInit() {
     this._appService.getLoanCategory().subscribe((data:any[])=>{
-      this.LoanCategory=data
+      this.LoanCategory=data;
+      this.requestSearch.FromDate=new Date();
+      this.requestSearch.ToDate= new Date();
+      this.Search(null);
      });
      this._appService.getArea().subscribe((data:any[])=>{this.AllArea=data})
      this._appService.getSAgent().subscribe((data:any[])=>{this.AllSagent=data})
+    
+     
   }
   Search(form)
   {
     console.log(this.requestSearch)
+    if(  this.requestSearch.CustName != null  || this.requestSearch.CustID!= null  || this.requestSearch.OtherName!= null  ||
+    this.requestSearch.ContactList!= null  || this.requestSearch.IDProof!= null  || this.requestSearch.RequestID!= null  || this.requestSearch.Area!= null  || this.requestSearch.LoanCategory!= null  ||this.requestSearch.AgentName!= null  ||
+    this.requestSearch.Address!= null  || this.requestSearch.KeywordSearch!= null || this.requestSearch.FromDate !=null
+    || this.requestSearch.ToDate != null)
+    {
     this.requestSearch["Status"]="Approved"
-    this._appService.getLoanRequestSearch(this.requestSearch).subscribe((res:any[])=> {
+    this._appService.getLoanReqSearch(this.requestSearch).subscribe((res:any[])=> {
      this.requestAll=res;
      console.log(this.requestAll)
     
    })
-   form.resetForm();
+    }
+    else{
+      this.Search(null);
+    }
   }
   NavigateIssueDetail(CustID,RequestID)
   {
@@ -49,5 +62,8 @@ export class LoanIssueComponent implements OnInit {
     this._appService.changeReqID(RequestID);
     this._router.navigate(['/HomeLoan'])
   }
-
+Clear(form)
+{
+  form.resetForm();
+}
 }
