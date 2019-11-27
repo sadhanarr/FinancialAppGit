@@ -8,7 +8,7 @@
         </div>
         <ul class="nav navbar-nav" routerLinkActive="active">
             <li class="nav-item"><a class="nav-link" routerLink="/DashboardPage">Dashboard</a></li>
-            <li class="nav-item"><a class="nav-link" routerLink="/LoanRequest">Loan Request</a></li>
+            <li class="nav-item"><a class="nav-link" (click)="resetRequest()" routerLink="/LoanRequest">Loan Request</a></li>
           <li class="nav-item"><a class="nav-link" routerLink="/LoanReqSearch">Loan Request View</a></li>
           <li class="nav-item"><a class="nav-link" routerLink="/LoanIssue">Loan Issue/Collection</a></li>
           <li class="nav-item"><a class="nav-link" routerLink="/MasterData">Master Details</a></li>

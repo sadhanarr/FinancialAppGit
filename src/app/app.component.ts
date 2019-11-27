@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import {AppService} from './app.service'
+import { ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'FinanceApp';
+  constructor(private _appService:AppService,private _route: ActivatedRoute,
+    private _router: Router) { }
+    ngOnInit()
+    {
+
+    }
+    resetRequest()
+    {
+      this._appService.changeReqID(0);
+    }
 }

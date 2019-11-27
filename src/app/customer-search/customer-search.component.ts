@@ -41,29 +41,12 @@ export class CustomerSearchComponent implements OnInit {
   Search(form)
   {
  
-  if( this.search.Status!= ""  || this.search.CustName!= ""  || this.search.CustID!= ""  || this.search.OtherName!= ""  ||
-  this.search.ContactList!= ""  || this.search.IDProof!= ""  || this.search.Line!= ""  || this.search.Area!= ""  ||
-  this.search.Address!= ""  || this.search.KeywordSearch!= "")
-  {
    this._appService.getCustomerSearch(this.search).subscribe((res:any[])=> {
     this.requestAll=res;
     console.log(this.requestAll)
-    // this.search.Status="";
-    // this.search.CustName="";
-    // this.search.CustID="";
-    // this.search.OtherName="";
-    // this.search.ContactList="";
-    // this.search.IDProof="";
-    // this.search.Line="";
-    // this.search.Area="";
-    // this.search.Address="";
-    // this.search.KeywordSearch="";
+
   })
-}
-  else{
-    this.requestAll=null;
-  
-}
+
   
   }
 
