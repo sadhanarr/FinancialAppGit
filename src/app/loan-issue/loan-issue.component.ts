@@ -29,7 +29,7 @@ export class LoanIssueComponent implements OnInit {
       this.LoanCategory=data;
       this.requestSearch.FromDate=new Date();
       this.requestSearch.ToDate= new Date();
-      this.requestSearch.Status="All";
+      this.requestSearch.Status="Approved";
       this.Search(null);
      });
      this._appService.getArea().subscribe((data:any[])=>{this.AllArea=data})

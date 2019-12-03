@@ -102,6 +102,7 @@ export class AppService
     private _getDashboardDetailsURL = this._baseUrl+"getDashboardDetails";
     private _getLoanReqSearchURL = this._baseUrl+"getLoanReqSearch";
     private _getLoanIssueReqSearchUrl = this._baseUrl+"getIssueLoanRequestSearch";
+    private _deleteFIleLocURL = this._baseUrl+"DeleteFileLoc";
 
     private RequestID = new BehaviorSubject<Number>(0);
     currentReqID = this.RequestID.asObservable();
@@ -229,17 +230,22 @@ export class AppService
     {
       return this._http.get<Loan>(this._getDetailforLoanIssueURL+"/"+ID)
     }
-    getProof(CustID:Number, Type:string, LoanID:Number):Observable<IProof>
+    getProof(CustID:Number, Type:string, LoanID:Number):Observable<IProof[]>
     {
-     return this._http.get<IProof>(this._getProofURL+"/"+CustID+"/"+Type+"/"+LoanID)
+     return this._http.get<IProof[]>(this._getProofURL+"/"+CustID+"/"+Type+"/"+LoanID)
     }
     DeleteMachine(id:Number)
     {
       return this._http.get(this._deleteMachineeURL+"/"+id)
     }
-    deleteProof(CustID:Number,ProofType:string,Type:string)
+    DeleteFileLoc(CustID:Number,LoanID:Number)
     {
-      return this._http.get(this._deleteProofURL+"/"+CustID+"/"+ProofType.replace(' ','%20')+"/"+Type)
+      console.log(this._deleteFIleLocURL+"/"+CustID+"/"+LoanID)
+      return this._http.get(this._deleteFIleLocURL+"/"+CustID+"/"+LoanID)
+    }
+    deleteProof(CustID:Number,ProofType:string,Type:string,LoanID:Number)
+    {
+      return this._http.get(this._deleteProofURL+"/"+CustID+"/"+ProofType.replace(' ','%20')+"/"+Type+"/"+LoanID)
     }
     InsertMachine(dist:Machine)
     {
@@ -319,7 +325,7 @@ export class AppService
         })
         
       };
-       console.log("search"+search["FromDate"])
+       console.log("search"+search["ToDate"])
        return  this._http.post(this._getLoanRequestSearchURL,search,httpOptions) 
     
       
@@ -398,27 +404,25 @@ export class AppService
         })
         
       };
-       var CustID:Number
-       return  this._http.post(this._insertLoanRequestURL,data,httpOptions).subscribe(res =>
-        { console.log('res'+res)
-        CustID= parseInt( res.toString())
-        const HttpUploadOptions = {
-          headers: new HttpHeaders({
-            "Accept": "multipart/form-data",
-            "Access-Control-Allow-Origin":"true"
-          })
-        }
-        const uploadData = new FormData();
-        uploadData.append("CustID", CustID.toString());
-        uploadData.append("file", file);
-        console.log(uploadData)
-        this._http.post(this._insertPhotoURL,uploadData,HttpUploadOptions).subscribe(res =>console.log(res))
-       });  
+       return   this._http.post(this._insertLoanRequestURL,data,httpOptions)
     
       
     }
-
-    InsertProof(CustID:Number,proof:string,proofNumber:string,file:File,value:string)
+InsertPhoto(CustID:Number,file:File)
+{
+  const HttpUploadOptions = {
+    headers: new HttpHeaders({
+      "Accept": "multipart/form-data",
+      "Access-Control-Allow-Origin":"true"
+    })
+  }
+  const uploadData = new FormData();
+  uploadData.append("CustID", CustID.toString());
+  uploadData.append("file", file);
+  console.log(uploadData)
+  return this._http.post(this._insertPhotoURL,uploadData,HttpUploadOptions)
+}
+    InsertProof(CustID:Number,proof:string,proofNumber:string,file:File,value:string, LoanID:Number)
     {
       const HttpUploadOptions = {
         headers: new HttpHeaders({
@@ -426,12 +430,14 @@ export class AppService
           "Access-Control-Allow-Origin":"true"
         })
       }
+      console.log(CustID+" "+proof+" "+proofNumber+' '+file+' '+value+' '+LoanID)
       const uploadData = new FormData();
       uploadData.append("CustID", CustID.toString());
-      uploadData.append("Proof", proof.toString());
-      uploadData.append("proofNumber", proofNumber.toString());
+      uploadData.append("Proof", proof);
+      uploadData.append("proofNumber", proofNumber);
       uploadData.append("file", file);
       uploadData.append("Type", value);
+      uploadData.append("LoanID", LoanID.toString());
       console.log(uploadData)
      return this._http.post(this._insertProofURL,uploadData,HttpUploadOptions)
     }

@@ -40,13 +40,12 @@ export class LoanReqSearchComponent implements OnInit {
   Search(form)
   {
     console.log(this.requestSearch)
-   if(this.requestSearch != null){
-  
+ 
     this._appService.getLoanReqSearch(this.requestSearch).subscribe((res:any[])=> {
       console.log(res)
      this.requestAll=res;
     })
-   }
+   
   }
   Clear(form)
   {

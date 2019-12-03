@@ -32,7 +32,10 @@ export class AppComponent implements OnInit{
   ngOnInit() {
 
   } 
-
+  resetRequest()
+  {
+    this._appService.changeReqID(0);
+  }
   ValidateLogin(userName:string,password:string,form)
   {
 	  if(form.invalid)

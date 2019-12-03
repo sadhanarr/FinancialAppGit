@@ -221,13 +221,20 @@ reader.readAsDataURL(this.selectedFile);
 if(this.selectedFile !=null){
 this.request.PhotoLoc=this.selectedFile.name;
 }
-    this._appService.InsertLoanRequest(this.request,this.selectedFile)
-    form.resetForm();
-    $('#file').val('')
-    this.request["RequestDate"] = new Date()
-    this.request["DueType"]="EMI";
-    this.request["ReqStatus"]="Request"
-    
+var ID='';
+    this._appService.InsertLoanRequest(this.request,this.selectedFile).subscribe(res =>
+      { ID=res.toString();
+        console.log('res'+res)
+         form.resetForm();
+        $('#file').val('')
+
+    this._appService.InsertPhoto(parseInt(res.toString().split(",")[0]),this.selectedFile).subscribe(res=>{
+     alert("The RequestID "+ID.toString().split(",")[1]+" and CustomerID "+ID.toString().split(",")[0]+" has been created/updated successfully")
+     this.request["RequestDate"] = new Date()
+     this.request["DueType"]="EMI";
+     this.request["ReqStatus"]="Request"
+    });
+    });
   }
 
   OnChange()
