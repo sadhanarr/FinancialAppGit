@@ -696,7 +696,7 @@
                               <div class="col-md-4"></div>
                               <div class="col-md-3">
                                     <div class="form-group">
-                                            <div class="text-right col-sm-6">
+                                            <div class="text-right col-sm-6" *ngIf = "collectionPermission">
                                               <button type="button" class="btn btn-primary" id="addEntry" (click)="AddEntry(form1)" >ADD</button>
                                           </div>
                                          
@@ -739,7 +739,7 @@
                                           <td>
                                             
                                                   <div class="col-sm-6">
-                                                    <button type="button" (click)="removeCollection(i.EMIID)" class="btncollection btn btn-primary glyphicon glyphicon-remove"></button>
+                                                    <button type="button" *ngIf ="collectionPermission" (click)="removeCollection(i.EMIID)" class="btncollection btn btn-primary glyphicon glyphicon-remove"></button>
                                                   </div>
                                                   <div class="col-sm-6">
                                                         <button type="button"  class=" btncollection btn btn-primary glyphicon glyphicon-print"></button>

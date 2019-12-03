@@ -29,6 +29,7 @@ export class LoanIssueComponent implements OnInit {
       this.LoanCategory=data;
       this.requestSearch.FromDate=new Date();
       this.requestSearch.ToDate= new Date();
+      this.requestSearch.Status="All";
       this.Search(null);
      });
      this._appService.getArea().subscribe((data:any[])=>{this.AllArea=data})
@@ -44,8 +45,7 @@ export class LoanIssueComponent implements OnInit {
     this.requestSearch.Address!= null  || this.requestSearch.KeywordSearch!= null || this.requestSearch.FromDate !=null
     || this.requestSearch.ToDate != null)
     {
-    this.requestSearch["Status"]="Approved"
-    this._appService.getLoanReqSearch(this.requestSearch).subscribe((res:any[])=> {
+     this._appService.getLoanIssueRequestSearch(this.requestSearch).subscribe((res:any[])=> {
      this.requestAll=res;
      console.log(this.requestAll)
     

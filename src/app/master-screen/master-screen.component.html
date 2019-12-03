@@ -386,6 +386,10 @@
             <div class="col-sm-6">
                 <select class="form-control" required name="StateID" #urfid="ngModel" [(ngModel)]="userrole.TalukName">
                     <option >Loan Request</option>    
+                    <option>Loan Request View</option> 
+                    <option>Loan Issue</option>
+                    <option>Master Details</option>
+                    <option>Collection</option>
                      <option >Collection</option>
                      <option >Verification</option>                         
                     <option >Android Collection</option>
@@ -895,7 +899,10 @@
     </td>
     <td class="col-md-2">
     <select class="form-control" id="uruid{{i}}"  name="RoleID">
-        <option [selected]="role.TalukName=='Loan Request'">Loan Request</option>    
+        <option [selected]="role.TalukName=='Loan Request'">Loan Request</option>   
+        <option [selected]="role.TalukName=='Loan Request View'">Loan Request View</option> 
+        <option [selected]="role.TalukName=='Loan Issue'">Loan Issue</option>
+        <option [selected]="role.TalukName=='Master Details'">Master Details</option>
         <option [selected]="role.TalukName=='Collection'">Collection</option>
         <option [selected]="role.TalukName=='Verification'">Verification</option>                         
         <option [selected]="role.TalukName=='Android Collection'">Android Collection</option>
