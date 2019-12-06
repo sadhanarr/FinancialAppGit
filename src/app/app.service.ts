@@ -32,7 +32,8 @@ export class AppService
 {
      private _baseUrl= 'http://103.110.236.177/FinanceAPI/api/Value/';
   //  private _baseUrl= 'https://localhost:44302/api/Value/';
-
+    private _validateLoginURL=this._baseUrl+"ValidateUserLogin";
+    private _getUserRolesUrl=this._baseUrl+"GetUserRoles";
     private _getCompanyURL = this._baseUrl+"getCompany";
     private _insertBranchURL= this._baseUrl+"InsertBranch"
     private _getBranchURL =this._baseUrl+'GetBranch';
@@ -100,6 +101,7 @@ export class AppService
     private _getLoanFollowupDetailsURL = this._baseUrl+"getLoanFollowupDetails";
     private _getDashboardDetailsURL = this._baseUrl+"getDashboardDetails";
     private _getLoanReqSearchURL = this._baseUrl+"getLoanReqSearch";
+    private _getLoanIssueReqSearchUrl = this._baseUrl+"getIssueLoanRequestSearch";
     private _deleteFIleLocURL = this._baseUrl+"DeleteFileLoc";
 
     private RequestID = new BehaviorSubject<Number>(0);
@@ -152,6 +154,21 @@ export class AppService
     {
         return this._http.get<DueDate>(this._getdueURL+"/"+date+"/"+Type+"/"+months)
     }
+    validateUserLogin(userName:string,password:string):Observable<Number>
+    {
+      return this._http.get<Number>(this._validateLoginURL+"/"+userName+"/"+password)
+    }
+    getUserRoles(userId:Number)
+    {
+      return this._http.get<string[]>(this._getUserRolesUrl+"/"+userId);
+    }
+    getAllUsers() {
+      return this._http.get<User[]>(this._validateLoginURL);
+  }
+
+  getUserById(id: number) {
+      return this._http.get<User>(this._validateLoginURL);
+  }
     insertLoanIssueStatus(status:LoanStatus)
     {
       console.log(status)
@@ -324,9 +341,19 @@ export class AppService
       };
        console.log("search"+search["FromDate"])
        return  this._http.post(this._getLoanReqSearchURL,search,httpOptions) 
-    
-      
     }
+    getLoanIssueRequestSearch(search:LoanSearch){
+   
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      };
+       return  this._http.post(this._getLoanIssueReqSearchUrl,search,httpOptions) 
+    }
+    
     InsertIssuedLoanDetails(loan:Loan)
     {
       

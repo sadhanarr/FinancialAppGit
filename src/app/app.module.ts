@@ -14,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from './app.service';
 import * as _ from 'underscore'
 import { PagerService } from './pager.service';
-import {NumericDirective} from './number.directive'
+import {NumericDirective} from './number.directive';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import {NumericDirective} from './number.directive'
     LoanIssueComponent,
     CustomerSearchComponent,
     MasterScreenComponent,
-    NumericDirective
+    NumericDirective,
   ],
   imports: [
     HttpClientModule,
@@ -34,7 +34,7 @@ import {NumericDirective} from './number.directive'
     DatePickerModule,
     BrowserModule,
     RouterModule.forRoot([
-      { path: '', redirectTo: 'DashboardPage', pathMatch: 'full'},
+      { path: '', redirectTo: 'App', pathMatch: 'full'},
       { path: '**', redirectTo: 'Welcome', pathMatch: 'full'},
       { path: 'LoanRequest',component:LoanRequestComponent},
       { path: 'HomeLoan',component:HomeLoanComponent},
@@ -42,7 +42,8 @@ import {NumericDirective} from './number.directive'
       {path: 'CustomerSearch',component:CustomerSearchComponent},
       {path: 'LoanIssue',component:LoanIssueComponent},
       {path: 'MasterData',component:MasterScreenComponent},
-      {path: 'DashboardPage',component:DashboardPageComponent}
+      {path: 'DashboardPage',component:DashboardPageComponent},
+      {path:'App',component:AppComponent},
     ])
   ],
   providers: [AppService,PagerService],

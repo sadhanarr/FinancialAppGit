@@ -15,6 +15,7 @@ import { Collection } from './collection';
 import { Followup } from './Followup';
 import {LoanStatus} from './LoanStatus';
 import {DueDate} from './duedate'
+import {GlobalPermissionsService} from '../global.service'
 import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
 
 @Component({
@@ -25,7 +26,10 @@ import { convertActionBinding } from '@angular/compiler/src/compiler_util/expres
 export class HomeLoanComponent implements OnInit {
 
   constructor(private _appService:AppService,private _route: ActivatedRoute,
-    private _router: Router) { }
+    private _router: Router,private globalPermission : GlobalPermissionsService ) {
+      this.collectionPermission = this.globalPermission.getCollectionPermission();
+     }
+    collectionPermission:boolean;
     AllSagent:Agent[]=[];
     LoanCategory: ICompany[]=[];
 //customer:Customer= new Customer(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','');

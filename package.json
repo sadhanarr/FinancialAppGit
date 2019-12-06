@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~8.2.9",
     "@angular/router": "~8.2.9",
     "@syncfusion/ej2-angular-calendars": "^17.3.14",
+    "@types/angular": "^1.6.56",
     "bootstrap": "^3.4.1",
     "jquery": "^3.4.1",
     "ng2-datepicker": "^3.1.1",

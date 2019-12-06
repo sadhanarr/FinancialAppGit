@@ -1,29 +1,76 @@
-<div class='container-fluid'>
-  <div class="row">
-    <nav class="navbar navbar-fixed-top navbar-inverse">
-        <div class="container">
-        <div class="navbar-header">
-            <img class="pull-left logo" src="assets/Logo.jpg" style="height:100%;">
-          <a class="navbar-brand">Marudham Capitals</a>
+<div class='container-fluid' *ngIf="!loginPage">
+    <div class="row">
+      <nav class="navbar navbar-fixed-top navbar-inverse">
+          <div class="container">
+          <div class="navbar-header">
+              <img class="pull-left logo" src="assets/Logo.jpg" style="height:100%;">
+            <a class="navbar-brand">Marudham Capitals</a>
+          </div>
+          <ul class="nav navbar-nav" routerLinkActive="active">
+              <li class="nav-item"><a class="nav-link" routerLink="/DashboardPage" routerLinkActive='DashboardPage'>Dashboard</a></li>
+              <li class="nav-item"><a class="nav-link" (click)="resetRequest()" routerLink="/LoanRequest" *ngIf="loanReqPage">Loan Request</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/LoanReqSearch" *ngIf="loanReqViewPage">Loan Request View</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/LoanIssue" *ngIf="loanissuePage">Loan Issue/Collection</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/MasterData" *ngIf="masterData">Master Details</a></li>
+            <li class="nav-item"><a class="nav-link pull-right" (click)="logout()">Logout</a></li>
+          </ul>
         </div>
-        <ul class="nav navbar-nav" routerLinkActive="active">
-            <li class="nav-item"><a class="nav-link" routerLink="/DashboardPage">Dashboard</a></li>
-            <li class="nav-item"><a class="nav-link" (click)="resetRequest()" routerLink="/LoanRequest">Loan Request</a></li>
-          <li class="nav-item"><a class="nav-link" routerLink="/LoanReqSearch">Loan Request View</a></li>
-          <li class="nav-item"><a class="nav-link" routerLink="/LoanIssue">Loan Issue/Collection</a></li>
-          <li class="nav-item"><a class="nav-link" routerLink="/MasterData">Master Details</a></li>
-        </ul>
-      </div>
-        </nav>
-      </div>
-  <div class="row" style="padding-top: 5%;">
-    <router-outlet></router-outlet>
+          </nav>
+        </div>
+    <div class="row" style="padding-top: 5%;">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-</div>
-
-   <!--<app-loan-request></app-loan-request>-->
-  <!-- <app-home-loan></app-home-loan> -->
-  <!-- <app-dashboard-page></app-dashboard-page> -->
-  <!-- <app-customer-search></app-customer-search> -->
-  <!-- <app-loan-req-search></app-loan-req-search> -->
-  <!-- <app-loan-issue></app-loan-issue> -->
+<div class='panel panel-primary' *ngIf="loginPage">
+    <div class='panel-heading'>
+       <h4>Account Login</h4>
+    </div>
+    <div class='panel-body' id="panel">
+  <div ng-app="myApp" ng-controller="myController" class="container">
+    <form name="myForm" #form1="ngForm">
+      <div class="login-container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" required [(ngModel)]="login.username" class="form-control" #email="ngModel">
+              <div *ngIf="email.errors?.required && formSubmit " 
+                                    class="error">
+                                   Required
+                                    </div>
+                                    
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" name="pass" [(ngModel)]="login.password" required class="form-control" #pswd="ngModel">
+              <div *ngIf="pswd.errors?.required  && formSubmit " 
+                                    [ngClass]="'error'">
+                                   Required
+                                    </div>
+              <!-- <div ng-show="myForm.pass.$error.required &amp;&amp; myForm.pass.$touched" class="error">Required!</div> -->
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <button (click)="ValidateLogin(email.value,pswd.value,form1)" ng-disabled="myForm.$invalid" class="btn btn-success pull-right">Login</button>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+              <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+            <!-- <div ng-show="showError" class="alert alert-danger">Wrong credentials!</div> -->
+            <!-- <div ng-show="showSuccess" class="alert alert-success">Login Successful!</div> -->
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-- <div class="row" style="padding-top: 5%;">
+      <router-outlet></router-outlet>
+    </div> -->
+  </div>
+  </div>
+  </div>
