@@ -32,6 +32,7 @@ export class HomeLoanComponent implements OnInit {
     collectionPermission:boolean;
     AllSagent:Agent[]=[];
     LoanCategory: ICompany[]=[];
+    LoanNo:string
 //customer:Customer= new Customer(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','');
 AllSarea:Taluk[]=[];
 AllLine:Taluk[]=[];
@@ -48,7 +49,7 @@ loanCust:Loan[]=[];
 isscheme:boolean=false;
 CustID:Number
 //loandetail:Loan=new Loan(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',	0,	'',	'',	'',	'',	false,	false,	'',	false,	false,	false,	false,	'',	0,	'',	0,	'',	new Date(),	0,	0,	0,	'',	'',	0,	0,	'',	0,	'',	0,	0,	'',	0,	0,	0,	new Date(),	new Date(),	0,	0,	0,	new Date(),	0,	0,	false,	'',	'',	'',	'',	'',	'');	
-loandetail:Loan= new Loan(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',	0,	'',	'',	'',	'',	false,	false,	'',	false,	false,	false,	false,	'',	0,	'',	0,	'',	new Date(),	0,	0,	0,	'',	'',	0,	0,	'',	0,	'',	0,	0,	'',	0,	0,	0,	new Date(),	new Date(),	0,	0,	0,	new Date(),	0,	0,	false,	'',	'',	'',	'',	'',	'');	
+loandetail:Loan= new Loan(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',	0,	'',	'',	'',	'',	false,	false,	'',	false,	false,	false,	false,	'',	0,	'',	0,	'',	new Date(),	0,	0,	0,	'',	'',	0,	0,	'',	0,	'',	0,	0,	'',	0,	0,	0,	new Date(),	new Date(),	0,	0,	0,	new Date(),	0,	0,	false,	'',	'',	'',	'',	'',	'',0);	
 RequestID:Number
 formSubmit:boolean=false;
  roundoff5:boolean=false;
@@ -247,11 +248,11 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
     var length=0
     console.log('loanid'+this.LoanID)
    this._appService.DeleteFileLoc(CustID,this.LoanID).subscribe(res=>{
-     
+     this.loandetail.RequestID=this.RequestID;
     this._appService.InsertIssuedLoanDetails(this.loandetail).subscribe(res =>
       { console.log(this.loandetail);
-        this.LoanID=parseInt(res.toString())
-    
+        this.LoanID=parseInt(res.toString().split(',')[0])
+        this.LoanNo=res.toString().split(',')[1]
    for(var i=0;i<this.ECustProof.length;i++)
    {
      length+=1;
@@ -286,7 +287,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
         this.loandetail.LoanDate= new Date();
         this.OnChange();
         ;});
-        alert("The LoanID "+this.LoanID+" has been created/updated successfully")
+        alert("The LoanNo "+this.LoanNo+" has been created/updated successfully")
      });
   
     })
@@ -298,7 +299,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
      
   $('#modal-content').height(window.innerHeight-60).css({'overflow-y':'auto'})
     console.log(this.loandetail)
-    this._appService.UpdateCustomer(this.loandetail).subscribe(res=>{console.log(res);
+    //this._appService.UpdateCustomer(this.loandetail).subscribe(res=>{console.log(res);
     this.LoanID=LoanID;
     
     if(LoanID>0)
@@ -347,7 +348,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
   this.dueBal= this.collection.dueBal;
   this.TotalBal=this.collection.TotalBal
    }})
-    })
+    
 
   }
   print(value:Collection)

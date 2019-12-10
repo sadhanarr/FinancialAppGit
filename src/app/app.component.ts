@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Role } from './role';
-import * as angular from 'angular';
 import { from } from 'rxjs';
 import { ILogin } from './login';
 import {GlobalPermissionsService} from './global.service'

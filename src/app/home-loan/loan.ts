@@ -97,7 +97,8 @@ export class Loan{
         public  LoanSubStatus: string ,
         public  RepaymentGrade:  string,
         public  CustomerAttitude:  string,
-        public  NOCRemarks:  string
+        public  NOCRemarks:  string,
+        public RequestID:Number
     )
     {
 

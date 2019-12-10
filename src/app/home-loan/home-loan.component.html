@@ -20,14 +20,14 @@
         <div class="form-group">
 			<label class="control-label col-sm-3" >Branch :</label>
                 <div class="col-sm-3">
-                        <select class="form-control"   name="BranchID" (change)="filterdrop()"  [(ngModel)]="loandetail.BranchID" disabled>
+                        <select class="form-control"   name="BranchID"  [(ngModel)]="loandetail.BranchID" disabled>
                                 <option *ngFor="let l of branch" value="{{l.BranchID}}">{{l.BranchName}}
                                  </option>                         
                                 </select>
 				</div>
 				<label class="control-label col-sm-1" >Line :</label>
                 <div class="col-sm-3">
-                        <select class="form-control"  #lid="ngModel" [(ngModel)]="loandetail.LineID" (change)="filterdrop()" name="LineID" disabled>
+                        <select class="form-control"  #lid="ngModel" [(ngModel)]="loandetail.LineID" name="LineID" disabled>
                                 <option *ngFor="let i of Line" value="{{i.TalukID}}">{{i.TalukName}}
                                  </option>                         
                                 </select>
@@ -35,14 +35,14 @@
 			</div><div class="form-group">
 			<label class="control-label col-sm-3" >Area :</label>
                 <div class="col-sm-3">
-                        <select class="form-control" #aid="ngModel" [(ngModel)]="loandetail.AreaID" (change)="filterdrop()" name="AreaID" disabled>
+                        <select class="form-control" #aid="ngModel" [(ngModel)]="loandetail.AreaID" name="AreaID" disabled>
                                 <option  *ngFor="let sa of Area" value="{{sa.AreaID}}">{{sa.AreaName}}
                                  </option>                         
                                 </select>
 				</div>
 				<label class="control-label col-sm-1" >Sub Area :</label>
                 <div class="col-sm-3">
-                        <select class="form-control"  #sid="ngModel" [(ngModel)]="loandetail.SubAreaID" (change)="filterdrop()" name="SubAreaID" disabled>
+                        <select class="form-control"  #sid="ngModel" [(ngModel)]="loandetail.SubAreaID"  name="SubAreaID" disabled>
                                 <option *ngFor="let l of Sarea" value="{{l.TalukID}}">{{l.TalukName}}
                                  </option>                         
                                 </select>
