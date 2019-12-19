@@ -1,0 +1,274 @@
+
+<div class="container-fluid">
+    <div class='panel panel-primary'>
+        <div class='panel-heading'>
+             <h4>CUSTOMER SEARCH</h4>
+          </div>
+          <div class='panel-body' id="panel">
+          <form #form="ngForm">
+            <div class="row">
+         <div class="form-horizontal col-md-6">
+             
+             <div class="form-group">
+                
+                <label class="control-label col-sm-4">Customer Name :</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="custName" name="custName" [(ngModel)]="search.CustName">
+                </div>
+             </div>
+             <div class="form-group">
+                 <label class="control-label col-sm-4">Other Name List :</label>
+                 <div class="col-sm-6">
+                     <input type="text" class="form-control" name="otherNames" id="otherNames" [(ngModel)]="search.OtherName">
+                 </div>
+             </div>
+             <div class="form-group">
+                 <label class="control-label col-sm-4">Address List :</label>
+                 <div class="col-sm-6">
+                        <input type="text" class="form-control" name="addrList" id="addrList" [(ngModel)]="search.Address">
+                    </div>
+             </div>
+            
+             <div class="form-group">
+                <label class="control-label col-sm-4">Contact List :</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="contactList" id="contactList" [(ngModel)]="search.ContactList">
+                </div>
+            </div>           
+         </div>
+         <div class="form-horizontal col-md-6">
+            <div class="form-group">
+                    <label class="control-label col-sm-4">Customer ID :</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="customerId" id="customerId" [(ngModel)]="search.CustID">
+                    </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-4">ID Proof List :</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="proofList" id="proofList" [(ngModel)]="search.IDProof">
+                </div>
+            </div>
+            
+          
+             <div class="form-group">
+                    <label class="control-label col-sm-4">Keyword Search :</label>
+                    <div class="col-sm-6">
+                           <input type="text" class="form-control" name="wordSearch" id="wordSearch" [(ngModel)]="search.KeywordSearch">
+                       </div>
+             </div>
+            
+         </div>
+         </div>
+         <div class="row">
+             <div class="form-horizontal col-md-5"></div>
+             <div class="form-horizontal col-md-6">
+                <div class="form-group">
+                    <div class="col-sm-2">
+                            <button type="button" class="btn btn-primary" (click)="Search(form)">Search</button>
+                    </div>
+                    <div class="col-sm-2">
+                            <button type="button" class="btn btn-primary" (click)="Clear(form)">Clear</button>
+                    </div>
+             </div>
+             </div>
+         </div>
+        
+         <div class="form-horizontal col-md-12">
+                <div class="table table-responsive">
+                <table class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr >
+                <th class="col-md-1">SNO</th>
+                 <th class="col-md-2">Branch</th>
+                 <th class="col-md-2">Line</th>
+                 <th class="col-md-2">Area</th>
+                 <th class="col-md-1">CustomerID</th>
+                 <th class="col-md-2">Customer Name</th>
+                <th class="col-md-2">Status</th>
+                
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let l of requestAll" data-toggle="modal" data-target="#myModal" (click)="getCustomerID(l.CustomerID)" >
+                <td class="col-md-1">{{l.CompanyID}}</td>
+                <td class="col-md-1">
+                    <select class="form-control"  name="BranchID" disabled>
+                        <option *ngFor="let drop of AllBranch" value="{{drop.BranchID}}" [selected]="drop.BranchID==l.BranchID">{{drop.BranchName}}</option>                           
+                        </select>
+                </td>
+                <td class="col-md-2">
+                    <select class="form-control"  name="LineID" disabled>
+                        <option *ngFor="let drop of AllLine" value="{{drop.TalukID}}" [selected]="drop.TalukID==l.TalukID">{{drop.TalukName}}</option>                           
+                        </select>
+                </td>
+                <td class="col-md-2">
+                    <select class="form-control"  name="AreaID" disabled>
+                        <option *ngFor="let drop of AllArea" value="{{drop.AreaID}}" [selected]="drop.AreaID==l.AreaID">{{drop.AreaName}}</option>                           
+                        </select>
+                </td>
+                <td class="col-md-1">{{l.CustomerID}}</td>
+                <td class="col-md-2">{{l.CustomerName}}</td>
+                <td class="col-md-2">{{l.ReqStatus}}</td>
+                </tr>
+                </tbody>
+                </table>
+                </div>
+         </div>
+         </form>
+         <div class="modal fade" id="myModal" role="dialog">
+             
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content" id="modal-content">
+              
+                 
+                
+                <div class="modal-body">
+                    <button type="button" id="loanbtn" class="close"  data-dismiss="modal">&times;</button>
+                         <ul class="nav nav-tabs ">
+                    <li class="active" >
+                        <a  data-toggle="tab" href="#Loan">Loan Details</a></li>
+                      <li> <a  data-toggle="tab" href="#Request">Request Details</a></li>
+                         </ul>
+                         <div class="tab-content" >
+                                <div id="Loan" class="tab-pane fade active in" > 
+                                        <div class="table table-responsive divSpace">
+                                                <table class="table table-bordered table-striped table-hover">
+                                                <thead>
+                                                <tr >
+                                                <th class="col-md-1">SNO</th>
+                                                 <th class="col-md-1">Branch</th>
+                                                 <th class="col-md-1">Line</th>
+                                                 <th class="col-md-1">Area</th>
+                                                 <th class="col-md-1">Loan Category</th>
+                                                 <th class="col-md-1">Showroom Agent</th>
+                                                 <th class="col-md-1">CustomerID</th>
+                                                 <th class="col-md-1">Customer Name</th>
+                                                <th class="col-md-1">LoanNo</th>
+                                                <th class="col-md-1">Loan Date</th>
+                                                 <th class="col-md-1">Loan Amount</th>
+                                                <th class="col-md-1">Status</th>
+                                                <th class="col-md-1">SubStatus</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let l of Loan"  >
+                                                <td class="col-md-1">{{l.CompanyID}}</td>
+                                                <td class="col-md-1">
+                                                    <select class="form-control"  name="BranchID">
+                                                        <option *ngFor="let drop of AllBranch" value="{{drop.BranchID}}" [selected]="drop.BranchID==l.BranchID">{{drop.BranchName}}</option>                           
+                                                        </select>
+                                                </td>
+                                                <td class="col-md-1">
+                                                    <select class="form-control"  name="LineID">
+                                                        <option *ngFor="let drop of AllLine" value="{{drop.TalukID}}" [selected]="drop.TalukID==l.TalukID">{{drop.TalukName}}</option>                           
+                                                        </select>
+                                                </td>
+                                                <td class="col-md-1">
+                                                    <select class="form-control"  name="AreaID">
+                                                        <option *ngFor="let drop of AllArea" value="{{drop.AreaID}}" [selected]="drop.AreaID==l.AreaID">{{drop.AreaName}}</option>                           
+                                                        </select>
+                                                </td>
+                                                <td class="col-md-1">
+                                                        <select class="form-control" >
+                                                                <option *ngFor="let sa of LoanCategory"  value="{{sa.dropdownKey}}" [selected]="l.LoanCatID==sa.dropdownKey">
+                                                                    {{sa.dropdownName}}
+                                                                </option>
+                                                            </select>
+                                                    </td>
+                                                    <td class="col-md-1">
+                                                            <select class="form-control" >
+                                                                    <option *ngFor="let drop of AllSagent"  value="{{drop.AgentID}}" [selected]="l.Agentshowroomid==drop.AgentID">
+                                                                        {{drop.AgentName}}
+                                                                    </option>
+                                                                </select>
+                                                    </td>
+                                                <td class="col-md-1">{{l.CustomerID}}</td>
+                                                <td class="col-md-1">{{l.CustName}}</td>
+                                                <td class="col-md-1">{{l.LoanNo}}</td>
+                                                <td class="col-md-1">{{l.LoanDate|date:"dd/MM/y"}}</td>
+                                                <td class="col-md-1">{{l.LoanAmt}}</td>
+                                                <td class="col-md-1">{{l.LoanSubStatus}}</td>
+                                                <td class="col-md-1">{{l.LoanStatus}}</td>
+                                                </tr>
+                                                </tbody>
+                                                </table>
+                                                </div> 
+                                </div>
+                                <div id="Request" class="tab-pane fade " > 
+                                    
+                                        <div class="table table-responsive divSpace">
+                                                <table class="table table-bordered table-striped table-hover">
+                                                <thead>
+                                                <tr >
+                                                <th class="col-md-1">SNO</th>
+                                                 <th class="col-md-1">Branch</th>
+                                                 <th class="col-md-1">Line</th>
+                                                 <th class="col-md-1">Area</th>
+                                                 <th class="col-md-1">Loan Category</th>
+                                                 <th class="col-md-1">Showroom Agent</th>
+                                                 <th class="col-md-1">CustomerID</th>
+                                                 <th class="col-md-1">Customer Name</th>
+                                                <th class="col-md-1">RequestID</th>
+                                                <th class="col-md-1">Request Date</th>
+                                                 <th class="col-md-1">Loan Amount</th>
+                                                <th class="col-md-1">Status</th>
+                                                
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let l of request" >
+                                                <td class="col-md-1">{{l.CompanyID}}</td>
+                                                <td class="col-md-1">
+                                                    <select class="form-control"  name="BranchID">
+                                                        <option *ngFor="let drop of AllBranch" value="{{drop.BranchID}}" [selected]="drop.BranchID==l.BranchID">{{drop.BranchName}}</option>                           
+                                                        </select>
+                                                </td>
+                                                <td class="col-md-1">
+                                                    <select class="form-control"  name="LineID">
+                                                        <option *ngFor="let drop of AllLine" value="{{drop.TalukID}}" [selected]="drop.TalukID==l.TalukID">{{drop.TalukName}}</option>                           
+                                                        </select>
+                                                </td>
+                                                <td class="col-md-1">
+                                                    <select class="form-control"  name="AreaID">
+                                                        <option *ngFor="let drop of AllArea" value="{{drop.AreaID}}" [selected]="drop.AreaID==l.AreaID">{{drop.AreaName}}</option>                           
+                                                        </select>
+                                                </td>
+                                                <td class="col-md-1">
+                                                        <select class="form-control" >
+                                                                <option *ngFor="let sa of LoanCategory"  value="{{sa.dropdownKey}}" [selected]="l.LoanCatID==sa.dropdownKey">
+                                                                    {{sa.dropdownName}}
+                                                                </option>
+                                                            </select>
+                                                    </td>
+                                                    <td class="col-md-1">
+                                                            <select class="form-control" >
+                                                                    <option *ngFor="let drop of AllSagent"  value="{{drop.AgentID}}" [selected]="l.AgentID==drop.AgentID">
+                                                                        {{drop.AgentName}}
+                                                                    </option>
+                                                                </select>
+                                                    </td>
+                                                <td class="col-md-1">{{l.CustomerID}}</td>
+                                                <td class="col-md-1">{{l.CustomerName}}</td>
+                                                <td class="col-md-1">{{l.RequestID}}</td>
+                                                <td class="col-md-1">{{l.RequestDate|date:"dd/MM/y"}}</td>
+                                                <td class="col-md-1">{{l.LoanAmt}}</td>
+                                                <td class="col-md-1">{{l.ReqStatus}}</td>
+
+                                                </tr>
+                                                </tbody>
+                                                </table>
+                                                </div> 
+                                    
+                                    </div>
+                         </div>
+                        </div>
+                    </div>
+                  </div>
+                    </div>
+        </div>
+    
+    </div>
+</div>

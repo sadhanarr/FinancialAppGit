@@ -15,6 +15,7 @@ import { AppService } from './app.service';
 import * as _ from 'underscore'
 import { PagerService } from './pager.service';
 import {NumericDirective} from './number.directive';
+import { CustomerVerificationComponent } from './customer-verification/customer-verification.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {NumericDirective} from './number.directive';
     CustomerSearchComponent,
     MasterScreenComponent,
     NumericDirective,
+    CustomerVerificationComponent,
   ],
   imports: [
     HttpClientModule,
@@ -44,6 +46,7 @@ import {NumericDirective} from './number.directive';
       {path: 'MasterData',component:MasterScreenComponent},
       {path: 'DashboardPage',component:DashboardPageComponent},
       {path:'App',component:AppComponent},
+      {path:'Verification',component:CustomerVerificationComponent},
     ])
   ],
   providers: [AppService,PagerService],
