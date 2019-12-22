@@ -16,6 +16,7 @@ import * as _ from 'underscore'
 import { PagerService } from './pager.service';
 import {NumericDirective} from './number.directive';
 import { DashboardsecondPageComponent } from './dashboardsecond-page/dashboardsecond-page.component';
+import { CustomerVerificationComponent } from './customer-verification/customer-verification.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { DashboardsecondPageComponent } from './dashboardsecond-page/dashboardse
     MasterScreenComponent,
     NumericDirective,
     DashboardsecondPageComponent,
+    CustomerVerificationComponent
   ],
   imports: [
     HttpClientModule,
@@ -47,6 +49,7 @@ import { DashboardsecondPageComponent } from './dashboardsecond-page/dashboardse
       {path: 'DashboardPage',component:DashboardPageComponent},
       {path:'DashboardSecond',component:DashboardsecondPageComponent},
       {path:'App',component:AppComponent},
+      {path:'Verification',component:CustomerVerificationComponent},
     ])
   ],
   providers: [AppService,PagerService],

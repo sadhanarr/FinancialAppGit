@@ -272,13 +272,15 @@
 				<label class="control-label col-sm-3">Customer Status :</label>
 				<div class="col-sm-4">
 					<select class="form-control" name="custStatus" [(ngModel)]="loandetail.CustStatus" disabled>
-                            <option>Running</option>
-                            <option>Approved</option>
-                            <option>Pending</option>
-                            <option>Cancel</option>
-                            <option>Error</option>
-                            <option>Consider</option>
-                            <option>Recovery</option>
+                        <option >Request</option>
+                        <option>Approved</option>        
+                         <option>Cancel</option>
+                         <option>Waitlist</option>
+                         <option>Revoked</option>
+                         <option>Running</option>
+                         <option>End</option>
+                         <option>Closed</option>
+                         
 					</select>
 				</div>
 			</div>
@@ -858,15 +860,29 @@
                       <form  #form3="ngForm" >
                       <div class="row">
                       <div class=" form-horizontal col-md-5">
+                            <div class="form-group">
+                                    <label class="control-label col-sm-5">Status :</label>
+                                    <div class="col-sm-6">
+                                    <select class="form-control" name="loanIssueStatus" [(ngModel)]="loanStat.LoanClosed">
+                                        <option value=0>Running</option>
+                                        <option value=2>End</option>
+                                        <option value=1>Closed</option>
+                                    </select>
+                                  </div>
+                                </div>
                           <div class="form-group">
                               <label class="control-label col-sm-5">Loan Status :</label>
                               <div class="col-sm-6">
                                   <select class="form-control" name="loanStatus" [(ngModel)]="loanStat.LoanStatus" (change)="changeLoanStatus($event.target.value)">
-                                     <option value="Running">Running</option>
-                                      <option  value="Consider">Consider</option>
-                                      <option  value="Pending">Pending</option>
-                                      <option  value="Error">Error</option>
-                                      <option  value="Legal">Legal</option>
+                                     <option *ngIf="loanStat.LoanStatus=='Running'" value="Running">Running</option>
+                                      <option *ngIf="loanStat.LoanStatus=='Closed'" value="Consider">Consider</option>
+                                      <option *ngIf="loanStat.LoanStatus=='Running'" value="Pending">Pending</option>
+                                      <option *ngIf="loanStat.LoanStatus=='Running'" value="Error">Error</option>
+                                      <option *ngIf="loanStat.LoanStatus=='Running'" value="Recovery">Recovery</option>
+                                      <option *ngIf="loanStat.LoanStatus=='Running'"  value="OD">OD</option>
+                                      <option *ngIf="loanStat.LoanStatus=='Running'" value="Legal">Legal</option>
+                                      <option *ngIf="loanStat.LoanStatus=='Closed'" value="Checklist">Checklist</option>
+                                      <option *ngIf="loanStat.LoanStatus=='Closed'" value="Blacklist">Blacklist</option>
                                       </select>
                               </div>
                           </div>
@@ -888,20 +904,21 @@
                                   </select>
                               </div>
                           </div>
-                          <div class="form-group">
-                                  <label class="control-label col-sm-5">Customer Attitude :</label>
-                                  <div class="col-sm-6">
-                                      <select class="form-control" name="attitude" [(ngModel)]="loanStat.Attitude">
-                                          <option>Best</option>
-                                          <option>Good</option>
-                                          <option>Normal</option>
-                                          <option>Bad</option>
-                                          <option>Worst</option>
-                                      </select>
-                                  </div>
-                              </div>
+                       
                       </div>
                       <div class=" form-horizontal col-md-5">
+                            <div class="form-group">
+                                    <label class="control-label col-sm-5">Customer Attitude :</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" name="attitude" [(ngModel)]="loanStat.Attitude">
+                                            <option>Best</option>
+                                            <option>Good</option>
+                                            <option>Normal</option>
+                                            <option>Bad</option>
+                                            <option>Worst</option>
+                                        </select>
+                                    </div>
+                                </div>
                               <div class="form-group" id="consider" style="display: none;">
                                       <label class="control-label col-sm-5">If Loan Status=Consider</label>							
                                       <div class="col-sm-6">
@@ -920,15 +937,7 @@
                                           <textarea name="noc" class="form-control"rows="6" cols="50" [(ngModel)]="loanStat.NocRemarks"></textarea>
                                       </div>
                                   </div>
-                                  <div class="form-group">
-                                      <label class="control-label col-sm-5">Status :</label>
-                                      <div class="col-sm-6">
-                                      <select class="form-control" name="loanIssueStatus" [(ngModel)]="loanStat.LoanClosed">
-                                          <option value=0>Running</option>
-                                          <option value=1>Closed</option>
-                                      </select>
-                                    </div>
-                                  </div>
+                                 
                                  
                       </div>
                       </div>
@@ -1181,13 +1190,14 @@
                                         <label class="control-label col-sm-3">Customer Status :</label>
                                         <div class="col-sm-4">
                                             <select class="form-control" name="custStatus" [(ngModel)]="loandetail.CustStatus">
-                                                    <option>Running</option>
-                                                    <option>Approved</option>
-                                                    <option>Pending</option>
-                                                    <option>Cancel</option>
-                                                    <option>Error</option>
-                                                    <option>Consider</option>
-                                                    <option>Recovery</option>
+                                                <option >Request</option>
+                                                <option>Approved</option>        
+                                                 <option>Cancel</option>
+                                                 <option>Waitlist</option>
+                                                 <option>Revoked</option>
+                                                 <option>Running</option>
+                                                 <option>End</option>
+                                                 <option>Closed</option>
                                             </select>
                                         </div>
                                     </div>

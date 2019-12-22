@@ -78,6 +78,7 @@ export class AppService
     private _insertPhotoURL= this._baseUrl+"InsertPhoto";
     private _insertProofURL= this._baseUrl+"InsertProof";
     private _getCustomerSearchURL= this._baseUrl+"getCustomerSearch"
+    private _getCustomerVerificationURL= this._baseUrl+"getCustomerVerification"
     private _getLoanRequestSearchURL= this._baseUrl+"getLoanRequestSearch"
     private _updateLoanStatus= this._baseUrl+"InsertLoanStatus"
     private _getLoanReqDetailURL= this._baseUrl+"getLoanRequest"
@@ -87,6 +88,7 @@ export class AppService
     private _getLoanDetailsURL= this._baseUrl+"getLoanDetails"
     private _getLoanDetailURL= this._baseUrl+"LoanDetail"
     private _getLoanbyCustomerURL= this._baseUrl+"getLoanbyCustomer"
+    private _getRequestbyCustomerURL= this._baseUrl+"getRequestbyCustomer"
     private _getProofURL= this._baseUrl+"getProof"
     private _deleteProofURL= this._baseUrl+"deleteProof"
     private _deleteCollectionURL= this._baseUrl+"DeleteCollection"
@@ -229,6 +231,10 @@ export class AppService
     {
       return this._http.get<Loan[]>(this._getLoanbyCustomerURL+"/"+CustID);
     }
+    getRequestbyCustomer( CustID):Observable<Request[]>
+    {
+      return this._http.get<Request[]>(this._getRequestbyCustomerURL+"/"+CustID);
+    }
     getCustomer(CustID:Number,RequestID:Number):Observable<Loan>
     {
       return this._http.get<Loan>(this._getCustomerURL+"/"+CustID+"/"+RequestID);
@@ -323,6 +329,20 @@ export class AppService
       };
        console.log("search"+search)
        return  this._http.post(this._getCustomerSearchURL,search,httpOptions) 
+    
+      
+    }
+    getCustomerVerfication(search:CustSearch){
+   
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      };
+       console.log("search"+search)
+       return  this._http.post(this._getCustomerVerificationURL,search,httpOptions) 
     
       
     }

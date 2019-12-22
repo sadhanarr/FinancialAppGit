@@ -73,7 +73,7 @@ AllCollection:Collection[];
  TotalBal:Number=0;
 
 FollowupDetails:Followup[];
-followup:Followup= new Followup(0,0,0,new Date(),new Date(),'','','Running');
+followup:Followup= new Followup(0,0,0,new Date(),new Date(),'','','Running','',null);
 loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
   ngOnInit() {
     this._appService.getLoanCategory().subscribe((data:any[])=>{
@@ -353,6 +353,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
   }
   print(value:Collection)
   {
+    var netamt=parseInt(value.Duereciept.toString())+parseInt(value.Penaltyreciept.toString())
     var string=`<html>
     <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -367,12 +368,16 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
     {
     text-align:right !important;
     }
+    .form-horizontal .control-label
+    {
+      padding-top:0px !important;
+    }
     </style>
     <script>
     function myFunction() {
       document.getElementById('btn').style.visibility = 'hidden';
       window.print();
-     
+      document.getElementById('btn').style.visibility = 'visible';
     }
     </script>
     </head>
@@ -382,13 +387,10 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
                         <div class=' form-horizontal col-md-6'>
               <div class='form-group' style='margin-left:20px'>
                          <img class='col-sm-2 algn' src='assets/Logo.jpg' style='height:10%;'>
-                        <label class='control-label col-sm-5' style='text-align:left !important'>Sri Navaladi Marudham Capitals,Cheyyar</label>
-            
+                        <label class='control-label col-sm-5' style='text-align:left !important;margin-top:20px'>Sri Navaladi Marudham Capitals,`+this.Allbranch.filter(x=>x.BranchID==this.loandetail.BranchID)[0].BranchName+`</label>
+                <button class=" col-sm-2" style='margin-top:20px' id='btn' onclick="myFunction()">Print </button>
                           </div>
-                <div class='form-group'>
-                 
-                          
-                 </div>
+              
                             <div class='form-group'>
                                 <label class='control-label col-sm-3' style='text-align:right !important; width:250px!important'>Receipt No :</label>`
                   +value.BillBook+
@@ -396,7 +398,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
                              
                     <div class='form-group'>
                                 <label class='control-label col-sm-3' style='font-weight: 100;text-align:right !important; width:250px!important'>Date/Time :</label>`
-                  + new Date() +`
+                  + this.formatAMPM( new Date() )+`
                    </div>
                     <div class='form-group'>
                                 <label class='control-label col-sm-3' style='font-weight: 100;text-align:right !important; width:250px!important'>Line/Area :</label>
@@ -428,7 +430,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
                    </div>
                     <div class='form-group'>
                                 <label class='control-label col-sm-3' style='text-align:right !important; width:250px!important'>Net Received :</label>
-                   `+value.Duereciept+value.Penaltyreciept +`
+                   `+ netamt +`
                    </div>
                     <div class='form-group'>
    
@@ -446,9 +448,26 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
     </html>`
     var wnd = window.open("", "_blank");
 wnd.document.write(string);
-wnd.print();
-  }
 
+  }
+   formatAMPM(date) {
+    var year = date.getFullYear();
+
+    var month = (1 + date.getMonth()).toString();
+    month = month.length > 1 ? month : '0' + month;
+  
+    var day = date.getDate().toString();
+    day = day.length > 1 ? day : '0' + day;
+
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return month + '/' + day + '/' + year+ ' '+ strTime;
+  }
   DateChange()
   {
    

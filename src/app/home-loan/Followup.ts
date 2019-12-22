@@ -8,7 +8,9 @@ export class Followup
        public CommitmentDate : Date,
        public Remarks : string,
        public AttendedBy : string,
-       public FollowupStatus : string
+       public FollowupStatus : string,
+       public CreatedBy:string,
+       public MachineID:Number
 
     )
     {}
