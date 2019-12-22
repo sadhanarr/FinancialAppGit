@@ -15,6 +15,7 @@ import { AppService } from './app.service';
 import * as _ from 'underscore'
 import { PagerService } from './pager.service';
 import {NumericDirective} from './number.directive';
+import { DashboardsecondPageComponent } from './dashboardsecond-page/dashboardsecond-page.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {NumericDirective} from './number.directive';
     CustomerSearchComponent,
     MasterScreenComponent,
     NumericDirective,
+    DashboardsecondPageComponent,
   ],
   imports: [
     HttpClientModule,
@@ -43,6 +45,7 @@ import {NumericDirective} from './number.directive';
       {path: 'LoanIssue',component:LoanIssueComponent},
       {path: 'MasterData',component:MasterScreenComponent},
       {path: 'DashboardPage',component:DashboardPageComponent},
+      {path:'DashboardSecond',component:DashboardsecondPageComponent},
       {path:'App',component:AppComponent},
     ])
   ],

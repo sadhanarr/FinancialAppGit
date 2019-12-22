@@ -26,6 +26,7 @@ import { Followup } from './home-loan/Followup';
 import {DueDate} from './home-loan/duedate'
 import { Dashboard } from './dashboard-page/Dashboard';
 import { LoanStatus } from './home-loan/LoanStatus';
+import { PendingDashboard } from './dashboardsecond-page/pendingdashbrd';
 
 @Injectable()
 export class AppService
@@ -100,6 +101,8 @@ export class AppService
     private _getIssueLoanStatus = this._baseUrl+"getLoanStatusDetails";
     private _getLoanFollowupDetailsURL = this._baseUrl+"getLoanFollowupDetails";
     private _getDashboardDetailsURL = this._baseUrl+"getDashboardDetails";
+    private _getSecondDashboardDetailsURL = this._baseUrl+"getSecondDashboardDetails";
+    private _getPendingDashboardValuesUrl=this._baseUrl+"getPendingDashboardValues";
     private _getLoanReqSearchURL = this._baseUrl+"getLoanReqSearch";
     private _getLoanIssueReqSearchUrl = this._baseUrl+"getIssueLoanRequestSearch";
     private _deleteFIleLocURL = this._baseUrl+"DeleteFileLoc";
@@ -139,6 +142,14 @@ export class AppService
     getDashboardDetails(StartDate,EndDate):Observable<Dashboard[]>
     {
       return this._http.get<Dashboard[]>(this._getDashboardDetailsURL+"/"+StartDate+"/"+EndDate)
+    }
+    getSecondDashboardDetails():Observable<Dashboard[]>
+    {
+      return this._http.get<Dashboard[]>(this._getSecondDashboardDetailsURL)
+    }
+    getPendingDashboardValues(type):Observable<PendingDashboard[]>
+    {
+      return this._http.get<PendingDashboard[]>(this._getPendingDashboardValuesUrl+"/"+type)
     }
     getCollectionValue(ID,LoanID,EntryDate):Observable<Collection>
     {
