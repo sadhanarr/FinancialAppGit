@@ -874,15 +874,15 @@
                               <label class="control-label col-sm-5">Loan Status :</label>
                               <div class="col-sm-6">
                                   <select class="form-control" name="loanStatus" [(ngModel)]="loanStat.LoanStatus" (change)="changeLoanStatus($event.target.value)">
-                                     <option *ngIf="loanStat.LoanStatus=='Running'" value="Running">Running</option>
-                                      <option *ngIf="loanStat.LoanStatus=='Closed'" value="Consider">Consider</option>
-                                      <option *ngIf="loanStat.LoanStatus=='Running'" value="Pending">Pending</option>
-                                      <option *ngIf="loanStat.LoanStatus=='Running'" value="Error">Error</option>
-                                      <option *ngIf="loanStat.LoanStatus=='Running'" value="Recovery">Recovery</option>
-                                      <option *ngIf="loanStat.LoanStatus=='Running'"  value="OD">OD</option>
-                                      <option *ngIf="loanStat.LoanStatus=='Running'" value="Legal">Legal</option>
-                                      <option *ngIf="loanStat.LoanStatus=='Closed'" value="Checklist">Checklist</option>
-                                      <option *ngIf="loanStat.LoanStatus=='Closed'" value="Blacklist">Blacklist</option>
+                                     <option *ngIf="loanStat.LoanClosed==0" value="Running">Running</option>
+                                      <option *ngIf="loanStat.LoanClosed==1" value="Consider">Consider</option>
+                                      <option *ngIf="loanStat.LoanClosed==0" value="Pending">Pending</option>
+                                      <option *ngIf="loanStat.LoanClosed==0" value="Error">Error</option>
+                                      <option *ngIf="loanStat.LoanClosed==0" value="Recovery">Recovery</option>
+                                      <option *ngIf="loanStat.LoanClosed==0"  value="OD">OD</option>
+                                      <option *ngIf="loanStat.LoanClosed==0" value="Legal">Legal</option>
+                                      <option *ngIf="loanStat.LoanClosed==1" value="Checklist">Checklist</option>
+                                      <option *ngIf="loanStat.LoanClosed==1" value="Blacklist">Blacklist</option>
                                       </select>
                               </div>
                           </div>
@@ -1189,7 +1189,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-3">Customer Status :</label>
                                         <div class="col-sm-4">
-                                            <select class="form-control" name="custStatus" [(ngModel)]="loandetail.CustStatus">
+                                            <select class="form-control" name="custStatus" disabled [(ngModel)]="loandetail.CustStatus">
                                                 <option >Request</option>
                                                 <option>Approved</option>        
                                                  <option>Cancel</option>
