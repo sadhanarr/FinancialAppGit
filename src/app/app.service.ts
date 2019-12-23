@@ -105,6 +105,7 @@ export class AppService
     private _getDashboardDetailsURL = this._baseUrl+"getDashboardDetails";
     private _getSecondDashboardDetailsURL = this._baseUrl+"getSecondDashboardDetails";
     private _getPendingDashboardValuesUrl=this._baseUrl+"getPendingDashboardValues";
+    private _getSummaryDashboardValuesUrl=this._baseUrl+"getSummaryDashboardValues";
     private _getLoanReqSearchURL = this._baseUrl+"getLoanReqSearch";
     private _getLoanIssueReqSearchUrl = this._baseUrl+"getIssueLoanRequestSearch";
     private _deleteFIleLocURL = this._baseUrl+"DeleteFileLoc";
@@ -152,6 +153,10 @@ export class AppService
     getPendingDashboardValues(type):Observable<PendingDashboard[]>
     {
       return this._http.get<PendingDashboard[]>(this._getPendingDashboardValuesUrl+"/"+type)
+    }
+    getSummaryDashboardValues(type,startDate,endDate):Observable<PendingDashboard[]>
+    {
+      return this._http.get<PendingDashboard[]>(this._getPendingDashboardValuesUrl+"/"+type+"/"+startDate+"/"+endDate)
     }
     getCollectionValue(ID,LoanID,EntryDate):Observable<Collection>
     {

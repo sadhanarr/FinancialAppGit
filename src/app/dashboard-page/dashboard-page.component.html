@@ -40,7 +40,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let d of AllDetails">
+      <tr *ngFor="let d of AllDetails"data-toggle="modal" data-target="#myModal" (click)="getSummaryValues(d.IndexNames,startDate.value,endDate.value)">
         <td class="col-md-3">{{d.Sno}}</td>
         <td class="col-md-3">{{d.IndexNames}}</td>
         <td class="col-md-3">{{d.Loans}}</td>
@@ -53,4 +53,157 @@
     </form>
     </div>
   </div>
+  <div class="modal fade" id="myModal" role="dialog">
+             
+                        <div class="modal-dialog" style="padding-left: 10px;">
+                        
+                          <!-- Modal content-->
+                          <div class="modal-content" id="modal-content" style="width: 925px; overflow-x: auto;" >
+                            <div class="modal-header">
+                                    <button type="button" id="dashboardBtn" class="close"  data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">Summary Dashboard Details</h4>
+                            </div>
+                            <div class="modal-body">
+                                    <div class="table table-responsive" *ngIf="isRequest">
+                                <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <th class="col-md-1">S.No</th>
+                                    <th class="col-md-1">Branch Name</th>
+                                    <th class="col-md-1">Line Name</th>
+                                    <th class="col-md-1">Area Name</th>
+                                    <th class="col-md-1">Category Name</th>
+                                    <th class="col-md-1">Agent Name</th>
+                                    <th class="col-md-1">Request ID</th>
+                                    <th class="col-md-1">Request Date</th>
+                                    <th class="col-md-1">Customer ID</th>
+                                    <th class="col-md-1">Customer Name</th>
+                                    <th class="col-md-1">Loan Amount</th>
+                                    <th class="col-md-1">Status</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let val of Values">
+                                        <td class="col-md-1">{{val.SNo}}</td>
+                                        <td class="col-md-1">{{val.BranchName}}</td>
+                                        <td class="col-md-1">{{val.LineName}}</td>
+                                        <td class="col-md-1">{{val.AreaName}}</td>
+                                        <td class="col-md-1">{{val.CategoryName}}</td>
+                                        <td class="col-md-1">{{val.AgentName}}</td>
+                                        <td class="col-md-1">{{val.RequestID}}</td>
+                                        <td class="col-md-1">{{val.RequestDate}}</td>
+                                        <td class="col-md-1">{{val.CustomerID}}</td>
+                                        <td class="col-md-1">{{val.CustomerName}}</td>
+                                        <td class="col-md-1">{{val.LoanAmt}}</td>
+                                        <td class="col-md-1">{{val.ReqStatus}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                            <div class="table table-responsive" *ngIf="isApprRej">
+                                    <table class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                            <th class="col-md-1">S.No</th>
+                                            <th class="col-md-1">Branch Name</th>
+                                            <th class="col-md-1">Line Name</th>
+                                            <th class="col-md-1">Area Name</th>
+                                            <th class="col-md-1">Category Name</th>
+                                            <th class="col-md-1">Agent Name</th>
+                                            <th class="col-md-1">Request ID</th>
+                                            <th class="col-md-1">Request Date</th>
+                                            <th class="col-md-1">Approved/Rejected Date</th>
+                                            <th class="col-md-1">Customer ID</th>
+                                            <th class="col-md-1">Customer Name</th>
+                                            <th class="col-md-1">Loan Amount</th>
+                                            <th class="col-md-1">Status</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let val of Values">
+                                                <td class="col-md-1">{{val.SNo}}</td>
+                                                <td class="col-md-1">{{val.BranchName}}</td>
+                                                <td class="col-md-1">{{val.LineName}}</td>
+                                                <td class="col-md-1">{{val.AreaName}}</td>
+                                                <td class="col-md-1">{{val.CategoryName}}</td>
+                                                <td class="col-md-1">{{val.AgentName}}</td>
+                                                <td class="col-md-1">{{val.RequestID}}</td>
+                                                <td class="col-md-1">{{val.RequestDate}}</td>
+                                                <td class="col-md-1">{{val.Date}}</td>
+                                                <td class="col-md-1">{{val.CustomerID}}</td>
+                                                <td class="col-md-1">{{val.CustomerName}}</td>
+                                                <td class="col-md-1">{{val.LoanAmt}}</td>
+                                                <td class="col-md-1">{{val.ReqStatus}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                                    <div class="table table-responsive" *ngIf="isCollClosed">
+                                            <table class="table table-bordered table-striped table-hover">
+                                            <thead>
+                                                    <th class="col-md-1">S.No</th>
+                                            <th class="col-md-1">Branch Name</th>
+                                            <th class="col-md-1">Line Name</th>
+                                            <th class="col-md-1">Area Name</th>
+                                            <th class="col-md-1">Category Name</th>
+                                            <th class="col-md-1">Showroom</th>
+                                            <th class="col-md-1">Customer ID</th>
+                                            <th class="col-md-1">Customer Name</th>
+                                            <th class="col-md-1">Loan No</th>
+                                            <th class="col-md-1">Last Collection Date</th>
+                                            <th class="col-md-1">Collection Amount</th>
+                                            <th class="col-md-1">Status</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let val of Values">
+                                                        <td class="col-md-1">{{val.SNo}}</td>
+                                                        <td class="col-md-1">{{val.BranchName}}</td>
+                                                        <td class="col-md-1">{{val.LineName}}</td>
+                                                        <td class="col-md-1">{{val.AreaName}}</td>
+                                                        <td class="col-md-1">{{val.CategoryName}}</td>
+                                                        <td class="col-md-1">{{val.AgentName}}</td>
+                                                        <td class="col-md-1">{{val.CustomerID}}</td>
+                                                <td class="col-md-1">{{val.CustomerName}}</td>
+                                                <td class="col-md-1">{{val.RequestID}}</td>
+                                                <td class="col-md-1">{{val.RequestDate}}</td>
+                                                <td class="col-md-1">{{val.LoanAmt}}</td>
+                                                <td class="col-md-1">{{val.ReqStatus}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                        <div class="table table-responsive" *ngIf="isIssued">
+                                          <table class="table table-bordered table-striped table-hover">
+                                          <thead>
+                                                  <th class="col-md-1">S.No</th>
+                                          <th class="col-md-1">Branch Name</th>
+                                          <th class="col-md-1">Line Name</th>
+                                          <th class="col-md-1">Area Name</th>
+                                          <th class="col-md-1">Category Name</th>
+                                          <th class="col-md-1">Showroom</th>
+                                          <th class="col-md-1">Customer ID</th>
+                                          <th class="col-md-1">Customer Name</th>
+                                          <th class="col-md-1">Loan No</th>
+                                          <th class="col-md-1">Loan Date</th>
+                                          <th class="col-md-1">Loan Amount</th>
+                                          <th class="col-md-1">Status</th>
+                                          </thead>
+                                          <tbody>
+                                              <tr *ngFor="let val of Values">
+                                                      <td class="col-md-1">{{val.SNo}}</td>
+                                                      <td class="col-md-1">{{val.BranchName}}</td>
+                                                      <td class="col-md-1">{{val.LineName}}</td>
+                                                      <td class="col-md-1">{{val.AreaName}}</td>
+                                                      <td class="col-md-1">{{val.CategoryName}}</td>
+                                                      <td class="col-md-1">{{val.AgentName}}</td>
+                                                      <td class="col-md-1">{{val.CustomerID}}</td>
+                                              <td class="col-md-1">{{val.CustomerName}}</td>
+                                              <td class="col-md-1">{{val.RequestID}}</td>
+                                              <td class="col-md-1">{{val.RequestDate}}</td>
+                                              <td class="col-md-1">{{val.LoanAmt}}</td>
+                                              <td class="col-md-1">{{val.ReqStatus}}</td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                      </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
   </div>
