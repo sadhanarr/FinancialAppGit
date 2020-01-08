@@ -129,6 +129,9 @@ export class AppService
 
     private RequestID = new BehaviorSubject<Number>(0);
     currentReqID = this.RequestID.asObservable();
+    private UserID = new BehaviorSubject<Number>(0);
+    currentUserID = this.UserID.asObservable();
+
     private CustomerID = new BehaviorSubject<Number>(0);
     currentCustID = this.CustomerID.asObservable();
     private ReqStatus = new BehaviorSubject<string>('');
@@ -174,6 +177,10 @@ LoanIssueSearch= this.loanissueSearch.asObservable();
     }
     changeCUstID(currentCustID:Number) {
       this.CustomerID.next(currentCustID);
+    }
+    changeUserID(id:Number)
+    {
+      this.UserID.next(id);
     }
     getCompany():Observable<ICompany[]>
     {

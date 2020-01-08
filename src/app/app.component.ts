@@ -30,7 +30,11 @@ export class AppComponent implements OnInit{
   Reports:boolean=false
   error=''
   ngOnInit() {
-
+    
+    this._appService.currentUserID.subscribe(res=>this.userID=res);
+    console.log(this.userID);
+    if(this.userID>0)
+    this.loginPage=false;
   } 
   resetRequest()
   {
@@ -45,6 +49,7 @@ export class AppComponent implements OnInit{
      this._appService.validateUserLogin(userName,password).subscribe(res=>{
        this.userID=res;
        this._appService.changeUserName(userName);
+       this._appService.changeUserID(this.userID);
        if(this.userID>0)
        {
          this._appService.getUserRoles(this.userID).subscribe(res=>{
