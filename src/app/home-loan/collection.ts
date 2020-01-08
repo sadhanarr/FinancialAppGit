@@ -15,7 +15,9 @@ export class Collection
         public  dueBal :Number,
         public  TotalBal :Number,
         public  Principalreciept :Number,
-        public  LoanAmount :Number
+        public  LoanAmount :Number,
+        public MachineID:Number,
+        public CreatedBy:string
     )
     {
        

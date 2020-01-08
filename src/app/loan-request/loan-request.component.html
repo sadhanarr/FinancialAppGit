@@ -167,7 +167,7 @@
                             <label class="control-label col-sm-3">State :</label>
                             <div class="col-sm-3">
                                 <select class="form-control" [(ngModel)]="request.StateID" name="StateID" (change)="filterDrop()" >
-                                    <option *ngFor="let st of AllState" value="{{st.dropdownKey}}">
+                                    <option *ngFor="let st of AllState" value="{{st.dropdownKey}}" [selected]="st.dropdownKey==request.StateID">
                                         {{st.dropdownName}}
                                     </option>
                                 </select>
@@ -175,7 +175,7 @@
                             <label class="control-label col-sm-2">District :</label>
                             <div class="col-sm-4">
                                 <select class="form-control" [(ngModel)]="request.DistrictID" name="DistrictID" (change)="filterDrop()" >
-                                    <option *ngFor="let t of District" value="{{t.DistrictID}}" >
+                                    <option *ngFor="let t of District" value="{{t.DistrictID}}" [selected]="t.DistrictID==request.DistrictID" >
                                         {{t.DistrictName}}
                                     </option>
                                 </select>
@@ -185,14 +185,14 @@
                             <label class="control-label col-sm-3">Taluk :</label>
                             <div class="col-sm-3">
                                 <select class="form-control" [(ngModel)]="request.TalukID" name="TalukID" (change)="filterDrop()" >
-                                    <option *ngFor="let i of Taluk" value="{{i.TalukID}}">{{i.TalukName}}
+                                    <option *ngFor="let i of Taluk" value="{{i.TalukID}}" [selected]="i.TalukID==request.TalukID">{{i.TalukName}}
                                     </option>
                                 </select>
                             </div>
                             <label class="control-label col-sm-2">Area :</label>
                             <div class="col-sm-4">
-                                <select class="form-control" [(ngModel)]="request.AreaID" name="AreaID">
-                                    <option *ngFor="let sa of Area" value="{{sa.AreaID}}">{{sa.AreaName}}
+                                <select class="form-control" [(ngModel)]="request.AreaID" name="AreaID" (change)="filterDrop()">
+                                    <option *ngFor="let sa of Area" value="{{sa.AreaID}}" [selected]="sa.AreaID==request.AreaID">{{sa.AreaName}}
                                     </option>
                                 </select>
                             </div>
@@ -213,7 +213,13 @@
                                     Loan Category required.
                                 </div>
                             </div>
-
+                            <label class="control-label col-sm-2">Line :</label>
+                            <div class="col-sm-3">
+                                <select disabled class="form-control" [(ngModel)]="request.LineID" name="LineID"  >
+                                    <option *ngFor="let i of Line" value="{{i.TalukID}}" [selected]="i.TalukID==request.LineID">{{i.TalukName}}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">Showroom/Agent :</label>
@@ -315,20 +321,20 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Total Amount :</label>
                                 <div class="col-sm-3">
-                                    <input type="text"  #tAmt="ngModel" name="amount" (focusout)="OnChange()"
+                                    <input type="text" [disabled]="(request.LoanCatID>3)"  #tAmt="ngModel" name="amount" (focusout)="OnChange()"
                                         numeric numericType="number" [(ngModel)]="request.TotalAmt" class="form-control"
                                         id="amount">
-                                    <div *ngIf="tAmt.errors?.required && formSubmit && request.DueType=='EMI'"
+                                    <div *ngIf="tAmt.errors?.required && formSubmit && request.DueType=='EMI' && (request.LoanCatID==1 || request.LoanCatID==2 || request.LoanCatID==3)"
                                         [ngClass]="'error'">
                                         Total Amount required.
                                     </div>
                                 </div>
                                 <label class="control-label col-sm-3">Advance Amount :</label>
                                 <div class="col-sm-3">
-                                    <input type="text"  #AAmt="ngModel" name="advance" (focusout)="OnChange()"
+                                    <input type="text" [disabled]="(request.LoanCatID>3)" #AAmt="ngModel" name="advance" (focusout)="OnChange()"
                                         numeric numericType="number" class="form-control" id="advance"
                                         [(ngModel)]="request.AdvanceAmt">
-                                    <div *ngIf="AAmt.errors?.required && formSubmit && request.DueType=='EMI'"
+                                    <div *ngIf="AAmt.errors?.required && formSubmit && request.DueType=='EMI'  && (request.LoanCatID==1 || request.LoanCatID==2 || request.LoanCatID==3)"
                                         [ngClass]="'error'">
                                         Advance Amount required.
                                     </div>
@@ -337,7 +343,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Loan Amount :</label>
                                 <div class="col-sm-3">
-                                    <input type="text" name="loanAmount" disabled class="form-control" id="loanAmount"
+                                    <input type="text" name="loanAmount" [disabled]="!(request.LoanCatID>3)" class="form-control" id="loanAmount"
                                         [(ngModel)]="request.LoanAmt">
                                 </div>
                                 <label class="control-label col-sm-3">Advance in % :</label>

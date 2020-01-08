@@ -19,6 +19,7 @@ import * as $ from 'jquery'
 export class CustomerVerificationComponent implements OnInit {
 
   AllArea:Area[]=[];
+  tabName:string="";
   AllLine:Taluk[]=[];
   AllBranch:Branch[]=[];
   search:CustSearch={} as any;
@@ -40,21 +41,33 @@ export class CustomerVerificationComponent implements OnInit {
     this._appService.getLoanCategory().subscribe((data:any[])=>{
       this.LoanCategory=data
      });
+     this._appService.VerfSearch.subscribe(
+      res=> this.search=res)
+      if( this.search.Status!="" || this.search.CustName!="" ||
+      this.search.CustID!="" || this.search.OtherName!="" ||
+      this.search.ContactList!="" || this.search.IDProof!="" ||
+      this.search.Line!="" || this.search.Area!="" ||
+      this.search.Address!="" || this.search.KeywordSearch!="" )
+    this.Search(null)
   }
   getCustomerID(ID)
   {
    this.CustomerID=ID;
-
+   this._appService.getCustomer(ID,0).subscribe((data:any)=> 
+      {
+        this.tabName =data.CustomerID+'-'+data.CustName+' '+data.Initial
+      });
    this._appService.getRequestbyCustomer(ID).subscribe((data:any[])=>{this.request=data;
     this._appService.getLoanbyCustomer(ID).subscribe((data:any[])=>{this.Loan=data;console.log(data)})
-    $('.nav-tabs a[href="#Request"]').tab('show');
-    $('.nav-tabs a[href="#Loan"]').tab('show');
+    // $('.nav-tabs a[href="#Request"]').tab('show');
+    // $('.nav-tabs a[href="#Loan"]').tab('show');
   })
 
   }
   Search(form)
   {
  console.log(this.search)
+ this._appService.changeVerificationSearch(this.search)
    this._appService.getCustomerVerfication(this.search).subscribe((res:any[])=> {
     this.requestAll=res;
     console.log(this.requestAll)
@@ -66,6 +79,16 @@ export class CustomerVerificationComponent implements OnInit {
 
   Clear(form){
     form.resetForm();
-
+    this.search.Status="";
+    this.search.CustName="";
+    this.search.CustID="";
+    this.search.OtherName="";
+    this.search.ContactList="";
+    this.search.IDProof="";
+    this.search.Line="";
+    this.search.Area="";
+    this.search.Address="";
+    this.search.KeywordSearch="";
+    this._appService.changeVerificationSearch(this.search)
   }
 }

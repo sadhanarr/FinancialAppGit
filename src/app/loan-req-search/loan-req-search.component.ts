@@ -6,8 +6,8 @@ import {Request} from '../loan-request/request';
 import { ActivatedRoute, Router} from '@angular/router';
 import { LoanSearch} from './LoanSearch'
 import {ICompany} from '../master-screen/Company'
-import {IUpdate} from './UpdateStatus'
-;
+import {IUpdate} from './UpdateStatus';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-loan-req-search',
@@ -22,6 +22,8 @@ export class LoanReqSearchComponent implements OnInit {
   requestSearch:LoanSearch={} as any;
   requestAll:Request[]=[];
    update:IUpdate={}as any
+   fromDate:any;
+   toDate:any
   constructor(private _appService:AppService,private _route: ActivatedRoute,
     private _router: Router) { }
 
@@ -33,23 +35,51 @@ export class LoanReqSearchComponent implements OnInit {
      });
      this._appService.getArea().subscribe((data:any[])=>{this.AllArea=data})
      this._appService.getSAgent().subscribe((data:any[])=>{this.AllSagent=data})
-     this.requestSearch.FromDate= new Date();
-     this.requestSearch.ToDate= new Date();
-     this.Search(null)
+    
+     this._appService.ReqSearch.subscribe(res=>{this.requestSearch=res;
+      this.fromDate= new Date(res.FromDate)
+     this.toDate= new Date(res.ToDate)
+    })
+    this.Search(null)
   }
   Search(form)
   {
-    console.log(this.requestSearch)
- 
+
+   if(this.fromDate != null && this.fromDate != '' )  this.requestSearch.FromDate= moment(this.fromDate,'DD/MM/YYYY').format('YYYY-MM-DD');
+  // else this.requestSearch.FromDate='';
+   if(this.toDate != null && this.toDate != '')   this.requestSearch.ToDate= moment(this.toDate,'DD/MM/YYYY').format('YYYY-MM-DD');
+  // else this.requestSearch.ToDate='';
+  console.log(this.requestSearch)
     this._appService.getLoanReqSearch(this.requestSearch).subscribe((res:any[])=> {
       console.log(res)
      this.requestAll=res;
+     
     })
-   
+ 
+
+    console.log(this.requestSearch)
+    this._appService.changeReqSearch(this.requestSearch)
   }
   Clear(form)
   {
-    form.resetForm();
+    this.fromDate='';
+    this.toDate='';
+    this.requestSearch={ Status  :'',
+      FromDate:'',
+      ToDate:'',
+      RequestID:'',
+      CustName  :'', 
+      OtherName  :'', 
+      Address   :'',
+      CustID   :'',
+      IDProof   :'',
+      ContactList  :'', 
+      Line   :'',
+      Area  :'',
+      AgentName:'',
+      LoanCategory:'',
+      KeywordSearch:''}
+      this._appService.changeReqSearch(this.requestSearch)
   }
 
   SaveRequestID(r:Request)

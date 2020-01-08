@@ -16,7 +16,7 @@ import { Followup } from './Followup';
 import {LoanStatus} from './LoanStatus';
 import {DueDate} from './duedate'
 import {GlobalPermissionsService} from '../global.service'
-import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home-loan',
@@ -48,8 +48,9 @@ loan:Loan[]=[];
 loanCust:Loan[]=[];
 isscheme:boolean=false;
 CustID:Number
+imagePreview:any
 //loandetail:Loan=new Loan(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',	0,	'',	'',	'',	'',	false,	false,	'',	false,	false,	false,	false,	'',	0,	'',	0,	'',	new Date(),	0,	0,	0,	'',	'',	0,	0,	'',	0,	'',	0,	0,	'',	0,	0,	0,	new Date(),	new Date(),	0,	0,	0,	new Date(),	0,	0,	false,	'',	'',	'',	'',	'',	'');	
-loandetail:Loan= new Loan(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',	0,	'',	'',	'',	'',	false,	false,	'',	false,	false,	false,	false,	'',	0,	'',	0,	'',	new Date(),	0,	0,	0,	'',	'',	0,	0,	'',	0,	'',	0,	0,	'',	0,	0,	0,	new Date(),	new Date(),	0,	0,	0,	new Date(),	0,	0,	false,	'',	'',	'',	'',	'',	'',0);	
+loandetail:Loan= new Loan(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,moment().toDate(),'',	0,	'',	'',	'',	'',	false,	false,	'',	false,	false,	false,	false,	'',	0,	'',	0,	'',	new Date(),	0,	0,	0,	'',	'',	0,	0,	'',	0,	'',	0,	0,	'',	0,	0,	0,	new Date(),	new Date(),	0,	0,	0,	new Date(),	0,	0,	false,	'',	'',	'',	'',	'',	'',0,'');	
 RequestID:Number
 formSubmit:boolean=false;
  roundoff5:boolean=false;
@@ -66,15 +67,17 @@ ECustProof:IProof[]=[];
 EGuaranProof:IProof[]=[];
 LoanID:Number=0;
 DueType:string='';
-collection:Collection= new Collection(null,null,new Date(),'',null,null,null,null,null,null,null,null,null,null,null);
+collection:Collection= new Collection(null,null,new Date(),'',null,null,null,null,null,null,null,null,null,null,null,null,null);
 AllCollection:Collection[];
  penaltyBal:Number=0;
  dueBal:Number=0;
  TotalBal:Number=0;
+ Status:string='';
+username:string='';
 
 FollowupDetails:Followup[];
-followup:Followup= new Followup(0,0,0,new Date(),new Date(),'','','Running','',null);
-loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
+followup:Followup= new Followup(0,0,0,new Date(),new Date(),'','','Current','',null);
+loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
   ngOnInit() {
     this._appService.getLoanCategory().subscribe((data:any[])=>{
       this.LoanCategory=data
@@ -86,6 +89,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
     this._appService.currentCustID.subscribe(res=> {this.CustID= res;
       this._appService.getLoanbyCustomer(this.CustID).subscribe(res=> this.loanCust=res)
     })
+    this._appService.Status.subscribe(res=>this.Status=res)
     this._appService.getProof(this.CustID,'Customer',0).subscribe(res=>this.CustProof=res);
     this._appService.getProof(this.CustID,'Guarantor',0).subscribe(res=>this.GuaranProof=res);
     this._appService.getLoanDetails().subscribe(res=> this.loan= res)
@@ -94,11 +98,13 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
       this._appService.getCustomer(this.CustID,this.RequestID).subscribe((data:any)=> 
       {
         this.loandetail=data ; 
+        this.imagePreview=this.loandetail.PhotoLoc.replace('D:\\Tech','http://103.110.236.177/');
+        console.log(this.imagePreview)
         this.DueType=this.loandetail.DueType;
      this.OnChange();
       })
     });
-    
+    this._appService.UserName.subscribe(res=>this.username=res)
     this._appService.getBranch().subscribe((data:any[])=>{
       this.Allbranch=data
     this.branch=data;
@@ -136,7 +142,15 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
       this.loanStat.LoanId=this.LoanID
       console.log(this.loanStat)
       this._appService.insertLoanIssueStatus(this.loanStat).subscribe(res=>{console.log(res);
+        this._appService.getFollowup(this.LoanID).subscribe(res=>{this.FollowupDetails=res});
+        this._appService.getIssueLoanStatus(this.LoanID).subscribe(res=>{
+          this.loanStat=res;
+          this._appService.getLoanDetail(this.LoanID).subscribe(res=> 
+            this.loandetail=res);
+          
+          this._appService.getLoanbyCustomer(this.CustID).subscribe(res=> this.loanCust=res)
       form.resetForm(form);})
+          });
     }
   AddFollowup(form)
   {
@@ -144,6 +158,13 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
     console.log(this.followup)
     this._appService.InsertLoanFollowupDetail(this.followup).subscribe(res=>{console.log(res);
     this._appService.getFollowup(this.LoanID).subscribe(res=>{this.FollowupDetails=res});
+    this._appService.getIssueLoanStatus(this.LoanID).subscribe(res=>{
+
+      console.log(res);
+      this.loanStat=res;
+      this.changeLoanStatus(this.loanStat.LoanStatus);});
+    
+  
     form.resetForm(form);})
   }
   DeleteFollowup(followupId:Number)
@@ -161,6 +182,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
     }
     this.collection.LoanID=this.LoanID;
    console.log(this.collection)
+   this._appService.UserName.subscribe(res=>this.collection.CreatedBy=res)
     this._appService.addCollection(this.collection).subscribe(res=>{ console.log(res);
       this._appService.getCollection(this.LoanID).subscribe(res=>{this.AllCollection=res});
       form.resetForm();})
@@ -244,9 +266,15 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
   
   SaveLoan()
   {
+    
     var CustID= this.loandetail.CustomerID
     var length=0
-    console.log('loanid'+this.LoanID)
+    var time= moment().format('HH:mm:ss')
+    this.loandetail.LoanDate=moment(this.loandetail.LoanDate).format('YYYY-MM-DD')+ ' '+time
+    this.loandetail.FirstDueDt=moment(this.loandetail.FirstDueDt).format('YYYY-MM-DD')+' 00:00:00'
+    this.loandetail.LastDueDt=moment(this.loandetail.LastDueDt).format('YYYY-MM-DD')+' 00:00:00'
+    this.loandetail.PhotoLoc=null;
+    console.log(this.loandetail)
    this._appService.DeleteFileLoc(CustID,this.LoanID).subscribe(res=>{
      this.loandetail.RequestID=this.RequestID;
     this._appService.InsertIssuedLoanDetails(this.loandetail).subscribe(res =>
@@ -285,6 +313,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
       {
         this.loandetail=data ;
         this.loandetail.LoanDate= new Date();
+        this.OnDateChange();
         this.OnChange();
         ;});
         alert("The LoanNo "+this.LoanNo+" has been created/updated successfully")
@@ -315,7 +344,8 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
       this._appService.getProof(this.CustID,'Guarantor',LoanID).subscribe(res=>this.EGuaranProof=res);
       this._appService.getFollowup(LoanID).subscribe(res=>{this.FollowupDetails=res});
       this._appService.getIssueLoanStatus(LoanID).subscribe(res=>{
-
+        
+        this.OnChange();
         console.log(res);
         this.loanStat=res;
         this.changeLoanStatus(this.loanStat.LoanStatus);});
@@ -325,13 +355,14 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
       this._appService.getCustomer(this.CustID,this.RequestID).subscribe((data:any)=> 
       {
         this.loandetail=data ; 
-        this.loandetail.CustStatus="Running"
+        this.loandetail.CustStatus="Current"
         this.LoanID=0;
         this.DueType=this.loandetail.DueType
        this.DueType='Interest'? this.loandetail.IntType='Daily': this.loandetail.IntType=''
         this.loandetail.LoanDate= new Date()
         
      this.OnChange();
+     this.OnDateChange();
       })
       this._appService.getProof(this.CustID,'Customer',0).subscribe(res=>this.ECustProof=res);
       this._appService.getProof(this.CustID,'Guarantor',0).subscribe(res=>this.EGuaranProof=res);
@@ -441,6 +472,10 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','',0);
                                 <label class='control-label col-sm-3' style='font-weight: 100;text-align:right !important; width:250px!important'>Loan Balance :</label>
                                 `+value.TotalBal +`
                    </div>
+                   <div class='form-group'>
+                                <label class='control-label col-sm-3' style='font-weight: 100;text-align:right !important; width:250px!important'></label>
+                               <i> Collected By: `+this.username +`</i>
+                   </div>
                    </div>
                    </div>
 
@@ -467,6 +502,21 @@ wnd.document.write(string);
     minutes = minutes < 10 ? '0'+minutes : minutes;
     var strTime = hours + ':' + minutes + ' ' + ampm;
     return month + '/' + day + '/' + year+ ' '+ strTime;
+  }
+  transformDate(date)
+  {
+    var year = date.getFullYear();
+
+    var month = (1 + date.getMonth()).toString();
+    month = month.length > 1 ? month : '0' + month;
+  
+    var day = date.getDate().toString();
+    day = day.length > 1 ? day : '0' + day;
+
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var sec= date.getSeconds();
+    return year+'-'+month+'-'+day+' '+hours+':'+minutes+':'+sec;
   }
   DateChange()
   {
@@ -548,6 +598,17 @@ EmiDisable()
 
   }
 }
+OnDateChange()
+{
+  this._appService.getDueDate(new Date(this.loandetail.LoanDate).toLocaleDateString().replace('/','-').replace('/','-'),this.loandetail.DueType,this.loandetail.Instalments).subscribe(res=>
+    {
+      this.due= res;
+      console.log(this.due)
+    // this.loandetail.LoanDate=this.due.loandate;
+      this.loandetail.FirstDueDt=this.due.firstdue;
+      this.loandetail.LastDueDt=this.due.lastdue;
+    })
+}
  OnChange()
   {
 this.EmiDisable();
@@ -557,16 +618,11 @@ this.EmiDisable();
      this.Sagent=this.AllSagent.filter(x=>x.LoanCategory==this.loandetail["LoanCatID"].toString())
    }
    this.loandetail.TotLoanAmt= this.loandetail.LoanAmt
-   this._appService.getDueDate(new Date(this.loandetail.LoanDate).toLocaleDateString().replace('/','-').replace('/','-'),this.loandetail.DueType,this.loandetail.Instalments).subscribe(res=>
-    {
-      this.due= res;
-      console.log(this.due)
-      this.loandetail.LoanDate=this.due.loandate;
-      this.loandetail.FirstDueDt=this.due.firstdue;
-      this.loandetail.LastDueDt=this.due.lastdue;
+
       if(this.AllCollection != undefined && this.AllCollection !=null && this.AllCollection.length>0)
       {
-      if(new Date() >= new Date(this.collection[1].Date))
+        console.log(new Date(this.AllCollection[0].Date))
+      if((this.loandetail.DueType=='EMI' && new Date() >= new Date(this.AllCollection[0].Date)) || (this.loandetail.DueType=='Interest' && this.AllCollection.length>1) )
       {
         $('#loanSave').attr('disabled','disabled')
       }
@@ -575,9 +631,9 @@ this.EmiDisable();
         $('#loanSave').removeAttr('disabled')
       }
     }
-    })
-   
-   
+   var date = new Date(this.loandetail.FirstDueDt)
+    date.setMonth( date.getMonth()+this.loandetail.Instalments-1)
+    this.loandetail.LastDueDt=date;
     if(!this.isscheme)
     {
       $('#SchemeAmt').attr("disabled","disabled");
@@ -600,8 +656,8 @@ this.EmiDisable();
     if(this.loandetail["DueType"]=="EMI"){
    // this.loandetail["TotLoanAmt"]= this.loandetail["DocCharge"] != null? parseInt(this.loandetail["DocCharge"].toString())+parseInt(this.loandetail["LoanAmt"].toString()):parseInt(this.loandetail["LoanAmt"].toString());
     this.loandetail["InterestAmt"]= Math.round( (parseInt(this.loandetail["TotLoanAmt"].toString())* parseInt(this.loandetail["Instalments"].toString())* parseFloat(this.loandetail["IntRate"].toString()) )/100)
-    this.loandetail["TotAmount"]= parseInt( this.loandetail["TotLoanAmt"].toString())  +  parseInt(this.loandetail["InterestAmt"].toString())
-    this.loandetail["InstalmentAmt"]= parseInt( this.loandetail["TotAmount"].toString())/ parseInt(this.loandetail["Instalments"].toString())
+    this.loandetail["TotAmount"]=Math.round( parseInt( this.loandetail["TotLoanAmt"].toString())  +  parseInt(this.loandetail["InterestAmt"].toString()))
+    this.loandetail["InstalmentAmt"]=Math.round( parseInt( this.loandetail["TotAmount"].toString())/ parseInt(this.loandetail["Instalments"].toString()))
     if(this.loandetail["DocCharge"]!= null && this.loandetail["DocCharge"].toString()!= "" && this.loandetail["DocChargeRecvd"]!=null && this.loandetail["DocChargeRecvd"].toString() =="Add with Loan Amount" && this.loandetail["DocCharge"].toString() !="")
     {
       this.loandetail["TotLoanAmt"]= this.loandetail["DocCharge"] != null? parseInt(this.loandetail["DocCharge"].toString())+parseInt(this.loandetail["LoanAmt"].toString()):parseInt(this.loandetail["LoanAmt"].toString());
@@ -609,18 +665,18 @@ this.EmiDisable();
  if(this.loandetail["RoundedOff"])
  {
   this.loandetail["InstalmentAmt"]=Math.ceil(parseFloat(this.loandetail["InstalmentAmt"].toString())/5)*5;
-  this.loandetail["TotAmount"]= parseInt(this.loandetail["InstalmentAmt"].toString())*parseInt(this.loandetail["Instalments"].toString());
-  this.loandetail["InterestAmt"]= parseInt( this.loandetail["TotAmount"].toString())-parseInt(this.loandetail["TotLoanAmt"].toString())
+  this.loandetail["TotAmount"]=Math.round( parseInt(this.loandetail["InstalmentAmt"].toString())*parseInt(this.loandetail["Instalments"].toString()));
+  this.loandetail["InterestAmt"]=Math.round( parseInt( this.loandetail["TotAmount"].toString())-parseInt(this.loandetail["TotLoanAmt"].toString()))
  }
  if(this.loandetail["IncentiveRatio"]!= null ){
     if(this.loandetail["IncentiveRatio"].toString()!="") 
  {
   if(this.loandetail["IncentiveCalBy"] != null   && this.loandetail["IncentiveCalBy"].toString()=="Document Charge"){
-  this.loandetail["IncentiveAmt"]= this.loandetail["DocCharge"] != null? parseInt(this.loandetail["IncentiveRatio"].toString())*(parseInt(this.loandetail["DocCharge"].toString())/100):0
+  this.loandetail["IncentiveAmt"]= this.loandetail["DocCharge"] != null?Math.round( parseInt(this.loandetail["IncentiveRatio"].toString())*(parseInt(this.loandetail["DocCharge"].toString())/100)):0
  }
  else if(this.loandetail["IncentiveCalBy"] != null   && this.loandetail["IncentiveCalBy"].toString()=="Loan Amount")
  {
-  this.loandetail["IncentiveAmt"]= this.loandetail["LoanAmt"] != null? parseInt(this.loandetail["IncentiveRatio"].toString())*(parseInt(this.loandetail["LoanAmt"].toString())/100):0
+  this.loandetail["IncentiveAmt"]= this.loandetail["LoanAmt"] != null? Math.round( parseInt(this.loandetail["IncentiveRatio"].toString())*(parseInt(this.loandetail["LoanAmt"].toString())/100)):0
  }
 }
 }
@@ -648,7 +704,7 @@ this.EmiDisable();
     {
       var days=30;
      // this.loandetail.IntType=='Daily'?days=30: days=new Date(parseInt(this.loandetail.LoanDate.getFullYear.toString()),parseInt( this.loandetail.LoanDate.getMonth.toString()) + 1, 0).getDate()
-    this.loandetail["InterestAmt"]=(parseFloat(this.loandetail["LoanAmt"].toString())*days*parseFloat(this.loandetail["IntRate"].toString())/days)/100
+    this.loandetail["InterestAmt"]=Math.round((parseFloat(this.loandetail["LoanAmt"].toString())*days*parseFloat(this.loandetail["IntRate"].toString())/days)/100)
 
 }
   

@@ -12,6 +12,7 @@
                     <label class="control-label col-sm-4"  >Status :</label>
                     <div class="col-sm-6">
                     <select class="form-control" [(ngModel)]="search.Status" name="status">
+                        <option>All</option>
                         <option>Running</option>
                         <option>Consider</option>        
                            <option>Pending</option>
@@ -64,6 +65,7 @@
                     <label class="control-label col-sm-4">Line :</label>
                     <div class="col-sm-6">
                         <select  class="form-control" #li="ngModel" [(ngModel)]="search.Line"  name="line">
+                            <option value="All">All</option>
                             <option  *ngFor="let l of AllLine" value="{{l.TalukName}}">{{l.TalukName}}
                             </option>                         
                            </select>
@@ -73,6 +75,7 @@
                     <label class="control-label col-sm-4">Area :</label>
                     <div class="col-sm-6">
                         <select  class="form-control" #li="ngModel" [(ngModel)]="search.Area"  name="area">
+                            <option value="All">All</option>
                             <option  *ngFor="let a of AllArea" value="{{a.AreaName}}">{{a.AreaName}}
                             </option>                         
                            </select>

@@ -6,7 +6,7 @@ import {Dashboard} from './Dashboard';
 import { observable } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { DatepickerOptions } from 'ng2-datepicker';
-import {PendingDashboard} from '../dashboardsecond-page/pendingdashbrd'
+import {PendingDashboard} from './pendingdashbrd'
 
 @Component({
   selector: 'app-dashboard-page',
@@ -27,11 +27,19 @@ export class DashboardPageComponent implements OnInit {
     isIssued:boolean;
     dateValue1 :Date;
     public format:string = "dd/MM/yyyy";
-  
+    AllDetails1:Dashboard[]=[];
+    Values1:PendingDashboard[]=[];
+    isApproved:boolean;
+    isRequest1:boolean;
+    isEnd:boolean;
+    type:string;
+
   ngOnInit() {
    this.dateValue1 = new Date();
-
+   console.log(new Date())
    this.getDetails(this.dateValue1,this.dateValue1)
+   this._appService.getSecondDashboardDetails().subscribe(res=> 
+    this.AllDetails1=res)
   }
   getDetails(StartDate:Date,EndDate:Date)
   {
@@ -39,11 +47,13 @@ export class DashboardPageComponent implements OnInit {
     if(EndDate==null)EndDate=this.dateValue1
     let formatedDate = new DatePipe("en-US").transform(StartDate,"yyyy-MM-dd")
     let formatEndDate = new DatePipe("en-US").transform(EndDate,"yyyy-MM-dd")
+    console.log(formatedDate)
     this._appService.getDashboardDetails(formatedDate,formatEndDate).subscribe(res=> 
     this.AllDetails=res)
   }
   getSummaryValues(type,startDate,endDate)
   { 
+    this.type=type;
     if(type=="Loan Request")
     {
   this.isRequest=true;
@@ -69,8 +79,32 @@ export class DashboardPageComponent implements OnInit {
   this.isCollClosed= true;
   this.isIssued=false;
     }
-    this._appService.getSummaryDashboardValues(type,startDate,endDate).subscribe(res=> 
-      this.Values=res)
+    let formatedDate = new DatePipe("en-US").transform(startDate,"yyyy-MM-dd")
+    let formatEndDate = new DatePipe("en-US").transform(endDate,"yyyy-MM-dd")
+    this._appService.getSummaryDashboardValues(type,formatedDate,formatEndDate).subscribe(res=> {
+      console.log(res);
+      this.Values=res})
+  }
+  getPendingDetails(type)
+  { 
+    this.type=type;
+    if(type=="Request"|| type=="Waitlist")
+    {
+  this.isRequest1=true;
+  this.isApproved=false;
+  this.isEnd=false;
+    }
+  else if (type=="Approved")
+  {
+    this.isRequest1=false;
+    this.isApproved=true;
+    this.isEnd=false;
+  }  else if(type=="End")
+  {this.isRequest1=false;
+    this.isApproved=false;
+    this.isEnd=true;}
+    this._appService.getPendingDashboardValues(type).subscribe(res=> 
+      this.Values1=res)
   }
 }
 

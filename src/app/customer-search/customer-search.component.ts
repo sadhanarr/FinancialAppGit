@@ -36,23 +36,41 @@ export class CustomerSearchComponent implements OnInit {
     this.search.KeywordSearch="";
     this._appService.getLine().subscribe((data:any[])=>{this.AllLine=data})
     this._appService.getArea().subscribe((data:any[])=>{this.AllArea=data})
+    this._appService.custSearch.subscribe(
+      res=> this.search=res)
+      if( this.search.Status!="" || this.search.CustName!="" ||
+      this.search.CustID!="" || this.search.OtherName!="" ||
+      this.search.ContactList!="" || this.search.IDProof!="" ||
+      this.search.Line!="" || this.search.Area!="" ||
+      this.search.Address!="" || this.search.KeywordSearch!="" )
+    this.Search(null)
     console.log("customercomponent loaded")
   }
   Search(form)
   {
- 
+    this._appService.changeCustSearch(this.search)
+   if(this.search.Status=='All')this.search.Status='';
+   if(this.search.Area=='All')this.search.Area='';
+   if(this.search.Line=='All')this.search.Line='';
    this._appService.getCustomerSearch(this.search).subscribe((res:any[])=> {
     this.requestAll=res;
     console.log(this.requestAll)
 
   })
-
-  
   }
 
   Clear(form){
-    form.resetForm();
-
+    this.search.Status="";
+    this.search.CustName="";
+    this.search.CustID="";
+    this.search.OtherName="";
+    this.search.ContactList="";
+    this.search.IDProof="";
+    this.search.Line="";
+    this.search.Area="";
+    this.search.Address="";
+    this.search.KeywordSearch="";
+    this._appService.changeCustSearch(this.search)
   }
   NavigatetoLoan(req:Request)
   {

@@ -17,6 +17,7 @@
         <div class="row">
                 <form  #form="ngForm" >
      <div class=" form-horizontal col-md-12">
+         <div class="col-md-10">
         <div class="form-group">
 			<label class="control-label col-sm-3" >Branch :</label>
                 <div class="col-sm-3">
@@ -25,7 +26,7 @@
                                  </option>                         
                                 </select>
 				</div>
-				<label class="control-label col-sm-1" >Line :</label>
+				<label class="control-label col-sm-3" >Line :</label>
                 <div class="col-sm-3">
                         <select class="form-control"  #lid="ngModel" [(ngModel)]="loandetail.LineID" name="LineID" disabled>
                                 <option *ngFor="let i of Line" value="{{i.TalukID}}">{{i.TalukName}}
@@ -40,7 +41,7 @@
                                  </option>                         
                                 </select>
 				</div>
-				<label class="control-label col-sm-1" >Sub Area :</label>
+				<label class="control-label col-sm-3" >Sub Area :</label>
                 <div class="col-sm-3">
                         <select class="form-control"  #sid="ngModel" [(ngModel)]="loandetail.SubAreaID"  name="SubAreaID" disabled>
                                 <option *ngFor="let l of Sarea" value="{{l.TalukID}}">{{l.TalukName}}
@@ -53,11 +54,19 @@
                 <div class="col-sm-3">
 				<input type="text" class="form-control col-sm-4" name="hint1" [(ngModel)]="loandetail.Hint1" disabled>
 				</div>
-				<label class="control-label col-sm-1" >Hint-2 :</label>
+				<label class="control-label col-sm-3" >Hint-2 :</label>
                 <div class="col-sm-3">
 				<input type="text" class="form-control" name="hint2" [(ngModel)]="loandetail.Hint2" disabled>
 				</div>
-			</div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">                
+                <div class="image-preview col-sm-10" >
+                    <img [src]="imagePreview" class="col-sm-12" style="height: 150px;">
+                </div>
+            </div>
+        </div>
 		</div>
 		<div class="form-horizontal col-md-6">
 			<div class="form-group">
@@ -291,7 +300,7 @@
 				</div>
             </div>
             <div class="emptyDiv"></div>
-            <div class="emptyDiv"><div class="col-md-3"><button data-toggle="modal" data-target="#myModal" (click)="getLoanDetail(0,form)"  type="submit" class="btn btn-primary">Issue Loan</button></div> </div>
+            <div class="emptyDiv"><div class="col-md-3"><button data-toggle="modal" data-target="#myModal" (click)="getLoanDetail(0,form)" [disabled]="Status!='Approved'" type="submit" class="btn btn-primary">Issue Loan</button></div> </div>
       </div>
     </form>
       <div class="form-horizontal col-md-12 tab-content">
@@ -326,9 +335,9 @@
                     </option>
                 </select>
              </td>
-             <td class="col-md-2">{{lo.LoanDate}}</td>
+             <td class="col-md-2">{{lo.LoanDate|date:"dd/MM/yy  h:mm a"}}</td>
              <td class="col-md-2">{{lo.LoanAmt}}</td>
-             <td class="col-md-2">{{lo.LoanStatus}}</td>
+             <td class="col-md-2">{{lo.LoanSubStatus}}</td>
              </tr>
             
              </tbody>
@@ -481,17 +490,17 @@
                       <div class="form-group">
               <label class="control-label col-sm-3" >Loan Date :</label>
               <div class="col-sm-3">
-                    <ejs-datepicker name='loanDate' id="loanDate" format ="dd/MM/yyyy" placeholder='Select a date' [(ngModel)]="loandetail.LoanDate" [value]="loandetail.LoanDate" (focusout)="OnChange()"></ejs-datepicker>
+                    <ejs-datepicker name='loanDate' id="loanDate" format ="dd/MM/yyyy" placeholder='Select a date' [(ngModel)]="loandetail.LoanDate" [value]="loandetail.LoanDate" (focusout)="OnDateChange()"></ejs-datepicker>
               </div>
                   <label class="control-label col-sm-3" >Loan Amount:</label>
                   <div class="col-sm-3 ">
-                  <input type="text" class="form-control" numeric numericType="decimal" id="loanamt" name="loanamt" [(ngModel)]="loandetail.LoanAmt" (focusout)="OnChange()">
+                  <input type="text" class="form-control" numeric numericType="number"  id="loanamt" name="loanamt" [(ngModel)]="loandetail.LoanAmt" (focusout)="OnChange()">
                   </div>
               </div>
               <div class="form-group">
               <label class="control-label col-sm-3" >Total Loan Amt:</label>
                   <div class="col-sm-3">
-                  <input type="text" class="form-control " numeric numericType="decimal" name="TotLoanAmt" name="TotLoanAmt" [(ngModel)]="loandetail.TotLoanAmt" (focusout)="OnChange()">
+                  <input type="text" class="form-control " numeric numericType="number"  name="TotLoanAmt" name="TotLoanAmt" [(ngModel)]="loandetail.TotLoanAmt" (focusout)="OnChange()">
                   </div>
                 
                     <label class="control-label col-sm-3">Interest Type:</label>
@@ -506,7 +515,7 @@
               <div class="form-group">
                   <label class="control-label col-sm-3">Doc. Charge :</label>
                   <div class="col-sm-3">
-                  <input type="text" id="docCharge" numeric numericType="decimal" class="form-control" name="DocCharge" [(ngModel)]="loandetail.DocCharge" (focusout)="OnChange()">
+                  <input type="text" id="docCharge" numeric numericType="number"  class="form-control" name="DocCharge" [(ngModel)]="loandetail.DocCharge" (focusout)="OnChange()">
                   </div>
                   <div class="col-sm-6">
                       <select class="form-control" [(ngModel)]="loandetail.DocChargeRecvd" name="DocChargeReceived" (change)="OnChange()">
@@ -518,22 +527,29 @@
               </div>
               <div class="form-group">
                   <label class="control-label col-sm-3">Incentive Calculated By:</label>
-                  <div class="col-sm-4">
+                  <div class="col-sm-3">
                       <select class="form-control" name="IncentiveCalcBy" (change)="OnChange()" [(ngModel)]="loandetail.IncentiveCalBy">
                           <option>Loan Amount</option>
                           <option>Document Charge</option>
+                      </select>
+                  </div>
+                  <label class="control-label col-sm-3">Due Type:</label>
+                  <div class="col-sm-3">
+                      <select class="form-control" name="DueType"  disabled [(ngModel)]="loandetail.DueType">
+                          <option>EMI</option>
+                          <option>Interest</option>
                       </select>
                   </div>
               </div>
               <div class="form-group">
                       <label class="control-label col-sm-3">Incentive</label>
                       <div class="col-sm-2" style="padding-left: 0px;"> 
-                       <div class="col-md-10">  <input  type="text" class="form-control" numeric numericType="decimal" name="incratio" (focusout)="OnChange()" [(ngModel)]="loandetail.IncentiveRatio"> </div>  
+                       <div class="col-md-10">  <input  type="text" class="form-control" numeric numericType="number"  name="incratio" (focusout)="OnChange()" [(ngModel)]="loandetail.IncentiveRatio"> </div>  
                           <div style="float: right;">%</div>                     
                       </div>
                     
                       <div class="col-sm-2">
-                          <input type="text" class="form-control" numeric numericType="decimal" name="incentive" [(ngModel)]="loandetail.IncentiveAmt" >
+                          <input type="text" class="form-control" numeric numericType="number"  name="incentive" [(ngModel)]="loandetail.IncentiveAmt" >
                       </div>
                       <div class="col-sm-4">
                           <select class="form-control" name="incentivedrpdwn"  [(ngModel)]="loandetail.IncentiveType" (change)="OnChange()">
@@ -545,7 +561,7 @@
               <div class="form-group">
                   <label class="control-label col-sm-3">Spl. Incentive :</label>
                   <div class="col-sm-4">
-                      <input type="text" name="splIncentive" numeric numericType="decimal" class="form-control" [(ngModel)]="loandetail.SplIncentiveAmt" (focusout)="OnChange()">
+                      <input type="text" name="splIncentive" numeric numericType="number"  class="form-control" [(ngModel)]="loandetail.SplIncentiveAmt" (focusout)="OnChange()">
                   </div>
                   <!-- <div class="col-sm-4">
                   <button type="button" class="btn btn-primary" id="splIncentiveValidate">Validate</button>
@@ -559,13 +575,13 @@
                   </div>
                   <label class="control-label col-sm-3">Scheme Calc.</label>
                   <div class="col-sm-3">
-                      <input type="text" id="schemeCalcTxt" numeric numericType="decimal" name="schemeCalcTxt" class="form-control" [(ngModel)]="loandetail.SchemeCalcAmt">
+                      <input type="text" id="schemeCalcTxt" numeric numericType="number"  name="schemeCalcTxt" class="form-control" [(ngModel)]="loandetail.SchemeCalcAmt">
                   </div>
               </div>
               <div class="form-group">
                       <label class="control-label col-sm-3">Scheme Amount :</label>
                       <div class="col-sm-3">
-                          <input type="text" id="SchemeAmt" numeric numericType="decimal" name="SchemeAmt" class="form-control" [(ngModel)]="loandetail.SchemeAmt" (focusout)="OnChange()">
+                          <input type="text" id="SchemeAmt" numeric numericType="number"  name="SchemeAmt" class="form-control" [(ngModel)]="loandetail.SchemeAmt" (focusout)="OnChange()">
                       </div>
                       <div class="col-sm-6">
                           <select class="form-control" id="SchemeAmtReceived" name="SchemeAmtReceived"  [(ngModel)]="loandetail.SchemeAmtReceived" (change)="OnChange()">
@@ -583,28 +599,28 @@
                     </div>
                       <label class="control-label col-sm-3">Installments :</label>
                       <div class="col-sm-3">
-                          <input type="text" numeric numericType="decimal" name="installment" (focusout)="OnChange()"  class="form-control" [(ngModel)]="loandetail.Instalments">
+                          <input type="text" numeric numericType="number"  name="installment" (focusout)="OnChange()"  class="form-control" [(ngModel)]="loandetail.Instalments">
                       </div>
                   </div>
               <div class="form-group">
                       <label class="control-label col-sm-3">Interest Amount :</label>
                       <div class="col-sm-3">
-                          <input type="text" numeric numericType="decimal" name="intAmt" id="intAmt" class="form-control" [(ngModel)]="loandetail.InterestAmt">
+                          <input type="text" numeric numericType="number"  name="intAmt" id="intAmt" class="form-control" [(ngModel)]="loandetail.InterestAmt">
                       </div>
                       <label class="control-label col-sm-3">Total Amount :</label>
                       <div class="col-sm-3">
-                          <input type="text" numeric numericType="decimal" name="totAmt" id="totAmt" class="form-control" [(ngModel)]="loandetail.TotAmount">
+                          <input type="text" numeric numericType="number"  name="totAmt" id="totAmt" class="form-control" [(ngModel)]="loandetail.TotAmount">
                       </div>
               </div>
               <div class="form-group">
                       <label class="control-label col-sm-3">First Due Date :</label>
                       <div class="col-sm-3">
-                            <ejs-datepicker name='firstDue' id="firstDue" placeholder='Select a date' format ="dd/MM/yyyy" [(ngModel)]="loandetail.FirstDueDt" ></ejs-datepicker>
+                            <ejs-datepicker name='firstDue' id="firstDue" placeholder='Select a date' format ="dd/MM/yyyy" [(ngModel)]="loandetail.FirstDueDt" (focusout)="OnChange()"></ejs-datepicker>
                         
                       </div>
                       <label class="control-label col-sm-3">Installment Amt:</label>
                       <div class="col-sm-3">
-                          <input type="text" numeric numericType="decimal" id="installmentAmt" name="installmentAmt" class="form-control" [(ngModel)]="loandetail.InstalmentAmt">
+                          <input type="text" numeric numericType="number"  id="installmentAmt" name="installmentAmt" class="form-control" [(ngModel)]="loandetail.InstalmentAmt">
                       </div>
                   </div>
               <div class="form-group">
@@ -615,7 +631,7 @@
                       </div>
                       <label class="control-label col-sm-3">Net Amount :</label>
                       <div class="col-sm-3">
-                          <input type="text" numeric numericType="decimal" id="netAmt" name="netAmt" class="form-control" [(ngModel)]="loandetail.NetAmt">
+                          <input type="text" numeric numericType="number"  id="netAmt" name="netAmt" class="form-control" [(ngModel)]="loandetail.NetAmt">
                       </div>
                       </div>
               <div class="form-group">
@@ -659,13 +675,13 @@
                       <div class="form-group">
                               <label class="control-label col-sm-5">Due/Interest Receipt:</label>
                               <div class="col-sm-7">
-                                      <input type="text" numeric numericType="decimal"  class="form-control" (focusout)="CollectionCal()" name="dueReceipt" [(ngModel)]="collection.Duereciept">
+                                      <input type="text" numeric numericType="number"   class="form-control" (focusout)="CollectionCal()" name="dueReceipt" [(ngModel)]="collection.Duereciept">
                                   </div>
                           </div>
                           <div class="form-group">
                                   <label class="control-label col-sm-5">Penalty Receipt:</label>
                                   <div class="col-sm-7">
-                                          <input type="text" numeric numericType="decimal"  class="form-control" (focusout)="CollectionCal()" name="penReceipt"  [(ngModel)]="collection.Penaltyreciept">
+                                          <input type="text" numeric numericType="number" numericType="decimal"  class="form-control" (focusout)="CollectionCal()" name="penReceipt"  [(ngModel)]="collection.Penaltyreciept">
                                       </div>
                               </div>
                              
@@ -674,26 +690,26 @@
                       <div class="form-group">
                        <label class="control-label col-sm-5" >Principal Receipt:</label>
                        <div class="col-sm-7">
-                     <input type="text" class="form-control" numeric numericType="decimal"  [disabled]="DueType=='EMI'" (focusout)="CollectionCal()" name="principleAmt" [(ngModel)]="collection.Principalreciept">
+                     <input type="text" class="form-control" numeric numericType="number"   [disabled]="DueType=='EMI'" (focusout)="CollectionCal()" name="principleAmt" [(ngModel)]="collection.Principalreciept">
                       </div>
                       </div>
                      
                       <div class="form-group">
                           <label class="control-label col-sm-5">Penalty Balance:</label>
                           <div class="col-sm-7">
-                              <input type="text" class="form-control" numeric numericType="decimal"  (focusout)="CollectionCal()" name="penAmount" [(ngModel)]="collection.penaltyBal">
+                              <input type="text" class="form-control" numeric numericType="number"   (focusout)="CollectionCal()" name="penAmount" [(ngModel)]="collection.penaltyBal">
                           </div>
                       </div>
                       <div class="form-group">
                           <label class="control-label col-sm-5">Due/Interest Balance:</label>
                           <div class="col-sm-7">
-                              <input type="text" class="form-control" numeric numericType="decimal"  (focusout)="CollectionCal()" name="dueBal" [(ngModel)]="collection.dueBal">
+                              <input type="text" class="form-control" numeric numericType="number"   (focusout)="CollectionCal()" name="dueBal" [(ngModel)]="collection.dueBal">
                           </div>
                       </div>
                       <div class="form-group">
                               <label class="control-label col-sm-5">Total Balance:</label>
                               <div class="col-sm-7">
-                                  <input type="text" class="form-control" numeric numericType="decimal"  (focusout)="CollectionCal()" name="totalBal" [(ngModel)]="collection.TotalBal">
+                                  <input type="text" class="form-control" numeric numericType="number"   (focusout)="CollectionCal()" name="totalBal" [(ngModel)]="collection.TotalBal">
                               </div>
                           </div>
                       </div>
@@ -782,8 +798,10 @@
                             <label class="control-label col-sm-4">Followup Status :</label>
                             <div class="col-sm-6">
                                 <select class="form-control" name="followupStat" [(ngModel)]="followup.FollowupStatus">
-                                    <option value = "Running">Running</option>
+                                    <option value = "Current">Current</option>
                                     <option value="Recovery">Recovery</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="OD">OD</option>
                                     <option value="Error">Error</option>
                                     <option value="legal">Legal</option>
                                 </select>
@@ -864,9 +882,10 @@
                                     <label class="control-label col-sm-5">Status :</label>
                                     <div class="col-sm-6">
                                     <select class="form-control" name="loanIssueStatus" [(ngModel)]="loanStat.LoanClosed">
-                                        <option value=0>Running</option>
-                                        <option value=2>End</option>
-                                        <option value=1>Closed</option>
+                                        <option value="0">Running</option>
+                                        <option value="1">Closed</option>
+                                        <option value="2">End</option>
+                                        
                                     </select>
                                   </div>
                                 </div>
@@ -874,15 +893,15 @@
                               <label class="control-label col-sm-5">Loan Status :</label>
                               <div class="col-sm-6">
                                   <select class="form-control" name="loanStatus" [(ngModel)]="loanStat.LoanStatus" (change)="changeLoanStatus($event.target.value)">
-                                     <option *ngIf="loanStat.LoanClosed==0" value="Running">Running</option>
-                                      <option *ngIf="loanStat.LoanClosed==1" value="Consider">Consider</option>
-                                      <option *ngIf="loanStat.LoanClosed==0" value="Pending">Pending</option>
-                                      <option *ngIf="loanStat.LoanClosed==0" value="Error">Error</option>
-                                      <option *ngIf="loanStat.LoanClosed==0" value="Recovery">Recovery</option>
-                                      <option *ngIf="loanStat.LoanClosed==0"  value="OD">OD</option>
-                                      <option *ngIf="loanStat.LoanClosed==0" value="Legal">Legal</option>
-                                      <option *ngIf="loanStat.LoanClosed==1" value="Checklist">Checklist</option>
-                                      <option *ngIf="loanStat.LoanClosed==1" value="Blacklist">Blacklist</option>
+                                     <option *ngIf="loanStat.LoanClosed=='0'" value="Current">Current</option>
+                                      <option *ngIf="loanStat.LoanClosed=='1'" value="Consider">Consider</option>
+                                      <option *ngIf="loanStat.LoanClosed=='0'" value="Pending">Pending</option>
+                                      <option *ngIf="loanStat.LoanClosed=='0'" value="Error">Error</option>
+                                      <option *ngIf="loanStat.LoanClosed=='0'" value="Recovery">Recovery</option>
+                                      <option *ngIf="loanStat.LoanClosed=='0'"  value="OD">OD</option>
+                                      <option *ngIf="loanStat.LoanClosed=='0'" value="Legal">Legal</option>
+                                      <option *ngIf="loanStat.LoanClosed=='1'" value="Checklist">Checklist</option>
+                                      <option *ngIf="loanStat.LoanClosed=='1'" value="Blacklist">Blacklist</option>
                                       </select>
                               </div>
                           </div>
@@ -920,7 +939,7 @@
                                     </div>
                                 </div>
                               <div class="form-group" id="consider" style="display: none;">
-                                      <label class="control-label col-sm-5">If Loan Status=Consider</label>							
+                                      <label class="control-label col-sm-5">Spl.Status</label>							
                                       <div class="col-sm-6">
                                           <select class="form-control" name="consider" [(ngModel)]="loanStat.LoanSubStatus">
                                               <option>Platinum</option>

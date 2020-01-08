@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AppService} from '../app.service'
 import { ActivatedRoute, Router} from '@angular/router';
 import {Dashboard} from '../dashboard-page/Dashboard';
-import { PendingDashboard } from './pendingdashbrd';
+import { PendingDashboard } from '../dashboard-page/pendingdashbrd';
 
 @Component({
   selector: 'app-dashboardsecond-page',
@@ -23,6 +23,7 @@ export class DashboardsecondPageComponent implements OnInit {
 
   ngOnInit() {
     this.getDetails();
+    console.log(new Date())
   }
   getDetails()
   {

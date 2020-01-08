@@ -26,7 +26,8 @@ export class AppComponent implements OnInit{
   loanReqPage:boolean=false;
   loanReqViewPage:boolean=false;
   loanissuePage:boolean=false;
-  masterData:boolean=true;
+  masterData:boolean=false;
+  Reports:boolean=false
   error=''
   ngOnInit() {
 
@@ -43,14 +44,18 @@ export class AppComponent implements OnInit{
 	  }
      this._appService.validateUserLogin(userName,password).subscribe(res=>{
        this.userID=res;
+       this._appService.changeUserName(userName);
        if(this.userID>0)
        {
          this._appService.getUserRoles(this.userID).subscribe(res=>{
-           this.roles=res
+           this.roles=res;
+           console.log(this.roles)
            if(this.roles.indexOf(Role.LoanRequest)>0)
            this.loanReqPage=true;
            if(this.roles.indexOf(Role.MasterDetails)>0)
            this.masterData=true;
+           if(this.roles.indexOf(Role.Reports)>0)
+           this.Reports=true;
            if(this.roles.indexOf(Role.LoanRequestView)>0)
            this.loanReqViewPage=true;
            if(this.roles.indexOf(Role.LoanIssue)>0)

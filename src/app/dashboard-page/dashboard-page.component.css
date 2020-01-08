@@ -1,0 +1,13 @@
+.divSpace
+{
+    margin-top:20px !important;
+}
+.pad
+{
+    padding:20px !important;
+}
+@media (min-width: 768px){
+.modal-dialog {
+    width:80% !important;
+}
+}

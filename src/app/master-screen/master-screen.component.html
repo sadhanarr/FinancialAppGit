@@ -393,7 +393,8 @@
                      <option >Collection</option>
                      <option >Verification</option>                         
                     <option >Android Collection</option>
-                    <option >Android Verification</option>                         
+                    <option >Android Verification</option> 
+                    <option> Reports</option>                        
                     </select>
                     <div *ngIf="urfid.errors?.required && formSubmit && masterScreen=='urole'" [ngClass] = "'error'"> 
                         Function required. 
@@ -907,6 +908,7 @@
         <option [selected]="role.TalukName=='Verification'">Verification</option>                         
         <option [selected]="role.TalukName=='Android Collection'">Android Collection</option>
         <option [selected]="role.TalukName=='Android Verification'" >Android Verification</option>
+        <option [selected]="role.TalukName=='Reports'" >Reports</option>
         </select>
       </td>
     <td>

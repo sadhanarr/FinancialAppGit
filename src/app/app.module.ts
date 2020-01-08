@@ -17,6 +17,16 @@ import { PagerService } from './pager.service';
 import {NumericDirective} from './number.directive';
 import { DashboardsecondPageComponent } from './dashboardsecond-page/dashboardsecond-page.component';
 import { CustomerVerificationComponent } from './customer-verification/customer-verification.component';
+import { ReportsComponent } from './reports/reports.component';
+import { RequestRegisterComponent } from './reports/request-register/request-register.component';
+import { ExcelExportService } from './reports/Excel.service';
+import { IssueRegisterComponent } from './reports/issue-register/issue-register.component';
+import { CollectionRegisterComponent } from './reports/collection-register/collection-register.component';
+import { BalanceRegisterComponent } from './reports/balance-register/balance-register.component';
+import { EndReportComponent } from './reports/end-report/end-report.component';
+import { FollowupReportComponent } from './reports/followup-report/followup-report.component';
+import { ClosedReportComponent } from './reports/closed-report/closed-report.component';
+import { DueListComponent } from './reports/due-list/due-list.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +40,16 @@ import { CustomerVerificationComponent } from './customer-verification/customer-
     MasterScreenComponent,
     NumericDirective,
     DashboardsecondPageComponent,
-    CustomerVerificationComponent
+    CustomerVerificationComponent,
+    ReportsComponent,
+    RequestRegisterComponent,
+    IssueRegisterComponent,
+    CollectionRegisterComponent,
+    BalanceRegisterComponent,
+    EndReportComponent,
+    FollowupReportComponent,
+    ClosedReportComponent,
+    DueListComponent
   ],
   imports: [
     HttpClientModule,
@@ -50,9 +69,10 @@ import { CustomerVerificationComponent } from './customer-verification/customer-
       {path:'DashboardSecond',component:DashboardsecondPageComponent},
       {path:'App',component:AppComponent},
       {path:'Verification',component:CustomerVerificationComponent},
+      {path:'Reports',component:ReportsComponent},
     ])
   ],
-  providers: [AppService,PagerService],
+  providers: [AppService,PagerService,ExcelExportService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

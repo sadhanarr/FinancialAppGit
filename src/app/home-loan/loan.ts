@@ -98,7 +98,8 @@ export class Loan{
         public  RepaymentGrade:  string,
         public  CustomerAttitude:  string,
         public  NOCRemarks:  string,
-        public RequestID:Number
+        public RequestID:Number,
+        public PhotoLoc:string
     )
     {
 

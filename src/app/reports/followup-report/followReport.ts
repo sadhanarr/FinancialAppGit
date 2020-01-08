@@ -1,0 +1,20 @@
+export interface IFollow
+{
+    SNO:Number
+    CustomerID:Number
+    LoanNo:Number
+    LineName:string
+     AreaName:string
+     CustomerName:string
+    Initial:string
+   LoanDate:string
+     LoanCategory:string
+     AgentName:string
+     FollowupDate:string
+     CommitmentDate:string
+     AttendedBy:string
+     Remarks:string
+     Status:string
+     Received:Number
+     DueBalance:Number
+}

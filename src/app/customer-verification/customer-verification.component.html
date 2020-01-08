@@ -129,8 +129,8 @@
                     <button type="button" id="loanbtn" class="close"  data-dismiss="modal">&times;</button>
                          <ul class="nav nav-tabs ">
                     <li class="active" >
-                        <a  data-toggle="tab" href="#Loan">Loan Details</a></li>
-                      <li> <a  data-toggle="tab" href="#Request">Request Details</a></li>
+                        <a  data-toggle="tab" href="#Loan">Loan Details -{{tabName}}</a></li>
+                      <li> <a  data-toggle="tab" href="#Request">Request Details -{{tabName}}</a></li>
                          </ul>
                          <div class="tab-content" >
                                 <div id="Loan" class="tab-pane fade active in" > 
@@ -138,12 +138,9 @@
                                                 <table class="table table-bordered table-striped table-hover">
                                                 <thead>
                                                 <tr >
-                                                <th class="col-md-1">SNO</th>
-                                                 <th class="col-md-1">Branch</th>
-                                                 <th class="col-md-1">Line</th>
-                                                 <th class="col-md-1">Area</th>
-                                                 <th class="col-md-1">Loan Category</th>
-                                                 <th class="col-md-1">Showroom Agent</th>
+                                                <th class="col-md-1">SNO</th>                                      
+                                                 <th class="col-md-2">Loan Category</th>
+                                                 <th class="col-md-2">Showroom Agent</th>
                                                  <th class="col-md-1">CustomerID</th>
                                                  <th class="col-md-1">Customer Name</th>
                                                 <th class="col-md-1">LoanNo</th>
@@ -156,29 +153,15 @@
                                                 <tbody>
                                                 <tr *ngFor="let l of Loan"  >
                                                 <td class="col-md-1">{{l.CompanyID}}</td>
-                                                <td class="col-md-1">
-                                                    <select class="form-control"  name="BranchID">
-                                                        <option *ngFor="let drop of AllBranch" value="{{drop.BranchID}}" [selected]="drop.BranchID==l.BranchID">{{drop.BranchName}}</option>                           
-                                                        </select>
-                                                </td>
-                                                <td class="col-md-1">
-                                                    <select class="form-control"  name="LineID">
-                                                        <option *ngFor="let drop of AllLine" value="{{drop.TalukID}}" [selected]="drop.TalukID==l.TalukID">{{drop.TalukName}}</option>                           
-                                                        </select>
-                                                </td>
-                                                <td class="col-md-1">
-                                                    <select class="form-control"  name="AreaID">
-                                                        <option *ngFor="let drop of AllArea" value="{{drop.AreaID}}" [selected]="drop.AreaID==l.AreaID">{{drop.AreaName}}</option>                           
-                                                        </select>
-                                                </td>
-                                                <td class="col-md-1">
+                                                
+                                                <td class="col-md-2">
                                                         <select class="form-control" >
                                                                 <option *ngFor="let sa of LoanCategory"  value="{{sa.dropdownKey}}" [selected]="l.LoanCatID==sa.dropdownKey">
                                                                     {{sa.dropdownName}}
                                                                 </option>
                                                             </select>
                                                     </td>
-                                                    <td class="col-md-1">
+                                                    <td class="col-md-2">
                                                             <select class="form-control" >
                                                                     <option *ngFor="let drop of AllSagent"  value="{{drop.AgentID}}" [selected]="l.Agentshowroomid==drop.AgentID">
                                                                         {{drop.AgentName}}

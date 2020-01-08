@@ -7,6 +7,6 @@ export class LoanStatus{
         public NocRemarks:string,
         public Repayment:string,
         public Attitude:string,
-        public LoanClosed:number
+        public LoanClosed:string
     )
 {}}

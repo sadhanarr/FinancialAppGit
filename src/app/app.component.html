@@ -1,19 +1,20 @@
 <div class='container-fluid' *ngIf="!loginPage">
     <div class="row">
       <nav class="navbar navbar-fixed-top navbar-inverse">
-          <div class="container">
+          <div class="container-fluid">
           <div class="navbar-header">
               <img class="pull-left logo" src="assets/Logo.jpg" style="height:100%;">
             <a class="navbar-brand">Marudham Capitals</a>
           </div>
           <ul class="nav navbar-nav" routerLinkActive="active">
-              <li class="nav-item"><a class="nav-link" routerLink="/DashboardPage" routerLinkActive='DashboardPage'>Dashboard (Summary)</a></li>
-              <li class="nav-item"><a class="nav-link" routerLink="/DashboardSecond">Dashboard (Pending)</a></li>
+              <li class="nav-item"><a class="nav-link" routerLink="/DashboardPage" routerLinkActive='DashboardPage'>Dashboard</a></li>
+              <!-- <li class="nav-item"><a class="nav-link" routerLink="/DashboardSecond">Dashboard (Pending)</a></li> -->
               <li class="nav-item"><a class="nav-link" (click)="resetRequest()" routerLink="/LoanRequest" *ngIf="loanReqPage">Loan Request</a></li>
             <li class="nav-item"><a class="nav-link" routerLink="/LoanReqSearch" *ngIf="loanReqViewPage">Loan Request View</a></li>
             <li class="nav-item"><a class="nav-link" routerLink="/Verification" *ngIf="loanReqViewPage">Verification</a></li>
             <li class="nav-item"><a class="nav-link" routerLink="/LoanIssue" *ngIf="loanissuePage">Loan Issue/Collection</a></li>
             <li class="nav-item"><a class="nav-link" routerLink="/MasterData" *ngIf="masterData">Master Details</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="/Reports" *ngIf="Reports">Reports</a></li>
             <li class="nav-item"><a class="nav-link pull-right" (click)="logout()">Logout</a></li>
           </ul>
         </div>

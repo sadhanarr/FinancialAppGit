@@ -1,0 +1,38 @@
+<div class="container-fluid">
+    <div class='panel panel-primary'>
+      <div class='panel-heading'>
+         <h4>Report Screen</h4>
+      </div>
+      <div class='panel-body' id="panel">
+              <div class="row">
+                  <div class=" form-horizontal col-md-12">
+                        <div class="form-group">
+                                <label class="control-label col-sm-3">Select Report Type :</label>
+                                <div class="col-sm-3">
+                                    <select class="form-control" id="report" name="reportType" [(ngModel)]="ReportType"  >
+                                        <option disabled selected>-- select value --</option>
+                                        <option value="request">Request Register</option>
+                                        <option value="issue">Issue Register</option>
+                                        <option value="collection">Collection Register</option>
+                                        <option value="balance">Balance Register</option>
+                                        <option value="end">End Report</option>
+                                        <option value="closed">Closed Report</option>
+                                        <option value="followup">FollowUp Report</option>
+                                        <option value="duelist">DueList Collection</option>
+                                       
+                                        </select>
+                         </div>
+                          </div>
+                  </div>
+                 <app-request-register *ngIf="ReportType=='request'"></app-request-register>
+                 <app-issue-register *ngIf="ReportType=='issue'"></app-issue-register>
+                 <app-collection-register *ngIf="ReportType=='collection'"></app-collection-register>
+                 <app-balance-register *ngIf="ReportType=='balance'"></app-balance-register>
+                 <app-end-report *ngIf="ReportType=='end'"></app-end-report>
+                 <app-closed-report *ngIf="ReportType=='closed'"></app-closed-report>
+                 <app-followup-report *ngIf="ReportType=='followup'"></app-followup-report>
+                 <app-due-list *ngIf="ReportType=='duelist'"></app-due-list>
+                  </div>
+                  </div>
+    </div>
+</div>

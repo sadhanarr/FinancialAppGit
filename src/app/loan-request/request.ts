@@ -2,7 +2,7 @@ export class Request
 {
     constructor(
     public RequestID:Number , 
-	public RequestDate :Date,
+	public RequestDate :string,
 	public  CompanyID :Number ,
 	public  BranchID :Number ,
 	public  LineID  :Number,
@@ -46,7 +46,8 @@ export class Request
 	public  ReqStatus : string,
 	public      User : string,
 	public PhotoLoc:string,
-	public Remarks:string
+	public Remarks:string,
+	public MachineID:Number
     )
     {
 

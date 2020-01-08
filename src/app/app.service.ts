@@ -23,16 +23,25 @@ import {Loan} from './home-loan/loan'
 import { IProof} from './home-loan/Proof'
 import {Collection} from './home-loan/collection'
 import { Followup } from './home-loan/Followup';
+import {IClosed} from './reports/closed-report/Closed'
+import {IEnd} from './reports/end-report/End'
+import {IFollow} from './reports/followup-report/followReport'
 import {DueDate} from './home-loan/duedate'
 import { Dashboard } from './dashboard-page/Dashboard';
 import { LoanStatus } from './home-loan/LoanStatus';
-import { PendingDashboard } from './dashboardsecond-page/pendingdashbrd';
+import { PendingDashboard } from './dashboard-page/pendingdashbrd';
+import {IRRequest} from './reports/request-register/ReqReport'
+import {IIRequest} from './reports/issue-register/IssueReport'
+import {ICollectionRep} from './reports/collection-register/CollectionReport'
+import {IBalance} from './reports/balance-register/BalReport'
+import {IDueList} from './reports/due-list/DueList'
+import * as moment from 'moment';
 
 @Injectable()
 export class AppService
 {
-    // private _baseUrl= location.origin+'/FinanceAPI/api/Value/';
-    private _baseUrl= 'https://103.110.236.177/FinanceAPI/api/Value/';
+    //private _baseUrl= location.origin+'/FinanceAPI/api/Value/';
+    private _baseUrl= 'http://103.110.236.177/FinanceAPI/api/Value/';
     private _validateLoginURL=this._baseUrl+"ValidateUserLogin";
     private _getUserRolesUrl=this._baseUrl+"GetUserRoles";
     private _getCompanyURL = this._baseUrl+"getCompany";
@@ -109,14 +118,57 @@ export class AppService
     private _getLoanReqSearchURL = this._baseUrl+"getLoanReqSearch";
     private _getLoanIssueReqSearchUrl = this._baseUrl+"getIssueLoanRequestSearch";
     private _deleteFIleLocURL = this._baseUrl+"DeleteFileLoc";
+    private _getRequestReportURL = this._baseUrl+"getRequestReport";
+    private _getIssueReportURL = this._baseUrl+"getIssueReport";
+    private _getCollectionReportURL = this._baseUrl+"getCollectionReport";
+    private _getBalanceReportURL = this._baseUrl+"getBalanceReport";
+    private _getEndReportURL = this._baseUrl+"getEndReport";
+    private _getClosedeReportURL = this._baseUrl+"getClosedReport";
+    private _getFollowupReportURL = this._baseUrl+"getFollowupReport";
+    private _getDueListURL = this._baseUrl+"getDueList";
 
     private RequestID = new BehaviorSubject<Number>(0);
     currentReqID = this.RequestID.asObservable();
     private CustomerID = new BehaviorSubject<Number>(0);
     currentCustID = this.CustomerID.asObservable();
+    private ReqStatus = new BehaviorSubject<string>('');
+    Status = this.ReqStatus.asObservable();
+    private userName = new BehaviorSubject<string>('');
+    UserName = this.userName.asObservable();
     constructor(private _http: HttpClient) { }
+    private CustSearch= new BehaviorSubject<CustSearch>({Status:'',CustName:'',OtherName:'',Address:'',CustID:'',IDProof:'',ContactList:'',Line:'',Area:'',KeywordSearch:''})
+    custSearch= this.CustSearch.asObservable();
+    private verfSearch= new BehaviorSubject<CustSearch>({Status:'',CustName:'',OtherName:'',Address:'',CustID:'',IDProof:'',ContactList:'',Line:'',Area:'',KeywordSearch:''})
+    VerfSearch= this.verfSearch.asObservable();
+   private requestSearch= new BehaviorSubject<LoanSearch>({    Status  :'',FromDate:'',ToDate:'',RequestID:'',CustName  :'', OtherName  :'', 
+    Address   :'', CustID   :'', IDProof   :'', ContactList  :'',  Line   :'', Area  :'', AgentName:'', LoanCategory:'', KeywordSearch:''
+})
+ReqSearch= this.requestSearch.asObservable();
+private loanissueSearch= new BehaviorSubject<LoanSearch>({    Status  :'Approved',FromDate:'',ToDate:'',RequestID:'',CustName  :'', OtherName  :'', 
+Address   :'', CustID   :'', IDProof   :'', ContactList  :'',  Line   :'', Area  :'', AgentName:'', LoanCategory:'', KeywordSearch:''
+})
+LoanIssueSearch= this.loanissueSearch.asObservable();
 
-
+    changeStatus(Status:string) {
+      this.ReqStatus.next(Status);
+    }
+    changeCustSearch(Status:CustSearch) {
+      this.CustSearch.next(Status);
+    }
+    changeReqSearch(search:LoanSearch)
+    {
+      this.requestSearch.next(search)
+    }
+    changeLoanIssueSearch(search:LoanSearch)
+    {
+      this.loanissueSearch.next(search)
+    }
+    changeVerificationSearch(Status:CustSearch) {
+      this.verfSearch.next(Status);
+    }
+    changeUserName(user:string) {
+      this.userName.next(user);
+    }
     changeReqID(currentReqID:Number) {
       this.RequestID.next(currentReqID);
     }
@@ -144,7 +196,46 @@ export class AppService
     }
     getDashboardDetails(StartDate,EndDate):Observable<Dashboard[]>
     {
+      console.log(StartDate)
       return this._http.get<Dashboard[]>(this._getDashboardDetailsURL+"/"+StartDate+"/"+EndDate)
+    }
+    getRequestReport(StartDate,EndDate):Observable<IRRequest[]>
+    {
+      console.log(this._getRequestReportURL+'/'+StartDate+'/'+EndDate)
+      return this._http.get<IRRequest[]>(this._getRequestReportURL+'/'+StartDate+'/'+EndDate)
+    }
+    getIssueReport(StartDate,EndDate):Observable<IIRequest[]>
+    {
+      console.log(this._getRequestReportURL+'/'+StartDate+'/'+EndDate)
+      return this._http.get<IIRequest[]>(this._getIssueReportURL+'/'+StartDate+'/'+EndDate)
+    }
+    getEndReport(StartDate,EndDate,Line,Agent):Observable<IEnd[]>
+    {
+
+      return this._http.get<IEnd[]>(this._getEndReportURL+'/'+StartDate+'/'+EndDate+'/'+Line+'/'+Agent)
+    }
+    getClosedReport(StartDate,EndDate,Line,Agent):Observable<IClosed[]>
+    {
+
+      return this._http.get<IClosed[]>(this._getClosedeReportURL+'/'+StartDate+'/'+EndDate+'/'+Line+'/'+Agent)
+    }
+    getFollowupReport(StartDate,EndDate,Line,Agent):Observable<IFollow[]>
+    {
+      return this._http.get<IFollow[]>(this._getFollowupReportURL+'/'+StartDate+'/'+EndDate+'/'+Line+'/'+Agent)
+    }
+    getDueList(StartDate,Line,Agent):Observable<IDueList[]>
+    {
+      return this._http.get<IDueList[]>(this._getDueListURL+'/'+StartDate+'/'+Line+'/'+Agent)
+    }
+    getCollectionReport(StartDate,EndDate,Line,Agent,MachineID):Observable<ICollectionRep[]>
+    {
+      console.log(this._getCollectionReportURL+'/'+StartDate+'/'+EndDate+'/'+Line+'/'+Agent+'/'+MachineID)
+      return this._http.get<ICollectionRep[]>(this._getCollectionReportURL+'/'+StartDate+'/'+EndDate+'/'+Line+'/'+Agent+'/'+MachineID)
+    }
+    getBalanceReport(StartDate,Line,Agent):Observable<IBalance[]>
+    {
+   
+      return this._http.get<IBalance[]>(this._getBalanceReportURL+'/'+StartDate+'/'+Line+'/'+Agent)
     }
     getSecondDashboardDetails():Observable<Dashboard[]>
     {
@@ -156,7 +247,7 @@ export class AppService
     }
     getSummaryDashboardValues(type,startDate,endDate):Observable<PendingDashboard[]>
     {
-      return this._http.get<PendingDashboard[]>(this._getPendingDashboardValuesUrl+"/"+type+"/"+startDate+"/"+endDate)
+      return this._http.get<PendingDashboard[]>(this._getSummaryDashboardValuesUrl+"/"+type+"/"+startDate+"/"+endDate)
     }
     getCollectionValue(ID,LoanID,EntryDate):Observable<Collection>
     {
