@@ -16,6 +16,7 @@ import { Followup } from './Followup';
 import {LoanStatus} from './LoanStatus';
 import {DueDate} from './duedate'
 import {GlobalPermissionsService} from '../global.service'
+import {LocalStorageService} from 'ngx-webstorage';
 import * as moment from 'moment';
 
 @Component({
@@ -26,7 +27,7 @@ import * as moment from 'moment';
 export class HomeLoanComponent implements OnInit {
 
   constructor(private _appService:AppService,private _route: ActivatedRoute,
-    private _router: Router,private globalPermission : GlobalPermissionsService ) {
+    private _router: Router,private globalPermission : GlobalPermissionsService,private storage:LocalStorageService ) {
       this.collectionPermission = this.globalPermission.getCollectionPermission();
      }
     collectionPermission:boolean;
@@ -50,7 +51,7 @@ isscheme:boolean=false;
 CustID:Number
 imagePreview:any
 //loandetail:Loan=new Loan(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,new Date(),'',	0,	'',	'',	'',	'',	false,	false,	'',	false,	false,	false,	false,	'',	0,	'',	0,	'',	new Date(),	0,	0,	0,	'',	'',	0,	0,	'',	0,	'',	0,	0,	'',	0,	0,	0,	new Date(),	new Date(),	0,	0,	0,	new Date(),	0,	0,	false,	'',	'',	'',	'',	'',	'');	
-loandetail:Loan= new Loan(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,moment().toDate(),'',	0,	'',	'',	'',	'',	false,	false,	'',	false,	false,	false,	false,	'',	0,	'',	0,	'',	new Date(),	0,	0,	0,	'',	'',	0,	0,	'',	0,	'',	0,	0,	'',	0,	0,	0,	new Date(),	new Date(),	0,	0,	0,	new Date(),	0,	0,	false,	'',	'',	'',	'',	'',	'',0,'');	
+loandetail:Loan= new Loan(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','',0,0,0,moment().toDate(),'',	0,	'',	'',	'',	'',	false,	false,	'',	false,	false,	false,	false,	'',	0,	'',	0,	'',	new Date(),	0,	0,	0,	'',	'',	0,	0,	'',	0,	'',	0,	0,	'',	0,	0,	0,	new Date(),	new Date(),	0,	0,	0,	new Date(),	0,	0,	false,	'',	'',	'',	'',	'',	'',0,'',null,null,'');	
 RequestID:Number
 formSubmit:boolean=false;
  roundoff5:boolean=false;
@@ -155,6 +156,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
   AddFollowup(form)
   {
     this.followup.LoanID=this.LoanID
+    this.followup.CreatedBy=this.storage.retrieve('User')
     console.log(this.followup)
     this._appService.InsertLoanFollowupDetail(this.followup).subscribe(res=>{console.log(res);
     this._appService.getFollowup(this.LoanID).subscribe(res=>{this.FollowupDetails=res});
@@ -163,7 +165,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
       console.log(res);
       this.loanStat=res;
       this.changeLoanStatus(this.loanStat.LoanStatus);});
-    
+      this.followup= new Followup(0,0,0,new Date(),new Date(),'','','Current','',null)
   
     form.resetForm(form);})
   }
@@ -174,7 +176,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
   }
   AddEntry(form)
   {
-
+   this.collection.CreatedBy=this.storage.retrieve('User')
     if(new Date(this.collection.Date)>new Date())
     {
     this.formSubmit=true; 
@@ -266,7 +268,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
   
   SaveLoan()
   {
-    
+    this.loandetail.UserNme=this.storage.retrieve('User')
     var CustID= this.loandetail.CustomerID
     var length=0
     var time= moment().format('HH:mm:ss')
@@ -325,7 +327,8 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
 
   getLoanDetail(LoanID: Number,form)
   {
-     
+    this.followup= new Followup(0,0,0,new Date(),new Date(),'','','Current','',null)
+  
   $('#modal-content').height(window.innerHeight-60).css({'overflow-y':'auto'})
     console.log(this.loandetail)
     //this._appService.UpdateCustomer(this.loandetail).subscribe(res=>{console.log(res);
@@ -360,7 +363,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
         this.DueType=this.loandetail.DueType
        this.DueType='Interest'? this.loandetail.IntType='Daily': this.loandetail.IntType=''
         this.loandetail.LoanDate= new Date()
-        
+        this.FollowupDetails["FollowupDate"]= new Date();
      this.OnChange();
      this.OnDateChange();
       })
@@ -653,6 +656,22 @@ this.EmiDisable();
     var incentive=0;
     var scheme=0;
     var DocCharge=0;
+    if(this.loandetail.LoanCatID == 1 || this.loandetail.LoanCatID == 2 || this.loandetail.LoanCatID == 3)
+    {
+      $('#ProdAdvAmt').removeAttr("disabled");
+      $('#ProdTotAmt').removeAttr("disabled");
+      $('#loanamt').attr("disabled","disabled");
+      if(this.loandetail.ProdTotAmt != null && this.loandetail.ProdTotAmt>0  && this.loandetail.ProdAdvAmt != null)
+    {
+      this.loandetail.LoanAmt= parseInt(this.loandetail.ProdTotAmt.toString())-parseInt(this.loandetail.ProdAdvAmt.toString())
+    }
+    }
+    else{
+      $('#ProdAdvAmt').attr("disabled","disabled");
+      $('#ProdTotAmt').attr("disabled","disabled");
+      $('#loanamt').removeAttr("disabled");
+    }
+    
     if(this.loandetail["DueType"]=="EMI"){
    // this.loandetail["TotLoanAmt"]= this.loandetail["DocCharge"] != null? parseInt(this.loandetail["DocCharge"].toString())+parseInt(this.loandetail["LoanAmt"].toString()):parseInt(this.loandetail["LoanAmt"].toString());
     this.loandetail["InterestAmt"]= Math.round( (parseInt(this.loandetail["TotLoanAmt"].toString())* parseInt(this.loandetail["Instalments"].toString())* parseFloat(this.loandetail["IntRate"].toString()) )/100)

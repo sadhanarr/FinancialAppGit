@@ -27,6 +27,7 @@ import { EndReportComponent } from './reports/end-report/end-report.component';
 import { FollowupReportComponent } from './reports/followup-report/followup-report.component';
 import { ClosedReportComponent } from './reports/closed-report/closed-report.component';
 import { DueListComponent } from './reports/due-list/due-list.component';
+import {NgxWebstorageModule} from 'ngx-webstorage';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { DueListComponent } from './reports/due-list/due-list.component';
     FormsModule,
     DatePickerModule,
     BrowserModule,
+    NgxWebstorageModule.forRoot(),
     RouterModule.forRoot([
       { path: '', redirectTo: 'App', pathMatch: 'full'},
       { path: '**', redirectTo: 'Welcome', pathMatch: 'full'},

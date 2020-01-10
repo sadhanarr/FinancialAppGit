@@ -5,7 +5,7 @@ import { Role } from './role';
 import { from } from 'rxjs';
 import { ILogin } from './login';
 import {GlobalPermissionsService} from './global.service'
-
+import {LocalStorageService} from 'ngx-webstorage';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,7 @@ import {GlobalPermissionsService} from './global.service'
 })
 export class AppComponent implements OnInit{
   constructor(private _appService:AppService,private _route: ActivatedRoute,
-    private _router: Router,private globalPermission : GlobalPermissionsService) { 
+    private _router: Router,private globalPermission : GlobalPermissionsService,private storage:LocalStorageService) { 
       this.globalPermission.setCollectionPermission(false);
     }
   title = 'FinanceApp';
@@ -43,6 +43,7 @@ export class AppComponent implements OnInit{
 		  this.formSubmit=true;
 	  }
      this._appService.validateUserLogin(userName,password).subscribe(res=>{
+       this.storage.store('User',userName);
        this.userID=res;
        this._appService.changeUserName(userName);
        if(this.userID>0)
@@ -80,6 +81,7 @@ export class AppComponent implements OnInit{
       this.loginPage=true;
       this.login.username="";
       this.login.password="";
+      this.storage.clear('User')
       this._router.navigate(['/App']);
   }
 

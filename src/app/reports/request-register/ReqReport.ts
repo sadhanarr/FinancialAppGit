@@ -13,4 +13,5 @@ export interface IRRequest
     LoanAmt:Number
    CreatedBy:string
    Status:string
+   MachineID:Number
 }

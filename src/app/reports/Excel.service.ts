@@ -23,6 +23,7 @@ export class ExcelExportService {
             {header:'LOAN CATEGORY',width:30, key: 'LoanCategory',style :{border:{ top: {style:'thin'},left: {style:'thin'},bottom: {style:'thin'}, right: {style:'thin'}}} },
             {header:'SHOWROOM_AGENT',width:30, key: 'AgentName' ,style :{border:{ top: {style:'thin'},left: {style:'thin'},bottom: {style:'thin'}, right: {style:'thin'}}}},
             {header:'LOAN AMOUNT',width:25, key: 'LoanAmt',style :{border:{ top: {style:'thin'},left: {style:'thin'},bottom: {style:'thin'}, right: {style:'thin'}}} },
+            {header:'MACHINE ID',width:25, key: 'MachineID',style :{border:{ top: {style:'thin'},left: {style:'thin'},bottom: {style:'thin'}, right: {style:'thin'}}}}, 
             {header:'CREATED BY',width:25, key: 'CreatedBy',style :{border:{ top: {style:'thin'},left: {style:'thin'},bottom: {style:'thin'}, right: {style:'thin'}}}},
             {header:'STATUS',width:25, key: 'Status',style :{border:{ top: {style:'thin'},left: {style:'thin'},bottom: {style:'thin'}, right: {style:'thin'}}}}, 
             

@@ -99,7 +99,10 @@ export class Loan{
         public  CustomerAttitude:  string,
         public  NOCRemarks:  string,
         public RequestID:Number,
-        public PhotoLoc:string
+        public PhotoLoc:string,
+        public ProdTotAmt:Number,
+        public ProdAdvAmt:Number,
+        public UserNme:string
     )
     {
 
