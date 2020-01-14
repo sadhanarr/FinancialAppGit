@@ -12,6 +12,7 @@ import {Agent} from '../master-screen/agent'
 import {Request} from './request'
 import {ROI} from './ROI'
 import * as moment from 'moment';
+import {LocalStorageService} from 'ngx-webstorage';
 import { ActivatedRoute, Router} from '@angular/router';
 import { Form ,NgForm,Validators} from '@angular/forms';
 
@@ -50,7 +51,7 @@ export class LoanRequestComponent implements OnInit {
   request:Request= new Request(null,moment().format('DD/MM/YYYY'),0,0,0,0,0,0,0,null,'','','','','','','','','','','','','','','','',0,0,'','',null,null
   ,null,null,null,null,null,null,null,null,'','','','','','',0)
   constructor(private _appService:AppService,private _route: ActivatedRoute,
-    private _router: Router) {
+    private _router: Router,private storage:LocalStorageService) {
    }
 
   ngOnInit() {
@@ -225,6 +226,7 @@ reader.readAsDataURL(this.selectedFile);
   }
   SaveRequest(form)
   {
+    this.request.User= this.storage.retrieve('User').toString();
     var time= moment().format('HH:mm:ss')
   this.request.RequestDate=moment(this.request.RequestDate).format('YYYY-MM-DD')+ ' '+time
  
