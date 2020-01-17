@@ -15,7 +15,6 @@ import { Collection } from './collection';
 import { Followup } from './Followup';
 import {LoanStatus} from './LoanStatus';
 import {DueDate} from './duedate'
-import {GlobalPermissionsService} from '../global.service'
 import {LocalStorageService} from 'ngx-webstorage';
 import * as moment from 'moment';
 
@@ -27,8 +26,8 @@ import * as moment from 'moment';
 export class HomeLoanComponent implements OnInit {
 
   constructor(private _appService:AppService,private _route: ActivatedRoute,
-    private _router: Router,private globalPermission : GlobalPermissionsService,private storage:LocalStorageService ) {
-      this.collectionPermission = this.globalPermission.getCollectionPermission();
+    private _router: Router,private storage:LocalStorageService ) {
+      this.collectionPermission = this.storage.retrieve('Collection');
      }
     collectionPermission:boolean;
     AllSagent:Agent[]=[];

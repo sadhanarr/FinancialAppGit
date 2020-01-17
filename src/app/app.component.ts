@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Role } from './role';
 import { from } from 'rxjs';
 import { ILogin } from './login';
-import {GlobalPermissionsService} from './global.service'
 import {LocalStorageService} from 'ngx-webstorage';
 
 @Component({
@@ -14,10 +13,10 @@ import {LocalStorageService} from 'ngx-webstorage';
 })
 export class AppComponent implements OnInit{
   constructor(private _appService:AppService,private _route: ActivatedRoute,
-    private _router: Router,private globalPermission : GlobalPermissionsService,private storage:LocalStorageService) { 
-      this.globalPermission.setCollectionPermission(false);
+    private _router: Router,private storage:LocalStorageService) { 
     }
   title = 'FinanceApp';
+  encryptText: string; 
   login:ILogin={} as any
   userID : Number;
   roles:string[];
@@ -27,10 +26,23 @@ export class AppComponent implements OnInit{
   loanReqViewPage:boolean=false;
   loanissuePage:boolean=false;
   masterData:boolean=false;
-  Reports:boolean=false
+  Reports:boolean=false;
+  collection:boolean=false;
+  hashPswd:string='';
   error=''
   ngOnInit() {
-
+    
+    this._appService.currentUserID.subscribe(res=>this.userID=res);
+    
+    if(this.storage.retrieve('UserID')>0)
+    {
+    this.loginPage=false;
+    this.Reports=this.storage.retrieve('Reports');
+    this.loanReqPage=this.storage.retrieve('LoanRequest');
+    this.loanReqViewPage=this.storage.retrieve('LoanView');
+    this.loanissuePage=this.storage.retrieve('LoanIssue');
+    this.masterData=this.storage.retrieve('MasterData')
+    }
   } 
   resetRequest()
   {
@@ -41,11 +53,29 @@ export class AppComponent implements OnInit{
 	  if(form.invalid)
 	  {
 		  this.formSubmit=true;
-	  }
-     this._appService.validateUserLogin(userName,password).subscribe(res=>{
+    }
+    var bcrypt = require('bcryptjs');
+    var salt = bcrypt.genSaltSync(10);
+    var hash = bcrypt.hashSync(password, salt);
+
+    this._appService.getUserCredentials(userName).subscribe(res=>{
+      var cred = res;
+      this.hashPswd=cred[1];
+      if(this.hashPswd=='')
+      {
+        this.error="Invalid UserName";
+      }
+      else if(!bcrypt.compareSync(password, this.hashPswd))
+      {
+        this.error="Invalid Password";
+      }
+      else
+      {
        this.storage.store('User',userName);
-       this.userID=res;
+       this.userID= Number(cred[0]);
+       this.storage.store('UserID',this.userID);
        this._appService.changeUserName(userName);
+       this._appService.changeUserID(this.userID);
        if(this.userID>0)
        {
          this._appService.getUserRoles(this.userID).subscribe(res=>{
@@ -56,19 +86,23 @@ export class AppComponent implements OnInit{
            if(this.roles.indexOf(Role.MasterDetails)>0)
            this.masterData=true;
            if(this.roles.indexOf(Role.Reports)>0)
-           this.Reports=true;
+            this.Reports=true
            if(this.roles.indexOf(Role.LoanRequestView)>0)
            this.loanReqViewPage=true;
            if(this.roles.indexOf(Role.LoanIssue)>0)
            this.loanissuePage=true;
            if(this.roles.indexOf(Role.Collection)>0)
-           this.globalPermission.setCollectionPermission(true);
+           this.collection =(true);
+           this.storage.store('LoanRequest',this.loanReqPage);
+           this.storage.store('MasterData',this.masterData);
+           this.storage.store('LoanIssue',this.loanissuePage);
+           this.storage.store('LoanView',this.loanReqViewPage);
+           this.storage.store('Collection',this.collection);
+           this.storage.store('Reports',this.Reports);
           })
         this.loginPage =false;
         this._router.navigate(["/DashboardPage"])
        }
-       else
-       {this.error="Invalid UserName/Password"
       }
     })
     
@@ -77,11 +111,17 @@ export class AppComponent implements OnInit{
     logout() {
 
       this.error=''
-      this.globalPermission.setCollectionPermission(false);
       this.loginPage=true;
       this.login.username="";
       this.login.password="";
       this.storage.clear('User')
+      this.storage.clear('UserID')
+      this.storage.clear('Reports')
+      this.storage.clear('MasterData')
+      this.storage.clear('Collection')
+      this.storage.clear('LoanView')
+      this.storage.clear('LoanIssue')
+      this.storage.clear('LoanRequest')
       this._router.navigate(['/App']);
   }
 
