@@ -3,4 +3,9 @@
     width:50%;
     height:100%
     }
-   
+    .panel-heading {
+        position: sticky;
+        width: 100%;
+        z-index: 99999;
+        top: 0;
+    }
