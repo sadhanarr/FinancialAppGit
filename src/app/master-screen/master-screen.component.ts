@@ -284,6 +284,7 @@ Save(BranchID:Number,index:Number,form)
   }
   if(this.masterScreen =="user" )
   {
+    
     this.saveUser(BranchID,index);
    form!=''? form.resetForm(): this.user=new User(0,'','','','',0,'',0,'') ;
   }
@@ -353,13 +354,22 @@ Save(BranchID:Number,index:Number,form)
   }
   saveUser(BranchID,index)
   {
-    console.log(this.user)
+    
    this.user["UserID"]=BranchID;
+   var bcrypt = require('bcryptjs');
+    var salt = bcrypt.genSaltSync(10);
+    var hash = bcrypt.hashSync(this.user["Password"], salt);
+    this.user["Password"]=hash;
+    
    if(BranchID>0)
     {
-  this.user= {UserID: BranchID,UserName: $('#uuname'+index).text(),Password: $( "#upwd"+index ).text(),Name:$('#uname'+index).text(),Designation:$('#udesign'+index).text(),
+    var hash = bcrypt.hashSync($("#upwd"+index ).text(), salt);
+    
+        this.user= {UserID: BranchID,UserName: $('#uuname'+index).text(),Password: hash,Name:$('#uname'+index).text(),Designation:$('#udesign'+index).text(),
+
   CompanyID: Number( $( "#ucid"+index+" option:selected" ).val()),UserType: $('#uutype'+index+" option:selected").text(),AgentID:Number($( "#uaid"+index+" option:selected" ).val()),User:''}
    }
+   
    this._appService.InsertUser(this.user) 
   }
   saveState(BranchID,index)

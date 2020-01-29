@@ -40,10 +40,12 @@ import * as moment from 'moment';
 @Injectable()
 export class AppService
 {
-    //private _baseUrl= location.origin+'/FinanceAPI/api/Value/';
+    // private _baseUrl= location.origin+'/FinanceAPI/api/Value/';
     private _baseUrl= 'http://103.110.236.177/FinanceAPI/api/Value/';
+    private _getUserCredentials = this._baseUrl+"getUserCredentials";
     private _validateLoginURL=this._baseUrl+"ValidateUserLogin";
     private _getUserRolesUrl=this._baseUrl+"GetUserRoles";
+    private _getUserRolesByNameUrl = this._baseUrl+"GetUserRolesByName";
     private _getCompanyURL = this._baseUrl+"getCompany";
     private _insertBranchURL= this._baseUrl+"InsertBranch"
     private _getBranchURL =this._baseUrl+'GetBranch';
@@ -129,6 +131,9 @@ export class AppService
 
     private RequestID = new BehaviorSubject<Number>(0);
     currentReqID = this.RequestID.asObservable();
+    private UserID = new BehaviorSubject<Number>(0);
+    currentUserID = this.UserID.asObservable();
+
     private CustomerID = new BehaviorSubject<Number>(0);
     currentCustID = this.CustomerID.asObservable();
     private ReqStatus = new BehaviorSubject<string>('');
@@ -174,6 +179,10 @@ LoanIssueSearch= this.loanissueSearch.asObservable();
     }
     changeCUstID(currentCustID:Number) {
       this.CustomerID.next(currentCustID);
+    }
+    changeUserID(id:Number)
+    {
+      this.UserID.next(id);
     }
     getCompany():Observable<ICompany[]>
     {
@@ -267,9 +276,17 @@ LoanIssueSearch= this.loanissueSearch.asObservable();
     {
       return this._http.get<Number>(this._validateLoginURL+"/"+userName+"/"+password)
     }
+    getUserCredentials(userName:string):Observable<string[]>
+    {
+      return this._http.get<string[]>(this._getUserCredentials+"/"+userName);
+    }
     getUserRoles(userId:Number)
     {
       return this._http.get<string[]>(this._getUserRolesUrl+"/"+userId);
+    }
+    getUserRolesByName(name:string)
+    {
+      return this._http.get<string[]>(this._getUserRolesByNameUrl+"/"+name);
     }
     getAllUsers() {
       return this._http.get<User[]>(this._validateLoginURL);

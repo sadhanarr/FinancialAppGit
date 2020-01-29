@@ -19,3 +19,9 @@ select>option{
 {
     margin-left: 0px;
 }
+.panel-heading {
+    position: sticky;
+    width: 100%;
+    z-index: 99999;
+    top: 0;
+}

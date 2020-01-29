@@ -7,3 +7,9 @@
     {
         margin-top:20px !important
     }
+    .panel-heading {
+        position: sticky;
+        width: 100%;
+        z-index: 99999;
+        top: 0;
+    }
