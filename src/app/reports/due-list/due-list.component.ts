@@ -19,15 +19,26 @@ export class DueListComponent implements OnInit {
   public format: string = 'MMMM y'
   report:IDueList[]=[];
   fromDate:Date;
+  Line:string
+  Agent:string
   ngOnInit() {
   }
 
   Export()
   {
     let formatedDate =(this.fromDate != null && this.fromDate !=undefined)? new DatePipe("en-US").transform(this.fromDate,"yyyy-MM-dd"):'1900-01-01'
+    let line =(this.Line !=null && this.Line!= undefined && this.Line !='')? this.Line: 'All' 
+  let Agent =(this.Agent !=null && this.Agent!= undefined && this.Agent !='')? this.Agent: 'All' 
   
-  
-    this._appService.getDueList(formatedDate,'All','All').subscribe(res=>{ this.report=res; console.log(res);
+    this._appService.getDueList(formatedDate,line,Agent).subscribe(res=>{ this.report=res; console.log(res);
       this._excelService.exportAsExcelFile(this.report,"DueListReport.xlsx")})
   }
+  Clear()
+{
+ this.Line='';
+ this.Agent='';
+
+ this.fromDate=null;
+ 
+}
 }
