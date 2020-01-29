@@ -40,8 +40,8 @@ import * as moment from 'moment';
 @Injectable()
 export class AppService
 {
-    private _baseUrl= location.origin+'/FinanceAPI/api/Value/';
-    //private _baseUrl= 'http://103.110.236.177/FinanceAPI/api/Value/';
+    //private _baseUrl= location.origin+'/FinanceAPI/api/Value/';
+    private _baseUrl= 'http://103.110.236.177/FinanceAPI/api/Value/';
     private _validateLoginURL=this._baseUrl+"ValidateUserLogin";
     private _getUserRolesUrl=this._baseUrl+"GetUserRoles";
     private _getCompanyURL = this._baseUrl+"getCompany";
