@@ -90,7 +90,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let l of requestAll" data-toggle="modal" data-target="#myModal" (click)="getCustomerID(l.CustomerID)" >
+                <tr *ngFor="let l of pagedItems" data-toggle="modal" data-target="#myModal" (click)="getCustomerID(l.CustomerID)" >
                 <td class="col-md-1">{{l.CompanyID}}</td>
                 <td class="col-md-1">
                     <select class="form-control"  name="BranchID" disabled>
@@ -114,6 +114,25 @@
                 </tbody>
                 </table>
                 </div>
+         </div>
+         <div style="text-align: center" id="pager">
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+               <li [ngClass]="{disabled:pager.currentPage === 1}">
+                   <a (click)="setPage(1)">First</a>
+               </li>
+               <li [ngClass]="{disabled:pager.currentPage === 1}">
+                   <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+               </li>
+               <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                   <a (click)="setPage(page)">{{page}}</a>
+               </li>
+               <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                   <a (click)="setPage(pager.currentPage + 1)">Next</a>
+               </li>
+               <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                   <a (click)="setPage(pager.totalPages)">Last</a>
+               </li>
+           </ul>
          </div>
          </form>
          <div class="modal fade" id="myModal" role="dialog">
@@ -187,13 +206,11 @@
                                                 <thead>
                                                 <tr >
                                                 <th class="col-md-1">SNO</th>
-                                                 <th class="col-md-1">Branch</th>
-                                                 <th class="col-md-1">Line</th>
-                                                 <th class="col-md-1">Area</th>
-                                                 <th class="col-md-1">Loan Category</th>
-                                                 <th class="col-md-1">Showroom Agent</th>
+                                                 
+                                                 <th class="col-md-2">Loan Category</th>
+                                                 <th class="col-md-2">Showroom Agent</th>
                                                  <th class="col-md-1">CustomerID</th>
-                                                 <th class="col-md-1">Customer Name</th>
+                                                 <th class="col-md-2">Customer Name</th>
                                                 <th class="col-md-1">RequestID</th>
                                                 <th class="col-md-1">Request Date</th>
                                                  <th class="col-md-1">Loan Amount</th>
@@ -204,29 +221,15 @@
                                                 <tbody>
                                                 <tr *ngFor="let l of request" >
                                                 <td class="col-md-1">{{l.CompanyID}}</td>
-                                                <td class="col-md-1">
-                                                    <select class="form-control"  name="BranchID">
-                                                        <option *ngFor="let drop of AllBranch" value="{{drop.BranchID}}" [selected]="drop.BranchID==l.BranchID">{{drop.BranchName}}</option>                           
-                                                        </select>
-                                                </td>
-                                                <td class="col-md-1">
-                                                    <select class="form-control"  name="LineID">
-                                                        <option *ngFor="let drop of AllLine" value="{{drop.TalukID}}" [selected]="drop.TalukID==l.TalukID">{{drop.TalukName}}</option>                           
-                                                        </select>
-                                                </td>
-                                                <td class="col-md-1">
-                                                    <select class="form-control"  name="AreaID">
-                                                        <option *ngFor="let drop of AllArea" value="{{drop.AreaID}}" [selected]="drop.AreaID==l.AreaID">{{drop.AreaName}}</option>                           
-                                                        </select>
-                                                </td>
-                                                <td class="col-md-1">
+                                             
+                                                <td class="col-md-2">
                                                         <select class="form-control" >
                                                                 <option *ngFor="let sa of LoanCategory"  value="{{sa.dropdownKey}}" [selected]="l.LoanCatID==sa.dropdownKey">
                                                                     {{sa.dropdownName}}
                                                                 </option>
                                                             </select>
                                                     </td>
-                                                    <td class="col-md-1">
+                                                    <td class="col-md-2">
                                                             <select class="form-control" >
                                                                     <option *ngFor="let drop of AllSagent"  value="{{drop.AgentID}}" [selected]="l.AgentID==drop.AgentID">
                                                                         {{drop.AgentName}}
@@ -234,7 +237,7 @@
                                                                 </select>
                                                     </td>
                                                 <td class="col-md-1">{{l.CustomerID}}</td>
-                                                <td class="col-md-1">{{l.CustomerName}}</td>
+                                                <td class="col-md-2">{{l.CustomerName}}</td>
                                                 <td class="col-md-1">{{l.RequestID}}</td>
                                                 <td class="col-md-1">{{l.RequestDate|date:"dd/MM/y"}}</td>
                                                 <td class="col-md-1">{{l.LoanAmt}}</td>

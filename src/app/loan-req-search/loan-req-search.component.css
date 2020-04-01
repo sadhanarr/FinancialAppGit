@@ -1,7 +1,8 @@
 .modal-dialog
     {
     width:50%;
-    height:100%
+    height:50%;
+    margin:150px auto !important;
     }
     .panel-heading {
         position: sticky;

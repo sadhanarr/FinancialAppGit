@@ -10,8 +10,10 @@ import {Loan} from './loan'
 import {Agent} from '../master-screen/agent'
 import { ICompany } from '../master-screen/Company';
 import {ROI} from '../loan-request/ROI'
+import { DatePipe } from '@angular/common';
 import {IProof} from './Proof'
 import { Collection } from './collection';
+import { addCollection } from './addcollection';
 import { Followup } from './Followup';
 import {LoanStatus} from './LoanStatus';
 import {DueDate} from './duedate'
@@ -27,14 +29,17 @@ export class HomeLoanComponent implements OnInit {
 
   constructor(private _appService:AppService,private _route: ActivatedRoute,
     private _router: Router,private storage:LocalStorageService ) {
-      this.collectionPermission = this.storage.retrieve('Collection');
+      this.addPermission = this.storage.retrieve('addCollection');
+      this.deletePermission = this.storage.retrieve('deleteCollection');
      }
-    collectionPermission:boolean;
+     addPermission:boolean;
+    deletePermission:boolean;
     AllSagent:Agent[]=[];
     LoanCategory: ICompany[]=[];
     LoanNo:string
 //customer:Customer= new Customer(0,0,0,0,0,0,0,0,0,'','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','','');
 AllSarea:Taluk[]=[];
+intRate:Number=0;
 AllLine:Taluk[]=[];
 AllArea:Area[]=[];
 Allbranch: Branch[];
@@ -67,7 +72,9 @@ ECustProof:IProof[]=[];
 EGuaranProof:IProof[]=[];
 LoanID:Number=0;
 DueType:string='';
-collection:Collection= new Collection(null,null,new Date(),'',null,null,null,null,null,null,null,null,null,null,null,null,null);
+addcollection:addCollection= new addCollection(0,0,'','',0,0,0,0,0,0,0,0,0,0,0,0,'');
+collection:Collection= new Collection(0,0,new Date(),'',0,0,0,0,0,0,0,0,0,0,0,0,'');
+col:Collection= new Collection(0,0,new Date(),'',0,0,0,0,0,0,0,0,0,0,0,0,'');
 AllCollection:Collection[];
  penaltyBal:Number=0;
  dueBal:Number=0;
@@ -79,6 +86,19 @@ FollowupDetails:Followup[];
 followup:Followup= new Followup(0,0,0,new Date(),new Date(),'','','Current','',null);
 loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
   ngOnInit() {
+    setInterval(function(){
+      if($('#myModal').hasClass("in"))
+      {
+        
+        $('#back').attr('disabled','disabled');
+      }
+      else
+      {
+     
+       $('#back').removeAttr('disabled');
+      }
+     }, 3000);
+    this.col= new Collection(0,0,new Date(),'',0,0,0,0,0,0,0,0,0,0,0,0,'');
     this._appService.getLoanCategory().subscribe((data:any[])=>{
       this.LoanCategory=data
      });
@@ -98,7 +118,8 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
       this._appService.getCustomer(this.CustID,this.RequestID).subscribe((data:any)=> 
       {
         this.loandetail=data ; 
-        this.imagePreview=this.loandetail.PhotoLoc.replace('D:\\Tech','http://103.110.236.177/');
+        this.intRate=this.loandetail.IntRate
+        this.imagePreview=this.loandetail.PhotoLoc.replace(this._appService.filepath,location.origin+"/");
         console.log(this.imagePreview)
         this.DueType=this.loandetail.DueType;
      this.OnChange();
@@ -111,6 +132,10 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
     }) 
    
     
+  }
+  ngAfterViewChecked()
+  {
+
   }
   SaveFile(value)
   {
@@ -134,7 +159,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
   {
      console.log(url)
      
-     window.open(url.replace('D:\\Tech\\','http://103.110.236.177/'))
+     window.open(url.replace(this._appService.filepath,location.origin+"/"))
   
     }
     AddLoanStatus(form)
@@ -175,16 +200,36 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
   }
   AddEntry(form)
   {
-   this.collection.CreatedBy=this.storage.retrieve('User')
-    if(new Date(this.collection.Date)>new Date())
+    this._appService.UserName.subscribe(res=>this.col.CreatedBy=res)
+   this.col.CreatedBy=this.storage.retrieve('User')
+    if(new Date(this.col.Date)>new Date())
     {
     this.formSubmit=true; 
     return;
     }
-    this.collection.LoanID=this.LoanID;
-   console.log(this.collection)
-   this._appService.UserName.subscribe(res=>this.collection.CreatedBy=res)
-    this._appService.addCollection(this.collection).subscribe(res=>{ console.log(res);
+    
+    this.col.LoanID=this.LoanID;
+   console.log(this.col)
+   
+   
+   this.addcollection={      SNO :this.col.SNO,
+    LoanID:this.col.LoanID,
+     Date:new DatePipe("en-US").transform(this.col.Date,"yyyy-MM-dd"),
+     BillBook :this.col.BillBook,
+    EMIID:this.col.EMIID,
+     DueNo :this.col.DueNo,
+     DueAmt :this.col.DueAmt,
+     Duereciept :this.col.Duereciept,
+    PenaltyAmount:this.col.PenaltyAmount,
+     Penaltyreciept :this.col.Penaltyreciept,
+     penaltyBal :this.col.penaltyBal,
+     dueBal :this.col.dueBal,
+     TotalBal :this.col.TotalBal,
+     Principalreciept :this.col.Principalreciept,
+     LoanAmount :this.col.LoanAmount,
+    MachineID:this.col.MachineID,
+    CreatedBy:this.col.CreatedBy}
+    this._appService.addCollection(this.addcollection).subscribe(res=>{ console.log(res);
       this._appService.getCollection(this.LoanID).subscribe(res=>{this.AllCollection=res});
       form.resetForm();})
    
@@ -265,8 +310,13 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
  
   }
   
-  SaveLoan()
+  SaveLoan(form1,form2)
   {
+    if (form1.invalid || form2.invalid) {
+      this.formSubmit=true; 
+      console.log("not valid")
+      return;
+   }
     this.loandetail.UserNme=this.storage.retrieve('User')
     var CustID= this.loandetail.CustomerID
     var length=0
@@ -318,6 +368,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
         this.OnChange();
         ;});
         alert("The LoanNo "+this.LoanNo+" has been created/updated successfully")
+        document.getElementById("loanbtn").click();
      });
   
     })
@@ -326,6 +377,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
 
   getLoanDetail(LoanID: Number,form)
   {
+    
     this.followup= new Followup(0,0,0,new Date(),new Date(),'','','Current','',null)
   
   $('#modal-content').height(window.innerHeight-60).css({'overflow-y':'auto'})
@@ -337,6 +389,7 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
     {
     this._appService.getLoanDetail(LoanID).subscribe(res=> {
       console.log(res);this.loandetail=res;
+      this.intRate=this.loandetail.IntRate
       this.DueType=this.loandetail.DueType
       
       this.EmiDisable()})
@@ -375,11 +428,11 @@ loanStat:LoanStatus= new LoanStatus(0,'','','','','','','0');
     }
       this._appService.getCollectionValue(0,LoanID,(new Date().toLocaleDateString()).replace('/','-').replace('/','-')).subscribe(res=>{ console.log(res)
       if(res != null)
-      {this.collection=res;
+      {this.col=res;
    
-        this.penaltyBal=this.collection.penaltyBal;
-  this.dueBal= this.collection.dueBal;
-  this.TotalBal=this.collection.TotalBal
+        this.penaltyBal=this.col.penaltyBal;
+  this.dueBal= this.col.dueBal;
+  this.TotalBal=this.col.TotalBal
    }})
     
 
@@ -523,38 +576,38 @@ wnd.document.write(string);
   DateChange()
   {
    
-    this._appService.getCollectionValue(0,this.LoanID,(new Date(this.collection.Date).toLocaleDateString()).replace('/','-').replace('/','-')).subscribe(res=>{
+     this._appService.getCollectionValue(0,this.LoanID,(new Date(this.col.Date).toLocaleDateString()).replace('/','-').replace('/','-')).subscribe(res=>{
       if(res != null){
-      this.collection=res;
-  this.penaltyBal=this.collection.penaltyBal;
-  this.dueBal= this.collection.dueBal;
-  this.TotalBal=this.collection.TotalBal
+      this.col=res;
+  this.penaltyBal=this.col.penaltyBal;
+  this.dueBal= this.col.dueBal;
+  this.TotalBal=this.col.TotalBal
       }
     })
   
   }
   CollectionCal()
-  {this.collection.penaltyBal=this.penaltyBal;
-    this.collection.dueBal= this.dueBal;
-    this.collection.TotalBal=this.TotalBal;
+  {this.col.penaltyBal=this.penaltyBal;
+    this.col.dueBal= this.dueBal;
+    this.col.TotalBal=this.TotalBal;
         
-    if(this.collection.Penaltyreciept != null && this.collection.Penaltyreciept.toString() !='')
+    if(this.col.Penaltyreciept != null && this.col.Penaltyreciept.toString() !='')
     {
-      this.collection.penaltyBal= parseFloat( this.collection.penaltyBal.toString())-parseFloat( this.collection.Penaltyreciept.toString());
+      this.col.penaltyBal= parseFloat( this.col.penaltyBal.toString())-parseFloat( this.col.Penaltyreciept.toString());
     }
-    if(this.collection.Duereciept != null && this.collection.Duereciept.toString() !='')
+    if(this.col.Duereciept != null && this.col.Duereciept.toString() !='')
     {
-      this.collection.dueBal= parseFloat( this.collection.dueBal.toString())-parseFloat( this.collection.Duereciept.toString());
+      this.col.dueBal= parseFloat( this.col.dueBal.toString())-parseFloat( this.col.Duereciept.toString());
       if(this.DueType=='EMI')
-      this.collection.TotalBal= parseFloat( this.collection.TotalBal.toString())-parseFloat( this.collection.Duereciept.toString());
+      this.col.TotalBal= parseFloat( this.col.TotalBal.toString())-parseFloat( this.col.Duereciept.toString());
     }
-    if(this.collection.Principalreciept != null && this.collection.Principalreciept.toString() !='')
+    if(this.col.Principalreciept != null && this.col.Principalreciept.toString() !='')
     {
-      this.collection.TotalBal= parseFloat( this.collection.TotalBal.toString())-parseFloat( this.collection.Principalreciept.toString());
+      this.col.TotalBal= parseFloat( this.col.TotalBal.toString())-parseFloat( this.col.Principalreciept.toString());
     }
-    if(this.collection.LoanAmount != null && this.collection.LoanAmount.toString() !='')
+    if(this.col.LoanAmount != null && this.col.LoanAmount.toString() !='')
     {
-      this.collection.TotalBal= parseFloat( this.collection.TotalBal.toString())+parseFloat( this.collection.LoanAmount.toString());
+      this.col.TotalBal= parseFloat( this.col.TotalBal.toString())+parseFloat( this.col.LoanAmount.toString());
     }
   }
   changeLoanStatus(event)
@@ -624,7 +677,7 @@ this.EmiDisable();
       if(this.AllCollection != undefined && this.AllCollection !=null && this.AllCollection.length>0)
       {
         console.log(new Date(this.AllCollection[0].Date))
-      if((this.loandetail.DueType=='EMI' && new Date() >= new Date(this.AllCollection[0].Date)) || (this.loandetail.DueType=='Interest' && this.AllCollection.length>1) )
+      if(this.loandetail.LoanID>0 && ((this.loandetail.DueType=='EMI' && new Date() >= new Date(this.AllCollection[0].Date)) || (this.loandetail.DueType=='Interest' && this.AllCollection.length>1)) )
       {
         $('#loanSave').attr('disabled','disabled')
       }
@@ -673,8 +726,18 @@ this.EmiDisable();
     
     if(this.loandetail["DueType"]=="EMI"){
    // this.loandetail["TotLoanAmt"]= this.loandetail["DocCharge"] != null? parseInt(this.loandetail["DocCharge"].toString())+parseInt(this.loandetail["LoanAmt"].toString()):parseInt(this.loandetail["LoanAmt"].toString());
-    this.loandetail["InterestAmt"]= Math.round( (parseInt(this.loandetail["TotLoanAmt"].toString())* parseInt(this.loandetail["Instalments"].toString())* parseFloat(this.loandetail["IntRate"].toString()) )/100)
-    this.loandetail["TotAmount"]=Math.round( parseInt( this.loandetail["TotLoanAmt"].toString())  +  parseInt(this.loandetail["InterestAmt"].toString()))
+   if(this.isscheme)
+   {
+   this.loandetail["InterestAmt"]=0
+   this.loandetail['IntRate']=0;
+   }
+   else
+   {
+    this.loandetail["IntRate"]= this.intRate
+   this.loandetail["InterestAmt"]= Math.round( (parseInt(this.loandetail["TotLoanAmt"].toString())* parseInt(this.loandetail["Instalments"].toString())* parseFloat(this.loandetail["IntRate"].toString()) )/100)
+ 
+  }
+   this.loandetail["TotAmount"]=Math.round( parseInt( this.loandetail["TotLoanAmt"].toString())  +  parseInt(this.loandetail["InterestAmt"].toString()))
     this.loandetail["InstalmentAmt"]=Math.round( parseInt( this.loandetail["TotAmount"].toString())/ parseInt(this.loandetail["Instalments"].toString()))
     if(this.loandetail["DocCharge"]!= null && this.loandetail["DocCharge"].toString()!= "" && this.loandetail["DocChargeRecvd"]!=null && this.loandetail["DocChargeRecvd"].toString() =="Add with Loan Amount" && this.loandetail["DocCharge"].toString() !="")
     {
@@ -684,6 +747,9 @@ this.EmiDisable();
  {
   this.loandetail["InstalmentAmt"]=Math.ceil(parseFloat(this.loandetail["InstalmentAmt"].toString())/5)*5;
   this.loandetail["TotAmount"]=Math.round( parseInt(this.loandetail["InstalmentAmt"].toString())*parseInt(this.loandetail["Instalments"].toString()));
+ if(this.isscheme)
+ this.loandetail["InterestAmt"]=0
+ else
   this.loandetail["InterestAmt"]=Math.round( parseInt( this.loandetail["TotAmount"].toString())-parseInt(this.loandetail["TotLoanAmt"].toString()))
  }
  if(this.loandetail["IncentiveRatio"]!= null ){
@@ -716,6 +782,10 @@ this.EmiDisable();
    }
 
    this.loandetail["NetAmt"]= parseInt(this.loandetail["LoanAmt"].toString())+incentive-DocCharge-scheme;
+   if(this.isscheme && this.loandetail["SchemeAmtReceived"] !=null && this.loandetail["SchemeAmtReceived"].toString() =="Add with Loan Amount" && this.loandetail["SchemeAmt"].toString() != ""  )
+   {
+    this.loandetail["TotAmount"]=Math.round( parseInt( this.loandetail["TotLoanAmt"].toString())  +  parseInt(this.loandetail["SchemeAmt"].toString()))
+   }
   }
   if(this.loandetail["DueType"]=="Interest"){
     if(this.loandetail["LoanAmt"]!=null && this.loandetail["Instalments"] != null && this.loandetail["IntRate"]!=null &&this.loandetail["LoanAmt"].toString()!="" && this.loandetail["Instalments"].toString() !="" && this.loandetail["IntRate"].toString()!="")

@@ -120,7 +120,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let l of requestAll" (click)="NavigatetoLoan(l)">
+                <tr *ngFor="let l of pagedItems" (click)="NavigatetoLoan(l)">
                 <td class="col-md-1">{{l.CustomerID}}</td>
                 <td class="col-md-1">{{l.CustomerName}}</td>
                 <td class="col-md-2">{{l.FatherName}}</td>
@@ -137,6 +137,25 @@
                 </tbody>
                 </table>
                 </div>
+         </div>
+         <div style="text-align: center" id="pager">
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+               <li [ngClass]="{disabled:pager.currentPage === 1}">
+                   <a (click)="setPage(1)">First</a>
+               </li>
+               <li [ngClass]="{disabled:pager.currentPage === 1}">
+                   <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+               </li>
+               <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                   <a (click)="setPage(page)">{{page}}</a>
+               </li>
+               <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                   <a (click)="setPage(pager.currentPage + 1)">Next</a>
+               </li>
+               <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                   <a (click)="setPage(pager.totalPages)">Last</a>
+               </li>
+           </ul>
          </div>
          </form>
         </div>

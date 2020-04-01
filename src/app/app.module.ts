@@ -28,6 +28,7 @@ import { FollowupReportComponent } from './reports/followup-report/followup-repo
 import { ClosedReportComponent } from './reports/closed-report/closed-report.component';
 import { DueListComponent } from './reports/due-list/due-list.component';
 import {NgxWebstorageModule} from 'ngx-webstorage';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import {NgxWebstorageModule} from 'ngx-webstorage';
     DueListComponent
   ],
   imports: [
+    AngularMultiSelectModule,
     HttpClientModule,
     FormsModule,
     DatePickerModule,
@@ -72,7 +74,7 @@ import {NgxWebstorageModule} from 'ngx-webstorage';
       {path:'App',component:AppComponent},
       {path:'Verification',component:CustomerVerificationComponent},
       {path:'Reports',component:ReportsComponent},
-    ])
+    ], { useHash: true })
   ],
   providers: [AppService,PagerService,ExcelExportService],
   bootstrap: [AppComponent]

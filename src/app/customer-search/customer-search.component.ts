@@ -5,6 +5,7 @@ import {Area} from '../master-screen/area'
 import {CustSearch} from './CustSearch'
 import {Request} from '../loan-request/request';
 import { ActivatedRoute, Router} from '@angular/router';
+import {PagerService} from '../pager.service'
 
 @Component({
   selector: 'app-customer-search',
@@ -18,10 +19,15 @@ export class CustomerSearchComponent implements OnInit {
   search:CustSearch={} as any;
    requestAll:Request[]=[];
    request:Request;
+    // pager object
+    pager: any = {};
+    // paged items
+    pagedItems: any[];
+    Pagerdata:any
    @Output() messageEvent = new EventEmitter<Request>();
 
   constructor(private _appService:AppService,private _route: ActivatedRoute,
-    private _router: Router) { }
+    private _router: Router, private _pagerService:PagerService) { }
 
   ngOnInit() {
     this.search.Status="";
@@ -44,6 +50,7 @@ export class CustomerSearchComponent implements OnInit {
       this.search.Line!="" || this.search.Area!="" ||
       this.search.Address!="" || this.search.KeywordSearch!="" )
     this.Search(null)
+    this.setPage(1)
     console.log("customercomponent loaded")
   }
   Search(form)
@@ -54,11 +61,26 @@ export class CustomerSearchComponent implements OnInit {
    if(this.search.Line=='All')this.search.Line='';
    this._appService.getCustomerSearch(this.search).subscribe((res:any[])=> {
     this.requestAll=res;
+    this.setPage(1)
     console.log(this.requestAll)
 
   })
   }
+  setPage(page: number) {
 
+  
+    this.Pagerdata=this.requestAll
+     
+      if (page < 1 || page > this.pager.totalPages) {
+        this.pagedItems=this.Pagerdata
+          return;
+      }
+    
+      // get pager object from service
+      this.pager = this._pagerService.getPager(this.Pagerdata.length, page);
+      // get current page of items
+      this.pagedItems = this.Pagerdata.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    }
   Clear(form){
     this.search.Status="";
     this.search.CustName="";

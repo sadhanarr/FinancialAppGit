@@ -7,3 +7,15 @@
 {
     width: 70%;
 }
+.panel-heading {
+    position: sticky;
+    width: 100%;
+    z-index: 99999;
+    top: 0;
+}
+.modal-dialog
+{
+    margin:150px auto !important;
+    height: 80%;
+    overflow-y: auto;
+}

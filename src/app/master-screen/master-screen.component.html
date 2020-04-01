@@ -23,7 +23,8 @@
                                         <option value="urole">User Role</option>
                                         <option value="machine">Machine</option>
                                         <option value="mline">Machine Lines</option>
-                                      
+                                       <option value="group">Group</option>
+                                       <option value="howtokno">How to Know</option>
                                         </select>
                          </div>
                           </div>
@@ -59,12 +60,20 @@
                           <div class="form-group">
                                 <label class="control-label col-sm-3">Phone Number :</label>
                                 <div class="col-sm-3">
-                                        <input type="text" class="form-control" name="PhoneContact"  [(ngModel)]="branch.PhoneContact">
-                         </div>
+                                        <input type="text" class="form-control" name="PhoneContact" numeric numericType="number" required maxlength="11" minlength="11" #bContact="ngModel"  [(ngModel)]="branch.PhoneContact">
+                                        <div *ngIf="(bContact.errors?.minlength || bContact.errors?.required)  && formSubmit " 
+                                        [ngClass]="'error'">
+                                       Contact must be 11 characters long
+                                        </div>
+                                      </div>
                          <label class="control-label col-sm-3">Whatsapp Number :</label>
                          <div class="col-sm-3">
-                                 <input type="text" class="form-control" name="WhatsappContact" [(ngModel)]="branch.WhatsappContact">
-                  </div>
+                                 <input type="text" class="form-control" name="WhatsappContact" [(ngModel)]="branch.WhatsappContact" numeric numericType="number"  maxlength="11" minlength="11" #bContact1="ngModel" >
+                                 <div *ngIf="bContact1.errors?.minlength   && formSubmit " 
+                                 [ngClass]="'error'">
+                                Contact must be 11 characters long
+                                 </div>
+                                </div>
                         </div>
                          <div class="form-group">
                          <label class="control-label col-sm-3">Email :</label>
@@ -287,7 +296,7 @@
           </div>
             </form>
             <form id="sarea" #form6="ngForm" name="formMaster" style="display: none">
-        <div  name="divMaster" class="form-horizontal col-md-6 margin" >
+           <div  name="divMaster" class="form-horizontal col-md-6 margin" >
             <div class="form-group">
                 <label class="control-label col-sm-3">Sub Area Name :</label>
                 <div class="col-sm-6">
@@ -300,7 +309,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-3">Area :</label>
                 <div class="col-sm-6">
-                    <select class="form-control" #aid="ngModel" [(ngModel)]="sarea.DistrictID" name="StateID">
+                    <select class="form-control" #aid="ngModel" [(ngModel)]="sarea.DistrictID" name="StateID" (change)="ChangeLineID(sarea.DistrictID,0)">
                         <option  *ngFor="let sa of AllArea" value="{{sa.AreaID}}">{{sa.AreaName}}
                          </option>                         
                         </select>
@@ -309,6 +318,16 @@
                           </div>
          </div>
          </div>
+         <div class="form-group">
+          <label class="control-label col-sm-3">Line :</label>
+          <div class="col-sm-6">
+              <select class="form-control" #liid="ngModel" [(ngModel)]="sarea.GroupID" name="LineID">
+                  <option  *ngFor="let sa of AllLine" value="{{sa.TalukID}}">{{sa.TalukName}}
+                   </option>                         
+                  </select>
+                 
+   </div>
+   </div>
       </div>
       <div class="form-horizontal col-md-12">
         <div class="col-sm-2"></div>
@@ -325,7 +344,63 @@
           </div>
         </div>
             </form>
+            <form id="group" #form13="ngForm" name="formMaster" style="display: none">
+              <div  name="divMaster" class="form-horizontal col-md-6 margin" >                    
+                <div class="form-group">
+               <label class="control-label col-sm-3">Group Name :</label>
+               <div class="col-sm-6">
+                  <input type="text" class="form-control" required name="GroName" #gName="ngModel" [(ngModel)]="group.TalukName" >
+                  <div *ngIf="gName.errors?.required && formSubmit && masterScreen=='group'" [ngClass] = "'error'"> 
+                   Group Name required. 
+                   </div>
+                 </div>
+        </div>
+              </div>
+              <div class="form-horizontal col-md-12">
+               <div class="col-sm-2"></div>
+                 <div class="col-md-2 ">
+                    
+                   <div class=" form-group">
+                       <div class="col-sm-5 marginbtn">
+                           <button type="button" class="btn btn-primary" (click)="Save(0,0,form13)">Add</button>
+                         </div>
+                         <div class="col-sm-5 marginbtn">
+                           <button type="button" class="btn" (click)="Cancel(form13)">Cancel</button>
+                         </div>
+                       </div>
+                 </div>
+               </div>
+             </form>
+             <form id="howtokno" #form14="ngForm" name="formMaster" style="display: none">
+              <div  name="divMaster" class="form-horizontal col-md-6 margin" >                    
+                <div class="form-group">
+               <label class="control-label col-sm-3">How to Know :</label>
+               <div class="col-sm-6">
+                  <input type="text" class="form-control" required name="HName" #HName="ngModel" [(ngModel)]="how.TalukName" >
+                  <div *ngIf="HName.errors?.required && formSubmit && masterScreen=='howtokno'" [ngClass] = "'error'"> 
+                   How to Know required. 
+                   </div>
+                 </div>
+        </div>
+              </div>
+              <div class="form-horizontal col-md-12">
+               <div class="col-sm-2"></div>
+                 <div class="col-md-2 ">
+                    
+                   <div class=" form-group">
+                       <div class="col-sm-5 marginbtn">
+                           <button type="button" class="btn btn-primary" (click)="Save(0,0,form14)">Add</button>
+                         </div>
+                         <div class="col-sm-5 marginbtn">
+                           <button type="button" class="btn" (click)="Cancel(form14)">Cancel</button>
+                         </div>
+                       </div>
+                 </div>
+               </div>
+             </form>
             <form id="mline" #form7="ngForm" name="formMaster" style="display: none">
+             
+             
       <div  name="divMaster" class="form-horizontal col-md-6 margin" >
           <div class="form-group">
               <label class="control-label col-sm-3">Machine :</label>
@@ -390,7 +465,8 @@
                     <option>Loan Issue</option>
                     <option>Master Details</option>
                     <option>Collection</option>
-                     <option >Collection</option>
+                     <option >Add Collection</option>
+                     <option >Delete Collection</option>
                      <option >Verification</option>                         
                     <option >Android Collection</option>
                     <option >Android Verification</option> 
@@ -474,7 +550,7 @@
   </div>
   <label class="control-label col-sm-3">Showroom Agent :</label>
   <div class="col-sm-3">
-     <select class="form-control"  [(ngModel)]="user.AgentID" #UAId="ngModel" name="CompanyID">
+     <select class="form-control"  [(ngModel)]="user.AgentID" #UAId="ngModel" name="U_Agent" [disabled]="user.UserType=='Finance'">
          <option *ngFor="let drop of AllSagent"   value="{{drop.AgentID}}" >
              {{drop.AgentName}}
           </option>                         
@@ -536,14 +612,22 @@
          </div>
          <label class="control-label col-sm-3">Contact Number :</label>
          <div class="col-sm-3">
-            <input type="text" class="form-control" name="PhoneContact"  #saPContact="ngModel" [(ngModel)]="sagent.PrimaryContact">
-  </div>
+            <input type="text" class="form-control" name="PhoneContact1"  #saPContact="ngModel" [(ngModel)]="sagent.PrimaryContact" required numeric numericType="number"  maxlength="11" minlength="11" >
+            <div *ngIf="(saPContact.errors?.minlength || saPContact.errors?.required)  && formSubmit " 
+            [ngClass]="'error'">
+           Contact must be 11 characters long
+            </div>
+          </div>
         </div>
          <div class="form-group">
          <label class="control-label col-sm-3">Alternate Contact Number :</label>
          <div class="col-sm-3">
-            <input type="text" class="form-control" name="PhoneContact" #saSContact="ngModel" [(ngModel)]="sagent.SecondaryContact">
-  </div>
+            <input type="text" class="form-control" name="PhoneContact2" #saSContact="ngModel" [(ngModel)]="sagent.SecondaryContact" numeric numericType="number"  maxlength="11" minlength="11" >
+            <div *ngIf="saSContact.errors?.minlength   && formSubmit " 
+            [ngClass]="'error'">
+           Contact must be 11 characters long
+            </div>
+          </div>
   <label class="control-label col-sm-3" required>Loan Category :</label>
   <div class="col-sm-3">
      <select class="form-control" #ALoan="ngModel" required  [(ngModel)]="sagent.LoanCategory" name="loancat">
@@ -554,7 +638,14 @@
             </div>
     </div>
         </div>
-         
+        <div class="form-group">
+          <label class="control-label col-sm-3">Group :</label>
+          <div class="col-sm-3">
+            <select class="form-control" #groupid="ngModel" required  [(ngModel)]="sagent.GroupID" name="groupid">
+              <option *ngFor="let gp of AllGroup" value="{{gp.TalukID}}" >{{gp.TalukName}}</option>                                                   
+               </select>
+   </div>
+    </div>    
   </div>
   <div class="form-horizontal col-md-12">
     <div class="col-sm-2"></div>
@@ -846,13 +937,72 @@
     </div>
     
 </div>
-<div id="sareatable"name="divTable"  class="form-horizontal col-md-6" style="display: none">  
+<div id="grouptable" name="divTable" class="form-horizontal col-md-6" style="display: none">
+  <div class="table table-responsive">
+  <table class="table table-bordered table-striped table-hover">
+  <thead>
+  <tr>
+  <th class="col-md-4">Group Name</th>                      
+   <th class="col-md-2"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let state of pagedItems let i=index" >
+  <td class="col-md-4" id="gpname{{i}}" contenteditable="true">{{state.TalukName}}</td>
+  <td>
+          <div class="form-horizontal">
+                  <div class="col-sm-4">
+                      <button type="button" class="btn btn-primary" (click)="Save(state.TalukID,i,'')">Save</button>
+                    </div>
+                    <div class="col-sm-4">
+                      <button type="button" class="btn btn-primary" (click)="Delete(state.TalukID)" >Delete</button>
+                    </div>
+                  </div>  
+  </td>
+  </tr>
+
+  </tbody>
+  </table>
+  </div>
+  
+</div>
+<div id="howtoknotable" name="divTable" class="form-horizontal col-md-6" style="display: none">
+  <div class="table table-responsive">
+  <table class="table table-bordered table-striped table-hover">
+  <thead>
+  <tr>
+  <th class="col-md-4">How to Know</th>                      
+   <th class="col-md-2"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let how of pagedItems let i=index" >
+  <td class="col-md-4" id="hkname{{i}}" contenteditable="true">{{how.TalukName}}</td>
+  <td>
+          <div class="form-horizontal">
+                  <div class="col-sm-4">
+                      <button type="button" class="btn btn-primary" (click)="Save(how.TalukID,i,'')">Save</button>
+                    </div>
+                    <div class="col-sm-4">
+                      <button type="button" class="btn btn-primary" (click)="Delete(how.TalukID)" >Delete</button>
+                    </div>
+                  </div>  
+  </td>
+  </tr>
+
+  </tbody>
+  </table>
+  </div>
+  
+</div>
+<div id="sareatable"name="divTable"  class="form-horizontal col-md-8" style="display: none">  
     <div class="table table-responsive">
     <table  class="table table-bordered table-striped table-hover">
     <thead>
     <tr>
     <th class="col-md-2">Sub Area Name</th> 
-    <th class="col-md-2">Area</th>                                  
+    <th class="col-md-2">Area</th>    
+    <th class="col-md-2">Line</th>                                    
      <th class="col-md-2"></th>
     </tr>
     </thead>
@@ -860,10 +1010,15 @@
     <tr *ngFor="let s of pagedItems let i=index">
     <td class="col-md-2" id="saname{{i}}" contenteditable="true">{{s.TalukName}}</td>
     <td class="col-md-2">
-    <select class="form-control"  name="StateID" id="aId1{{i}}" >
+    <select class="form-control"  name="StateID" id="aId1{{i}}" (change)="ChangeLineID(0,i)">
         <option *ngFor="let aa of AllArea" value="{{aa.AreaID}}" [selected]="aa.AreaID==s.DistrictID">{{aa.AreaName}}</option>                            
         </select>
       </td>
+      <td class="col-md-2">
+        <select class="form-control"  name="SLineID" id="LId1{{i}}" disabled>
+            <option *ngFor="let li of AllLine" value="{{li.TalukID}}" [selected]="li.TalukID==s.GroupID">{{li.TalukName}}</option>                            
+            </select>
+          </td>
     <td>
             <div class="form-horizontal">
                     <div class="col-sm-4">
@@ -905,6 +1060,8 @@
         <option [selected]="role.TalukName=='Loan Issue'">Loan Issue</option>
         <option [selected]="role.TalukName=='Master Details'">Master Details</option>
         <option [selected]="role.TalukName=='Collection'">Collection</option>
+        <option [selected]="role.TalukName=='Add Collection'">Add Collection</option>
+        <option [selected]="role.TalukName=='Delete Collection'">Delete Collection</option>
         <option [selected]="role.TalukName=='Verification'">Verification</option>                         
         <option [selected]="role.TalukName=='Android Collection'">Android Collection</option>
         <option [selected]="role.TalukName=='Android Verification'" >Android Verification</option>
@@ -1020,9 +1177,10 @@
     <th class="col-md-2">Agent Name</th>
      <th class="col-md-2">Address</th>
      <th class="col-md-1">Area</th>
-     <th class="col-md-2">Contact Person</th>
+     <th class="col-md-1">Contact Person</th>
      <th class="col-md-1">Contact Number</th>
      <th class="col-md-1">Alternate Contact Number</th>
+     <th class="col-md-1">Group</th>
      <th class="col-md-1">Loan Category</th>
      <th class="col-md-2"></th>
     </tr >
@@ -1036,10 +1194,15 @@
             <option *ngFor="let ar of AllArea" value="{{ar.AreaID}}" [selected]="ar.AreaID==ag.AreaID">{{ar.AreaName}}</option>                         
             </select>
     </td>
-    <td class="col-md-2" contenteditable="true" id="sagCPerson{{i}}">{{ag.ContactPerson}}</td>
+    <td class="col-md-1" contenteditable="true" id="sagCPerson{{i}}">{{ag.ContactPerson}}</td>
     <td class="col-md-1" contenteditable="true" id="sagPContact{{i}}">{{ag.PrimaryContact}}</td>
     <td class="col-md-1" contenteditable="true" id="sagSContact{{i}}">{{ag.SecondaryContact}}</td>
-    
+    <td class="col-md-1">
+      <select class="form-control"  name="gpid" id="gpid{{i}}" >
+          <option *ngFor="let gp of AllGroup" value="{{gp.TalukID}}" [selected]="ag.GroupID==gp.TalukID">{{gp.TalukName}}</option>                            
+          </select>
+      
+  </td>
     <td class="col-md-1">
         <select class="form-control"  name="LoanCatID" id="sagloan{{i}}" >
             <option *ngFor="let loan of LoanCategory" value="{{loan.dropdownKey}}" [selected]="ag.LoanCategory==loan.dropdownKey">{{loan.dropdownName}}</option>                            
@@ -1069,9 +1232,9 @@
     <thead>
     <tr>
     <th class="col-md-1">User Name</th>
-     <th class="col-md-1">Password</th>
+     <th class="col-md-2">Password</th>
      <th class="col-md-2">Full Name</th>
-     <th class="col-md-2">User Designation</th>
+     <th class="col-md-1">User Designation</th>
      <th class="col-md-2">Company</th>
      <th class="col-md-1">User Type</th>
      <th class="col-md-1">Showroom Agent</th>
@@ -1081,9 +1244,9 @@
     <tbody>
     <tr *ngFor="let us of pagedItems let i=index">
     <td class="col-md-1" contenteditable="true" id="uuname{{i}}">{{us.UserName}}</td>
-    <td class="col-md-1" contenteditable="true" id="upwd{{i}}">{{us.Password}}</td>
+    <td class="col-md-2 break" contenteditable="true" id="upwd{{i}}">{{us.Password}}</td>
     <td class="col-md-2" contenteditable="true" id="uname{{i}}">{{us.Name}}</td>
-    <td class="col-md-2" contenteditable="true" id="udesign{{i}}">{{us.Designation}}</td>
+    <td class="col-md-1" contenteditable="true" id="udesign{{i}}">{{us.Designation}}</td>
     <td class="col-md-2">
         <select class="form-control" id="ucid{{i}}"  name="StateID">
             <option *ngFor="let drop of Company"   value="{{drop.dropdownKey}}" [selected]="drop.dropdownKey==us.CompanyID" >

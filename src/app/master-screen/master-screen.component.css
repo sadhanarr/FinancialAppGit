@@ -25,3 +25,7 @@ select>option{
     z-index: 99999;
     top: 0;
 }
+.break
+{
+    word-break: break-all;
+}

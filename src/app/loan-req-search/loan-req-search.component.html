@@ -151,7 +151,7 @@
                     <th class="col-md-1"></th>
                     </tr>
                     </thead>
-                    <tbody *ngFor="let r of requestAll">
+                    <tbody *ngFor="let r of pagedItems">
                     <tr data-toggle="modal" (click)="SaveRequestID(r)" data-target="#loanreqSearchModal">
                     <td class="col-md-1">{{r.RequestDate|date:"dd/MM/yy  h:mm a"}}</td>
                     <td class="col-md-1">{{r.RequestID}}</td>
@@ -182,7 +182,7 @@
                     <div class="modal-dialog">
                     
                       <!-- Modal content-->
-                      <div class="modal-content" style="height:40%">
+                      <div class="modal-content" style="height:70%">
                         <div class="modal-header">
                           <button type="button" id="close" class="close" data-dismiss="modal">&times;</button>
                           <h4 class="modal-title">Loan Request</h4>
@@ -222,7 +222,25 @@
                       </div>
                     </div>
              </div>
-
+             <div style="text-align: center" id="pager">
+                <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                   <li [ngClass]="{disabled:pager.currentPage === 1}">
+                       <a (click)="setPage(1)">First</a>
+                   </li>
+                   <li [ngClass]="{disabled:pager.currentPage === 1}">
+                       <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                   </li>
+                   <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                       <a (click)="setPage(page)">{{page}}</a>
+                   </li>
+                   <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                       <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                   </li>
+                   <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                       <a (click)="setPage(pager.totalPages)">Last</a>
+                   </li>
+               </ul>
+             </div>
              </form>
             </div>
         </div>

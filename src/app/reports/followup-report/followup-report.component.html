@@ -8,7 +8,15 @@
 
             <label class="control-label col-sm-3" >Line :</label>
             <div class="col-sm-3">
-                  <input type="text" name='line'  [(ngModel)]="Line"  class="form-control">
+                <angular2-multiselect [data]="AllLine"  class="form-control" name="line" [(ngModel)]="rline" [disabled]="Agent.length>0"
+                    [settings]="dropdownSettings" 
+                    (onSelect)="onItemSelect($event,'line')" 
+                    (onDeSelect)="OnItemDeSelect($event,'line')"
+                    (onSelectAll)="onSelectAll($event,'line')"
+                    (onDeSelectAll)="onDeSelectAll($event,'line')"></angular2-multiselect>
+                    <div *ngIf="Agent.length==0 && Line.length==0" [ngClass] = "'error'"> 
+                       Select either Agent or Line.
+                       </div>
             </div>   
 
      </div>
@@ -21,7 +29,15 @@
         
             <label class="control-label col-sm-3" >Showroom/Agent :</label>
             <div class="col-sm-3">
-                <input type="text" name='Agent'  [(ngModel)]="Agent"  class="form-control">
+                <angular2-multiselect [data]="AllAgent"  class="form-control" name="agent" [(ngModel)]="ragent" [disabled]="Line.length>0"
+                    [settings]="dropdownSettings1" 
+                    (onSelect)="onItemSelect($event,'agent')" 
+                    (onDeSelect)="OnItemDeSelect($event,'agent')"
+                    (onSelectAll)="onSelectAll($event,'agent')"
+                    (onDeSelectAll)="onDeSelectAll($event,'agent')"></angular2-multiselect>
+                    <div *ngIf="Agent.length==0 && Line.length==0" [ngClass] = "'error'"> 
+                        Select either Agent or Line. 
+                         </div>
             </div>
      </div>
    

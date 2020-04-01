@@ -8,6 +8,7 @@ import { LoanSearch} from './LoanSearch'
 import {ICompany} from '../master-screen/Company'
 import {IUpdate} from './UpdateStatus';
 import * as moment from 'moment';
+import {PagerService} from '../pager.service'
 
 @Component({
   selector: 'app-loan-req-search',
@@ -24,8 +25,13 @@ export class LoanReqSearchComponent implements OnInit {
    update:IUpdate={}as any
    fromDate:any;
    toDate:any
+    // pager object
+    pager: any = {};
+    // paged items
+    pagedItems: any[];
+    Pagerdata:any
   constructor(private _appService:AppService,private _route: ActivatedRoute,
-    private _router: Router) { }
+    private _router: Router, private _pagerService:PagerService) { }
 
   ngOnInit() {
     this.requestSearch.Status="Request";
@@ -40,24 +46,37 @@ export class LoanReqSearchComponent implements OnInit {
       this.fromDate= new Date(res.FromDate)
      this.toDate= new Date(res.ToDate)
     })
-    this.Search(null)
+  //  this.Search(null)
   }
+  setPage(page: number) {
+
+  
+    this.Pagerdata=this.requestAll
+     
+      if (page < 1 || page > this.pager.totalPages) {
+        this.pagedItems=this.Pagerdata
+          return;
+      }
+    
+      // get pager object from service
+      this.pager = this._pagerService.getPager(this.Pagerdata.length, page);
+      // get current page of items
+      this.pagedItems = this.Pagerdata.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    }
   Search(form)
   {
 
    if(this.fromDate != null && this.fromDate != '' )  this.requestSearch.FromDate= moment(this.fromDate,'DD/MM/YYYY').format('YYYY-MM-DD');
-  // else this.requestSearch.FromDate='';
+   else this.requestSearch.FromDate='';
    if(this.toDate != null && this.toDate != '')   this.requestSearch.ToDate= moment(this.toDate,'DD/MM/YYYY').format('YYYY-MM-DD');
-  // else this.requestSearch.ToDate='';
+   else this.requestSearch.ToDate='';
   console.log(this.requestSearch)
     this._appService.getLoanReqSearch(this.requestSearch).subscribe((res:any[])=> {
       console.log(res)
      this.requestAll=res;
-     
+     this.setPage(1);
     })
- 
 
-    console.log(this.requestSearch)
     this._appService.changeReqSearch(this.requestSearch)
   }
   Clear(form)

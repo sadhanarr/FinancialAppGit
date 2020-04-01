@@ -1,9 +1,9 @@
- export class Collection
+export class addCollection
 {
     constructor(
         public  SNO :Number,
         public LoanID:Number,
-        public  Date:Date,
+        public  Date:string,
         public  BillBook :string,
         public EMIID:Number,
         public  DueNo :Number,

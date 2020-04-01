@@ -14,6 +14,7 @@ import {MLine} from './master-screen/MLine'
 import {Machine} from './master-screen/machine'
 import {Request} from './loan-request/request'
 import {ROI} from './loan-request/ROI'
+import {IReportPost} from './reports/postReport'
 import { BehaviorSubject } from 'rxjs';
 import {CustSearch} from './customer-search/CustSearch'
 import {LoanSearch} from './loan-req-search/LoanSearch'
@@ -22,6 +23,7 @@ import {Customer} from './home-loan/Customer'
 import {Loan} from './home-loan/loan'
 import { IProof} from './home-loan/Proof'
 import {Collection} from './home-loan/collection'
+import {addCollection} from './home-loan/addcollection'
 import { Followup } from './home-loan/Followup';
 import {IClosed} from './reports/closed-report/Closed'
 import {IEnd} from './reports/end-report/End'
@@ -35,13 +37,15 @@ import {IIRequest} from './reports/issue-register/IssueReport'
 import {ICollectionRep} from './reports/collection-register/CollectionReport'
 import {IBalance} from './reports/balance-register/BalReport'
 import {IDueList} from './reports/due-list/DueList'
+import {IReportDrop} from './reports/ReportDrop'
 import * as moment from 'moment';
 
 @Injectable()
 export class AppService
 {
-     private _baseUrl= location.origin+'/FinanceAPI/api/Value/';
-   // private _baseUrl= 'http://103.110.236.177/FinanceAPI/api/Value/';
+    public filepath= "C:\\Application\\Tech\\"
+    private _baseUrl= location.origin+'/FinanceAPI/api/Value/';
+    //private _baseUrl= 'https://staging.marudhamcapitals.in/FinanceAPI/api/Value/';
     private _getUserCredentials = this._baseUrl+"getUserCredentials";
     private _validateLoginURL=this._baseUrl+"ValidateUserLogin";
     private _getUserRolesUrl=this._baseUrl+"GetUserRoles";
@@ -61,6 +65,9 @@ export class AppService
     private _deleteTalukURL =this._baseUrl+'DeleteTaluk';
     private _insertLineURL= this._baseUrl+"InsertLine"
     private _getLineURL =this._baseUrl+'getLine';
+    private _getReportLineURL =this._baseUrl+'getReportLine';
+    private _getReportAgentURL =this._baseUrl+'getReportAgent';
+    private _getReportMachineURL =this._baseUrl+'getReportMachine';
     private _deleteLineURL =this._baseUrl+'DeleteLine';
     private _insertAreaURL= this._baseUrl+"InsertArea"
     private _getAreaURL =this._baseUrl+'getArea';
@@ -128,6 +135,12 @@ export class AppService
     private _getClosedeReportURL = this._baseUrl+"getClosedReport";
     private _getFollowupReportURL = this._baseUrl+"getFollowupReport";
     private _getDueListURL = this._baseUrl+"getDueList";
+    private _InsertGroupURL = this._baseUrl+"InsertGroup";
+    private _getGroupURL = this._baseUrl+"GetGroup";
+    private _deleteURL = this._baseUrl+"deleteGroup";
+    private _InsertHowtoKnoURL = this._baseUrl+"InsertHowtoKno";
+    private _getHowtoKnoURL = this._baseUrl+"GetHowtoKno";
+    private _deleteHowtoKnoURL = this._baseUrl+"deleteHowtoKno";
 
     private RequestID = new BehaviorSubject<Number>(0);
     currentReqID = this.RequestID.asObservable();
@@ -218,33 +231,88 @@ LoanIssueSearch= this.loanissueSearch.asObservable();
       console.log(this._getRequestReportURL+'/'+StartDate+'/'+EndDate)
       return this._http.get<IIRequest[]>(this._getIssueReportURL+'/'+StartDate+'/'+EndDate)
     }
-    getEndReport(StartDate,EndDate,Line,Agent):Observable<IEnd[]>
+    getEndReport(post:IReportPost):Observable<IEnd[]>
     {
-
-      return this._http.get<IEnd[]>(this._getEndReportURL+'/'+StartDate+'/'+EndDate+'/'+Line+'/'+Agent)
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      };
+       
+       return  this._http.post<IEnd[]>(this._getEndReportURL,post,httpOptions);  
+    
+      //return this._http.post<IEnd[]>(this._getEndReportURL+'/'+StartDate+'/'+EndDate+'/'+Line+'/'+Agent)
     }
-    getClosedReport(StartDate,EndDate,Line,Agent):Observable<IClosed[]>
+    getClosedReport(post:IReportPost):Observable<IClosed[]>
     {
-
-      return this._http.get<IClosed[]>(this._getClosedeReportURL+'/'+StartDate+'/'+EndDate+'/'+Line+'/'+Agent)
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      };
+       
+       return  this._http.post<IClosed[]>(this._getClosedeReportURL,post,httpOptions);  
+    
+      
     }
-    getFollowupReport(StartDate,EndDate,Line,Agent):Observable<IFollow[]>
+    getFollowupReport(post:IReportPost):Observable<IFollow[]>
     {
-      return this._http.get<IFollow[]>(this._getFollowupReportURL+'/'+StartDate+'/'+EndDate+'/'+Line+'/'+Agent)
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      };
+       
+       return  this._http.post<IFollow[]>(this._getFollowupReportURL,post,httpOptions);  
+    
     }
-    getDueList(StartDate,Line,Agent):Observable<IDueList[]>
+    getDueList(post:IReportPost):Observable<IDueList[]>
     {
-      return this._http.get<IDueList[]>(this._getDueListURL+'/'+StartDate+'/'+Line+'/'+Agent)
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      };
+       
+       return  this._http.post<IDueList[]>(this._getDueListURL,post,httpOptions);  
+    
+     
     }
-    getCollectionReport(StartDate,EndDate,Line,Agent,MachineID):Observable<ICollectionRep[]>
+    getCollectionReport(post:IReportPost):Observable<ICollectionRep[]>
     {
-      console.log(this._getCollectionReportURL+'/'+StartDate+'/'+EndDate+'/'+Line+'/'+Agent+'/'+MachineID)
-      return this._http.get<ICollectionRep[]>(this._getCollectionReportURL+'/'+StartDate+'/'+EndDate+'/'+Line+'/'+Agent+'/'+MachineID)
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      };
+       
+       return  this._http.post<ICollectionRep[]>(this._getCollectionReportURL,post,httpOptions);  
+    
+      
     }
-    getBalanceReport(StartDate,Line,Agent):Observable<IBalance[]>
+    getBalanceReport(post:IReportPost):Observable<IBalance[]>
     {
-   
-      return this._http.get<IBalance[]>(this._getBalanceReportURL+'/'+StartDate+'/'+Line+'/'+Agent)
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      };
+       
+       return  this._http.post<IBalance[]>(this._getBalanceReportURL,post,httpOptions);  
+    
+     
     }
     getSecondDashboardDetails():Observable<Dashboard[]>
     {
@@ -280,6 +348,14 @@ LoanIssueSearch= this.loanissueSearch.asObservable();
     {
       return this._http.get<string[]>(this._getUserCredentials+"/"+userName);
     }
+    GetGroup()
+    {
+      return this._http.get<Taluk[]>(this._getGroupURL);
+    }
+    GetHowtoKno()
+    {
+      return this._http.get<Taluk[]>(this._getHowtoKnoURL);
+    }
     getUserRoles(userId:Number)
     {
       return this._http.get<string[]>(this._getUserRolesUrl+"/"+userId);
@@ -307,7 +383,7 @@ LoanIssueSearch= this.loanissueSearch.asObservable();
       }; 
         return this._http.post(this._insertIssueLoanStatus,status,httpOptions)
     }
-    addCollection(collection:Collection)
+    addCollection(collection:addCollection)
     {
       console.log(collection)
       const httpOptions = {
@@ -387,7 +463,7 @@ LoanIssueSearch= this.loanissueSearch.asObservable();
         
       };      
        
-       return  this._http.post(this._insertMachineURL,dist,httpOptions).subscribe(res => console.log(res));  
+       return  this._http.post(this._insertMachineURL,dist,httpOptions);  
     
       
     }
@@ -427,7 +503,7 @@ LoanIssueSearch= this.loanissueSearch.asObservable();
         
       };
        
-       return  this._http.post(this._insertMachineLineURL,dist,httpOptions).subscribe(res => console.log(res));  
+       return  this._http.post(this._insertMachineLineURL,dist,httpOptions);  
     
       
     }
@@ -603,7 +679,7 @@ InsertPhoto(CustID:Number,file:File)
         
       };
        
-       return  this._http.post(this._insertStateURL,state,httpOptions).subscribe(res => console.log(res));  
+       return  this._http.post(this._insertStateURL,state,httpOptions);  
     
       
     }
@@ -625,7 +701,7 @@ InsertPhoto(CustID:Number,file:File)
         
       };
        
-       return  this._http.post(this._insertSAgentURL,agent,httpOptions).subscribe(res => console.log(res));  
+       return  this._http.post(this._insertSAgentURL,agent,httpOptions);  
     
       
     }
@@ -637,6 +713,14 @@ InsertPhoto(CustID:Number,file:File)
     {
       return this._http.get(this._deleteUserURL+"/"+id)
     }
+    DeleteGroup(id:Number)
+    {
+      return this._http.get(this._deleteURL+"/"+id)
+    }
+    DeleteHowtoKno(id:Number)
+    {
+      return this._http.get(this._deleteHowtoKnoURL+"/"+id)
+    }
     InsertUser(user:User)
     {
       const httpOptions = {
@@ -647,7 +731,35 @@ InsertPhoto(CustID:Number,file:File)
         
       };
        
-       return  this._http.post(this._insertUserURL,user,httpOptions).subscribe(res => console.log(res));  
+       return  this._http.post(this._insertUserURL,user,httpOptions);  
+    
+      
+    }
+    InsertGroup(group:Taluk)
+    {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      };
+       
+       return  this._http.post(this._InsertGroupURL,group,httpOptions);  
+    
+      
+    }
+    InsertHowtoKno(group:Taluk)
+    {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          "Access-Control-Allow-Origin":"true"
+        })
+        
+      };
+       
+       return  this._http.post(this._InsertHowtoKnoURL,group,httpOptions);  
     
       
     }
@@ -670,7 +782,7 @@ InsertPhoto(CustID:Number,file:File)
         
       };
        
-       return  this._http.post(this._insertTalukURL,state,httpOptions).subscribe(res => console.log(res));  
+       return  this._http.post(this._insertTalukURL,state,httpOptions);  
     
       
     }
@@ -693,9 +805,21 @@ InsertPhoto(CustID:Number,file:File)
         
       };
        
-       return  this._http.post(this._insertUserRoleURL,role,httpOptions).subscribe(res => console.log(res));  
+       return  this._http.post(this._insertUserRoleURL,role,httpOptions);  
     
       
+    }
+    getReportLine():Observable<IReportDrop[]>
+    {
+      return this._http.get<IReportDrop[]>(this._getReportLineURL);
+    }
+    getReportAgent():Observable<IReportDrop[]>
+    {
+      return this._http.get<IReportDrop[]>(this._getReportAgentURL);
+    }
+    getReportMachine():Observable<IReportDrop[]>
+    {
+      return this._http.get<IReportDrop[]>(this._getReportMachineURL);
     }
     getLine():Observable<Taluk[]>
     {
@@ -715,7 +839,7 @@ InsertPhoto(CustID:Number,file:File)
         
       };
        
-       return  this._http.post(this._insertLineURL,line,httpOptions).subscribe(res => console.log(res));  
+       return  this._http.post(this._insertLineURL,line,httpOptions);  
     
       
     }
@@ -738,7 +862,7 @@ InsertPhoto(CustID:Number,file:File)
         
       };
        
-       return  this._http.post(this._insertSAreaURL,line,httpOptions).subscribe(res => console.log(res));  
+       return  this._http.post(this._insertSAreaURL,line,httpOptions);  
     
       
     }
@@ -760,7 +884,7 @@ InsertPhoto(CustID:Number,file:File)
         
       };
        
-       return  this._http.post(this._insertAreaURL,line,httpOptions).subscribe(res => console.log(res));  
+       return  this._http.post(this._insertAreaURL,line,httpOptions);  
     
       
     }
@@ -778,7 +902,7 @@ InsertPhoto(CustID:Number,file:File)
         
       };
        
-       return  this._http.post(this._insertBranchURL,branch,httpOptions).subscribe(res => console.log(res));  
+       return  this._http.post(this._insertBranchURL,branch,httpOptions);  
     
       
     }
@@ -801,7 +925,7 @@ InsertPhoto(CustID:Number,file:File)
         
       };
        
-       return  this._http.post(this._insertDistrictURL,dist,httpOptions).subscribe(res => console.log(res));  
+       return  this._http.post(this._insertDistrictURL,dist,httpOptions);  
     
       
     }

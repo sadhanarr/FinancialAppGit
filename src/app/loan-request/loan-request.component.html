@@ -34,10 +34,14 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">Branch :</label>
                             <div class="col-sm-9 ">
-                                <select class="form-control" [(ngModel)]="request.BranchID" name="BranchID">
+                                <select class="form-control" #branch="ngModel" [(ngModel)]="request.BranchID" name="BranchID" >
                                     <option *ngFor="let l of Allbranch" value="{{l.BranchID}}">{{l.BranchName}}
                                     </option>
                                 </select>
+                                <div *ngIf="(request.BranchID==0 || request.BranchID == undefined) && formSubmit "
+                                        [ngClass]="'error'">
+                                        Branch required.
+                                    </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -61,19 +65,31 @@
                             <label class="control-label col-sm-3">Customer Name :</label>
                             <div class="col-sm-5">
                                 <input name="customerName" class="form-control" [(ngModel)]="request.CustomerName"
-                                    type="text" id="customerName">
+                                    type="text" id="customerName" required #custname="ngModel">
+                                    <div *ngIf="custname.errors?.required && formSubmit "
+                                        [ngClass]="'error'">
+                                        Customer Name required.
+                                    </div>
                             </div>
                             <label class="control-label col-sm-2">Init :</label>
                             <div class="col-sm-2">
-                                <input name="initial" class="form-control" [(ngModel)]="request.Initial" type="text"
+                                <input name="initial" class="form-control" required #initial="ngModel" [(ngModel)]="request.Initial" type="text"
                                     id="initial">
+                                    <div *ngIf="initial.errors?.required && formSubmit "
+                                        [ngClass]="'error'">
+                                        Initial required.
+                                    </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">Father Name :</label>
                             <div class="col-sm-9">
-                                <input name="fatherNme" class="form-control" [(ngModel)]="request.FatherName"
+                                <input name="fatherNme" class="form-control" required #fname="ngModel" [(ngModel)]="request.FatherName"
                                     type="text" id="fatherNme">
+                                    <div *ngIf="fname.errors?.required && formSubmit "
+                                        [ngClass]="'error'">
+                                        Father Name required.
+                                    </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -86,10 +102,14 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">Gender :</label>
                             <div class="col-sm-3">
-                                <select name="gender" class="form-control" id="gender" [(ngModel)]="request.Gender" >
+                                <select name="gender" class="form-control" id="gender" [(ngModel)]="request.Gender" #gender="ngModel" required>
                                     <option [selected]="request.Gender=='Male'">Male</option>
                                     <option [selected]="request.Gender=='Female'">Female</option>
                                 </select>
+                                <div *ngIf="gender.errors?.required && formSubmit "
+                                        [ngClass]="'error'">
+                                        Gender required.
+                                    </div>
                             </div>
                             <label class="control-label col-sm-3">Marital Status :</label>
                             <div class="col-sm-3">
@@ -106,21 +126,25 @@
                             <div class="col-sm-9">
                                 <input name="spouseName" class="form-control" type="text" id="spouseName"
                                     [(ngModel)]="request.SpouseName">
+                                    <div *ngIf="request.MaritalStatus=='Married' && (request.SpouseName ==undefined || request.SpouseName == '')  && formSubmit "
+                                        [ngClass]="'error'">
+                                        Spouse Name required.
+                                    </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">Contact No. :</label>
                             <div class="col-sm-5">
-                                <input name="contactNum1" type="text" class="form-control" numeric numericType="number" name="contactNum1"
-                                    [(ngModel)]="request.CustPrimaryContact" maxlength="11" minlength="11" #contact1="ngModel">
-                                    <div *ngIf="contact1.errors?.minlength  && formSubmit "
+                                <input name="contactNum1" type="text" class="form-control" numeric numericType="number" 
+                                    [(ngModel)]="request.CustPrimaryContact" required maxlength="11" minlength="11" #contact1="ngModel">
+                                    <div *ngIf="(contact1.errors?.minlength || contact1.errors?.required)  && formSubmit "
                                     [ngClass]="'error'">
                                    Contact must be 11 characters long
                                     </div>
                                
                             </div>
                             <div class="col-sm-4">
-                                <input name="contactNum2" type="text" class="form-control" numeric numericType="number" name="contactNum2"
+                                <input name="contactNum2" type="text" class="form-control" numeric numericType="number" 
                                     [(ngModel)]="request.CustSecondaryContact" maxlength="11" minlength="11" #contact2="ngModel">
                                     <div *ngIf="contact2.errors?.minlength  && formSubmit " 
                                     [ngClass]="'error'">
@@ -131,17 +155,21 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">Communication Address :</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" name="address" [(ngModel)]="request.CommunicationAddress"></textarea>
+                                <textarea class="form-control" name="address" required #commaddr="ngModel" [(ngModel)]="request.CommunicationAddress"></textarea>
+                                <div *ngIf="commaddr.errors?.required  && formSubmit " 
+                                [ngClass]="'error'">
+                               Communication Address required
+                                </div> 
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">Aadhar No. :</label>
                             <div class="col-sm-9">
-                                <input name="aadhar" type="text" class="form-control" numeric numericType="number" id="aadhar"
-                                    [(ngModel)]="request.CustAadhar" maxlength="16" minlength="16" #aadhar="ngModel">
-                                    <div *ngIf="aadhar.errors?.minlength  && formSubmit " 
+                                <input name="aadhar" type="text" required class="form-control" numeric numericType="number" id="aadhar"
+                                    [(ngModel)]="request.CustAadhar" maxlength="12" minlength="12" #aadhar="ngModel">
+                                    <div *ngIf="(aadhar.errors?.minlength || aadhar.errors?.maxlength || aadhar.errors?.required)  && formSubmit " 
                                     [ngClass]="'error'">
-                                   Aadhar must be 16 characters long
+                                   Aadhar must be 12 characters long
                                     </div>
                             </div>
 
@@ -150,6 +178,10 @@
                             <label class="control-label col-sm-3">Add Photo :</label>
                             <div class="col-sm-6">
                                 <input type="file" ID="file" class="form-control" (change)="onFileChanged($event)">
+                                <div *ngIf="((selectedFile== null || selectedFile == undefined) && (URL == ''))  && formSubmit " 
+                                [ngClass]="'error'">
+                               Photo required
+                                </div>
                             </div>
                             <div class="col-sm-3 view">
                                 <a (click)="preview()" >View</a>
@@ -166,35 +198,51 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">State :</label>
                             <div class="col-sm-3">
-                                <select class="form-control" [(ngModel)]="request.StateID" name="StateID" (change)="filterDrop()" >
+                                <select class="form-control" [(ngModel)]="request.StateID" required #state="ngModel" name="StateID" (change)="filterDrop()" >
                                     <option *ngFor="let st of AllState" value="{{st.dropdownKey}}" [selected]="st.dropdownKey==request.StateID">
                                         {{st.dropdownName}}
                                     </option>
                                 </select>
+                                <div *ngIf="( request.StateID == undefined || request.StateID ==0)  && formSubmit " 
+                                [ngClass]="'error'">
+                               State required
+                                </div> 
                             </div>
                             <label class="control-label col-sm-2">District :</label>
                             <div class="col-sm-4">
-                                <select class="form-control" [(ngModel)]="request.DistrictID" name="DistrictID" (change)="filterDrop()" >
+                                <select class="form-control" [(ngModel)]="request.DistrictID" required #district="ngModel" name="DistrictID" (change)="filterDrop()" >
                                     <option *ngFor="let t of District" value="{{t.DistrictID}}" [selected]="t.DistrictID==request.DistrictID" >
                                         {{t.DistrictName}}
                                     </option>
                                 </select>
+                                <div *ngIf="(request.DistrictID ==0 || request.DistrictID == undefined)  && formSubmit " 
+                                [ngClass]="'error'">
+                               District required
+                                </div> 
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">Taluk :</label>
                             <div class="col-sm-3">
-                                <select class="form-control" [(ngModel)]="request.TalukID" name="TalukID" (change)="filterDrop()" >
+                                <select class="form-control" [(ngModel)]="request.TalukID" required #taluk="ngModel" name="TalukID" (change)="filterDrop()" required>
                                     <option *ngFor="let i of Taluk" value="{{i.TalukID}}" [selected]="i.TalukID==request.TalukID">{{i.TalukName}}
                                     </option>
                                 </select>
+                                <div *ngIf="(request.TalukID ==0 || request.TalukID == undefined) && formSubmit " 
+                                [ngClass]="'error'">
+                               Taluk required
+                                </div> 
                             </div>
                             <label class="control-label col-sm-2">Area :</label>
                             <div class="col-sm-4">
-                                <select class="form-control" [(ngModel)]="request.AreaID" name="AreaID" (change)="filterDrop()">
+                                <select class="form-control" [(ngModel)]="request.AreaID" required #area="ngModel" name="AreaID" (change)="filterDrop()" required>
                                     <option *ngFor="let sa of Area" value="{{sa.AreaID}}" [selected]="sa.AreaID==request.AreaID">{{sa.AreaName}}
                                     </option>
                                 </select>
+                                <div *ngIf="(request.AreaID ==0 || request.AreaID == undefined)  && formSubmit " 
+                                [ngClass]="'error'">
+                               Taluk required
+                                </div> 
                             </div>
                         </div>
                     </div>
@@ -209,7 +257,7 @@
                                         {{sa.dropdownName}}
                                     </option>
                                 </select>
-                                <div *ngIf="loanCatReq" [ngClass]="'error'">
+                                <div *ngIf="(request.LoanCatID==0 || request.LoanCatID ==undefined ) && request.DueType=='EMI' && formSubmit " [ngClass]="'error'">
                                     Loan Category required.
                                 </div>
                             </div>
@@ -229,15 +277,23 @@
                                         {{drop.AgentName}}
                                     </option>
                                 </select>
+                                <div *ngIf="(request.AgentID ==0 || request.AgentID == undefined)  && formSubmit " 
+                                [ngClass]="'error'">
+                               Showroom/Agent required
+                                </div> 
                             </div>
                         </div>  
                         <div class="form-group">
                             <label class="control-label col-sm-3">Agent Responsible:</label>
                             <div class="col-sm-2">
-                                <select class="form-control" name="AgentRes" [(ngModel)]="request.AgentResponsibility">
+                                <select class="form-control" name="AgentRes" [(ngModel)]="request.AgentResponsibility" required #agent="ngModel"> 
                                     <option>Yes</option>
                                     <option>No</option>
                                 </select>
+                                <div *ngIf="agent.errors?.required  && formSubmit " 
+                                [ngClass]="'error'">
+                               Agent Responsible required
+                                </div> 
                             </div>
                         </div>
 
@@ -245,14 +301,18 @@
                             <label class="control-label col-sm-3">Guarantor Name :</label>
                             <div class="col-sm-9">
                                 <input type="text" name="guarantorName" [(ngModel)]="request.GuarantorName"
-                                    class="form-control" id="guarantorName">
+                                    class="form-control" id="guarantorName" #GName="ngModel" required>
+                                    <div *ngIf="GName.errors?.required  && formSubmit " 
+                                [ngClass]="'error'">
+                               Guarantor Name required
+                                </div> 
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">Relationship :</label>
                             <div class="col-sm-3">
                                 <select class="form-control" name="relationship" id="relationship"
-                                    [(ngModel)]="request.Relationship">
+                                    [(ngModel)]="request.Relationship" required #relation="ngModel">
                                     <option>Father</option>
                                     <option>Mother</option>
                                     <option>Son</option>
@@ -272,14 +332,18 @@
                                     <option>Mother in Law</option>
                                     <option>Cousin</option>
                                 </select>
+                                <div *ngIf="relation.errors?.required  && formSubmit " 
+                                [ngClass]="'error'">
+                               Communication Address required
+                                </div> 
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">Contact No. :</label>
                             <div class="col-sm-5">
                                 <input type="text" name="contactNum3" numeric numericType="number" class="form-control" id="contactNum3"
-                                    [(ngModel)]="request.GContact1" #GContact1="ngModel" maxlength="11" minlength="11">
-                                    <div *ngIf="GContact1.errors?.minlength  && formSubmit " 
+                                    [(ngModel)]="request.GContact1" #GContact1="ngModel" maxlength="11" minlength="11" required>
+                                    <div *ngIf="(GContact1.errors?.minlength || GContact1.errors?.required)  && formSubmit " 
                                     [ngClass]="'error'">
                                    Contact must be 11 characters long
                                     </div>
@@ -296,15 +360,19 @@
                             <label class="control-label col-sm-3">Aadhar No. :</label>
                             <div class="col-sm-3">
                                 <input type="text" name="aadhar2" class="form-control" id="aadhar2"
-                                    [(ngModel)]="request.GAadhar" numeric numericType="number" maxlength="16" minlength="16" #Gaadhar="ngModel">
-                                    <div *ngIf="Gaadhar.errors?.minlength  && formSubmit "  [ngClass]="'error'">
-                                   Aadhar must be 16 characters long
+                                    [(ngModel)]="request.GAadhar" numeric numericType="number" maxlength="12" minlength="12" #Gaadhar="ngModel" required>
+                                    <div *ngIf="(Gaadhar.errors?.minlength|| Gaadhar.errors?.maxlength|| Gaadhar.errors?.required)  && formSubmit "  [ngClass]="'error'" >
+                                   Aadhar must be 12 characters long
                                     </div>
                             </div>
                             <label class="control-label col-sm-3">Referred By :</label>
                             <div class="col-sm-3">
                                 <input type="text" name="referred" class="form-control" id="referred"
-                                    [(ngModel)]="request.ReferedBy">
+                                    [(ngModel)]="request.ReferedBy" #referred="ngModel" required>
+                                    <div *ngIf="referred.errors?.required  && formSubmit " 
+                                [ngClass]="'error'">
+                               Referred By required
+                                </div> 
                             </div>
                         </div>
                         <div class="form-group">
@@ -324,7 +392,7 @@
                                     <input type="text" [disabled]="(request.LoanCatID>3)"  #tAmt="ngModel" name="amount" (focusout)="OnChange()"
                                         numeric numericType="number" [(ngModel)]="request.TotalAmt" class="form-control"
                                         id="amount">
-                                    <div *ngIf="tAmt.errors?.required && formSubmit && request.DueType=='EMI' && (request.LoanCatID==1 || request.LoanCatID==2 || request.LoanCatID==3)"
+                                    <div *ngIf="request.TotalAmt ==null && formSubmit && request.DueType=='EMI' && (request.LoanCatID==1 || request.LoanCatID==2 || request.LoanCatID==3)"
                                         [ngClass]="'error'">
                                         Total Amount required.
                                     </div>
@@ -334,7 +402,7 @@
                                     <input type="text" [disabled]="(request.LoanCatID>3)" #AAmt="ngModel" name="advance" (focusout)="OnChange()"
                                         numeric numericType="number" class="form-control" id="advance"
                                         [(ngModel)]="request.AdvanceAmt">
-                                    <div *ngIf="AAmt.errors?.required && formSubmit && request.DueType=='EMI'  && (request.LoanCatID==1 || request.LoanCatID==2 || request.LoanCatID==3)"
+                                    <div *ngIf="request.AdvanceAmt==undefined && formSubmit && request.DueType=='EMI'  && (request.LoanCatID==1 || request.LoanCatID==2 || request.LoanCatID==3)"
                                         [ngClass]="'error'">
                                         Advance Amount required.
                                     </div>
@@ -343,8 +411,12 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Loan Amount :</label>
                                 <div class="col-sm-3">
-                                    <input type="text" name="loanAmount" [disabled]="!(request.LoanCatID>3)" class="form-control" id="loanAmount"
-                                        [(ngModel)]="request.LoanAmt">
+                                    <input type="text" name="loanAmountInt" class="form-control" id="loanAmountInt"
+                                    numeric numericType="number"   [(ngModel)]="request.LoanAmt" required #loanamountint="ngModel">
+                                     <div *ngIf="loanamountint.errors?.required && formSubmit && request.DueType=='EMI' "
+                                        [ngClass]="'error'">
+                                        Loan Amount required.
+                                    </div>
                                 </div>
                                 <label class="control-label col-sm-3">Advance in % :</label>
                                 <div class="col-sm-3">
@@ -355,13 +427,12 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Dues :</label>
                                 <div class="col-sm-3">
-                                    <input name="dues"  #due="ngModel" type="text" numeric numericType="number"
-                                        (focusout)="OnChange()" class="form-control" id="dues"
-                                        [(ngModel)]="request.LoanPeriod">
-                                    <div *ngIf="due.errors?.required && formSubmit && request.DueType=='EMI'"
-                                        [ngClass]="'error'">
-                                        Dues required.
-                                    </div>
+                                    <input type="text" name="duration" class="form-control" id="duration"
+                                    numeric numericType="number"   [(ngModel)]="request.LoanPeriod" #duration="ngModel" required>
+                                    <div *ngIf="duration.errors?.required && formSubmit && request.DueType=='EMI' "
+                                    [ngClass]="'error'">
+                                    Duration required.
+                                </div>
                                 </div>
                                 <label class="control-label col-sm-3 ">Due Amount :</label>
                                 <div class="col-sm-3">
@@ -374,16 +445,20 @@
                                 <div class="col-sm-3">
                                     <input  #sRat="ngModel" name="secRatio" numeric numericType="number"
                                         (focusout)="OnChange()" type="text" class="form-control" id="secRatio"
-                                        [(ngModel)]="request.SecRatio">
-                                    <div *ngIf="sRat.errors?.required && formSubmit && request.DueType=='EMI'"
+                                        [(ngModel)]="request.SecRatio" >
+                                    <div *ngIf="request.SecRatio==undefined && formSubmit && request.DueType=='EMI' && ( request.LoanCatID==1 || request.LoanCatID==2 || request.LoanCatID==3)"
                                         [ngClass]="'error'">
                                         Security Ratio required.
                                     </div>
                                 </div>
                                 <label class="control-label col-sm-3">Rate of Interest :</label>
                                 <div class="col-sm-3">
-                                    <input type="text" name="rateOfInt" disabled class="form-control" id="rateOfInt"
-                                        [(ngModel)]="request.RateOfInt">
+                                    <input type="text" name="roiInterest" class="form-control" id="roiInterest"
+                                    numeric numericType="decimal"  [(ngModel)]="request.RateOfInt"  #roiinterest="ngModel">
+                                    <div *ngIf="roiinterest.errors?.required && formSubmit && request.DueType=='EMI' "
+                                    [ngClass]="'error'">
+                                    Rate of Interest required.
+                                </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -399,32 +474,49 @@
                                 <label class="control-label col-sm-3">Loan Amount :</label>
                                 <div class="col-sm-3">
                                     <input type="text" name="loanAmountInt" class="form-control" id="loanAmountInt"
-                                    numeric numericType="number"   [(ngModel)]="request.LoanAmt">
+                                    numeric numericType="number"   [(ngModel)]="request.LoanAmt" required #loanamountint="ngModel">
+                                     <div *ngIf="loanamountint.errors?.required && formSubmit && request.DueType=='Interest' "
+                                        [ngClass]="'error'">
+                                        Loan Amount required.
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Rate of Interest :</label>
                                 <div class="col-sm-3">
                                     <input type="text" name="roiInterest" class="form-control" id="roiInterest"
-                                    numeric numericType="decimal"  [(ngModel)]="request.RateOfInt">
+                                    numeric numericType="decimal"  [(ngModel)]="request.RateOfInt" required #roiinterest="ngModel">
+                                    <div *ngIf="roiinterest.errors?.required && formSubmit && request.DueType=='Interest' "
+                                    [ngClass]="'error'">
+                                    Rate of Interest required.
+                                </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-3">Duration(Months) :</label>
                                 <div class="col-sm-3">
                                     <input type="text" name="duration" class="form-control" id="duration"
-                                    numeric numericType="number"   [(ngModel)]="request.LoanPeriod">
+                                    numeric numericType="number"   [(ngModel)]="request.LoanPeriod" #duration="ngModel" required>
+                                    <div *ngIf="duration.errors?.required && formSubmit && request.DueType=='Interest' "
+                                    [ngClass]="'error'">
+                                    Duration required.
+                                </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-3">How to know :</label>
                             <div class="col-sm-9">
-                                <select class="form-control" id="toknow" name="toknow" [(ngModel)]="request.HowToKnow">
-                                    <option>Paper Advertisement</option>
-                                    <option>Whatsapp</option>
-                                    <option>Banner Advertisement</option>
+                                <select class="form-control" [(ngModel)]="request.HowToKnow" id="toknow" name="toknow" required #howtokno="ngModel">
+                                    <option *ngFor="let drop of AllHow" value="{{drop.TalukName}}">
+                                        {{drop.TalukName}}
+                                    </option>
                                 </select>
+                               
+                                <div *ngIf="howtokno.errors?.required  && formSubmit " 
+                                [ngClass]="'error'">
+                               How to Know required
+                                </div> 
                             </div>
                         </div>
                         <div class="form-group">

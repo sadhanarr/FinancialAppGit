@@ -9,6 +9,7 @@ import {Loan} from '../home-loan/loan';
 import {Agent} from '../master-screen/agent'
 import { ICompany } from '../master-screen/Company';
 import { ActivatedRoute, Router} from '@angular/router';
+import {PagerService} from '../pager.service' 
 import * as $ from 'jquery'
 
 @Component({
@@ -29,9 +30,13 @@ export class CustomerVerificationComponent implements OnInit {
    CustomerID:Number=0;
    LoanCategory:ICompany[]=[];
    AllSagent:Agent[]=[];
-
+  // pager object
+  pager: any = {};
+  // paged items
+  pagedItems: any[];
+  Pagerdata:any
   constructor(private _appService:AppService,private _route: ActivatedRoute,
-    private _router: Router) { }
+    private _router: Router, private _pagerService:PagerService) { }
 
   ngOnInit() {
     this._appService.getLine().subscribe((data:any[])=>{this.AllLine=data})
@@ -43,12 +48,12 @@ export class CustomerVerificationComponent implements OnInit {
      });
      this._appService.VerfSearch.subscribe(
       res=> this.search=res)
-      if( this.search.Status!="" || this.search.CustName!="" ||
-      this.search.CustID!="" || this.search.OtherName!="" ||
-      this.search.ContactList!="" || this.search.IDProof!="" ||
-      this.search.Line!="" || this.search.Area!="" ||
-      this.search.Address!="" || this.search.KeywordSearch!="" )
-    this.Search(null)
+  //     if( this.search.Status!="" || this.search.CustName!="" ||
+  //     this.search.CustID!="" || this.search.OtherName!="" ||
+  //     this.search.ContactList!="" || this.search.IDProof!="" ||
+  //     this.search.Line!="" || this.search.Area!="" ||
+  //     this.search.Address!="" || this.search.KeywordSearch!="" )
+  // //  this.Search(null)
   }
   getCustomerID(ID)
   {
@@ -71,11 +76,26 @@ export class CustomerVerificationComponent implements OnInit {
    this._appService.getCustomerVerfication(this.search).subscribe((res:any[])=> {
     this.requestAll=res;
     console.log(this.requestAll)
-
+ this.setPage(1)
   })
 
   
   }
+  setPage(page: number) {
+
+  
+    this.Pagerdata=this.requestAll
+     
+      if (page < 1 || page > this.pager.totalPages) {
+        this.pagedItems=this.Pagerdata
+          return;
+      }
+    
+      // get pager object from service
+      this.pager = this._pagerService.getPager(this.Pagerdata.length, page);
+      // get current page of items
+      this.pagedItems = this.Pagerdata.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    }
 
   Clear(form){
     form.resetForm();

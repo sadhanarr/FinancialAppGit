@@ -7,6 +7,7 @@ import { ActivatedRoute, Router} from '@angular/router';
 import { LoanSearch} from '../loan-req-search/LoanSearch'
 import {ICompany} from '../master-screen/Company'
 import * as moment from 'moment';
+import {PagerService} from '../pager.service'
 
 @Component({
   selector: 'app-loan-issue',
@@ -22,9 +23,14 @@ export class LoanIssueComponent implements OnInit {
   requestAll:Request[]=[]
   fromDate:any;
   toDate:any
+   // pager object
+   pager: any = {};
+   // paged items
+   pagedItems: any[];
+   Pagerdata:any
 
   constructor(private _appService:AppService,private _route: ActivatedRoute,
-    private _router: Router) { }
+    private _router: Router, private _pagerService:PagerService) { }
 
   ngOnInit() {
     this._appService.getLoanCategory().subscribe((data:any[])=>{
@@ -39,22 +45,38 @@ export class LoanIssueComponent implements OnInit {
       this.fromDate= new Date(res.FromDate)
      this.toDate= new Date(res.ToDate)
     })
-    this.Search(null)
+    //this.Search(null)
   }
   Search(form)
   {
-  console.log(this.requestSearch)
+  console.log('search'+this.requestSearch)
   if(this.fromDate != null && this.fromDate != '' )  this.requestSearch.FromDate= moment(this.fromDate,'DD/MM/YYYY').format('YYYY-MM-DD');
   else this.requestSearch.FromDate='';
   if(this.toDate != null && this.toDate != '')   this.requestSearch.ToDate= moment(this.toDate,'DD/MM/YYYY').format('YYYY-MM-DD');
   else this.requestSearch.ToDate='';
+  console.log(this.requestSearch)
      this._appService.getLoanIssueRequestSearch(this.requestSearch).subscribe((res:any[])=> {
      this.requestAll=res;
      console.log(this.requestAll)
-    
+    this.setPage(1)
    })
    this._appService.changeLoanIssueSearch(this.requestSearch)
   }
+  setPage(page: number) {
+
+  
+    this.Pagerdata=this.requestAll
+     
+      if (page < 1 || page > this.pager.totalPages) {
+        this.pagedItems=this.Pagerdata
+          return;
+      }
+    
+      // get pager object from service
+      this.pager = this._pagerService.getPager(this.Pagerdata.length, page);
+      // get current page of items
+      this.pagedItems = this.Pagerdata.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    }
   NavigateIssueDetail(CustID,RequestID,ReqStatus)
   {
     console.log("customer"+CustID)

@@ -23,7 +23,7 @@ import { Form ,NgForm,Validators} from '@angular/forms';
 })
 export class LoanRequestComponent implements OnInit {
 
-  
+  invalid:boolean
   dateValue: Date;
   loanCatReq:boolean=false;
   selectedFile:File;
@@ -36,6 +36,7 @@ export class LoanRequestComponent implements OnInit {
   AllArea:Area[]=[];
   AllSagent:Agent[]=[];
   AllLine:Taluk[]=[];
+  AllHow:Taluk[]=[];
   Line:Taluk[]=[];
   branch: Branch[]=[];
  District:District[]=[];
@@ -67,6 +68,9 @@ export class LoanRequestComponent implements OnInit {
       this.Allbranch=data
      
     })
+    this._appService.GetHowtoKno().subscribe((data:any[])=>{
+      this.AllHow=data
+     })
      this._appService.getLoanCategory().subscribe((data:any[])=>{
       this.LoanCategory=data
      });
@@ -82,7 +86,7 @@ export class LoanRequestComponent implements OnInit {
       if(ID>0)
       this._appService.getLoanRequest(ID).subscribe((data:any)=> {this.request=data;
         console.log(URL)
-      this.URL=this.request.PhotoLoc.replace('D:\\Tech\\','http://103.110.236.177/')  
+      this.URL=this.request.PhotoLoc.replace(this._appService.filepath,location.origin+"/")  
       this.filterDropEMI();});
       })
      
@@ -90,6 +94,11 @@ export class LoanRequestComponent implements OnInit {
   
   filterDrop()
   {
+    if(this.request.LoanCatID != undefined || this.request.LoanCatID != null){
+    if(this.request.LoanCatID== 1 || this.request.LoanCatID== 2 || this.request.LoanCatID== 3 )
+    {
+      this.request.DueType='EMI'
+    }}
     if(this.request["MaritalStatus"]!= undefined)
     {
       if(this.request["MaritalStatus"]!= "Married")
@@ -130,6 +139,7 @@ export class LoanRequestComponent implements OnInit {
   }
   filterDropEMI()
   {
+    
     console.log(this.request["DueType"])
     if(this.request["DueType"]=='EMI')
       {
@@ -185,7 +195,7 @@ export class LoanRequestComponent implements OnInit {
     this.request["ReferedBy"]=this.valfromChild["ReferedBy"];
     this.request["PhotoLoc"]=this.valfromChild["PhotoLoc"];
     if(this.request.PhotoLoc != null){
-    this.URL=this.request.PhotoLoc.replace('D:\\Tech\\','http://103.110.236.177/')  
+    this.URL=this.request.PhotoLoc.replace(this._appService.filepath,location.origin+"/")  
     }
   document.getElementById("close").click();
   }
@@ -229,28 +239,27 @@ reader.readAsDataURL(this.selectedFile);
     this.request.User= this.storage.retrieve('User').toString();
     var time= moment().format('HH:mm:ss')
   this.request.RequestDate=moment(this.request.RequestDate).format('YYYY-MM-DD')+ ' '+time
- 
+ this.invalid=false;
     if(this.request.DueType=='EMI'&& this.request.LoanCatID==0)
     {
-      this.loanCatReq=true;
-      return;
+     this.invalid=true
     }
-    else
+    if((this.selectedFile != null && this.URL !='' ) || this.request.StateID ==0 || this.request.TalukID ==0 || this.request.AgentID ==0 || this.request.AreaID ==0 || this.request.BranchID==0 || this.request.DistrictID ==0 || this.request.StateID ==undefined || this.request.TalukID ==undefined || this.request.AreaID ==undefined || this.request.BranchID==undefined || this.request.DistrictID ==undefined || this.request.AgentID ==undefined )
     {
-      this.loanCatReq=false;
+      this.invalid== true
     }
-    if(form != '')
-  {
-  if (form.invalid ) {
-    this.formSubmit=true; 
+ 
+  if (form.invalid || this.invalid== true) {
+    this.formSubmit=true;
+    console.log(this.invalid) 
     console.log("not valid")
     return;
  }
-}
 
 if(this.selectedFile !=null){
 this.request.PhotoLoc=this.selectedFile.name;
 }
+this.formSubmit=false;
 var ID='';
 this._appService.UserName.subscribe(res=>this.request.User=res)
     this._appService.InsertLoanRequest(this.request,this.selectedFile).subscribe(res =>
@@ -261,10 +270,12 @@ this._appService.UserName.subscribe(res=>this.request.User=res)
 
     this._appService.InsertPhoto(parseInt(res.toString().split(",")[0]),this.selectedFile).subscribe(res=>{
      alert("The RequestID "+ID.toString().split(",")[1]+" and CustomerID "+ID.toString().split(",")[0]+" has been created/updated successfully")
+     form.resetForm();
      this.request["RequestDate"] =  moment().format('DD/MM/YYYY')
      this.request["DueType"]="EMI";
      this.request["ReqStatus"]="Request";
      $('#file').val('')
+     this.filterDropEMI();
     });
     });
   }
@@ -318,6 +329,7 @@ this._appService.UserName.subscribe(res=>this.request.User=res)
      $('#status').val('Request')
      this.request["RequestDate"] =moment().format('DD/MM/YYYY')
   }
+ 
   ResetCustomerFields()
   {
     $('#customerID').val('')

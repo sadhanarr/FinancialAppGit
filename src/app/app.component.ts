@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './app.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { Role } from './role';
 import { from } from 'rxjs';
 import { ILogin } from './login';
 import {LocalStorageService} from 'ngx-webstorage';
+
 
 @Component({
   selector: 'app-root',
@@ -28,7 +30,10 @@ export class AppComponent implements OnInit{
   masterData:boolean=false;
   Reports:boolean=false;
   collection:boolean=false;
+  addcollection:boolean=false;
+  deletecollection:boolean=false;
   hashPswd:string='';
+ 
   error=''
   ngOnInit() {
     
@@ -54,18 +59,19 @@ export class AppComponent implements OnInit{
 	  {
 		  this.formSubmit=true;
     }
-    var bcrypt = require('bcryptjs');
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(password, salt);
+   // var bcrypt = require('bcryptjs');
+   // var salt = bcrypt.genSaltSync(10);
+   // var hash = bcrypt.hashSync(password, salt);
 
     this._appService.getUserCredentials(userName).subscribe(res=>{
+      console.log(res)
       var cred = res;
       this.hashPswd=cred[1];
       if(this.hashPswd=='')
       {
         this.error="Invalid UserName";
       }
-      else if(!bcrypt.compareSync(password, this.hashPswd))
+      else if(!(this.hashPswd==password))
       {
         this.error="Invalid Password";
       }
@@ -93,12 +99,18 @@ export class AppComponent implements OnInit{
            this.loanissuePage=true;
            if(this.roles.indexOf(Role.Collection)>0)
            this.collection =(true);
+           if(this.roles.indexOf(Role.addCollection)>0)
+           this.addcollection =(true);
+           if(this.roles.indexOf(Role.deleteCollection)>0)
+           this.deletecollection =(true);
            this.storage.store('LoanRequest',this.loanReqPage);
            this.storage.store('MasterData',this.masterData);
            this.storage.store('LoanIssue',this.loanissuePage);
            this.storage.store('LoanView',this.loanReqViewPage);
            this.storage.store('Collection',this.collection);
            this.storage.store('Reports',this.Reports);
+           this.storage.store('addCollection',this.addcollection);
+           this.storage.store('deleteCollection',this.deletecollection);
           })
         this.loginPage =false;
         this._router.navigate(["/DashboardPage"])
@@ -122,6 +134,8 @@ export class AppComponent implements OnInit{
       this.storage.clear('LoanView')
       this.storage.clear('LoanIssue')
       this.storage.clear('LoanRequest')
+      this.storage.clear('addCollection')
+      this.storage.clear('deleteCollection')
       this._router.navigate(['/App']);
   }
 
